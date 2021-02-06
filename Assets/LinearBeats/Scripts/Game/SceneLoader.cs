@@ -1,5 +1,8 @@
-﻿using Sirenix.OdinInspector;
+﻿#pragma warning disable IDE0090
+#pragma warning disable IDE0051
+
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils.Extensions;

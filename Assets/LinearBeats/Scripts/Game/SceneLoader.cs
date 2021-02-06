@@ -14,20 +14,20 @@ namespace LinearBeats.Game
     {
         [Range(24, 240)]
         [SerializeField]
-        private byte _targetFps = 60;
+        private readonly byte _targetFps = 60;
 
         [Scene]
         [Required]
         [Header("Migration")]
         [SerializeField]
-        private string _dstScenePath = null;
+        private readonly string _dstScenePath = null;
 
         [SerializeField]
-        private LoadSceneMode _loadSceneMode = LoadSceneMode.Additive;
+        private readonly LoadSceneMode _loadSceneMode = LoadSceneMode.Additive;
 
         [Tag]
         [SerializeField]
-        private string _audioListenerTag = "MainCamera";
+        private readonly string _audioListenerTag = "MainCamera";
 
         [SerializeField]
         private List<GameObject> _migratingObjects = new List<GameObject>();

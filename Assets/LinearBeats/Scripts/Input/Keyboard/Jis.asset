@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689d0682e6113ae4193697a497a0bc8e, type: 3}
+  m_Name: Jis
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Name
+      Entry: 1
+      Data: JIS
+    - Name: Description
+      Entry: 1
+      Data: Standard JP Keyboard Layout 106/109
+    - Name: _bindingsLayout
+      Entry: 7
+      Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule
+    - Name: 
+      Entry: 12
+      Data: 24
+    - Name: ranks
+      Entry: 1
+      Data: 2|12
+    - Name: 
+      Entry: 3
+      Data: 304
+    - Name: 
+      Entry: 3
+      Data: 122
+    - Name: 
+      Entry: 3
+      Data: 120
+    - Name: 
+      Entry: 3
+      Data: 99
+    - Name: 
+      Entry: 3
+      Data: 118
+    - Name: 
+      Entry: 3
+      Data: 98
+    - Name: 
+      Entry: 3
+      Data: 110
+    - Name: 
+      Entry: 3
+      Data: 109
+    - Name: 
+      Entry: 3
+      Data: 44
+    - Name: 
+      Entry: 3
+      Data: 46
+    - Name: 
+      Entry: 3
+      Data: 47
+    - Name: 
+      Entry: 3
+      Data: 303
+    - Name: 
+      Entry: 3
+      Data: 97
+    - Name: 
+      Entry: 3
+      Data: 115
+    - Name: 
+      Entry: 3
+      Data: 100
+    - Name: 
+      Entry: 3
+      Data: 102
+    - Name: 
+      Entry: 3
+      Data: 103
+    - Name: 
+      Entry: 3
+      Data: 104
+    - Name: 
+      Entry: 3
+      Data: 106
+    - Name: 
+      Entry: 3
+      Data: 107
+    - Name: 
+      Entry: 3
+      Data: 108
+    - Name: 
+      Entry: 3
+      Data: 59
+    - Name: 
+      Entry: 3
+      Data: 58
+    - Name: 
+      Entry: 3
+      Data: 13
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _bindingsLayoutAlternative
+      Entry: 7
+      Data: 1|UnityEngine.KeyCode[,], UnityEngine.CoreModule
+    - Name: 
+      Entry: 12
+      Data: 24
+    - Name: ranks
+      Entry: 1
+      Data: 2|12
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 92
+    - Name: 
+      Entry: 3
+      Data: 301
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 93
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _bindingSpecial: 32

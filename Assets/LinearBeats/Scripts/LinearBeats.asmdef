@@ -1,0 +1,17 @@
+{
+    "name": "LinearBeats",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1282be6026646324793f47490f96f5c8",
+        "GUID:b3f49edfedc855a48aa1a9e5d3cba438"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

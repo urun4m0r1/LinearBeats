@@ -1,5 +1,7 @@
-using LinearBeats.Script;
+#pragma warning disable IDE0090
+
 using System;
+using LinearBeats.Script;
 using UnityEngine;
 
 namespace LinearBeats.Input

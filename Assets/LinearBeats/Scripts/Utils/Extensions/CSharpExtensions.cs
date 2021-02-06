@@ -21,7 +21,7 @@ namespace Utils.Extensions
             return reference == null || reference.ToString().Equals("null");
         }
 
-        public static Type GetType<T>(this T obj)
+        public static Type GetType<T>(this T _)
         {
             return typeof(T);
         }

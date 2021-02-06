@@ -1,3 +1,5 @@
+#pragma warning disable IDE0090
+
 using System;
 using System.Threading;
 

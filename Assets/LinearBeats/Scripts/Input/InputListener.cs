@@ -48,6 +48,7 @@ namespace LinearBeats.Input
             byte rowEnd = (byte)(rowStart + rowSize);
             byte colEnd = (byte)(colStart + colSize);
 
+
             for (var row = rowStart; row < rowEnd; ++row)
             {
                 for (var col = colStart; col < colEnd; ++col)

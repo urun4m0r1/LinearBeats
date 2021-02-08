@@ -159,8 +159,6 @@ namespace LinearBeats.Script
 
         private float GetPositionMultiplyerOnPulse(ulong pulse)
         {
-            return 1f;
-            //FIXME: Fix scale on bpm changed
             float positionMultiplyer = 0f;
             foreach (var timing in _script.Timings)
             {
@@ -200,13 +198,16 @@ namespace LinearBeats.Script
 
             _pulsesPerSamples = new float[_script.Timings.Length];
             _sampleTimeOnBpmChanges = new float[_script.Timings.Length];
+
+            float initialSamplesPerPulse = 0f;
             for (var i = 0; i < _script.Timings.Length; ++i)
             {
                 float timePerQuarterNote = 60f / _script.Timings[i].Bpm;
                 float timePerPulse = timePerQuarterNote / _script.Metadata.PulsesPerQuarterNote;
                 float samplesPerPulse = _audioFrequency * timePerPulse;
+                if (i == 0) initialSamplesPerPulse = samplesPerPulse;
                 _pulsesPerSamples[i] = 1 / samplesPerPulse;
-                _sampleTimeOnBpmChanges[i] = samplesPerPulse * _script.Timings[i].Pulse;
+                _sampleTimeOnBpmChanges[i] = initialSamplesPerPulse * _script.Timings[i].Pulse;
 
                 Debug.Log("bpm: " + _script.Timings[i].Bpm);
                 Debug.Log("- timePerQuarterNote: " + timePerQuarterNote * 1000 + "ms/quarterNote");

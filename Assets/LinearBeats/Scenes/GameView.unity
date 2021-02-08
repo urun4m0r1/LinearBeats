@@ -1188,7 +1188,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  meterPerPulse: 0.1
+  meterPerPulse: 0.0417
   rail: {fileID: 1102302400}
   notesHolder: {fileID: 256459173}
   shortNotePrefab: {fileID: 8285780424189361361, guid: 4f00ad61fd0a19141b322ec749a689cf, type: 3}
@@ -1200,7 +1200,6 @@ MonoBehaviour:
   - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
   - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
   - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
-  verbose: 1
 --- !u!1 &1419949168
 GameObject:
   m_ObjectHideFlags: 0

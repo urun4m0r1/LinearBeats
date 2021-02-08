@@ -37,9 +37,11 @@ Metadata:
   Title: Hello, World! 튜토리얼
   PulsePreviewStart: 0
   PulsePreviewEnd: 10000
-  BpmInit: 150.0
   PulsesPerQuarterNote: 240
 Timings:
+    - Pulse: 0
+      PulseStopDuration: 0
+      Bpm: 150.0
     - Pulse: 3840
       PulseStopDuration: 0
       Bpm: 120.0";
@@ -71,9 +73,11 @@ Metadata:
   Title: Hello, World! 튜토리얼
   PulsePreviewStart: 0
   PulsePreviewEnd: 10000
-  BpmInit: 150.0
   PulsesPerQuarterNote: 240
 Timings:
+    - Pulse: 0
+      PulseStopDuration: 0
+      Bpm: 150.0
     - Pulse: 3840
       PulseStopDuration: 0
       Bpm: 120.0";

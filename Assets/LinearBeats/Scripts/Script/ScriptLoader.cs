@@ -285,7 +285,7 @@ namespace LinearBeats.Script
                     //TODO: BPM 정지 구현 ulong a = _script.Timings[0].PulseStopDuration;
                     //TODO: BPM 역스크롤 구현 ulong a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)
                     //TODO: position multiplyer 대신에 note절대적인 거리 저장
-                    //TODO: 지금 상태면 currentPusle와의 거리에 비례해서 이동하는 비례식 구조
+                    //TODO: 지금 상태면 currentPulse와의 거리에 비례해서 이동하는 비례식 구조
 
                     float positionInMeter = meterPerPulse * (target.Pulse - _currentPulse);
                     float zPosition = target.PositionMultiplyer * positionInMeter;

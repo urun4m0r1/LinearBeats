@@ -2,7 +2,6 @@
 #pragma warning disable IDE0051
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using LinearBeats.Game;
 using LinearBeats.Script;
 using Sirenix.OdinInspector;
@@ -36,6 +35,10 @@ namespace LinearBeats.Input
         [SerializeField]
         private Lane[] _lanes = new Lane[Keyboard.Cols];
 
+        private static readonly InputListener s_pressedListener = new InputListener(new PressedReceiver());
+        private static readonly InputListener s_releasedListener = new InputListener(new ReleasedReceiver());
+        private static readonly InputListener s_holdingListener = new InputListener(new HoldingReceiver());
+
         private void Start()
         {
             InputListener.BindingProvider = CurrentKeyboard;
@@ -51,27 +54,28 @@ namespace LinearBeats.Input
         private void Update()
         {
             UpdateLaneEffects();
-        }
 
-        private void UpdateLaneEffects()
-        {
-            for (byte layer = 0; layer < Keyboard.Rows; ++layer)
+            void UpdateLaneEffects()
             {
-                for (byte lane = 0; lane < Keyboard.Cols; ++lane)
+                for (byte layer = 0; layer < Keyboard.Rows; ++layer)
                 {
-                    _lanes[lane].ToggleLayerEffectWhenHolding(layer, IsHolding(row: layer, col: lane));
+                    for (byte lane = 0; lane < Keyboard.Cols; ++lane)
+                    {
+                        _lanes[lane].ToggleLayerEffectWhenHolding(layer, IsHolding(row: layer, col: lane));
+                    }
+                }
+
+                static bool IsHolding(byte row, byte col)
+                {
+                    return s_holdingListener.IsBindingInvoked(row, col);
                 }
             }
         }
 
-        private static bool IsHolding(byte row, byte col)
-        {
-            return HoldingListener.Instance.IsBindingInvoked(row, col);
-        }
-
         public static Judge JudgeNote(Note note, ulong currentPulse, Dictionary<Judge, ulong> judgeOffsetTable)
         {
-            if (IsNotePressed(note))
+            bool isNotePressed = s_pressedListener.GetNoteInvoked(note).Exist;
+            if (isNotePressed)
             {
                 if (WithinNoteJudgeTiming(note, currentPulse, judgeOffsetTable[Judge.Perfect]))
                 {
@@ -93,16 +97,11 @@ namespace LinearBeats.Input
             }
 
             return Judge.Null;
-        }
 
-        private static bool WithinNoteJudgeTiming(Note note, ulong currentPulse, ulong offset)
-        {
-            return note.Pulse <= currentPulse + offset && currentPulse <= note.Pulse + offset;
-        }
-
-        private static bool IsNotePressed(Note note)
-        {
-            return PressedListener.Instance.GetNoteInvoked(note).Exist;
+            static bool WithinNoteJudgeTiming(Note note, ulong currentPulse, ulong offset)
+            {
+                return note.Pulse <= currentPulse + offset && currentPulse <= note.Pulse + offset;
+            }
         }
     }
 }

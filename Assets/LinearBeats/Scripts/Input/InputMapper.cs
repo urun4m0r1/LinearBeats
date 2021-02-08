@@ -33,12 +33,12 @@ namespace LinearBeats.Input
             }
         }
 
-        private bool IsBindingReceiver()
+        private static bool IsBindingReceiver()
         {
             return InputListener.BindingProvider is IBindingReceiver;
         }
 
-        private IBindingReceiver GetBindingReceiver()
+        private static IBindingReceiver GetBindingReceiver()
         {
             return InputListener.BindingProvider as IBindingReceiver;
         }

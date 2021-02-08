@@ -6,36 +6,15 @@ using UnityEngine;
 
 namespace LinearBeats.Input
 {
-    public sealed class PressedListener : InputListener
-    {
-        public static readonly InputListener Instance = new InputListener(new PressedReceiver());
-    }
-    public sealed class ReleasedListener : InputListener
-    {
-        public static readonly InputListener Instance = new InputListener(new ReleasedReceiver());
-    }
-    public sealed class HoldingListener : InputListener
-    {
-        public static readonly InputListener Instance = new InputListener(new HoldingReceiver());
-    }
-
-    public class InputListener
+    public sealed class InputListener
     {
         public static IBindingProvider BindingProvider { get; set; } = null;
 
         private readonly IInputReceiver _inputReceiver = null;
 
-        protected InputListener() { }
-
         public InputListener(IInputReceiver inputReceiver)
         {
             _inputReceiver = inputReceiver ?? throw new ArgumentNullException();
-        }
-
-        public bool IsSpecialBindingInvoked()
-        {
-            KeyCode keyCode = BindingProvider?.GetBindingSpecial() ?? KeyCode.None;
-            return _inputReceiver.GetInput(keyCode);
         }
 
         public InputPosition GetNoteInvoked(Note note)
@@ -70,12 +49,23 @@ namespace LinearBeats.Input
         private bool IsBinnedBindingInvoked(byte row, byte col)
         {
             KeyCode keyCode = BindingProvider?.GetBinding(row, col) ?? KeyCode.None;
-            return _inputReceiver.GetInput(keyCode);
+            return IsInvokedBy(keyCode);
         }
 
         private bool IsAlternativeBindingInvoked(byte row, byte col)
         {
             KeyCode keyCode = BindingProvider?.GetBindingAlternative(row, col) ?? KeyCode.None;
+            return IsInvokedBy(keyCode);
+        }
+
+        public bool IsSpecialBindingInvoked()
+        {
+            KeyCode keyCode = BindingProvider?.GetBindingSpecial() ?? KeyCode.None;
+            return IsInvokedBy(keyCode);
+        }
+
+        private bool IsInvokedBy(KeyCode keyCode)
+        {
             return _inputReceiver.GetInput(keyCode);
         }
     }

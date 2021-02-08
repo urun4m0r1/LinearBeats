@@ -14,6 +14,8 @@ public class InputListenerTest
     [Test]
     public void Can_Handle_Alternative_Input()
     {
+        IBindingReceiver bindingReceiver = GetBindingReceiver();
+
         #region Given
         byte row = 1;
         byte col = 6;
@@ -21,8 +23,8 @@ public class InputListenerTest
         KeyCode keyCode = KeyCode.A;
         KeyCode keyCodeAlternative = KeyCode.B;
 
-        GetBindingReceiver().SetBinding(row, col, keyCode);
-        GetBindingReceiver().SetBindingAlternative(row, col, keyCodeAlternative);
+        bindingReceiver.SetBinding(row, col, keyCode);
+        bindingReceiver.SetBindingAlternative(row, col, keyCodeAlternative);
 
         var receiver = new TestReceiver();
         var listener = new InputListener(receiver);
@@ -41,15 +43,19 @@ public class InputListenerTest
         Assert.IsTrue(IsInvokedWithInput(keyCodeAlternative));
         Assert.IsFalse(IsInvokedWithInput(KeyCode.None));
         #endregion
+
+        InputListener.BindingProvider = null;
     }
 
     [Test]
     public void Can_Handle_Special_Input()
     {
+        IBindingReceiver bindingReceiver = GetBindingReceiver();
+
         #region Given
         KeyCode keyCodeSpecial = KeyCode.A;
 
-        GetBindingReceiver().SetBindingSpecial(keyCodeSpecial);
+        bindingReceiver.SetBindingSpecial(keyCodeSpecial);
 
         var receiver = new TestReceiver();
         var listener = new InputListener(receiver);
@@ -67,6 +73,8 @@ public class InputListenerTest
         Assert.IsTrue(IsSpecialInvokedWithInput(keyCodeSpecial));
         Assert.IsFalse(IsSpecialInvokedWithInput(KeyCode.None));
         #endregion
+
+        InputListener.BindingProvider = null;
     }
 
     private struct Boundary
@@ -86,6 +94,8 @@ public class InputListenerTest
     [Test]
     public void Can_Handle_Input_With_Note_Size()
     {
+        IBindingReceiver bindingReceiver = GetBindingReceiver();
+
         #region Given
         var RowIn = new Boundary(0, 2, KeyCode.A);
         var RowOut = new Boundary(1, 2, KeyCode.B);
@@ -107,7 +117,7 @@ public class InputListenerTest
 
             void SetBoundaryBinding(Boundary boundary)
             {
-                GetBindingReceiver().SetBinding(boundary.Row, boundary.Col, boundary.Binding);
+                bindingReceiver.SetBinding(boundary.Row, boundary.Col, boundary.Binding);
             }
         }
 
@@ -139,5 +149,7 @@ public class InputListenerTest
         Assert.IsTrue(IsBoundaryInvokedInNoteRange(ColMaxLeft));
         Assert.IsFalse(IsBoundaryInvokedInNoteRange(ColMaxRight));
         #endregion
+
+        InputListener.BindingProvider = null;
     }
 }

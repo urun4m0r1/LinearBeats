@@ -1,8 +1,5 @@
-using System;
 using LinearBeats.Input;
-using LinearBeats.Script;
 using NUnit.Framework;
-using UnityEngine;
 
 public class InputPositionTest
 {
@@ -22,9 +19,10 @@ public class InputPositionTest
         #endregion
 
         #region Then
-        Assert.Throws<Exception>(delegate { _ = rowColNull.Row; });
-        Assert.Throws<Exception>(delegate { _ = colNull.Row; });
-        Assert.Throws<Exception>(delegate { _ = rowNull.Row; });
+        Assert.That(() => rowColNull.Col, Throws.Exception);
+        Assert.That(() => rowColNull.Row, Throws.Exception);
+        Assert.That(() => colNull.Col, Throws.Exception);
+        Assert.That(() => rowNull.Row, Throws.Exception);
 
         Assert.IsFalse(rowColNull.Exist);
         Assert.IsFalse(colNull.Exist);

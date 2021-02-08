@@ -40,7 +40,7 @@ namespace LinearBeats.Script
         private LinearBeatsScript Validate(LinearBeatsScript script)
         {
             if (
-                script.VersionCode <= 0
+                script.VersionCode == 0
                 || script.VersionName.IsNullOrWhitespace()
                 || script.Metadata.BpmInit <= 0f
             ) throw new InvalidDataException();

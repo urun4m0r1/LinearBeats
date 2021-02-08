@@ -50,21 +50,21 @@ namespace LinearBeats.Game
         {
             SceneManager.sceneLoaded -= SceneLoaded;
 
-            MigrateExistingGameObjectsToScene(dstScene);
+            MigrateExistingGameObjectsToScene(dstScene, _migratingObjects);
 
             if (_loadSceneMode == LoadSceneMode.Single)
             {
                 UnloadAllScenesExcept(dstScene);
             }
 
-            ValidateAudioListenerUniqueWithTag();
+            ValidateAudioListenerUniqueWithTag(_audioListenerTag);
         }
 
-        private void MigrateExistingGameObjectsToScene(Scene dstScene)
+        private static void MigrateExistingGameObjectsToScene(Scene dstScene, List<GameObject> gameObjects)
         {
-            if (!_migratingObjects.IsNullOrEmpty())
+            if (!gameObjects.IsNullOrEmpty())
             {
-                foreach (var migratingObject in _migratingObjects)
+                foreach (var migratingObject in gameObjects)
                 {
                     if (migratingObject != null)
                     {
@@ -74,7 +74,7 @@ namespace LinearBeats.Game
             }
         }
 
-        private void UnloadAllScenesExcept(Scene targetScene)
+        private static void UnloadAllScenesExcept(Scene targetScene)
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
@@ -86,10 +86,10 @@ namespace LinearBeats.Game
             }
         }
 
-        private void ValidateAudioListenerUniqueWithTag()
+        private static void ValidateAudioListenerUniqueWithTag(string tag)
         {
             var audioValidator = new AudioListenerValidator();
-            audioValidator.ValidUniqueWithTag(_audioListenerTag);
+            audioValidator.ValidUniqueWithTag(tag);
         }
     }
 }

@@ -33,7 +33,6 @@ namespace LinearBeats.Script
         public string FileNamePreview;
         public ulong PulsePreviewStart;
         public ulong PulsePreviewEnd;
-        public float BpmInit;
         public ushort PulsesPerQuarterNote;
     }
 

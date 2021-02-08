@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: JIS
     - Name: Description
       Entry: 1
-      Data: Standard JP Keyboard Layout 106/109
+      Data: Standad JP Keyboard Layout 103/109
     - Name: _bindingsLayout
       Entry: 7
       Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule

@@ -9,38 +9,38 @@ namespace LinearBeats.Input
         [Button]
         public void SetCustomBindingSpecial(KeyCode keyCode)
         {
-            if (IsKeyboardCustom())
+            if (IsBindingReceiver())
             {
-                GetKeyboardCustom().SetBindingSpecial(keyCode);
+                GetBindingReceiver().SetBindingSpecial(keyCode);
             }
         }
 
         [Button]
         public void SetCustomBinding(byte row, byte col, KeyCode keyCode)
         {
-            if (IsKeyboardCustom())
+            if (IsBindingReceiver())
             {
-                GetKeyboardCustom().SetBinding(row, col, keyCode);
+                GetBindingReceiver().SetBinding(row, col, keyCode);
             }
         }
 
         [Button]
         public void SetCustomBindingAlternative(byte row, byte col, KeyCode keyCode)
         {
-            if (IsKeyboardCustom())
+            if (IsBindingReceiver())
             {
-                GetKeyboardCustom().SetBindingAlternative(row, col, keyCode);
+                GetBindingReceiver().SetBindingAlternative(row, col, keyCode);
             }
         }
 
-        private bool IsKeyboardCustom()
+        private static bool IsBindingReceiver()
         {
-            return InputListener.BindingProvider is KeyboardCustom;
+            return InputListener.BindingProvider is IBindingReceiver;
         }
 
-        private KeyboardCustom GetKeyboardCustom()
+        private static IBindingReceiver GetBindingReceiver()
         {
-            return InputListener.BindingProvider as KeyboardCustom;
+            return InputListener.BindingProvider as IBindingReceiver;
         }
     }
 }

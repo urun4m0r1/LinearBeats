@@ -1,5 +1,5 @@
 /// In general keyboards (ANSI, ISO, JIS, etc.), there are up to 14 keys per bottom and middle line.
-/// However, there are at least 12 keys in the lower row (ZXCV...), which is the standard for gameplay.
+/// However, there are at least 12 keys in the lower row (Z, X, C, V, ...), which is the standard for gameplay.
 /// Therefore, there are 12 lanes for receiving keyboard input during gameplay.
 /// As a result, up to 14 inputs must be processed in one lane considering duplicate key input.
 /// This can be done by checking the alternate input on the keystroke.
@@ -10,35 +10,31 @@ using UnityEngine;
 
 namespace LinearBeats.Input
 {
-
-    public struct Bindings
-    {
-        public KeyCode[,] Layout;
-    }
-
     [CreateAssetMenu(menuName = "LinearBeats/Keyboard")]
     public class Keyboard : SerializedScriptableObject, IBindingProvider
     {
-        public Bindings bindings;
-
-
+        [ShowInInspector, ReadOnly]
         public const byte Rows = 2;
+
+        [ShowInInspector, ReadOnly]
         public const byte Cols = 12;
 
-        [Required]
-        [PropertyOrder(-2)]
         [Title("Keyboard Information")]
-        public string Name = "ANSI";
-
         [Required]
-        [PropertyOrder(-1)]
-        [MultiLineProperty]
-        public string Description = "Standard US Keyboard Layout 101/104";
+        [OdinSerialize]
+        public string Name { get; set; } = "ANSI";
 
+        [MultiLineProperty]
+        [Required]
+        [OdinSerialize]
+        public string Description { get; set; } = "Standard US Keyboard Layout 101/104";
+
+        [PropertyOrder(1)]
         [Title("Bindings")]
         [SerializeField]
         protected KeyCode _bindingSpecial = KeyCode.Space;
 
+        [PropertyOrder(2)]
         [OdinSerialize]
         protected KeyCode[,] _bindingsLayout = new KeyCode[Rows, Cols]
         {
@@ -72,6 +68,7 @@ namespace LinearBeats.Input
             },
         };
 
+        [PropertyOrder(3)]
         [Title("Bindings Alternative")]
         [OdinSerialize]
         protected KeyCode[,] _bindingsLayoutAlternative = new KeyCode[Rows, Cols]

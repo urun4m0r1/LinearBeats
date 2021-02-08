@@ -21,12 +21,15 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Name
-      Entry: 1
-      Data: ANSI
-    - Name: Description
-      Entry: 1
-      Data: Standard US Keyboard Layout 101/104
+    - Name: bindings
+      Entry: 7
+      Data: LinearBeats.Input.Bindings, LinearBeats
+    - Name: Layout
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: _bindingsLayout
       Entry: 7
       Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule
@@ -201,3 +204,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Name: ANSI
+  Description: Standard US Keyboard Layout 101/104
+  _bindingSpecial: 32

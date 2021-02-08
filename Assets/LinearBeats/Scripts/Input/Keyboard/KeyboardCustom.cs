@@ -3,19 +3,19 @@ using UnityEngine;
 namespace LinearBeats.Input
 {
     [CreateAssetMenu(menuName = "LinearBeats/KeyboardCustom")]
-    public sealed class KeyboardCustom : Keyboard
+    public sealed class KeyboardCustom : Keyboard, IBindingReceiver
     {
-        public void SetBindingSpecial(KeyCode keyCode)
+        void IBindingReceiver.SetBindingSpecial(KeyCode keyCode)
         {
             _bindingSpecial = keyCode;
         }
 
-        public void SetBinding(byte row, byte col, KeyCode keyCode)
+        void IBindingReceiver.SetBinding(byte row, byte col, KeyCode keyCode)
         {
             _bindingsLayout[row, col] = keyCode;
         }
 
-        public void SetBindingAlternative(byte row, byte col, KeyCode keyCode)
+        void IBindingReceiver.SetBindingAlternative(byte row, byte col, KeyCode keyCode)
         {
             _bindingsLayoutAlternative[row, col] = keyCode;
         }

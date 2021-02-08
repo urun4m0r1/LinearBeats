@@ -21,15 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: bindings
-      Entry: 7
-      Data: LinearBeats.Input.Bindings, LinearBeats
-    - Name: Layout
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    - Name: Name
+      Entry: 1
+      Data: Custom
+    - Name: Description
+      Entry: 1
+      Data: Modified Helix Keyboard Layout 32+32
     - Name: _bindingsLayout
       Entry: 7
       Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule
@@ -204,6 +201,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Name: Custom
-  Description: Custom Helix Keyboard Layout 32+32
   _bindingSpecial: 32

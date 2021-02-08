@@ -1,38 +1,34 @@
 #pragma warning disable IDE0090
 
-using System;
 using LinearBeats.Script;
-using UnityEngine;
 
 namespace LinearBeats.Input
 {
-    public sealed class InputListener
+    public abstract class InputListener
     {
-        public static IBindingProvider BindingProvider { get; set; } = null;
-
-        private readonly IInputReceiver _inputReceiver = null;
-
-        public InputListener(IInputReceiver inputReceiver)
-        {
-            _inputReceiver = inputReceiver ?? throw new ArgumentNullException();
-        }
-
         public InputPosition GetNoteInvoked(Note note)
         {
-            return GetAnyBindingInvokedIn(note.PositionRow, note.PositionCol, note.SizeRow, note.SizeCol);
+            return GetAnyInputInvokedIn(
+             note.PositionRow,
+             note.PositionCol,
+             note.SizeRow,
+             note.SizeCol);
         }
 
-        private InputPosition GetAnyBindingInvokedIn(byte rowStart, byte colStart, byte rowSize, byte colSize)
+        public InputPosition GetAnyInputInvokedIn(
+            byte rowStart,
+            byte colStart,
+            byte rowSize,
+            byte colSize)
         {
             byte rowEnd = (byte)(rowStart + rowSize);
             byte colEnd = (byte)(colStart + colSize);
-
 
             for (var row = rowStart; row < rowEnd; ++row)
             {
                 for (var col = colStart; col < colEnd; ++col)
                 {
-                    if (IsBindingInvoked(row, col))
+                    if (IsInputInvoked(row, col))
                     {
                         return new InputPosition(row, col);
                     }
@@ -41,32 +37,8 @@ namespace LinearBeats.Input
             return new InputPosition(null, null);
         }
 
-        public bool IsBindingInvoked(byte row, byte col)
-        {
-            return IsBinnedBindingInvoked(row, col) || IsAlternativeBindingInvoked(row, col);
-        }
+        public abstract bool IsInputInvoked(byte row, byte col);
 
-        private bool IsBinnedBindingInvoked(byte row, byte col)
-        {
-            KeyCode keyCode = BindingProvider?.GetBinding(row, col) ?? KeyCode.None;
-            return IsInvokedBy(keyCode);
-        }
-
-        private bool IsAlternativeBindingInvoked(byte row, byte col)
-        {
-            KeyCode keyCode = BindingProvider?.GetBindingAlternative(row, col) ?? KeyCode.None;
-            return IsInvokedBy(keyCode);
-        }
-
-        public bool IsSpecialBindingInvoked()
-        {
-            KeyCode keyCode = BindingProvider?.GetBindingSpecial() ?? KeyCode.None;
-            return IsInvokedBy(keyCode);
-        }
-
-        private bool IsInvokedBy(KeyCode keyCode)
-        {
-            return _inputReceiver.GetInput(keyCode);
-        }
+        public abstract bool IsSpecialInputInvoked();
     }
 }

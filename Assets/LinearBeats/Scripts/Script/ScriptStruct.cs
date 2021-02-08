@@ -39,8 +39,9 @@ namespace LinearBeats.Script
     public struct Timing
     {
         public ulong Pulse;
-        public ulong PulseStopDuration;
         public float Bpm;
+        public ulong PulseStopDuration;
+        public ulong PulseReverseDuration;
     }
 
     public struct Divider

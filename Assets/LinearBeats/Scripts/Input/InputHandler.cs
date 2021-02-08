@@ -26,8 +26,8 @@ namespace LinearBeats.Input
         [OdinSerialize]
         public Keyboard CurrentKeyboard
         {
-            get => InputListener.BindingProvider as Keyboard;
-            set => InputListener.BindingProvider = value;
+            get => UserInputListener.BindingProvider as Keyboard;
+            set => UserInputListener.BindingProvider = value;
         }
 
         [Required]
@@ -35,13 +35,13 @@ namespace LinearBeats.Input
         [SerializeField]
         private Lane[] _lanes = new Lane[Keyboard.Cols];
 
-        private static readonly InputListener s_pressedListener = new InputListener(new PressedReceiver());
-        private static readonly InputListener s_releasedListener = new InputListener(new ReleasedReceiver());
-        private static readonly InputListener s_holdingListener = new InputListener(new HoldingReceiver());
+        private static readonly UserInputListener s_pressedListener = new UserInputListener(new PressedReceiver());
+        private static readonly UserInputListener s_releasedListener = new UserInputListener(new ReleasedReceiver());
+        private static readonly UserInputListener s_holdingListener = new UserInputListener(new HoldingReceiver());
 
         private static readonly Dictionary<Judge, ulong> judgeOffsetTable = new Dictionary<Judge, ulong>
         {
-            [Judge.Perfect] = 40,
+            [Judge.Perfect] = 30,
             [Judge.Great] = 60,
             [Judge.Good] = 100,
             [Judge.Miss] = 130,
@@ -50,7 +50,7 @@ namespace LinearBeats.Input
 
         private void Start()
         {
-            InputListener.BindingProvider = CurrentKeyboard;
+            UserInputListener.BindingProvider = CurrentKeyboard;
         }
 
         [HideInEditorMode]
@@ -76,7 +76,7 @@ namespace LinearBeats.Input
 
                 static bool IsHolding(byte row, byte col)
                 {
-                    return s_holdingListener.IsBindingInvoked(row, col);
+                    return s_holdingListener.IsInputInvoked(row, col);
                 }
             }
         }

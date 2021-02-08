@@ -40,11 +40,21 @@ Metadata:
   PulsesPerQuarterNote: 240
 Timings:
     - Pulse: 0
-      PulseStopDuration: 0
       Bpm: 150.0
-    - Pulse: 3840
       PulseStopDuration: 0
-      Bpm: 120.0";
+      PulseReverseDuration: 0
+    - Pulse: 960
+      Bpm: 150.0
+      PulseStopDuration: 0
+      PulseReverseDuration: 0
+    - Pulse: 1920
+      Bpm: 150.0
+      PulseStopDuration: 240
+      PulseReverseDuration: 0
+    - Pulse: 3840
+      Bpm: 120.0
+      PulseStopDuration: 0
+      PulseReverseDuration: 0";
         #endregion
 
         #region When
@@ -76,11 +86,21 @@ Metadata:
   PulsesPerQuarterNote: 240
 Timings:
     - Pulse: 0
-      PulseStopDuration: 0
       Bpm: 150.0
-    - Pulse: 3840
       PulseStopDuration: 0
-      Bpm: 120.0";
+      PulseReverseDuration: 0
+    - Pulse: 960
+      Bpm: 150.0
+      PulseStopDuration: 0
+      PulseReverseDuration: 0
+    - Pulse: 1920
+      Bpm: 150.0
+      PulseStopDuration: 240
+      PulseReverseDuration: 0
+    - Pulse: 3840
+      Bpm: 120.0
+      PulseStopDuration: 0
+      PulseReverseDuration: 0";
         #endregion
 
         #region When

@@ -7,8 +7,8 @@ public class InputListenerTest
 {
     private static IBindingReceiver GetBindingReceiver()
     {
-        InputListener.BindingProvider = ScriptableObject.CreateInstance<KeyboardCustom>();
-        return InputListener.BindingProvider as IBindingReceiver;
+        UserInputListener.BindingProvider = ScriptableObject.CreateInstance<KeyboardCustom>();
+        return UserInputListener.BindingProvider as IBindingReceiver;
     }
 
     [Test]
@@ -27,14 +27,14 @@ public class InputListenerTest
         bindingReceiver.SetBindingAlternative(row, col, keyCodeAlternative);
 
         var receiver = new TestReceiver();
-        var listener = new InputListener(receiver);
+        var listener = new UserInputListener(receiver);
         #endregion
 
         #region When
         bool IsInvokedWithInput(KeyCode keyCode)
         {
             receiver.Invoke(keyCode);
-            return listener.IsBindingInvoked(row, col);
+            return listener.IsInputInvoked(row, col);
         }
         #endregion
 
@@ -44,7 +44,7 @@ public class InputListenerTest
         Assert.IsFalse(IsInvokedWithInput(KeyCode.None));
         #endregion
 
-        InputListener.BindingProvider = null;
+        UserInputListener.BindingProvider = null;
     }
 
     [Test]
@@ -58,14 +58,14 @@ public class InputListenerTest
         bindingReceiver.SetBindingSpecial(keyCodeSpecial);
 
         var receiver = new TestReceiver();
-        var listener = new InputListener(receiver);
+        var listener = new UserInputListener(receiver);
         #endregion
 
         #region When
         bool IsSpecialInvokedWithInput(KeyCode keyCode)
         {
             receiver.Invoke(keyCode);
-            return listener.IsSpecialBindingInvoked();
+            return listener.IsSpecialInputInvoked();
         }
         #endregion
 
@@ -74,7 +74,7 @@ public class InputListenerTest
         Assert.IsFalse(IsSpecialInvokedWithInput(KeyCode.None));
         #endregion
 
-        InputListener.BindingProvider = null;
+        UserInputListener.BindingProvider = null;
     }
 
     private struct Boundary
@@ -130,7 +130,7 @@ public class InputListenerTest
         };
 
         var receiver = new TestReceiver();
-        var listener = new InputListener(receiver);
+        var listener = new UserInputListener(receiver);
         #endregion
 
         #region When
@@ -150,6 +150,6 @@ public class InputListenerTest
         Assert.IsFalse(IsBoundaryInvokedInNoteRange(ColMaxRight));
         #endregion
 
-        InputListener.BindingProvider = null;
+        UserInputListener.BindingProvider = null;
     }
 }

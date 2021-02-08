@@ -42,7 +42,6 @@ namespace LinearBeats.Script
             if (
                 script.VersionCode == 0
                 || script.VersionName.IsNullOrWhitespace()
-                || script.Metadata.BpmInit <= 0f
             ) throw new InvalidDataException();
 
             return script;

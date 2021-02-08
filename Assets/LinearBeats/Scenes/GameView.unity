@@ -330,10 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfdd1dc2877204b95f9c07e9662bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetFps: 60
-  _dstScenePath: 
-  _loadSceneMode: 1
-  _audioListenerTag: AudioListener
   _migratingObjects:
   - {fileID: 286406906}
 --- !u!4 &286406908
@@ -1204,7 +1200,7 @@ MonoBehaviour:
   - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
   - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
   - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
-  verbose: 0
+  verbose: 1
 --- !u!1 &1419949168
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,17 +25,15 @@ namespace LinearBeats.Script
         public VideoPlayer videoPlayer = null;
         public AudioMixerGroup[] audioMixerGroups = null;
         private readonly List<AudioSource> audioSources = new List<AudioSource>();
-        float timePerQuarterNote = 0f;
-        float timePerPulse = 0f;
-        float sampleRatePerPulse = 0f;
+        float[] samplesPerPulse = null;
+        float[] sampleWhenBpmChanged = null;
         float audioFrequency = 0f;
-        float currentBpm = 0f;
         readonly string resourcesPath = "Songs/Tutorial/";
         private int timingIndex = 0;
 
         private ulong currentPulse = 0;
         [SerializeField]
-        private readonly bool verbose = false;
+        private bool verbose = false;
 
         private LinearBeatsScript script;
 
@@ -70,6 +68,8 @@ namespace LinearBeats.Script
                 InstantiateAudioSource(audioChannel);
                 InstantiateNotes(audioChannel);
             }
+
+            CalculateTimingData();
         }
 
         private void InstantiateDividers()
@@ -124,33 +124,42 @@ namespace LinearBeats.Script
             }
         }
 
+        private void CalculateTimingData()
+        {
+            if (verbose)
+            {
+                Debug.Log("pulsesPerQuarterNote: " + script.Metadata.PulsesPerQuarterNote);
+                Debug.Log("meterPerPulse: " + meterPerPulse + "m/pulse");
+            }
+
+            samplesPerPulse = new float[script.Timings.Length];
+            sampleWhenBpmChanged = new float[script.Timings.Length];
+            for (var i = 0; i < script.Timings.Length; ++i)
+            {
+                float timePerQuarterNote = 60f / script.Timings[i].Bpm;
+                float timePerPulse = timePerQuarterNote / script.Metadata.PulsesPerQuarterNote;
+                samplesPerPulse[i] = audioFrequency * timePerPulse;
+                sampleWhenBpmChanged[i] = samplesPerPulse[timingIndex] * script.Timings[i].Pulse;
+                if (verbose)
+                {
+                    Debug.Log("__________currentBpm: " + script.Timings[i].Bpm + "__________");
+                    Debug.Log("timePerQuarterNote: " + timePerQuarterNote * 1000 + "ms/quarterNote");
+                    Debug.Log("timePerPulse: " + timePerPulse * 1000 + "ms/pulse");
+                    Debug.Log("samplePerPulse: " + samplesPerPulse[i] + "Hz/pulse");
+                    Debug.Log("sampleWhenBpmChanged: " + sampleWhenBpmChanged[i] + "Hz");
+                }
+            }
+        }
+
         [DisableInEditorMode]
         [Button("PlayAllAudioSource")]
         public void PlayAllAudioSource()
         {
             timingIndex = 0;
-            currentBpm = script.Metadata.BpmInit;
-            CalculateTimingData();
 
             foreach (var audioSource in audioSources)
             {
                 audioSource.Play();
-            }
-        }
-
-        private void CalculateTimingData()
-        {
-            timePerQuarterNote = 60f / currentBpm;
-            timePerPulse = timePerQuarterNote / script.Metadata.PulsesPerQuarterNote;
-            sampleRatePerPulse = audioFrequency * timePerPulse;
-            if (verbose)
-            {
-                Debug.Log("currentBpm: " + currentBpm);
-                Debug.Log("pulsesPerQuarterNote: " + script.Metadata.PulsesPerQuarterNote);
-                Debug.Log("timePerQuarterNote: " + timePerQuarterNote * 1000 + "ms/quarterNote");
-                Debug.Log("timePerPulse: " + timePerPulse * 1000 + "ms/pulse");
-                Debug.Log("sampleRatePerPulse: " + sampleRatePerPulse + "Hz/pulse");
-                Debug.Log("meterPerPulse: " + meterPerPulse + "m/pulse");
             }
         }
 
@@ -164,22 +173,23 @@ namespace LinearBeats.Script
 
         private void UpdateTiming()
         {
-            if (timingIndex < script.Timings.Length)
+            bool isNextTimingIndexSmallerThanTimingLength = timingIndex < script.Timings.Length - 1;
+            if (isNextTimingIndexSmallerThanTimingLength)
             {
-                var timing = script.Timings[timingIndex];
-                if (currentPulse >= timing.Pulse)
+                Timing nextTiming = script.Timings[timingIndex + 1];
+                if (currentPulse >= nextTiming.Pulse)
                 {
-                    timingIndex++;
-                    currentBpm = timing.Bpm;
-                    CalculateTimingData();
+                    ++timingIndex;
                 }
             }
         }
 
         private void UpdateCurrentPulse()
         {
-            //FIXME: BPM Jumps
-            currentPulse = (ulong)(audioSources[0].timeSamples / sampleRatePerPulse);
+            float sampleElapsedAfterBpmChanged = audioSources[0].timeSamples - sampleWhenBpmChanged[timingIndex];
+            ulong pulseElapsedAfterBpmChanged = (ulong)(sampleElapsedAfterBpmChanged / samplesPerPulse[timingIndex]);
+            currentPulse = script.Timings[timingIndex].Pulse + pulseElapsedAfterBpmChanged;
+            Debug.Log(currentPulse);
         }
 
         private void UpdateRailPosition()

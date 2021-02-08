@@ -41,7 +41,7 @@ namespace LinearBeats.Input
 
         private static readonly Dictionary<Judge, ulong> judgeOffsetTable = new Dictionary<Judge, ulong>
         {
-            [Judge.Perfect] = 40,
+            [Judge.Perfect] = 30,
             [Judge.Great] = 60,
             [Judge.Good] = 100,
             [Judge.Miss] = 130,

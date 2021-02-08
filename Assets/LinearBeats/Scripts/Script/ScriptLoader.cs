@@ -2,6 +2,7 @@
 #pragma warning disable IDE0051
 
 using System.Collections.Generic;
+using LinearBeats.Game;
 using LinearBeats.Input;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -33,8 +34,8 @@ namespace LinearBeats.Script
         private readonly string _resourcesPath = "Songs/Tutorial/";
 
         private readonly List<AudioSource> _audioSources = new List<AudioSource>();
-        private readonly Queue<GameObject> _dividerObjects = new Queue<GameObject>();
-        private readonly Queue<GameObject> _noteObjects = new Queue<GameObject>();
+        private readonly Queue<RailBehaviour> _dividerBehaviours = new Queue<RailBehaviour>();
+        private readonly Queue<NoteBehaviour> _noteBehaviours = new Queue<NoteBehaviour>();
 
         private void OnEnable()
         {
@@ -103,7 +104,9 @@ namespace LinearBeats.Script
                         Quaternion.identity,
                         notesHolder);
                     noteObject.transform.localScale = GetNoteSize(note);
-                    _noteObjects.Enqueue(noteObject);
+                    NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
+                    noteBehaviour.Pulse = note.Pulse;
+                    _noteBehaviours.Enqueue(noteBehaviour);
                 }
             }
 
@@ -157,7 +160,9 @@ namespace LinearBeats.Script
                     GetDividerPosition(divider),
                     Quaternion.identity,
                     dividerHolder);
-                _dividerObjects.Enqueue(dividerObject);
+                RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
+                dividerBehaviour.Pulse = divider.Pulse;
+                _dividerBehaviours.Enqueue(dividerBehaviour);
             }
 
             Vector3 GetDividerPosition(Divider divider)
@@ -238,23 +243,14 @@ namespace LinearBeats.Script
 
         private void UpdateGameObjectsPosition()
         {
-            float currentMeter = meterPerPulse * _currentPulse;
-            UpdateGameObjectsZPosition(_noteObjects);
-            UpdateGameObjectsZPosition(_dividerObjects);
+            UpdateGameObjectsZPosition(_noteBehaviours);
+            UpdateGameObjectsZPosition(_dividerBehaviours);
 
-            void UpdateGameObjectsZPosition(Queue<GameObject> gameObjects)
+            void UpdateGameObjectsZPosition<T>(Queue<T> objects) where T : RailBehaviour
             {
-                foreach (var gameObject in gameObjects)
+                foreach (var target in objects)
                 {
-                    SetGameObjectZPosition();
-                }
-
-                void SetGameObjectZPosition()
-                {
-                    gameObject.transform.position = new Vector3(
-                        gameObject.transform.position.x,
-                        gameObject.transform.position.y,
-                        currentMeter);
+                    target.SetZPosition(meterPerPulse * (target.Pulse - _currentPulse));
                 }
             }
         }

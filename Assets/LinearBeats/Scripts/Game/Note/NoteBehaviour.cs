@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LinearBeats.Game
 {
-    public class NoteBehaviour : MonoBehaviour
+    public class NoteBehaviour : RailBehaviour
     {
         public Note Note { get; set; }
 

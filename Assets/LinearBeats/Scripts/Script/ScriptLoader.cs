@@ -1,6 +1,3 @@
-//TODO: Object Pooling
-//TODO: NoteJudge dequeuing
-
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
@@ -33,8 +30,8 @@ namespace LinearBeats.Script
         private ulong _currentPulse = 0;
         private int _timingIndex = 0;
         private float[] _pulsesPerSamples = null;
-        private float[] _sampleTimeOnBpmChanges = null;
-        private float _audioFrequency = 0f;
+        private float[] _samplePointOnBpmChanges = null;
+        private float _audioSampleFreq = 0f;
         private readonly string _resourcesPath = "Songs/Tutorial/";
 
         private readonly List<AudioSource> _audioSources = new List<AudioSource>();
@@ -64,6 +61,7 @@ namespace LinearBeats.Script
 
         private void InstantiateGameObjects()
         {
+            //TODO: Object Pooling
             foreach (var audioChannel in _script.AudioChannels)
             {
                 InstantiateAudioSource(audioChannel);
@@ -77,7 +75,7 @@ namespace LinearBeats.Script
             GameObject audioGameObject = CreateAudioGameObject(audioChannel.FileName);
             AudioSource audioSource = AddAudioChannelToGameObject(audioGameObject, audioChannel);
             _audioSources.Add(audioSource);
-            _audioFrequency = audioSource.clip.frequency;
+            _audioSampleFreq = audioSource.clip.frequency;
 
             GameObject CreateAudioGameObject(string name)
             {
@@ -196,24 +194,31 @@ namespace LinearBeats.Script
             Debug.Log("pulsesPerQuarterNote: " + _script.Metadata.PulsesPerQuarterNote);
             Debug.Log("meterPerPulse: " + meterPerPulse + "m/pulse");
 
+            float[] samplesPerPulses = new float[_script.Timings.Length];
             _pulsesPerSamples = new float[_script.Timings.Length];
-            _sampleTimeOnBpmChanges = new float[_script.Timings.Length];
+            _samplePointOnBpmChanges = new float[_script.Timings.Length];
+            _samplePointOnBpmChanges[0] = 0f;
 
-            float initialSamplesPerPulse = 0f;
             for (var i = 0; i < _script.Timings.Length; ++i)
             {
                 float timePerQuarterNote = 60f / _script.Timings[i].Bpm;
                 float timePerPulse = timePerQuarterNote / _script.Metadata.PulsesPerQuarterNote;
-                float samplesPerPulse = _audioFrequency * timePerPulse;
-                if (i == 0) initialSamplesPerPulse = samplesPerPulse;
-                _pulsesPerSamples[i] = 1 / samplesPerPulse;
-                _sampleTimeOnBpmChanges[i] = initialSamplesPerPulse * _script.Timings[i].Pulse;
+                samplesPerPulses[i] = _audioSampleFreq * timePerPulse;
+                _pulsesPerSamples[i] = 1 / samplesPerPulses[i];
+
+                if (i != 0)
+                {
+                    ulong timingRangePulseLength = _script.Timings[i].Pulse - _script.Timings[i - 1].Pulse;
+                    float timingRangeSamples = timingRangePulseLength * samplesPerPulses[i - 1];
+                    float elapsedSamplesAfterBpmChanged = _samplePointOnBpmChanges[i - 1];
+                    _samplePointOnBpmChanges[i] = elapsedSamplesAfterBpmChanged + timingRangeSamples;
+                }
 
                 Debug.Log("bpm: " + _script.Timings[i].Bpm);
-                Debug.Log("- timePerQuarterNote: " + timePerQuarterNote * 1000 + "ms/quarterNote");
-                Debug.Log("- timePerPulse: " + timePerPulse * 1000 + "ms/pulse");
-                Debug.Log("- samplesPerPulse: " + samplesPerPulse + "Hz/pulse");
-                Debug.Log("- sampleWhenBpmChanged: " + _sampleTimeOnBpmChanges[i] + "Hz");
+                Debug.Log("- timePerQuarterNote: " + (timePerQuarterNote * 1000) + "ms/quarterNote");
+                Debug.Log("- timePerPulse: " + (timePerPulse * 1000) + "ms/pulse");
+                Debug.Log("- samplesPerPulses: " + samplesPerPulses[i] + "Hz/pulse");
+                Debug.Log("- samplePointOnBpmChanges: " + _samplePointOnBpmChanges[i] + "Hz");
             }
             DisplayBpm();
         }
@@ -247,11 +252,11 @@ namespace LinearBeats.Script
         {
             UpdateTiming();
 
-            float sampleElapsedAfterBpmChanged = _audioSources[0].timeSamples - _sampleTimeOnBpmChanges[_timingIndex];
+            float sampleElapsedAfterBpmChanged = _audioSources[0].timeSamples - _samplePointOnBpmChanges[_timingIndex];
             ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSamples[_timingIndex] * sampleElapsedAfterBpmChanged);
             _currentPulse = _script.Timings[_timingIndex].Pulse + pulsesElapsedAfterBpmChanged;
 
-            Debug.Log(_currentPulse);
+            //Debug.Log($"{_currentPulse}");
 
             void UpdateTiming()
             {
@@ -277,6 +282,9 @@ namespace LinearBeats.Script
             {
                 foreach (var target in objects)
                 {
+                    //TODO: 노트 정지 구현
+                    //TODO: position multiplyer 대신에 note절대적인 거리 저장
+                    //TODO: 지금 상태면 currentPusle와의 거리에 비례해서 이동하는 비례식 구조
                     float positionInMeter = meterPerPulse * (target.Pulse - _currentPulse);
                     float zPosition = target.PositionMultiplyer * positionInMeter;
                     target.SetZPosition(zPosition);
@@ -286,6 +294,7 @@ namespace LinearBeats.Script
 
         private void UpdateNoteJudgement()
         {
+            //TODO: NoteJudge dequeuing
             foreach (var audioChannel in _script.AudioChannels)
             {
                 if (audioChannel.Notes == null) continue;

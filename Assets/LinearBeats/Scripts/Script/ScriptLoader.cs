@@ -19,33 +19,22 @@ namespace LinearBeats.Script
         public GameObject shortNotePrefab = null;
         public Transform dividerHolder = null;
         public GameObject dividerPrefab = null;
-        [Required]
         public AudioListener audioListener = null;
-        [Required]
         public VideoPlayer videoPlayer = null;
         public AudioMixerGroup[] audioMixerGroups = null;
-        private readonly List<AudioSource> audioSources = new List<AudioSource>();
-        float[] samplesPerPulse = null;
-        float[] sampleWhenBpmChanged = null;
-        float audioFrequency = 0f;
-        readonly string resourcesPath = "Songs/Tutorial/";
-        private int timingIndex = 0;
 
-        private ulong currentPulse = 0;
+        private LinearBeatsScript _script;
 
-        private LinearBeatsScript script;
+        private ulong _currentPulse = 0;
+        private int _timingIndex = 0;
+        private float[] _samplesPerPulses = null;
+        private float[] _sampleTimeOnBpmChanges = null;
+        private float _audioFrequency = 0f;
+        private readonly string _resourcesPath = "Songs/Tutorial/";
 
-        private readonly Queue<GameObject> dividerObjects = new Queue<GameObject>();
-
-        private readonly Queue<GameObject> noteObjects = new Queue<GameObject>();
-        private readonly Dictionary<Judge, ulong> judgeOffsetTable = new Dictionary<Judge, ulong>
-        {
-            [Judge.Perfect] = 40,
-            [Judge.Great] = 60,
-            [Judge.Good] = 100,
-            [Judge.Miss] = 130,
-            [Judge.Null] = 0,
-        };
+        private readonly List<AudioSource> _audioSources = new List<AudioSource>();
+        private readonly Queue<GameObject> _dividerObjects = new Queue<GameObject>();
+        private readonly Queue<GameObject> _noteObjects = new Queue<GameObject>();
 
         private void OnEnable()
         {
@@ -56,10 +45,10 @@ namespace LinearBeats.Script
 
         private void Start()
         {
-            script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
+            _script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
 
-            CalculateTimingData();
             InstantiateGameObjects();
+            CalculateTimingData();
         }
 
         private static LinearBeatsScript ParseScriptFromResourcesPath(string path)
@@ -68,37 +57,9 @@ namespace LinearBeats.Script
             return new ScriptParser(scriptAsset.text).Parse();
         }
 
-        private void CalculateTimingData()
-        {
-            Debug.Log("pulsesPerQuarterNote: " + script.Metadata.PulsesPerQuarterNote);
-            Debug.Log("meterPerPulse: " + meterPerPulse + "m/pulse");
-
-            samplesPerPulse = new float[script.Timings.Length];
-            sampleWhenBpmChanged = new float[script.Timings.Length];
-            for (var i = 0; i < script.Timings.Length; ++i)
-            {
-                float timePerQuarterNote = 60f / script.Timings[i].Bpm;
-                float timePerPulse = timePerQuarterNote / script.Metadata.PulsesPerQuarterNote;
-                samplesPerPulse[i] = audioFrequency * timePerPulse;
-                sampleWhenBpmChanged[i] = samplesPerPulse[timingIndex] * script.Timings[i].Pulse;
-
-                Debug.Log("bpm: " + script.Timings[i].Bpm);
-                Debug.Log("- timePerQuarterNote: " + timePerQuarterNote * 1000 + "ms/quarterNote");
-                Debug.Log("- timePerPulse: " + timePerPulse * 1000 + "ms/pulse");
-                Debug.Log("- samplesPerPulse: " + samplesPerPulse[i] + "Hz/pulse");
-                Debug.Log("- sampleWhenBpmChanged: " + sampleWhenBpmChanged[i] + "Hz");
-            }
-            DisplayBpm();
-        }
-
-        private void DisplayBpm()
-        {
-            Debug.Log("currentBpm: " + script.Timings[timingIndex].Bpm);
-        }
-
         private void InstantiateGameObjects()
         {
-            foreach (var audioChannel in script.AudioChannels)
+            foreach (var audioChannel in _script.AudioChannels)
             {
                 InstantiateAudioSource(audioChannel);
                 InstantiateNotes(audioChannel);
@@ -110,8 +71,8 @@ namespace LinearBeats.Script
         {
             GameObject audioGameObject = CreateAudioGameObject(audioChannel.FileName);
             AudioSource audioSource = AddAudioChannelToGameObject(audioGameObject, audioChannel);
-            audioSources.Add(audioSource);
-            audioFrequency = audioSource.clip.frequency;
+            _audioSources.Add(audioSource);
+            _audioFrequency = audioSource.clip.frequency;
 
             GameObject CreateAudioGameObject(string name)
             {
@@ -123,7 +84,7 @@ namespace LinearBeats.Script
             AudioSource AddAudioChannelToGameObject(GameObject audioObject, AudioChannel audioChannel)
             {
                 AudioSource audioSource = audioObject.AddComponent<AudioSource>();
-                audioSource.clip = Resources.Load<AudioClip>(resourcesPath + audioChannel.FileName);
+                audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
                 audioSource.playOnAwake = false;
                 audioSource.outputAudioMixerGroup = audioMixerGroups[audioChannel.Layer];
                 return audioSource;
@@ -142,7 +103,7 @@ namespace LinearBeats.Script
                         Quaternion.identity,
                         notesHolder);
                     noteObject.transform.localScale = GetNoteSize(note);
-                    noteObjects.Enqueue(noteObject);
+                    _noteObjects.Enqueue(noteObject);
                 }
             }
 
@@ -189,14 +150,14 @@ namespace LinearBeats.Script
 
         private void InstantiateDividers()
         {
-            foreach (var divider in script.Dividers)
+            foreach (var divider in _script.Dividers)
             {
                 GameObject dividerObject = Instantiate(
                     dividerPrefab,
                     GetDividerPosition(divider),
                     Quaternion.identity,
                     dividerHolder);
-                dividerObjects.Enqueue(dividerObject);
+                _dividerObjects.Enqueue(dividerObject);
             }
 
             Vector3 GetDividerPosition(Divider divider)
@@ -205,13 +166,42 @@ namespace LinearBeats.Script
             }
         }
 
+        private void CalculateTimingData()
+        {
+            Debug.Log("pulsesPerQuarterNote: " + _script.Metadata.PulsesPerQuarterNote);
+            Debug.Log("meterPerPulse: " + meterPerPulse + "m/pulse");
+
+            _samplesPerPulses = new float[_script.Timings.Length];
+            _sampleTimeOnBpmChanges = new float[_script.Timings.Length];
+            for (var i = 0; i < _script.Timings.Length; ++i)
+            {
+                float timePerQuarterNote = 60f / _script.Timings[i].Bpm;
+                float timePerPulse = timePerQuarterNote / _script.Metadata.PulsesPerQuarterNote;
+                _samplesPerPulses[i] = _audioFrequency * timePerPulse;
+                _sampleTimeOnBpmChanges[i] = _samplesPerPulses[_timingIndex] * _script.Timings[i].Pulse;
+
+                Debug.Log("bpm: " + _script.Timings[i].Bpm);
+                Debug.Log("- timePerQuarterNote: " + timePerQuarterNote * 1000 + "ms/quarterNote");
+                Debug.Log("- timePerPulse: " + timePerPulse * 1000 + "ms/pulse");
+                Debug.Log("- samplesPerPulse: " + _samplesPerPulses[i] + "Hz/pulse");
+                Debug.Log("- sampleWhenBpmChanged: " + _sampleTimeOnBpmChanges[i] + "Hz");
+            }
+            DisplayBpm();
+        }
+
+        private void DisplayBpm()
+        {
+            Debug.Log("currentBpm: " + _script.Timings[_timingIndex].Bpm);
+        }
+
+
         [DisableInEditorMode]
         [Button("PlayAllAudioSource")]
         public void PlayAllAudioSource()
         {
-            timingIndex = 0;
+            _timingIndex = 0;
 
-            foreach (var audioSource in audioSources)
+            foreach (var audioSource in _audioSources)
             {
                 audioSource.Play();
             }
@@ -220,46 +210,63 @@ namespace LinearBeats.Script
         private void Update()
         {
             UpdateCurrentPulse();
-            UpdateRailPosition();
+            UpdateGameObjectsPosition();
             UpdateNoteJudgement();
         }
 
         private void UpdateCurrentPulse()
         {
             UpdateTiming();
-            float sampleElapsedAfterBpmChanged = audioSources[0].timeSamples - sampleWhenBpmChanged[timingIndex];
-            ulong pulseElapsedAfterBpmChanged = (ulong)(sampleElapsedAfterBpmChanged / samplesPerPulse[timingIndex]);
-            currentPulse = script.Timings[timingIndex].Pulse + pulseElapsedAfterBpmChanged;
+            float sampleElapsedAfterBpmChanged = _audioSources[0].timeSamples - _sampleTimeOnBpmChanges[_timingIndex];
+            ulong pulseElapsedAfterBpmChanged = (ulong)(sampleElapsedAfterBpmChanged / _samplesPerPulses[_timingIndex]);
+            _currentPulse = _script.Timings[_timingIndex].Pulse + pulseElapsedAfterBpmChanged;
 
             void UpdateTiming()
             {
-                bool isNextTimingIndexSmallerThanTimingLength = timingIndex < script.Timings.Length - 1;
+                bool isNextTimingIndexSmallerThanTimingLength = _timingIndex < _script.Timings.Length - 1;
                 if (isNextTimingIndexSmallerThanTimingLength)
                 {
-                    Timing nextTiming = script.Timings[timingIndex + 1];
-                    if (currentPulse >= nextTiming.Pulse)
+                    Timing nextTiming = _script.Timings[_timingIndex + 1];
+                    if (_currentPulse >= nextTiming.Pulse)
                     {
-                        ++timingIndex;
+                        ++_timingIndex;
                         DisplayBpm();
                     }
                 }
             }
         }
 
-        private void UpdateRailPosition()
+        private void UpdateGameObjectsPosition()
         {
-            float currentMeter = meterPerPulse * currentPulse;
-            rail.position = new Vector3(0f, 0f, -currentMeter);
+            float currentMeter = meterPerPulse * _currentPulse;
+            UpdateGameObjectsZPosition(_noteObjects);
+            UpdateGameObjectsZPosition(_dividerObjects);
+
+            void UpdateGameObjectsZPosition(Queue<GameObject> gameObjects)
+            {
+                foreach (var gameObject in gameObjects)
+                {
+                    SetGameObjectZPosition();
+                }
+
+                void SetGameObjectZPosition()
+                {
+                    gameObject.transform.position = new Vector3(
+                        gameObject.transform.position.x,
+                        gameObject.transform.position.y,
+                        currentMeter);
+                }
+            }
         }
 
         private void UpdateNoteJudgement()
         {
-            foreach (var audioChannel in script.AudioChannels)
+            foreach (var audioChannel in _script.AudioChannels)
             {
                 if (audioChannel.Notes == null) continue;
                 foreach (var note in audioChannel.Notes)
                 {
-                    Judge noteJudgement = InputHandler.JudgeNote(note, currentPulse, judgeOffsetTable);
+                    Judge noteJudgement = InputHandler.JudgeNote(note, _currentPulse);
                     DisplayNoteJudgement(note, noteJudgement);
                 }
             }

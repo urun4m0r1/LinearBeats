@@ -39,6 +39,15 @@ namespace LinearBeats.Input
         private static readonly InputListener s_releasedListener = new InputListener(new ReleasedReceiver());
         private static readonly InputListener s_holdingListener = new InputListener(new HoldingReceiver());
 
+        private static readonly Dictionary<Judge, ulong> judgeOffsetTable = new Dictionary<Judge, ulong>
+        {
+            [Judge.Perfect] = 40,
+            [Judge.Great] = 60,
+            [Judge.Good] = 100,
+            [Judge.Miss] = 130,
+            [Judge.Null] = 0,
+        };
+
         private void Start()
         {
             InputListener.BindingProvider = CurrentKeyboard;
@@ -72,7 +81,7 @@ namespace LinearBeats.Input
             }
         }
 
-        public static Judge JudgeNote(Note note, ulong currentPulse, Dictionary<Judge, ulong> judgeOffsetTable)
+        public static Judge JudgeNote(Note note, ulong currentPulse)
         {
             bool isNotePressed = s_pressedListener.GetNoteInvoked(note).Exist;
             if (isNotePressed)

@@ -47,6 +47,7 @@ namespace LinearBeats.Script
     public struct Divider
     {
         public ulong Pulse;
+        public ulong PulseInterval;
         public byte DividerType;
     }
 

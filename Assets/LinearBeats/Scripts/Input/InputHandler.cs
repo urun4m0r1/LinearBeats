@@ -109,7 +109,8 @@ namespace LinearBeats.Input
 
             static bool WithinNoteJudgeTiming(Note note, ulong currentPulse, ulong offset)
             {
-                return note.Pulse <= currentPulse + offset && currentPulse <= note.Pulse + offset;
+                var diff = currentPulse - note.Pulse;
+                return Mathf.Abs(diff) <= offset;
             }
         }
     }

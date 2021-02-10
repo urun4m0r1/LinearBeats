@@ -17,26 +17,26 @@ namespace LinearBeats.Script
 
     public sealed class ScriptLoader : SerializedMonoBehaviour
     {
-        public float meterPerPulse = 0.01f;
         public Transform rail = null;
         public Transform notesHolder = null;
         public GameObject shortNotePrefab = null;
         public Transform dividerHolder = null;
         public GameObject dividerPrefab = null;
+        public float meterPerPulse = 0.01f;
+
         public AudioListener audioListener = null;
         public VideoPlayer videoPlayer = null;
 
         private readonly string _resourcesPath = "Songs/Tutorial/";
-        private LinearBeatsScript _script;
+        public LinearBeatsScript Script { get; private set; }
+        public TimingController _timingController = null;
 
-        private TimingController _timingController = null;
-
-        private readonly List<AudioSource> _audioSources = new List<AudioSource>();
         public AudioMixerGroup[] audioMixerGroups = null;
 
 
-        private readonly Queue<RailBehaviour> _dividerBehaviours = new Queue<RailBehaviour>();
-        private readonly Queue<NoteBehaviour> _noteBehaviours = new Queue<NoteBehaviour>();
+        public Queue<RailBehaviour> DividerBehaviours { get; private set; } = new Queue<RailBehaviour>();
+        public Queue<NoteBehaviour> NoteBehaviours { get; private set; } = new Queue<NoteBehaviour>();
+        public List<AudioSource> AudioSources { get; private set; } = new List<AudioSource>();
 
         private void OnEnable()
         {
@@ -47,15 +47,18 @@ namespace LinearBeats.Script
 
         private void Start()
         {
-            _script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
+            Script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
             InstantiateGameObjects();
 
-            int[] audioFrequencies = new int[_audioSources.Count];
-            for (var i = 0; i < _audioSources.Count; ++i)
+            int[] audioFrequencies = new int[AudioSources.Count];
+            for (var i = 0; i < AudioSources.Count; ++i)
             {
-                audioFrequencies[i] = _audioSources[i].clip.frequency;
+                audioFrequencies[i] = AudioSources[i].clip.frequency;
             }
-            _timingController = new TimingController(_script.Timings, audioFrequencies, _script.Metadata.PulsesPerQuarterNote);
+            _timingController.InitiateTimingData(
+                Script.Timings,
+                audioFrequencies,
+                Script.Metadata.PulsesPerQuarterNote);
         }
 
         private static LinearBeatsScript ParseScriptFromResourcesPath(string path)
@@ -67,7 +70,7 @@ namespace LinearBeats.Script
         private void InstantiateGameObjects()
         {
             //TODO: Object Pooling
-            foreach (var audioChannel in _script.AudioChannels)
+            foreach (var audioChannel in Script.AudioChannels)
             {
                 InstantiateAudioSource(audioChannel);
                 InstantiateNotes(audioChannel);
@@ -80,7 +83,7 @@ namespace LinearBeats.Script
         {
             GameObject audioGameObject = CreateAudioGameObject(audioChannel.FileName);
             AudioSource audioSource = AddAudioChannelToGameObject(audioGameObject, audioChannel);
-            _audioSources.Add(audioSource);
+            AudioSources.Add(audioSource);
 
             GameObject CreateAudioGameObject(string name)
             {
@@ -105,7 +108,7 @@ namespace LinearBeats.Script
             {
                 foreach (var note in audioChannel.Notes)
                 {
-                    GameObject noteObject = Instantiate(
+                    GameObject noteObject = GameObject.Instantiate(
                         shortNotePrefab,
                         GetNotePosition(note),
                         Quaternion.identity,
@@ -115,7 +118,7 @@ namespace LinearBeats.Script
                     NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
                     noteBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(note.Pulse);
                     noteBehaviour.Pulse = note.Pulse;
-                    _noteBehaviours.Enqueue(noteBehaviour);
+                    NoteBehaviours.Enqueue(noteBehaviour);
                 }
             }
 
@@ -163,11 +166,11 @@ namespace LinearBeats.Script
         private float GetPositionMultiplyerOnPulse(ulong pulse)
         {
             float positionMultiplyer = 0f;
-            foreach (var timing in _script.Timings)
+            foreach (var timing in Script.Timings)
             {
                 if (timing.Pulse <= pulse)
                 {
-                    positionMultiplyer = timing.Bpm / _script.Timings[0].Bpm;
+                    positionMultiplyer = timing.Bpm / Script.Timings[0].Bpm;
                 }
             }
             return positionMultiplyer;
@@ -175,9 +178,9 @@ namespace LinearBeats.Script
 
         private void InstantiateDividers()
         {
-            foreach (var divider in _script.Dividers)
+            foreach (var divider in Script.Dividers)
             {
-                GameObject dividerObject = Instantiate(
+                GameObject dividerObject = GameObject.Instantiate(
                     dividerPrefab,
                     GetDividerPosition(divider),
                     Quaternion.identity,
@@ -185,43 +188,12 @@ namespace LinearBeats.Script
                 RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
                 dividerBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(divider.Pulse);
-                _dividerBehaviours.Enqueue(dividerBehaviour);
+                DividerBehaviours.Enqueue(dividerBehaviour);
             }
 
             Vector3 GetDividerPosition(Divider divider)
             {
                 return new Vector3(0f, 0f, divider.Pulse * meterPerPulse);
-            }
-        }
-
-
-        [DisableInEditorMode]
-        [Button("PlayAllAudioSource")]
-        public void PlayAllAudioSource()
-        {
-            _timingController.ResetTiming();
-
-            foreach (var audioSource in _audioSources)
-            {
-                audioSource.Play();
-            }
-        }
-
-        private void Update()
-        {
-            OnUpdate(_timingController, _script.AudioChannels);
-        }
-
-        private void OnUpdate(TimingController timingController, AudioChannel[] audioChannels)
-        {
-            timingController.UpdateCurrentPulse(_audioSources[0].timeSamples);
-            RailScroll.UpdateRailPosition(_noteBehaviours, timingController.CurrentPulse, meterPerPulse);
-            RailScroll.UpdateRailPosition(_dividerBehaviours, timingController.CurrentPulse, meterPerPulse);
-
-            foreach (var audioChannel in audioChannels)
-            {
-                if (audioChannel.Notes == null) continue;
-                NoteJudgement.UpdateNoteJudgement(audioChannel.Notes, timingController.CurrentPulse);
             }
         }
     }

@@ -1,31 +1,38 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LinearBeats.Script
 {
-    public sealed class TimingController
+    public sealed class TimingController : MonoBehaviour
     {
         public ulong CurrentPulse { get; private set; } = 0;
 
-        private readonly Timing[] _timings;
-        private readonly ushort _pulsesPerQuarterNote;
-        private readonly int[] _audioFrequencies = null;
+        private Timing[] _timings;
 
         private float[] _pulsesPerSamples = null;
         private float[] _samplePointOnBpmChanges = null;
 
         private int _timingIndex = 0;
 
-        public TimingController(Timing[] timings, int[] audioFrequencies, ushort pulsesPerQuarterNote)
+        private ScriptLoader _scriptLoader = null;
+
+
+        [DisableInEditorMode]
+        [Button("PlayAllAudioSource")]
+        public void PlayAllAudioSource()
         {
-            _timings = timings;
-            _audioFrequencies = audioFrequencies;
-            _pulsesPerQuarterNote = pulsesPerQuarterNote;
-            CalculateTimingData();
+            ResetTiming();
+
+            foreach (var audioSource in _scriptLoader.AudioSources)
+            {
+                audioSource.Play();
+            }
         }
 
-        private void CalculateTimingData()
+        public void InitiateTimingData(Timing[] timings, int[] audioFrequencies, ushort pulsesPerQuarterNote)
         {
-            Debug.Log("pulsesPerQuarterNote: " + _pulsesPerQuarterNote);
+            _timings = timings;
+            Debug.Log("pulsesPerQuarterNote: " + pulsesPerQuarterNote);
 
             float[] samplesPerPulses = new float[_timings.Length];
             _pulsesPerSamples = new float[_timings.Length];
@@ -35,8 +42,8 @@ namespace LinearBeats.Script
             for (var i = 0; i < _timings.Length; ++i)
             {
                 float timePerQuarterNote = 60f / _timings[i].Bpm;
-                float timePerPulse = timePerQuarterNote / _pulsesPerQuarterNote;
-                samplesPerPulses[i] = _audioFrequencies[i] * timePerPulse;
+                float timePerPulse = timePerQuarterNote / pulsesPerQuarterNote;
+                samplesPerPulses[i] = audioFrequencies[i] * timePerPulse;
                 _pulsesPerSamples[i] = 1 / samplesPerPulses[i];
 
                 if (i != 0)
@@ -54,6 +61,19 @@ namespace LinearBeats.Script
                 Debug.Log("- samplePointOnBpmChanges: " + _samplePointOnBpmChanges[i] + "Hz");
             }
             Debug.Log("initialBpm: " + _timings[0].Bpm);
+        }
+
+        private void Update()
+        {
+            UpdateCurrentPulse(_scriptLoader.AudioSources[0].timeSamples);
+            RailScroll.UpdateRailPosition(_scriptLoader.NoteBehaviours, CurrentPulse, _scriptLoader.meterPerPulse);
+            RailScroll.UpdateRailPosition(_scriptLoader.DividerBehaviours, CurrentPulse, _scriptLoader.meterPerPulse);
+
+            foreach (var audioChannel in _scriptLoader.Script.AudioChannels)
+            {
+                if (audioChannel.Notes == null) continue;
+                NoteJudgement.UpdateNoteJudgement(audioChannel.Notes, CurrentPulse);
+            }
         }
 
         public void UpdateCurrentPulse(int timeSamples)

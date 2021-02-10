@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using LinearBeats.Game;
 using LinearBeats.Input;
 using Sirenix.OdinInspector;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Video;
@@ -13,6 +14,7 @@ using Utils.Unity;
 
 namespace LinearBeats.Script
 {
+
     public sealed class ScriptLoader : SerializedMonoBehaviour
     {
         public float meterPerPulse = 0.01f;
@@ -23,18 +25,17 @@ namespace LinearBeats.Script
         public GameObject dividerPrefab = null;
         public AudioListener audioListener = null;
         public VideoPlayer videoPlayer = null;
-        public AudioMixerGroup[] audioMixerGroups = null;
 
+        private readonly string _resourcesPath = "Songs/Tutorial/";
         private LinearBeatsScript _script;
 
-        private ulong _currentPulse = 0;
-        private int _timingIndex = 0;
-        private float[] _pulsesPerSamples = null;
-        private float[] _samplePointOnBpmChanges = null;
-        private float _audioSampleFreq = 0f;
-        private readonly string _resourcesPath = "Songs/Tutorial/";
+        private TimingController _timingController = null;
+        private int[] _frequencies;
 
         private readonly List<AudioSource> _audioSources = new List<AudioSource>();
+        public AudioMixerGroup[] audioMixerGroups = null;
+
+
         private readonly Queue<RailBehaviour> _dividerBehaviours = new Queue<RailBehaviour>();
         private readonly Queue<NoteBehaviour> _noteBehaviours = new Queue<NoteBehaviour>();
 
@@ -48,9 +49,8 @@ namespace LinearBeats.Script
         private void Start()
         {
             _script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
-
             InstantiateGameObjects();
-            CalculateTimingData();
+            _timingController = new TimingController(_script.Timings, _script.Metadata.PulsesPerQuarterNote, _frequencies);
         }
 
         private static LinearBeatsScript ParseScriptFromResourcesPath(string path)
@@ -67,6 +67,12 @@ namespace LinearBeats.Script
                 InstantiateAudioSource(audioChannel);
                 InstantiateNotes(audioChannel);
             }
+            _frequencies = new int[_audioSources.Count];
+            for (var i = 0; i < _audioSources.Count; ++i)
+            {
+                _frequencies[i] = _audioSources[i].clip.frequency;
+            }
+
             InstantiateDividers();
         }
 
@@ -75,7 +81,6 @@ namespace LinearBeats.Script
             GameObject audioGameObject = CreateAudioGameObject(audioChannel.FileName);
             AudioSource audioSource = AddAudioChannelToGameObject(audioGameObject, audioChannel);
             _audioSources.Add(audioSource);
-            _audioSampleFreq = audioSource.clip.frequency;
 
             GameObject CreateAudioGameObject(string name)
             {
@@ -189,51 +194,12 @@ namespace LinearBeats.Script
             }
         }
 
-        private void CalculateTimingData()
-        {
-            Debug.Log("pulsesPerQuarterNote: " + _script.Metadata.PulsesPerQuarterNote);
-            Debug.Log("meterPerPulse: " + meterPerPulse + "m/pulse");
-
-            float[] samplesPerPulses = new float[_script.Timings.Length];
-            _pulsesPerSamples = new float[_script.Timings.Length];
-            _samplePointOnBpmChanges = new float[_script.Timings.Length];
-            _samplePointOnBpmChanges[0] = 0f;
-
-            for (var i = 0; i < _script.Timings.Length; ++i)
-            {
-                float timePerQuarterNote = 60f / _script.Timings[i].Bpm;
-                float timePerPulse = timePerQuarterNote / _script.Metadata.PulsesPerQuarterNote;
-                samplesPerPulses[i] = _audioSampleFreq * timePerPulse;
-                _pulsesPerSamples[i] = 1 / samplesPerPulses[i];
-
-                if (i != 0)
-                {
-                    ulong timingRangePulseLength = _script.Timings[i].Pulse - _script.Timings[i - 1].Pulse;
-                    float timingRangeSamples = timingRangePulseLength * samplesPerPulses[i - 1];
-                    float elapsedSamplesAfterBpmChanged = _samplePointOnBpmChanges[i - 1];
-                    _samplePointOnBpmChanges[i] = elapsedSamplesAfterBpmChanged + timingRangeSamples;
-                }
-
-                Debug.Log("bpm: " + _script.Timings[i].Bpm);
-                Debug.Log("- timePerQuarterNote: " + (timePerQuarterNote * 1000) + "ms/quarterNote");
-                Debug.Log("- timePerPulse: " + (timePerPulse * 1000) + "ms/pulse");
-                Debug.Log("- samplesPerPulses: " + samplesPerPulses[i] + "Hz/pulse");
-                Debug.Log("- samplePointOnBpmChanges: " + _samplePointOnBpmChanges[i] + "Hz");
-            }
-            DisplayBpm();
-        }
-
-        private void DisplayBpm()
-        {
-            Debug.Log("currentBpm: " + _script.Timings[_timingIndex].Bpm);
-        }
-
 
         [DisableInEditorMode]
         [Button("PlayAllAudioSource")]
         public void PlayAllAudioSource()
         {
-            _timingIndex = 0;
+            _timingController.ResetTiming();
 
             foreach (var audioSource in _audioSources)
             {
@@ -243,78 +209,19 @@ namespace LinearBeats.Script
 
         private void Update()
         {
-            UpdateCurrentPulse();
-            UpdateRailPosition();
-            UpdateNoteJudgement();
+            OnUpdate(_timingController, _script.AudioChannels);
         }
 
-        private void UpdateCurrentPulse()
+        private void OnUpdate(TimingController timingController, AudioChannel[] audioChannels)
         {
-            UpdateTiming();
+            timingController.UpdateCurrentPulse(_audioSources[0].timeSamples);
+            RailScroll.UpdateRailPosition(_noteBehaviours, timingController.CurrentPulse, meterPerPulse);
+            RailScroll.UpdateRailPosition(_dividerBehaviours, timingController.CurrentPulse, meterPerPulse);
 
-            float sampleElapsedAfterBpmChanged = _audioSources[0].timeSamples - _samplePointOnBpmChanges[_timingIndex];
-            ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSamples[_timingIndex] * sampleElapsedAfterBpmChanged);
-            _currentPulse = _script.Timings[_timingIndex].Pulse + pulsesElapsedAfterBpmChanged;
-
-            //Debug.Log($"{_currentPulse}");
-
-            void UpdateTiming()
-            {
-                bool isNextTimingIndexSmallerThanTimingLength = _timingIndex < _script.Timings.Length - 1;
-                if (isNextTimingIndexSmallerThanTimingLength)
-                {
-                    Timing nextTiming = _script.Timings[_timingIndex + 1];
-                    if (_currentPulse >= nextTiming.Pulse)
-                    {
-                        ++_timingIndex;
-                        DisplayBpm();
-                    }
-                }
-            }
-        }
-
-        private void UpdateRailPosition()
-        {
-            UpdateGameObjectsZPosition(_noteBehaviours);
-            UpdateGameObjectsZPosition(_dividerBehaviours);
-
-            void UpdateGameObjectsZPosition<T>(Queue<T> objects) where T : RailBehaviour
-            {
-                foreach (var target in objects)
-                {
-                    //TODO: BPM 정지 구현 ulong a = _script.Timings[0].PulseStopDuration;
-                    //TODO: BPM 역스크롤 구현 ulong a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)
-                    //TODO: position multiplyer 대신에 note절대적인 거리 저장
-                    //TODO: 지금 상태면 currentPulse와의 거리에 비례해서 이동하는 비례식 구조
-                    //TODO: 생성, 스크롤, 판정을 별도 클래스로 분리
-
-                    float positionInMeter = meterPerPulse * (target.Pulse - _currentPulse);
-                    float zPosition = target.PositionMultiplyer * positionInMeter;
-                    target.SetZPosition(zPosition);
-                }
-            }
-        }
-
-        private void UpdateNoteJudgement()
-        {
-            //TODO: NoteJudge dequeuing
-            foreach (var audioChannel in _script.AudioChannels)
+            foreach (var audioChannel in audioChannels)
             {
                 if (audioChannel.Notes == null) continue;
-                foreach (var note in audioChannel.Notes)
-                {
-                    Judge noteJudgement = InputHandler.JudgeNote(note, _currentPulse);
-                    DisplayNoteJudgement(note, noteJudgement, _currentPulse);
-                }
-            }
-
-            static void DisplayNoteJudgement(Note note, Judge noteJudgement, ulong currentPulse)
-            {
-                if (noteJudgement != Judge.Null && noteJudgement != Judge.Miss)
-                {
-                    Debug.Log($"{noteJudgement}Row:{note.PositionRow}, Col:{note.PositionCol} " +
-                    $"/ Note: {note.Pulse}, At: {currentPulse}");
-                }
+                NoteJudgement.UpdateNoteJudgement(audioChannel.Notes, timingController.CurrentPulse);
             }
         }
     }

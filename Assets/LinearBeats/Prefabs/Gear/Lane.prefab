@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 6301178896590566871}
   - component: {fileID: 6301178896590566874}
   - component: {fileID: 6301178896590566873}
-  - component: {fileID: 5996928045822471965}
+  - component: {fileID: 8248877035226477242}
   m_Layer: 6
   m_Name: Lane
   m_TagString: Untagged
@@ -165,7 +165,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5996928045822471965
+--- !u!114 &8248877035226477242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6301178896590566870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b0687dbd2f9e63438da0b89a26cbee9, type: 3}
+  m_Script: {fileID: 11500000, guid: f2ce1c1afb6e20149966e51d0c0a5132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _lanePressedEffects:

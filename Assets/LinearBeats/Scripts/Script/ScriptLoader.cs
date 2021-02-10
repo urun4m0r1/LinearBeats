@@ -30,7 +30,6 @@ namespace LinearBeats.Script
         private LinearBeatsScript _script;
 
         private TimingController _timingController = null;
-        private int[] _frequencies;
 
         private readonly List<AudioSource> _audioSources = new List<AudioSource>();
         public AudioMixerGroup[] audioMixerGroups = null;
@@ -50,7 +49,13 @@ namespace LinearBeats.Script
         {
             _script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
             InstantiateGameObjects();
-            _timingController = new TimingController(_script.Timings, _script.Metadata.PulsesPerQuarterNote, _frequencies);
+
+            int[] audioFrequencies = new int[_audioSources.Count];
+            for (var i = 0; i < _audioSources.Count; ++i)
+            {
+                audioFrequencies[i] = _audioSources[i].clip.frequency;
+            }
+            _timingController = new TimingController(_script.Timings, audioFrequencies, _script.Metadata.PulsesPerQuarterNote);
         }
 
         private static LinearBeatsScript ParseScriptFromResourcesPath(string path)
@@ -66,11 +71,6 @@ namespace LinearBeats.Script
             {
                 InstantiateAudioSource(audioChannel);
                 InstantiateNotes(audioChannel);
-            }
-            _frequencies = new int[_audioSources.Count];
-            for (var i = 0; i < _audioSources.Count; ++i)
-            {
-                _frequencies[i] = _audioSources[i].clip.frequency;
             }
 
             InstantiateDividers();

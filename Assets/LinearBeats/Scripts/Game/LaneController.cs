@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LinearBeats.Game
 {
-    public sealed class Lane : MonoBehaviour
+    public sealed class LaneController : MonoBehaviour
     {
         [Required]
         [ListDrawerSettings(IsReadOnly = true)]

@@ -33,7 +33,7 @@ namespace LinearBeats.Input
         [Required]
         [ListDrawerSettings(IsReadOnly = true)]
         [SerializeField]
-        private Lane[] _lanes = new Lane[Keyboard.Cols];
+        private LaneController[] _laneControllers = new LaneController[Keyboard.Cols];
 
         private static readonly UserInputListener s_pressedListener = new UserInputListener(new PressedReceiver());
         private static readonly UserInputListener s_releasedListener = new UserInputListener(new ReleasedReceiver());
@@ -70,7 +70,8 @@ namespace LinearBeats.Input
                 {
                     for (byte lane = 0; lane < Keyboard.Cols; ++lane)
                     {
-                        _lanes[lane].ToggleLayerEffectWhenHolding(layer, IsHolding(row: layer, col: lane));
+                        bool isHoldingLayer = IsHolding(row: layer, col: lane);
+                        _laneControllers[lane].ToggleLayerEffectWhenHolding(layer, isHoldingLayer);
                     }
                 }
 

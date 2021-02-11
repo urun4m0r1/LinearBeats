@@ -2,9 +2,8 @@
 #pragma warning disable IDE0051
 
 using System.Collections.Generic;
-using LinearBeats.Game;
 
-namespace LinearBeats.Script
+namespace LinearBeats.Visuals
 {
     public static class RailScroll
     {

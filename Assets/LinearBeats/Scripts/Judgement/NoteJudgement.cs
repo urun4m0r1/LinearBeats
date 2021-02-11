@@ -2,9 +2,10 @@
 #pragma warning disable IDE0051
 
 using LinearBeats.Input;
+using LinearBeats.Script;
 using UnityEngine;
 
-namespace LinearBeats.Script
+namespace LinearBeats.Judgement
 {
     public static class NoteJudgement
     {

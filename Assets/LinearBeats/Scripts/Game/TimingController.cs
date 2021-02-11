@@ -1,7 +1,12 @@
+#pragma warning disable IDE0051
+
+using LinearBeats.Judgement;
+using LinearBeats.Script;
+using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Script
+namespace LinearBeats.Game
 {
     public sealed class TimingController : MonoBehaviour
     {

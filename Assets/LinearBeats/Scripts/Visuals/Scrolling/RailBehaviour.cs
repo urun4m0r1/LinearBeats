@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LinearBeats.Game
+namespace LinearBeats.Visuals
 {
     public class RailBehaviour : MonoBehaviour
     {

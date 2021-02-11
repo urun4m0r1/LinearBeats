@@ -2,9 +2,9 @@ using LinearBeats.Input;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Game
+namespace LinearBeats.Visuals
 {
-    public sealed class LaneController : MonoBehaviour
+    public sealed class LaneBeam : MonoBehaviour
     {
         [Required]
         [ListDrawerSettings(IsReadOnly = true)]

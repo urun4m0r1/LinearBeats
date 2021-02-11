@@ -1,7 +1,6 @@
 using LinearBeats.Script;
-using UnityEngine;
 
-namespace LinearBeats.Game
+namespace LinearBeats.Visuals
 {
     public class NoteBehaviour : RailBehaviour
     {

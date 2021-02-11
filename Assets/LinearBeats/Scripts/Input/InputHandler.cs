@@ -2,8 +2,8 @@
 #pragma warning disable IDE0051
 
 using System.Collections.Generic;
-using LinearBeats.Game;
 using LinearBeats.Script;
+using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -33,7 +33,7 @@ namespace LinearBeats.Input
         [Required]
         [ListDrawerSettings(IsReadOnly = true)]
         [SerializeField]
-        private LaneController[] _laneControllers = new LaneController[Keyboard.Cols];
+        private LaneBeam[] _laneBeams = new LaneBeam[Keyboard.Cols];
 
         private static readonly UserInputListener s_pressedListener = new UserInputListener(new PressedReceiver());
         private static readonly UserInputListener s_releasedListener = new UserInputListener(new ReleasedReceiver());
@@ -71,7 +71,7 @@ namespace LinearBeats.Input
                     for (byte lane = 0; lane < Keyboard.Cols; ++lane)
                     {
                         bool isHoldingLayer = IsHolding(row: layer, col: lane);
-                        _laneControllers[lane].ToggleLayerEffectWhenHolding(layer, isHoldingLayer);
+                        _laneBeams[lane].ToggleLayerEffectWhenHolding(layer, isHoldingLayer);
                     }
                 }
 

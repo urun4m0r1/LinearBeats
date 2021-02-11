@@ -1,12 +1,10 @@
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
-using System;
 using System.Collections.Generic;
 using LinearBeats.Game;
-using LinearBeats.Input;
+using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Video;

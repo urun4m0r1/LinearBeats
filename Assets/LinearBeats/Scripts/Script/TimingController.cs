@@ -14,7 +14,7 @@ namespace LinearBeats.Script
 
         private int _timingIndex = 0;
 
-        private ScriptLoader _scriptLoader = null;
+        public ScriptLoader _scriptLoader = null;
 
 
         [DisableInEditorMode]

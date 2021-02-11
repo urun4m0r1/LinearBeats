@@ -367,7 +367,6 @@ Transform:
   m_Children:
   - {fileID: 666495302}
   - {fileID: 1498269936}
-  - {fileID: 1347977295}
   - {fileID: 1686299033}
   - {fileID: 1667118061}
   - {fileID: 1684658113}
@@ -810,6 +809,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8857979eeaaa38c48a709c39c970152f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _notesHolder: {fileID: 256459173}
+  _shortNotePrefab: {fileID: 8285780424189361361, guid: 4f00ad61fd0a19141b322ec749a689cf, type: 3}
+  _dividerHolder: {fileID: 68584481}
+  _dividerPrefab: {fileID: 9158792792082401969, guid: 09d41f66795e0ff47b8d188535a33940, type: 3}
+  _audioListener: {fileID: 1667118062}
+  _meterPerPulse: 0.01
+  _audioMixerGroups:
+  - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+  - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
 --- !u!1 &668481019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,11 +1079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fc9e5990abe1a4194a716656fb3dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1102302400 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1102302400, guid: b9077f43c7ffedb479adb2624038b7e8, type: 3}
-  m_PrefabInstance: {fileID: 2501593888676231724}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1128794022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1128,7 +1140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1235,72 +1247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ce1c1afb6e20149966e51d0c0a5132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1347977294
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1347977295}
-  - component: {fileID: 1347977296}
-  m_Layer: 0
-  m_Name: Script Loader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &1347977295
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347977294}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1847989238}
-  m_Father: {fileID: 286406908}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1347977296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347977294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f5ff2986e0f6b44d9ffd22dbba14884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  rail: {fileID: 1102302400}
-  notesHolder: {fileID: 256459173}
-  shortNotePrefab: {fileID: 8285780424189361361, guid: 4f00ad61fd0a19141b322ec749a689cf, type: 3}
-  dividerHolder: {fileID: 68584481}
-  dividerPrefab: {fileID: 9158792792082401969, guid: 09d41f66795e0ff47b8d188535a33940, type: 3}
-  meterPerPulse: 0.0417
-  audioListener: {fileID: 1667118062}
-  videoPlayer: {fileID: 1686299032}
-  _timingController: {fileID: 1847989239}
-  audioMixerGroups:
-  - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
-  - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
-  - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
 --- !u!1 &1419949168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1631,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 286406908}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1667118062
 AudioListener:
@@ -1764,7 +1710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 286406908}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1736581732 stripped
 MonoBehaviour:
@@ -1865,50 +1811,6 @@ Transform:
   m_Father: {fileID: 1498269936}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1847989237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1847989238}
-  - component: {fileID: 1847989239}
-  m_Layer: 0
-  m_Name: TimingController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1847989238
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1847989237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1347977295}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1847989239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1847989237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76fdbef42c2e4224f9296cebf8f1f093, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptLoader: {fileID: 1347977296}
 --- !u!1 &1864309559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,8 +2718,8 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1847989239}
-        m_TargetAssemblyTypeName: LinearBeats.Script.TimingController, LinearBeats
+      - m_Target: {fileID: 666495303}
+        m_TargetAssemblyTypeName: LinearBeats.Game.GameManager, LinearBeats
         m_MethodName: PlayAllAudioSource
         m_Mode: 1
         m_Arguments:

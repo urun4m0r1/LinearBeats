@@ -1,5 +1,6 @@
 using System.IO;
 using Sirenix.Utilities;
+using UnityEngine;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -26,6 +27,12 @@ namespace LinearBeats.Script
         public ScriptParser(string scriptText)
         {
             ScriptText = scriptText;
+        }
+
+        public static LinearBeatsScript ParseFromResources(string scriptPath)
+        {
+            var scriptAsset = Resources.Load(scriptPath) as TextAsset;
+            return new ScriptParser(scriptAsset.text).Parse();
         }
 
         public LinearBeatsScript Parse()

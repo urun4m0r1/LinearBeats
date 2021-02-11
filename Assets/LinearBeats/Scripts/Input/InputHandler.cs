@@ -21,6 +21,7 @@ namespace LinearBeats.Input
 
     public sealed class InputHandler : SerializedMonoBehaviour
     {
+#pragma warning disable IDE0044
         [PropertyOrder(-1)]
         [Required]
         [OdinSerialize]
@@ -34,19 +35,11 @@ namespace LinearBeats.Input
         [ListDrawerSettings(IsReadOnly = true)]
         [SerializeField]
         private LaneBeam[] _laneBeams = new LaneBeam[Keyboard.Cols];
+#pragma warning restore IDE0044
 
         private static readonly UserInputListener s_pressedListener = new UserInputListener(new PressedReceiver());
-        private static readonly UserInputListener s_releasedListener = new UserInputListener(new ReleasedReceiver());
         private static readonly UserInputListener s_holdingListener = new UserInputListener(new HoldingReceiver());
 
-        private static readonly Dictionary<Judge, ulong> judgeOffsetTable = new Dictionary<Judge, ulong>
-        {
-            [Judge.Perfect] = 30,
-            [Judge.Great] = 60,
-            [Judge.Good] = 100,
-            [Judge.Miss] = 130,
-            [Judge.Null] = 0,
-        };
 
         private void Start()
         {
@@ -82,37 +75,9 @@ namespace LinearBeats.Input
             }
         }
 
-        public static Judge JudgeNote(Note note, ulong currentPulse)
+        public static bool IsNotePressed(Note note)
         {
-            bool isNotePressed = s_pressedListener.GetNoteInvoked(note).Exist;
-            if (isNotePressed)
-            {
-                if (WithinNoteJudgeTiming(note, currentPulse, judgeOffsetTable[Judge.Perfect]))
-                {
-                    return Judge.Perfect;
-                }
-                else if (WithinNoteJudgeTiming(note, currentPulse, judgeOffsetTable[Judge.Great]))
-                {
-                    return Judge.Great;
-                }
-                else if (WithinNoteJudgeTiming(note, currentPulse, judgeOffsetTable[Judge.Good]))
-                {
-                    return Judge.Good;
-                }
-            }
-
-            if (WithinNoteJudgeTiming(note, currentPulse, judgeOffsetTable[Judge.Miss]))
-            {
-                return Judge.Miss;
-            }
-
-            return Judge.Null;
-
-            static bool WithinNoteJudgeTiming(Note note, ulong currentPulse, ulong offset)
-            {
-                var diff = currentPulse - note.Pulse;
-                return Mathf.Abs(diff) <= offset;
-            }
+            return s_pressedListener.GetNoteInvoked(note).Exist;
         }
     }
 }

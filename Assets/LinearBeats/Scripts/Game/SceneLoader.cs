@@ -12,6 +12,8 @@ namespace LinearBeats.Game
 {
     public sealed class SceneLoader : MonoBehaviour
     {
+
+#pragma warning disable IDE0044
         [Range(24, 240)]
         [SerializeField]
         private readonly byte _targetFps = 60;
@@ -31,6 +33,7 @@ namespace LinearBeats.Game
 
         [SerializeField]
         private List<GameObject> _migratingObjects = new List<GameObject>();
+#pragma warning restore IDE0044
 
         private void Awake()
         {

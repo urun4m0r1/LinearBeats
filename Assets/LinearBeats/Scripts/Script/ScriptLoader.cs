@@ -1,92 +1,42 @@
-#pragma warning disable IDE0090
-#pragma warning disable IDE0051
-
+using System;
 using System.Collections.Generic;
-using LinearBeats.Game;
 using LinearBeats.Visuals;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Video;
-using Utils.Unity;
 
 namespace LinearBeats.Script
 {
-
-    public sealed class ScriptLoader : SerializedMonoBehaviour
+    [Serializable]
+    public sealed class ScriptLoader
     {
-        public Transform rail = null;
-        public Transform notesHolder = null;
-        public GameObject shortNotePrefab = null;
-        public Transform dividerHolder = null;
-        public GameObject dividerPrefab = null;
-        public float meterPerPulse = 0.01f;
-
-        public AudioListener audioListener = null;
-        public VideoPlayer videoPlayer = null;
-
-        private readonly string _resourcesPath = "Songs/Tutorial/";
         public LinearBeatsScript Script { get; private set; }
-        public TimingController _timingController = null;
 
-        public AudioMixerGroup[] audioMixerGroups = null;
+        private readonly string _resourcesPath;
 
-
-        public Queue<RailBehaviour> DividerBehaviours { get; private set; } = new Queue<RailBehaviour>();
-        public Queue<NoteBehaviour> NoteBehaviours { get; private set; } = new Queue<NoteBehaviour>();
-        public List<AudioSource> AudioSources { get; private set; } = new List<AudioSource>();
-
-        private void OnEnable()
+        public ScriptLoader(string resourcesPath)
         {
-            var componentInitializer = new ComponentInitializer(gameObject);
-            componentInitializer.TryInitComponent(ref videoPlayer);
-            componentInitializer.TryInitComponent(ref audioListener);
+            _resourcesPath = resourcesPath;
         }
 
-        private void Start()
+        public void LoadScript(string scriptPath)
         {
-            Script = ParseScriptFromResourcesPath("Songs/Tutorial/Tutorial");
-            InstantiateGameObjects();
+            Script = ScriptParser.ParseFromResources(_resourcesPath + scriptPath);
+        }
 
-            int[] audioFrequencies = new int[AudioSources.Count];
-            for (var i = 0; i < AudioSources.Count; ++i)
+        public AudioSource[] InstantiateAudioSource(AudioMixerGroup[] audioMixerGroups, Transform audioHolder)
+        {
+            var audioSources = new AudioSource[Script.AudioChannels.Length];
+            for (var i = 0; i < audioSources.Length; ++i)
             {
-                audioFrequencies[i] = AudioSources[i].clip.frequency;
+                GameObject audioGameObject = CreateAudioGameObject(Script.AudioChannels[i].FileName);
+                audioSources[i] = AddAudioChannelToGameObject(audioGameObject, Script.AudioChannels[i]);
             }
-            _timingController.InitiateTimingData(
-                Script.Timings,
-                audioFrequencies,
-                Script.Metadata.PulsesPerQuarterNote);
-        }
-
-        private static LinearBeatsScript ParseScriptFromResourcesPath(string path)
-        {
-            var scriptAsset = Resources.Load(path) as TextAsset;
-            return new ScriptParser(scriptAsset.text).Parse();
-        }
-
-        private void InstantiateGameObjects()
-        {
-            //TODO: Object Pooling
-            foreach (var audioChannel in Script.AudioChannels)
-            {
-                InstantiateAudioSource(audioChannel);
-                InstantiateNotes(audioChannel);
-            }
-
-            InstantiateDividers();
-        }
-
-        private void InstantiateAudioSource(AudioChannel audioChannel)
-        {
-            GameObject audioGameObject = CreateAudioGameObject(audioChannel.FileName);
-            AudioSource audioSource = AddAudioChannelToGameObject(audioGameObject, audioChannel);
-            AudioSources.Add(audioSource);
+            return audioSources;
 
             GameObject CreateAudioGameObject(string name)
             {
                 var audioObject = new GameObject(name);
-                audioObject.transform.parent = audioListener.transform;
+                audioObject.transform.parent = audioHolder;
                 return audioObject;
             }
 
@@ -100,29 +50,34 @@ namespace LinearBeats.Script
             }
         }
 
-        private void InstantiateNotes(AudioChannel audioChannel)
+        public Queue<NoteBehaviour> InstantiateNotes(GameObject shortNotePrefab, Transform notesHolder)
         {
-            if (audioChannel.Notes != null)
+            var noteBehaviours = new Queue<NoteBehaviour>();
+            foreach (var audioChannel in Script.AudioChannels)
             {
-                foreach (var note in audioChannel.Notes)
+                if (audioChannel.Notes != null)
                 {
-                    GameObject noteObject = GameObject.Instantiate(
-                        shortNotePrefab,
-                        GetNotePosition(note),
-                        Quaternion.identity,
-                        notesHolder);
-                    noteObject.transform.localScale = GetNoteSize(note);
+                    foreach (var note in audioChannel.Notes)
+                    {
+                        GameObject noteObject = GameObject.Instantiate(
+                            shortNotePrefab,
+                            GetNotePosition(note),
+                            Quaternion.identity,
+                            notesHolder);
+                        noteObject.transform.localScale = GetNoteSize(note);
 
-                    NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
-                    noteBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(note.Pulse);
-                    noteBehaviour.Pulse = note.Pulse;
-                    NoteBehaviours.Enqueue(noteBehaviour);
+                        NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
+                        noteBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(note.Pulse);
+                        noteBehaviour.Pulse = note.Pulse;
+                        noteBehaviours.Enqueue(noteBehaviour);
+                    }
                 }
             }
+            return noteBehaviours;
 
             Vector3 GetNotePosition(Note note)
             {
-                return new Vector3(GetNoteCol(), GetNoteRow(), GetNotePos());
+                return new Vector3(GetNoteCol(), GetNoteRow(), 0f);
 
                 float GetNoteCol()
                 {
@@ -133,16 +88,11 @@ namespace LinearBeats.Script
                 {
                     return note.PositionRow;
                 }
-
-                float GetNotePos()
-                {
-                    return note.Pulse * meterPerPulse;
-                }
             }
 
             Vector3 GetNoteSize(Note note)
             {
-                return new Vector3(GetNoteWidth(), GetNoteHeight(), GetNoteLength());
+                return new Vector3(GetNoteWidth(), GetNoteHeight(), 0f);
 
                 float GetNoteWidth()
                 {
@@ -153,12 +103,25 @@ namespace LinearBeats.Script
                 {
                     return note.SizeRow == 1 ? 0.1f : note.SizeRow;
                 }
-
-                float GetNoteLength()
-                {
-                    return note.PulseDuration == 0 ? 0.1f : note.PulseDuration * meterPerPulse;
-                }
             }
+        }
+
+        public Queue<RailBehaviour> InstantiateDividers(GameObject dividerPrefab, Transform dividerHolder)
+        {
+            var dividerBehaviours = new Queue<RailBehaviour>();
+            foreach (var divider in Script.Dividers)
+            {
+                GameObject dividerObject = GameObject.Instantiate(
+                    dividerPrefab,
+                    new Vector3(0f, 0f, 0f),
+                    Quaternion.identity,
+                    dividerHolder);
+                RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
+                dividerBehaviour.Pulse = divider.Pulse;
+                dividerBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(divider.Pulse);
+                dividerBehaviours.Enqueue(dividerBehaviour);
+            }
+            return dividerBehaviours;
         }
 
         private float GetPositionMultiplyerOnPulse(ulong pulse)
@@ -172,27 +135,6 @@ namespace LinearBeats.Script
                 }
             }
             return positionMultiplyer;
-        }
-
-        private void InstantiateDividers()
-        {
-            foreach (var divider in Script.Dividers)
-            {
-                GameObject dividerObject = GameObject.Instantiate(
-                    dividerPrefab,
-                    GetDividerPosition(divider),
-                    Quaternion.identity,
-                    dividerHolder);
-                RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
-                dividerBehaviour.Pulse = divider.Pulse;
-                dividerBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(divider.Pulse);
-                DividerBehaviours.Enqueue(dividerBehaviour);
-            }
-
-            Vector3 GetDividerPosition(Divider divider)
-            {
-                return new Vector3(0f, 0f, divider.Pulse * meterPerPulse);
-            }
         }
     }
 }

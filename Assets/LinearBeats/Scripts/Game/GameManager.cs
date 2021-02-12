@@ -32,27 +32,51 @@ namespace LinearBeats.Game
 
         private ScriptLoader _scriptLoader = null;
         private TimingController _timingController = null;
-        private LinearBeatsScript _script;
+        private RailScroll _railScroll = null;
         private Queue<RailBehaviour> _dividerBehaviours = null;
-        private Queue<NoteBehaviour> _noteBehaviours = null;
+        private Queue<RailBehaviour> _noteBehaviours = null;
         private AudioSource[] _audioSources = null;
 
         void Start()
         {
+            InitScriptLoader();
+            InitAudioSources();
+            InitTimingController();
+            InitRailScroll();
+        }
+
+        private void InitScriptLoader()
+        {
             _scriptLoader = new ScriptLoader("Songs/Tutorial/");
             _scriptLoader.LoadScript("Tutorial");
+        }
 
+        private void InitAudioSources()
+        {
             _audioSources = _scriptLoader.InstantiateAudioSource(_audioMixerGroups, _audioListener.transform);
+        }
+
+        private void InitTimingController()
+        {
+            _timingController = new TimingController(
+                _scriptLoader.Script.Timings,
+                AudioUtils.AudioFrequencies(_audioSources),
+                _scriptLoader.Script.Metadata.PulsesPerQuarterNote);
+        }
+
+        private void InitRailScroll()
+        {
             _noteBehaviours = _scriptLoader.InstantiateNotes(_shortNotePrefab, _notesHolder);
             _dividerBehaviours = _scriptLoader.InstantiateDividers(_dividerPrefab, _dividerHolder);
 
-            _script = _scriptLoader.Script;
-            _timingController = new TimingController(
-                _script.Timings,
-                AudioUtils.AudioFrequencies(_audioSources),
-                _script.Metadata.PulsesPerQuarterNote);
-        }
+            var railBehaviours = new Queue<RailBehaviour>[]
+            {
+                _dividerBehaviours,
+                _noteBehaviours
+            };
 
+            _railScroll = new RailScroll(_meterPerPulse, railBehaviours);
+        }
 
         [DisableInEditorMode]
         [Button("PlayAllAudioSource")]
@@ -68,9 +92,8 @@ namespace LinearBeats.Game
 
         void Update()
         {
-            _timingController.UpdateCurrentPulse(_audioSources[0].timeSamples);
-            RailScroll.UpdateRailPosition(_noteBehaviours, _timingController.CurrentPulse, _meterPerPulse);
-            RailScroll.UpdateRailPosition(_dividerBehaviours, _timingController.CurrentPulse, _meterPerPulse);
+            _timingController.UpdateTiming(_audioSources[0].timeSamples);
+            _railScroll.UpdateRailPosition(_timingController.CurrentPulse);
 
             foreach (var audioChannel in _scriptLoader.Script.AudioChannels)
             {

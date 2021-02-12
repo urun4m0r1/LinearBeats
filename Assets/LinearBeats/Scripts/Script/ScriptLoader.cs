@@ -50,9 +50,9 @@ namespace LinearBeats.Script
             }
         }
 
-        public Queue<NoteBehaviour> InstantiateNotes(GameObject shortNotePrefab, Transform notesHolder)
+        public Queue<RailBehaviour> InstantiateNotes(GameObject shortNotePrefab, Transform notesHolder)
         {
-            var noteBehaviours = new Queue<NoteBehaviour>();
+            var noteBehaviours = new Queue<RailBehaviour>();
             foreach (var audioChannel in Script.AudioChannels)
             {
                 if (audioChannel.Notes != null)
@@ -66,7 +66,7 @@ namespace LinearBeats.Script
                             notesHolder);
                         noteObject.transform.localScale = GetNoteSize(note);
 
-                        NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
+                        RailBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
                         noteBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(note.Pulse);
                         noteBehaviour.Pulse = note.Pulse;
                         noteBehaviours.Enqueue(noteBehaviour);

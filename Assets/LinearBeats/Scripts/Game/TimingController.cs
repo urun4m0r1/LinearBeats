@@ -2,6 +2,7 @@
 
 using LinearBeats.Script;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace LinearBeats.Game
 {
@@ -15,7 +16,7 @@ namespace LinearBeats.Game
 
         private float[] _pulsesPerSamples = null;
         private float[] _samplePointOnBpmChanges = null;
-        private int _timingIndex = 0;
+        private uint _timingIndex = 0;
 
         public TimingController(Timing[] timings, int[] audioFrequencies, ushort pulsesPerQuarterNote)
         {
@@ -27,7 +28,6 @@ namespace LinearBeats.Game
 
         private void InitiateTimingData()
         {
-            Debug.Log("pulsesPerQuarterNote: " + _pulsesPerQuarterNote);
 
             float[] samplesPerPulses = new float[_timings.Length];
             _pulsesPerSamples = new float[_timings.Length];
@@ -48,34 +48,50 @@ namespace LinearBeats.Game
                     float elapsedSamplesAfterBpmChanged = _samplePointOnBpmChanges[i - 1];
                     _samplePointOnBpmChanges[i] = elapsedSamplesAfterBpmChanged + timingRangeSamples;
                 }
+            }
 
+            PrintDebug();
+        }
+
+        private void PrintDebug()
+        {
+            Debug.Log("pulsesPerQuarterNote: " + _pulsesPerQuarterNote);
+            for (var i = 0; i < _timings.Length; ++i)
+            {
                 Debug.Log("bpm: " + _timings[i].Bpm);
-                Debug.Log("- timePerQuarterNote: " + (timePerQuarterNote * 1000) + "ms/quarterNote");
-                Debug.Log("- timePerPulse: " + (timePerPulse * 1000) + "ms/pulse");
-                Debug.Log("- samplesPerPulses: " + samplesPerPulses[i] + "Hz/pulse");
+                Debug.Log("- pulsesPerSamples: " + _pulsesPerSamples[i] + "pulse/Hz");
                 Debug.Log("- samplePointOnBpmChanges: " + _samplePointOnBpmChanges[i] + "Hz");
             }
             Debug.Log("initialBpm: " + _timings[0].Bpm);
         }
 
-        public void UpdateCurrentPulse(int timeSamples)
+        public void UpdateTiming(int currentSamples)
         {
+            UpdateCurrentPulse(currentSamples);
             UpdateTimingIndex();
+        }
 
-            float sampleElapsedAfterBpmChanged = timeSamples - _samplePointOnBpmChanges[_timingIndex];
+        private void UpdateCurrentPulse(int currentSamples)
+        {
+            float sampleElapsedAfterBpmChanged = currentSamples - _samplePointOnBpmChanges[_timingIndex];
             ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSamples[_timingIndex] * sampleElapsedAfterBpmChanged);
-            CurrentPulse = _timings[_timingIndex].Pulse + pulsesElapsedAfterBpmChanged;
-            //Debug.Log($"{_currentPulse}");
+            Assert.IsTrue(sampleElapsedAfterBpmChanged >= 0);
+            Assert.IsTrue(_pulsesPerSamples[_timingIndex] >= 0);
 
-            void UpdateTimingIndex()
+            CurrentPulse = checked(_timings[_timingIndex].Pulse + pulsesElapsedAfterBpmChanged);
+        }
+
+        private void UpdateTimingIndex()
+        {
+            uint nextTimingIndex = checked(_timingIndex + 1);
+            bool canIncreaseTimingIndex = nextTimingIndex < _timings.Length;
+            if (canIncreaseTimingIndex)
             {
-                if (_timingIndex + 1 < _timings.Length)
+                bool shouldIncreaseTimingIndex = CurrentPulse >= _timings[nextTimingIndex].Pulse;
+                if (shouldIncreaseTimingIndex)
                 {
-                    if (CurrentPulse >= _timings[_timingIndex + 1].Pulse)
-                    {
-                        ++_timingIndex;
-                        Debug.Log("currentBpm: " + _timings[_timingIndex].Bpm);
-                    }
+                    _timingIndex = nextTimingIndex;
+                    OnTimingIndexUpdate();
                 }
             }
         }
@@ -83,6 +99,12 @@ namespace LinearBeats.Game
         public void ResetTiming()
         {
             _timingIndex = 0;
+            OnTimingIndexUpdate();
+        }
+
+        private void OnTimingIndexUpdate()
+        {
+            Debug.Log($"currentBpm: {_timings[_timingIndex].Bpm}");
         }
     }
 }

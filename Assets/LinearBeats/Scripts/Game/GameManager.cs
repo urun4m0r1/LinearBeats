@@ -25,7 +25,7 @@ namespace LinearBeats.Game
 
         private TimingController _timingController = null;
         private Queue<RailBehaviour> _dividerBehaviours = null;
-        private Queue<RailBehaviour> _noteBehaviours = null;
+        private Queue<RailBehaviour>[] _noteBehaviours = null;
         private AudioSource[] _audioSources = null;
         private AudioSource _backgroundAudioSource = null;
 
@@ -68,7 +68,10 @@ namespace LinearBeats.Game
             _dividerBehaviours = _scriptLoader.InstantiateDividers();
 
             _railScroll.AddRailBehaviours(_dividerBehaviours);
-            _railScroll.AddRailBehaviours(_noteBehaviours);
+            for (int i = 0; i < _audioSources.Length; ++i)
+            {
+                _railScroll.AddRailBehaviours(_noteBehaviours[i]);
+            }
         }
 
         private void ResetGameView()

@@ -68,14 +68,14 @@ namespace LinearBeats.Script
             }
         }
 
-        public Queue<RailBehaviour> InstantiateNotes()
+        public Queue<RailBehaviour>[] InstantiateNotes()
         {
-            var noteBehaviours = new Queue<RailBehaviour>();
-            foreach (var audioChannel in Script.AudioChannels)
+            var notesBehaviours = new Queue<RailBehaviour>[Script.AudioChannels.Length];
+            for (int i = 0; i < Script.AudioChannels.Length; ++i)
             {
-                if (audioChannel.Notes != null)
+                if (Script.AudioChannels[i].Notes != null)
                 {
-                    foreach (var note in audioChannel.Notes)
+                    foreach (var note in Script.AudioChannels[i].Notes)
                     {
                         GameObject noteObject = GameObject.Instantiate(
                             _shortNotePrefab,
@@ -87,11 +87,11 @@ namespace LinearBeats.Script
                         RailBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
                         noteBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(note.Pulse);
                         noteBehaviour.Pulse = note.Pulse;
-                        noteBehaviours.Enqueue(noteBehaviour);
+                        notesBehaviours[i].Enqueue(noteBehaviour);
                     }
                 }
             }
-            return noteBehaviours;
+            return notesBehaviours;
 
             Vector3 GetNotePosition(Note note)
             {

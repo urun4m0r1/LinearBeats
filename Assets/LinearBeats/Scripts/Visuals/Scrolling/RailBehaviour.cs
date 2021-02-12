@@ -4,8 +4,8 @@ namespace LinearBeats.Visuals
 {
     public class RailBehaviour : MonoBehaviour
     {
-        public float PositionMultiplyer = 0f;
-        public ulong Pulse = 0;
+        public float PositionMultiplyer { get; set; } = 0f;
+        public ulong Pulse { get; set; } = 0;
 
         public void SetZPosition(float zPosition)
         {

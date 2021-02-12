@@ -1,19 +1,27 @@
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace LinearBeats.Visuals
 {
+    [Serializable]
     public sealed class RailScroll
     {
-        private readonly float _meterPerPulse = 0f;
-        private readonly Queue<RailBehaviour>[] _railsBehaviours = null;
+#pragma warning disable IDE0044
+        [Range(0.0001f, 10)]
+        [SerializeField]
+        private float _meterPerPulse = 0.01f;
+#pragma warning restore IDE0044
 
-        public RailScroll(float meterPerPulse, Queue<RailBehaviour>[] railsBehaviours)
+
+        private readonly List<Queue<RailBehaviour>> _railsBehaviours = new List<Queue<RailBehaviour>>();
+
+        public void AddRailBehaviours(Queue<RailBehaviour> railBehaviours)
         {
-            _meterPerPulse = meterPerPulse;
-            _railsBehaviours = railsBehaviours;
+            _railsBehaviours.Add(railBehaviours);
         }
 
         public void UpdateRailPosition(ulong currentPulse)

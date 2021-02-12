@@ -1,23 +1,13 @@
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
-using System.Collections.Generic;
 using LinearBeats.Script;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 
 namespace LinearBeats.Input
 {
-    public enum Judge : byte
-    {
-        Perfect,
-        Great,
-        Good,
-        Miss,
-        Null,
-    }
 
     public sealed class InputHandler : MonoBehaviour
     {

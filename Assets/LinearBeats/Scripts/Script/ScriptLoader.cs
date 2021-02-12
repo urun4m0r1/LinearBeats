@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LinearBeats.Visuals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -9,21 +10,38 @@ namespace LinearBeats.Script
     [Serializable]
     public sealed class ScriptLoader
     {
+#pragma warning disable IDE0044
+        [Required]
+        [SerializeField]
+        private Transform _notesHolder = null;
+        [Required]
+        [SerializeField]
+        private GameObject _shortNotePrefab = null;
+        [Required]
+        [SerializeField]
+        private Transform _dividerHolder = null;
+        [Required]
+        [SerializeField]
+        private GameObject _dividerPrefab = null;
+        [Required]
+        [SerializeField]
+        private AudioListener _audioListener = null;
+        [Required]
+        [SerializeField]
+        private AudioMixerGroup[] _audioMixerGroups = null;
+#pragma warning restore IDE0044
+
         public LinearBeatsScript Script { get; private set; }
 
-        private readonly string _resourcesPath;
+        private string _resourcesPath;
 
-        public ScriptLoader(string resourcesPath)
+        public void LoadScript(string resourcesPath, string scriptName)
         {
             _resourcesPath = resourcesPath;
+            Script = ScriptParser.ParseFromResources(_resourcesPath + scriptName);
         }
 
-        public void LoadScript(string scriptPath)
-        {
-            Script = ScriptParser.ParseFromResources(_resourcesPath + scriptPath);
-        }
-
-        public AudioSource[] InstantiateAudioSource(AudioMixerGroup[] audioMixerGroups, Transform audioHolder)
+        public AudioSource[] InstantiateAudioSource()
         {
             var audioSources = new AudioSource[Script.AudioChannels.Length];
             for (var i = 0; i < audioSources.Length; ++i)
@@ -36,7 +54,7 @@ namespace LinearBeats.Script
             GameObject CreateAudioGameObject(string name)
             {
                 var audioObject = new GameObject(name);
-                audioObject.transform.parent = audioHolder;
+                audioObject.transform.parent = _audioListener.transform;
                 return audioObject;
             }
 
@@ -45,12 +63,12 @@ namespace LinearBeats.Script
                 AudioSource audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
                 audioSource.playOnAwake = false;
-                audioSource.outputAudioMixerGroup = audioMixerGroups[audioChannel.Layer];
+                audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer];
                 return audioSource;
             }
         }
 
-        public Queue<RailBehaviour> InstantiateNotes(GameObject shortNotePrefab, Transform notesHolder)
+        public Queue<RailBehaviour> InstantiateNotes()
         {
             var noteBehaviours = new Queue<RailBehaviour>();
             foreach (var audioChannel in Script.AudioChannels)
@@ -60,10 +78,10 @@ namespace LinearBeats.Script
                     foreach (var note in audioChannel.Notes)
                     {
                         GameObject noteObject = GameObject.Instantiate(
-                            shortNotePrefab,
+                            _shortNotePrefab,
                             GetNotePosition(note),
                             Quaternion.identity,
-                            notesHolder);
+                            _notesHolder);
                         noteObject.transform.localScale = GetNoteSize(note);
 
                         RailBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
@@ -106,16 +124,16 @@ namespace LinearBeats.Script
             }
         }
 
-        public Queue<RailBehaviour> InstantiateDividers(GameObject dividerPrefab, Transform dividerHolder)
+        public Queue<RailBehaviour> InstantiateDividers()
         {
             var dividerBehaviours = new Queue<RailBehaviour>();
             foreach (var divider in Script.Dividers)
             {
                 GameObject dividerObject = GameObject.Instantiate(
-                    dividerPrefab,
+                    _dividerPrefab,
                     new Vector3(0f, 0f, 0f),
                     Quaternion.identity,
-                    dividerHolder);
+                    _dividerHolder);
                 RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
                 dividerBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(divider.Pulse);

@@ -5,34 +5,25 @@ using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Audio;
 using Utils.Unity;
 
 namespace LinearBeats.Game
 {
-    public sealed class GameManager : MonoBehaviour
+    public sealed class GameManager : SerializedMonoBehaviour
     {
 #pragma warning disable IDE0044
         [SerializeField]
-        private Transform _notesHolder = null;
+        private ScriptLoader _scriptLoader = null;
         [SerializeField]
-        private GameObject _shortNotePrefab = null;
-        [SerializeField]
-        private Transform _dividerHolder = null;
-        [SerializeField]
-        private GameObject _dividerPrefab = null;
-        [SerializeField]
-        private AudioListener _audioListener = null;
-        [SerializeField]
-        private float _meterPerPulse = 0.01f;
-        [SerializeField]
-        private AudioMixerGroup[] _audioMixerGroups = null;
+        private RailScroll _railScroll = null;
+        [OdinSerialize]
+        private NoteJudgement _noteJudgement = null;
 #pragma warning restore IDE0044
 
-        private ScriptLoader _scriptLoader = null;
         private TimingController _timingController = null;
-        private RailScroll _railScroll = null;
         private Queue<RailBehaviour> _dividerBehaviours = null;
         private Queue<RailBehaviour> _noteBehaviours = null;
         private AudioSource[] _audioSources = null;
@@ -48,13 +39,12 @@ namespace LinearBeats.Game
 
         private void InitScriptLoader()
         {
-            _scriptLoader = new ScriptLoader("Songs/Tutorial/");
-            _scriptLoader.LoadScript("Tutorial");
+            _scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
         }
 
         private void InitAudioSources()
         {
-            _audioSources = _scriptLoader.InstantiateAudioSource(_audioMixerGroups, _audioListener.transform);
+            _audioSources = _scriptLoader.InstantiateAudioSource();
             _backgroundAudioSource = _audioSources[0];
         }
 
@@ -74,16 +64,11 @@ namespace LinearBeats.Game
 
         private void InitRailScroll()
         {
-            _noteBehaviours = _scriptLoader.InstantiateNotes(_shortNotePrefab, _notesHolder);
-            _dividerBehaviours = _scriptLoader.InstantiateDividers(_dividerPrefab, _dividerHolder);
+            _noteBehaviours = _scriptLoader.InstantiateNotes();
+            _dividerBehaviours = _scriptLoader.InstantiateDividers();
 
-            var railBehaviours = new Queue<RailBehaviour>[]
-            {
-                _dividerBehaviours,
-                _noteBehaviours
-            };
-
-            _railScroll = new RailScroll(_meterPerPulse, railBehaviours);
+            _railScroll.AddRailBehaviours(_dividerBehaviours);
+            _railScroll.AddRailBehaviours(_noteBehaviours);
         }
 
         private void ResetGameView()
@@ -129,7 +114,13 @@ namespace LinearBeats.Game
             {
                 if (audioChannel.Notes != null)
                 {
-                    NoteJudgement.UpdateNoteJudgement(audioChannel.Notes, _timingController.CurrentPulse);
+                    foreach (var note in audioChannel.Notes)
+                    {
+                        if (_noteJudgement.ShouldJudgeNote(note, _timingController.CurrentPulse))
+                        {
+                            _noteJudgement.JudgeNote(note, _timingController.CurrentPulse);
+                        }
+                    }
                 }
             }
         }

@@ -8,8 +8,6 @@ namespace LinearBeats.Script
 {
     public sealed class ScriptParser
     {
-        private string _scriptText = null;
-
         public string ScriptText
         {
             private get => _scriptText;
@@ -23,6 +21,7 @@ namespace LinearBeats.Script
                 _scriptText = value;
             }
         }
+        private string _scriptText = null;
 
         public ScriptParser(string scriptText)
         {

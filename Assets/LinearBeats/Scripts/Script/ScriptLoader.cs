@@ -84,9 +84,9 @@ namespace LinearBeats.Script
                             _notesHolder);
                         noteObject.transform.localScale = GetNoteSize(note);
 
-                        RailBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
-                        noteBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(note.Pulse);
+                        NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
                         noteBehaviour.Pulse = note.Pulse;
+                        noteBehaviour.Note = note;
                         notesBehaviours[i].Enqueue(noteBehaviour);
                     }
                 }
@@ -99,18 +99,18 @@ namespace LinearBeats.Script
 
                 float GetNoteCol()
                 {
-                    return note.PositionCol - 6f;
+                    return note.PositionCol - 5.5f;
                 }
 
                 float GetNoteRow()
                 {
-                    return note.PositionRow;
+                    return note.PositionRow * 2f;
                 }
             }
 
             Vector3 GetNoteSize(Note note)
             {
-                return new Vector3(GetNoteWidth(), GetNoteHeight(), 0.1f);
+                return new Vector3(GetNoteWidth(), GetNoteHeight(), 1f);
 
                 float GetNoteWidth()
                 {
@@ -119,7 +119,7 @@ namespace LinearBeats.Script
 
                 float GetNoteHeight()
                 {
-                    return note.SizeRow == 1 ? 0.1f : note.SizeRow;
+                    return note.SizeRow * 20;
                 }
             }
         }
@@ -131,28 +131,14 @@ namespace LinearBeats.Script
             {
                 GameObject dividerObject = GameObject.Instantiate(
                     _dividerPrefab,
-                    new Vector3(0f, 0f, 0f),
+                    Vector3.zero,
                     Quaternion.identity,
                     _dividerHolder);
                 RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
-                dividerBehaviour.PositionMultiplyer = GetPositionMultiplyerOnPulse(divider.Pulse);
                 dividerBehaviours.Enqueue(dividerBehaviour);
             }
             return dividerBehaviours;
-        }
-
-        private float GetPositionMultiplyerOnPulse(ulong pulse)
-        {
-            float positionMultiplyer = 0f;
-            foreach (var timing in Script.Timings)
-            {
-                if (timing.Pulse <= pulse)
-                {
-                    positionMultiplyer = timing.Bpm / Script.Timings[0].Bpm;
-                }
-            }
-            return positionMultiplyer;
         }
     }
 }

@@ -92,7 +92,7 @@ namespace LinearBeats.Script
 
             Vector3 GetNoteSize(Note note)
             {
-                return new Vector3(GetNoteWidth(), GetNoteHeight(), 0f);
+                return new Vector3(GetNoteWidth(), GetNoteHeight(), 0.1f);
 
                 float GetNoteWidth()
                 {

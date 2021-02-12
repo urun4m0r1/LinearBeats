@@ -809,15 +809,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8857979eeaaa38c48a709c39c970152f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   _notesHolder: {fileID: 256459173}
   _shortNotePrefab: {fileID: 8285780424189361361, guid: 4f00ad61fd0a19141b322ec749a689cf, type: 3}
   _dividerHolder: {fileID: 68584481}
@@ -1079,6 +1070,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fc9e5990abe1a4194a716656fb3dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 96fa8c5ac75998d468686fdba7cf1f55, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CurrentKeyboard
+      Entry: 10
+      Data: 0
 --- !u!1001 &1128794022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1474,19 +1478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be649d6cf8b37c4e8f7e63a2d58bfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 96fa8c5ac75998d468686fdba7cf1f55, type: 2}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: CurrentKeyboard
-      Entry: 10
-      Data: 0
   _laneBeams:
   - {fileID: 620848928}
   - {fileID: 1871763184}
@@ -2392,9 +2383,9 @@ MonoBehaviour:
     OnItemSelection:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1498269937}
-          m_TargetAssemblyTypeName: LinearBeats.Input.InputHandler, LinearBeats
-          m_MethodName: ChangeKeyboard
+        - m_Target: {fileID: 892743778}
+          m_TargetAssemblyTypeName: LinearBeats.Input.InputMapper, LinearBeats
+          m_MethodName: set_CurrentKeyboard
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: a094c84d08fed1d41b59a6058c226dc6, type: 2}
@@ -2409,9 +2400,9 @@ MonoBehaviour:
     OnItemSelection:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1498269937}
-          m_TargetAssemblyTypeName: LinearBeats.Input.InputHandler, LinearBeats
-          m_MethodName: ChangeKeyboard
+        - m_Target: {fileID: 892743778}
+          m_TargetAssemblyTypeName: LinearBeats.Input.InputMapper, LinearBeats
+          m_MethodName: set_CurrentKeyboard
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: f745c02ba3388904ebe32e5b3a90d6b0, type: 2}
@@ -2426,9 +2417,9 @@ MonoBehaviour:
     OnItemSelection:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1498269937}
-          m_TargetAssemblyTypeName: LinearBeats.Input.InputHandler, LinearBeats
-          m_MethodName: ChangeKeyboard
+        - m_Target: {fileID: 892743778}
+          m_TargetAssemblyTypeName: LinearBeats.Input.InputMapper, LinearBeats
+          m_MethodName: set_CurrentKeyboard
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 6c5e2617575d7d84fb8707c4fa10f60e, type: 2}
@@ -2443,9 +2434,9 @@ MonoBehaviour:
     OnItemSelection:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1498269937}
-          m_TargetAssemblyTypeName: LinearBeats.Input.InputHandler, LinearBeats
-          m_MethodName: ChangeKeyboard
+        - m_Target: {fileID: 892743778}
+          m_TargetAssemblyTypeName: LinearBeats.Input.InputMapper, LinearBeats
+          m_MethodName: set_CurrentKeyboard
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 96fa8c5ac75998d468686fdba7cf1f55, type: 2}
@@ -2720,7 +2711,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 666495303}
         m_TargetAssemblyTypeName: LinearBeats.Game.GameManager, LinearBeats
-        m_MethodName: PlayAllAudioSource
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

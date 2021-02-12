@@ -36,13 +36,14 @@ namespace LinearBeats.Game
         private Queue<RailBehaviour> _dividerBehaviours = null;
         private Queue<RailBehaviour> _noteBehaviours = null;
         private AudioSource[] _audioSources = null;
+        private AudioSource _backgroundAudioSource = null;
 
         void Start()
         {
             InitScriptLoader();
             InitAudioSources();
-            InitTimingController();
-            InitRailScroll();
+            InitGameView();
+            ResetGameView();
         }
 
         private void InitScriptLoader()
@@ -54,13 +55,20 @@ namespace LinearBeats.Game
         private void InitAudioSources()
         {
             _audioSources = _scriptLoader.InstantiateAudioSource(_audioMixerGroups, _audioListener.transform);
+            _backgroundAudioSource = _audioSources[0];
+        }
+
+        private void InitGameView()
+        {
+            InitTimingController();
+            InitRailScroll();
         }
 
         private void InitTimingController()
         {
             _timingController = new TimingController(
                 _scriptLoader.Script.Timings,
-                AudioUtils.AudioFrequencies(_audioSources),
+                AudioUtils.GetSamplesPerTimes(_audioSources),
                 _scriptLoader.Script.Metadata.PulsesPerQuarterNote);
         }
 
@@ -78,11 +86,17 @@ namespace LinearBeats.Game
             _railScroll = new RailScroll(_meterPerPulse, railBehaviours);
         }
 
-        [DisableInEditorMode]
-        [Button("PlayAllAudioSource")]
-        public void PlayAllAudioSource()
+        private void ResetGameView()
         {
             _timingController.ResetTiming();
+            _railScroll.UpdateRailPosition(0);
+        }
+
+        [DisableInEditorMode]
+        [Button("StartGame")]
+        public void StartGame()
+        {
+            ResetGameView();
 
             foreach (var audioSource in _audioSources)
             {
@@ -90,15 +104,33 @@ namespace LinearBeats.Game
             }
         }
 
+
         void Update()
         {
-            _timingController.UpdateTiming(_audioSources[0].timeSamples);
+            if (_backgroundAudioSource.isPlaying)
+            {
+                UpdateGameView();
+            }
+            else
+            {
+                if (_timingController.CurrentPulse != 0)
+                {
+                    ResetGameView();
+                }
+            }
+        }
+
+        private void UpdateGameView()
+        {
+            _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
             _railScroll.UpdateRailPosition(_timingController.CurrentPulse);
 
             foreach (var audioChannel in _scriptLoader.Script.AudioChannels)
             {
-                if (audioChannel.Notes == null) continue;
-                NoteJudgement.UpdateNoteJudgement(audioChannel.Notes, _timingController.CurrentPulse);
+                if (audioChannel.Notes != null)
+                {
+                    NoteJudgement.UpdateNoteJudgement(audioChannel.Notes, _timingController.CurrentPulse);
+                }
             }
         }
     }

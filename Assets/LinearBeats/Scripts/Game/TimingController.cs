@@ -3,6 +3,7 @@
 using LinearBeats.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Utils.Extensions;
 
 namespace LinearBeats.Game
 {
@@ -11,73 +12,77 @@ namespace LinearBeats.Game
         public ulong CurrentPulse { get; private set; } = 0;
 
         private readonly Timing[] _timings;
-        private readonly int[] _audioFrequencies;
+        private readonly int[] _samplesPerTime;
         private readonly ushort _pulsesPerQuarterNote;
 
-        private float[] _pulsesPerSamples = null;
-        private float[] _samplePointOnBpmChanges = null;
+        private float[] _pulsesPerSample = null;
+        private float[] _samplePointsOnBpmChange = null;
         private uint _timingIndex = 0;
 
-        public TimingController(Timing[] timings, int[] audioFrequencies, ushort pulsesPerQuarterNote)
+        public TimingController(Timing[] timings, int[] samplesPerTime, ushort pulsesPerQuarterNote)
         {
             _timings = timings;
-            _audioFrequencies = audioFrequencies;
+            _samplesPerTime = samplesPerTime;
             _pulsesPerQuarterNote = pulsesPerQuarterNote;
-            InitiateTimingData();
+
+            InitTimingData();
         }
 
-        private void InitiateTimingData()
+        private void InitTimingData()
         {
+            float[] samplesPerPulse = GetSamplesPerPulse();
+            _pulsesPerSample = samplesPerPulse.Reciprocal();
+            _samplePointsOnBpmChange = GetSamplePointsOnBpmChange(samplesPerPulse);
+        }
 
-            float[] samplesPerPulses = new float[_timings.Length];
-            _pulsesPerSamples = new float[_timings.Length];
-            _samplePointOnBpmChanges = new float[_timings.Length];
-            _samplePointOnBpmChanges[0] = 0f;
-
+        private float[] GetSamplesPerPulse()
+        {
+            var samplesPerPulse = new float[_timings.Length];
             for (var i = 0; i < _timings.Length; ++i)
             {
                 float timePerQuarterNote = 60f / _timings[i].Bpm;
                 float timePerPulse = timePerQuarterNote / _pulsesPerQuarterNote;
-                samplesPerPulses[i] = _audioFrequencies[i] * timePerPulse;
-                _pulsesPerSamples[i] = 1 / samplesPerPulses[i];
-
-                if (i != 0)
-                {
-                    ulong timingRangePulseLength = _timings[i].Pulse - _timings[i - 1].Pulse;
-                    float timingRangeSamples = timingRangePulseLength * samplesPerPulses[i - 1];
-                    float elapsedSamplesAfterBpmChanged = _samplePointOnBpmChanges[i - 1];
-                    _samplePointOnBpmChanges[i] = elapsedSamplesAfterBpmChanged + timingRangeSamples;
-                }
+                samplesPerPulse[i] = _samplesPerTime[i] * timePerPulse;
             }
-
-            PrintDebug();
+            return samplesPerPulse;
         }
 
-        private void PrintDebug()
+        private float[] GetSamplePointsOnBpmChange(float[] samplesPerPulse)
         {
-            Debug.Log("pulsesPerQuarterNote: " + _pulsesPerQuarterNote);
+            var timingIntervalSamples = new float[_timings.Length];
+            var samplePointsOnBpmChange = new float[_timings.Length];
             for (var i = 0; i < _timings.Length; ++i)
             {
-                Debug.Log("bpm: " + _timings[i].Bpm);
-                Debug.Log("- pulsesPerSamples: " + _pulsesPerSamples[i] + "pulse/Hz");
-                Debug.Log("- samplePointOnBpmChanges: " + _samplePointOnBpmChanges[i] + "Hz");
+                timingIntervalSamples[i] = samplesPerPulse[i] * GetTimingIntervalPulses(i);
+                samplePointsOnBpmChange[i] = timingIntervalSamples.Sigma(0, i);
             }
-            Debug.Log("initialBpm: " + _timings[0].Bpm);
+            return samplePointsOnBpmChange;
+
+            ulong GetTimingIntervalPulses(int index)
+            {
+                if (index < _timings.Length - 1)
+                {
+                    return _timings[index + 1].Pulse - _timings[index].Pulse;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
 
-        public void UpdateTiming(int currentSamples)
+        public void UpdateTiming(int currentSamplePoint)
         {
-            UpdateCurrentPulse(currentSamples);
+            UpdateCurrentPulse(currentSamplePoint);
             UpdateTimingIndex();
         }
 
-        private void UpdateCurrentPulse(int currentSamples)
+        private void UpdateCurrentPulse(int currentSamplePoint)
         {
-            float sampleElapsedAfterBpmChanged = currentSamples - _samplePointOnBpmChanges[_timingIndex];
-            ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSamples[_timingIndex] * sampleElapsedAfterBpmChanged);
-            Assert.IsTrue(sampleElapsedAfterBpmChanged >= 0);
-            Assert.IsTrue(_pulsesPerSamples[_timingIndex] >= 0);
+            float samplesElapsedAfterBpmChanged = currentSamplePoint - _samplePointsOnBpmChange[_timingIndex];
+            Assert.IsTrue(samplesElapsedAfterBpmChanged >= 0);
 
+            ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSample[_timingIndex] * samplesElapsedAfterBpmChanged);
             CurrentPulse = checked(_timings[_timingIndex].Pulse + pulsesElapsedAfterBpmChanged);
         }
 

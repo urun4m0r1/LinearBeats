@@ -1,3 +1,5 @@
+using LinearBeats.Visuals;
+
 namespace LinearBeats.Script
 {
     public struct LinearBeatsScript
@@ -84,6 +86,7 @@ namespace LinearBeats.Script
 
     public struct Note
     {
+        public NoteBehaviour NoteBehaviour;
         public ulong Pulse;
         public ulong PulseDuration;
         public byte AudioMode;

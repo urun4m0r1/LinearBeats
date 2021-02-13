@@ -7,7 +7,6 @@ using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
-using UnityEngine.Audio;
 using Utils.Unity;
 
 namespace LinearBeats.Game
@@ -15,17 +14,19 @@ namespace LinearBeats.Game
     public sealed class GameManager : SerializedMonoBehaviour
     {
 #pragma warning disable IDE0044
+        [Range(0.0001f, 10)]
+        [SerializeField]
+        private float _meterPerPulse = 0.01f;
         [SerializeField]
         private ScriptLoader _scriptLoader = null;
-        [SerializeField]
-        private RailScroll _railScroll = null;
+        [OdinSerialize]
+        private TimingController _timingController = null;
         [OdinSerialize]
         private NoteJudgement _noteJudgement = null;
 #pragma warning restore IDE0044
 
-        private TimingController _timingController = null;
         private Queue<RailBehaviour> _dividerBehaviours = null;
-        private Queue<RailBehaviour>[] _noteBehaviours = null;
+        private Queue<NoteBehaviour>[] _notesBehaviours = null;
         private AudioSource[] _audioSources = null;
         private AudioSource _backgroundAudioSource = null;
 
@@ -33,58 +34,41 @@ namespace LinearBeats.Game
         {
             InitScriptLoader();
             InitAudioSources();
-            InitGameView();
-            ResetGameView();
-        }
-
-        private void InitScriptLoader()
-        {
-            _scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
-        }
-
-        private void InitAudioSources()
-        {
-            _audioSources = _scriptLoader.InstantiateAudioSource();
-            _backgroundAudioSource = _audioSources[0];
-        }
-
-        private void InitGameView()
-        {
             InitTimingController();
-            InitRailScroll();
-        }
+            InitGameObjectsScroll();
 
-        private void InitTimingController()
-        {
-            _timingController = new TimingController(
-                _scriptLoader.Script.Timings,
-                AudioUtils.GetSamplesPerTimes(_audioSources),
-                _scriptLoader.Script.Metadata.PulsesPerQuarterNote);
-        }
-
-        private void InitRailScroll()
-        {
-            _noteBehaviours = _scriptLoader.InstantiateNotes();
-            _dividerBehaviours = _scriptLoader.InstantiateDividers();
-
-            _railScroll.AddRailBehaviours(_dividerBehaviours);
-            for (int i = 0; i < _audioSources.Length; ++i)
+            void InitScriptLoader()
             {
-                _railScroll.AddRailBehaviours(_noteBehaviours[i]);
+                _scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
             }
-        }
 
-        private void ResetGameView()
-        {
-            _timingController.ResetTiming();
-            _railScroll.UpdateRailPosition(0);
+            void InitAudioSources()
+            {
+                _audioSources = _scriptLoader.InstantiateAudioSource();
+                _backgroundAudioSource = _audioSources[0];
+            }
+
+            void InitTimingController()
+            {
+                _timingController.InitTiming(
+                    _scriptLoader.Script.Timings,
+                    AudioUtils.GetSamplesPerTimes(_audioSources),
+                    _scriptLoader.Script.Metadata.PulsesPerQuarterNote,
+                    _backgroundAudioSource.clip.samples);
+            }
+
+            void InitGameObjectsScroll()
+            {
+                _notesBehaviours = _scriptLoader.InstantiateNotes();
+                _dividerBehaviours = _scriptLoader.InstantiateDividers();
+            }
         }
 
         [DisableInEditorMode]
         [Button("StartGame")]
         public void StartGame()
         {
-            ResetGameView();
+            _timingController.ResetTiming();
 
             foreach (var audioSource in _audioSources)
             {
@@ -92,37 +76,46 @@ namespace LinearBeats.Game
             }
         }
 
-
-        void Update()
+        private void Update()
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                UpdateGameView();
-            }
-            else
-            {
-                if (_timingController.CurrentPulse != 0)
+                _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
+                UpdateNoteJudge();
+
+                void UpdateNoteJudge()
                 {
-                    ResetGameView();
+                    foreach (var noteBehaviours in _notesBehaviours)
+                    {
+                        foreach (var noteBehaviour in noteBehaviours)
+                        {
+                            _noteJudgement.JudgeNote(noteBehaviour, _timingController.CurrentPulse);
+                        }
+                    }
                 }
             }
-        }
-
-        private void UpdateGameView()
-        {
-            _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
-            _railScroll.UpdateRailPosition(_timingController.CurrentPulse);
-
-            foreach (var audioChannel in _scriptLoader.Script.AudioChannels)
+            else if (_timingController.CurrentPulse != 0)
             {
-                if (audioChannel.Notes != null)
+                _timingController.ResetTiming();
+            }
+            UpdateDividerPosition();
+            UpdateNotePosition();
+
+            void UpdateDividerPosition()
+            {
+                foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    foreach (var note in audioChannel.Notes)
+                    dividerBehaviour.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
+                }
+            }
+
+            void UpdateNotePosition()
+            {
+                foreach (var noteBehaviours in _notesBehaviours)
+                {
+                    foreach (var noteBehaviour in noteBehaviours)
                     {
-                        if (_noteJudgement.ShouldJudgeNote(note, _timingController.CurrentPulse))
-                        {
-                            _noteJudgement.JudgeNote(note, _timingController.CurrentPulse);
-                        }
+                        noteBehaviour.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
                     }
                 }
             }

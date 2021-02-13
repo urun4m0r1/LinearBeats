@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lean.Pool;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,16 +15,10 @@ namespace LinearBeats.Script
 #pragma warning disable IDE0044
         [Required]
         [SerializeField]
-        private Transform _notesHolder = null;
+        private LeanGameObjectPool _notesPool = null;
         [Required]
         [SerializeField]
-        private GameObject _shortNotePrefab = null;
-        [Required]
-        [SerializeField]
-        private Transform _dividerHolder = null;
-        [Required]
-        [SerializeField]
-        private GameObject _dividerPrefab = null;
+        private LeanGameObjectPool _dividerPool = null;
         [Required]
         [SerializeField]
         private AudioListener _audioListener = null;
@@ -69,21 +64,20 @@ namespace LinearBeats.Script
             }
         }
 
-        public Queue<RailBehaviour>[] InstantiateNotes()
+        public Queue<NoteBehaviour>[] InstantiateNotes()
         {
-            var notesBehaviours = new Queue<RailBehaviour>[Script.AudioChannels.Length];
+            var notesBehaviours = new Queue<NoteBehaviour>[Script.AudioChannels.Length];
             for (int i = 0; i < Script.AudioChannels.Length; ++i)
             {
-                notesBehaviours[i] = new Queue<RailBehaviour>();
+                notesBehaviours[i] = new Queue<NoteBehaviour>();
                 if (Script.AudioChannels[i].Notes != null)
                 {
                     foreach (var note in Script.AudioChannels[i].Notes)
                     {
-                        GameObject noteObject = GameObject.Instantiate(
-                            _shortNotePrefab,
+                        GameObject noteObject = _notesPool.Spawn(
                             GetNotePosition(note),
                             Quaternion.identity,
-                            _notesHolder);
+                            _notesPool.transform);
                         noteObject.transform.localScale = GetNoteSize(note);
 
                         NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
@@ -131,11 +125,10 @@ namespace LinearBeats.Script
             var dividerBehaviours = new Queue<RailBehaviour>();
             foreach (var divider in Script.Dividers)
             {
-                GameObject dividerObject = GameObject.Instantiate(
-                    _dividerPrefab,
+                GameObject dividerObject = _dividerPool.Spawn(
                     Vector3.zero,
                     Quaternion.identity,
-                    _dividerHolder);
+                    _dividerPool.transform);
                 RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
                 dividerBehaviours.Enqueue(dividerBehaviour);

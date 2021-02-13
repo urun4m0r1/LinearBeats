@@ -32,6 +32,9 @@ namespace LinearBeats.Judgement
             [Judge.Good] = 100,
             [Judge.Miss] = 150,
         };
+
+        [SerializeField]
+        private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
         public void JudgeNote(NoteBehaviour noteBehaviour, ulong currentPulse)
@@ -39,7 +42,7 @@ namespace LinearBeats.Judgement
             if (ShouldJudgeNote(noteBehaviour.Note, currentPulse))
             {
                 Judge noteJudgement = GetJudge(noteBehaviour.Note, currentPulse);
-                noteBehaviour.OnJudge(noteJudgement, currentPulse);
+                _laneEffect.OnJudge(noteBehaviour, noteJudgement);
             }
         }
 

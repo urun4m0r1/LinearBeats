@@ -1,3 +1,7 @@
+
+#pragma warning disable IDE0051
+#pragma warning disable IDE0090
+
 using LinearBeats.Input;
 using Sirenix.OdinInspector;
 using UnityEngine;

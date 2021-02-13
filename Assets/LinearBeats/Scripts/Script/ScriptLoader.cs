@@ -80,7 +80,7 @@ namespace LinearBeats.Script
                             _notesPool.transform);
                         noteObject.transform.localScale = GetNoteSize(note);
 
-                        NoteBehaviour noteBehaviour = noteObject.AddComponent<NoteBehaviour>();
+                        NoteBehaviour noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
                         noteBehaviour.Pulse = note.Pulse;
                         noteBehaviour.Note = note;
                         notesBehaviours[i].Enqueue(noteBehaviour);
@@ -129,7 +129,7 @@ namespace LinearBeats.Script
                     Vector3.zero,
                     Quaternion.identity,
                     _dividerPool.transform);
-                RailBehaviour dividerBehaviour = dividerObject.AddComponent<RailBehaviour>();
+                RailBehaviour dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
                 dividerBehaviours.Enqueue(dividerBehaviour);
             }

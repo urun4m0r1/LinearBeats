@@ -1077,7 +1077,7 @@ MonoBehaviour:
       Data: 
   _scriptLoader:
     _notesHolder: {fileID: 256459173}
-    _shortNotePrefab: {fileID: 8285780424189361361, guid: 4f00ad61fd0a19141b322ec749a689cf, type: 3}
+    _shortNotePrefab: {fileID: 4908798247093415356, guid: f32e2828cee160d4f9373eabe7410ac6, type: 3}
     _dividerHolder: {fileID: 68584481}
     _dividerPrefab: {fileID: 9158792792082401969, guid: 09d41f66795e0ff47b8d188535a33940, type: 3}
     _audioListener: {fileID: 1667118062}

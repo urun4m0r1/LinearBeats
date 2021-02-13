@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Audio;
 
 namespace LinearBeats.Script
@@ -73,6 +74,7 @@ namespace LinearBeats.Script
             var notesBehaviours = new Queue<RailBehaviour>[Script.AudioChannels.Length];
             for (int i = 0; i < Script.AudioChannels.Length; ++i)
             {
+                notesBehaviours[i] = new Queue<RailBehaviour>();
                 if (Script.AudioChannels[i].Notes != null)
                 {
                     foreach (var note in Script.AudioChannels[i].Notes)
@@ -99,7 +101,7 @@ namespace LinearBeats.Script
 
                 float GetNoteCol()
                 {
-                    return note.PositionCol - 5.5f;
+                    return note.PositionCol - 6f;
                 }
 
                 float GetNoteRow()
@@ -119,7 +121,7 @@ namespace LinearBeats.Script
 
                 float GetNoteHeight()
                 {
-                    return note.SizeRow * 20;
+                    return note.SizeRow == 1 ? 1 : 20;
                 }
             }
         }

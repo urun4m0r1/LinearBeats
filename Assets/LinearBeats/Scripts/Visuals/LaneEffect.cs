@@ -1,12 +1,10 @@
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
-using System.Collections;
 using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Input;
 using LinearBeats.Judgement;
-using LinearBeats.Script;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -34,8 +32,6 @@ namespace LinearBeats.Visuals
         };
 #pragma warning restore IDE0044
 
-        private Dictionary<Vector3, GameObject> _judgePositions = new Dictionary<Vector3, GameObject>();
-
         private void Update()
         {
             UpdateLaneEffects();
@@ -60,18 +56,10 @@ namespace LinearBeats.Visuals
                 noteBehaviour.JudgeEffectAnchor.position.y,
                 0);
 
-            /*if (_judgePositions.TryGetValue(judgeEffectPosition, out GameObject previousJudgeEffect))
-            {
-                LeanPool.Despawn(previousJudgeEffect);
-                _judgePositions.Remove(judgeEffectPosition);
-            }*/
-
-            GameObject judgeEffect = _judgeEffects[judge].Spawn(
+            _judgeEffects[judge].Spawn(
                 judgeEffectPosition,
-                Quaternion.identity,
+                noteBehaviour.JudgeEffectAnchor.rotation,
                 _judgeEffects[judge].transform);
-
-            //_judgePositions.Add(judgeEffectPosition, judgeEffect);
         }
     }
 }

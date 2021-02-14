@@ -34,6 +34,8 @@ namespace LinearBeats.Visuals
         };
 #pragma warning restore IDE0044
 
+        private Dictionary<Vector3, GameObject> _judgePositions = new Dictionary<Vector3, GameObject>();
+
         private void Update()
         {
             UpdateLaneEffects();
@@ -58,12 +60,18 @@ namespace LinearBeats.Visuals
                 noteBehaviour.JudgeEffectAnchor.position.y,
                 0);
 
+            /*if (_judgePositions.TryGetValue(judgeEffectPosition, out GameObject previousJudgeEffect))
+            {
+                LeanPool.Despawn(previousJudgeEffect);
+                _judgePositions.Remove(judgeEffectPosition);
+            }*/
+
             GameObject judgeEffect = _judgeEffects[judge].Spawn(
                 judgeEffectPosition,
                 Quaternion.identity,
                 _judgeEffects[judge].transform);
 
-            LeanPool.Despawn(judgeEffect, 0.5f);
+            //_judgePositions.Add(judgeEffectPosition, judgeEffect);
         }
     }
 }

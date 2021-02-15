@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Lean.Pool;
-using LinearBeats.Game;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Audio;
 
 namespace LinearBeats.Script
@@ -57,7 +55,7 @@ namespace LinearBeats.Script
 
             AudioSource AddAudioSourcesToGameObject(GameObject audioObject, AudioChannel audioChannel)
             {
-                AudioSource audioSource = audioObject.AddComponent<AudioSource>();
+                var audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
                 audioSource.playOnAwake = false;
                 audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer];
@@ -114,6 +112,7 @@ namespace LinearBeats.Script
             }
         }
 
+        //TODO: Use ObjectPool
         public Queue<RailBehaviour> InstantiateDividers()
         {
             var dividerBehaviours = new Queue<RailBehaviour>();
@@ -123,7 +122,7 @@ namespace LinearBeats.Script
                     Vector3.zero,
                     Quaternion.identity,
                     _dividerPool.transform);
-                RailBehaviour dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
+                var dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
                 dividerBehaviours.Enqueue(dividerBehaviour);
             }

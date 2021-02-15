@@ -1,3 +1,5 @@
+//TODO: Make part of GameManager
+
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
@@ -53,7 +55,7 @@ namespace LinearBeats.Visuals
             var judgeEffectPosition = new Vector3(
                 noteBehaviour.JudgeEffectAnchor.position.x,
                 noteBehaviour.JudgeEffectAnchor.position.y,
-                0);
+                0f);
 
             _judgeEffects[judge].Spawn(
                 judgeEffectPosition,

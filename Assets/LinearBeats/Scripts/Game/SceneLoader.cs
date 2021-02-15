@@ -79,7 +79,7 @@ namespace LinearBeats.Game
 
         private static void UnloadAllScenesExcept(Scene targetScene)
         {
-            for (int i = 0; i < SceneManager.sceneCount; i++)
+            for (var i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene scene = SceneManager.GetSceneAt(i);
                 if (scene != targetScene)

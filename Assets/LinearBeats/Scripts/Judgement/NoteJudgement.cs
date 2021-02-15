@@ -1,3 +1,5 @@
+//FIXME: 엄청난 프레임드랍 해결
+
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
@@ -12,19 +14,11 @@ using UnityEngine.Assertions;
 
 namespace LinearBeats.Judgement
 {
-    public enum Judge : byte
-    {
-        Perfect,
-        Great,
-        Good,
-        Bad,
-        Miss,
-    }
-
     [HideReferenceObjectPicker]
     public sealed class NoteJudgement
     {
 #pragma warning disable IDE0044
+        //TODO: Time based judgement
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
         private Dictionary<Judge, ulong> _judgeOffset = new Dictionary<Judge, ulong>
@@ -67,37 +61,16 @@ namespace LinearBeats.Judgement
 
             if (InputHandler.IsNotePressed(note))
             {
-                if (WithinJudge(_judgeOffset[Judge.Perfect]))
-                {
-                    return Judge.Perfect;
-                }
-                else if (WithinJudge(_judgeOffset[Judge.Great]))
-                {
-                    return Judge.Great;
-                }
-                else if (WithinJudge(_judgeOffset[Judge.Good]))
-                {
-                    return Judge.Good;
-                }
-                else if (WithinJudgeRange(_judgeOffset[Judge.Bad], _judgeOffset[Judge.Good]))
-                {
-                    return Judge.Bad;
-                }
-                else
-                {
-                    return null;
-                }
+                if (WithinJudge(_judgeOffset[Judge.Perfect])) return Judge.Perfect;
+                else if (WithinJudge(_judgeOffset[Judge.Great])) return Judge.Great;
+                else if (WithinJudge(_judgeOffset[Judge.Good])) return Judge.Good;
+                else if (WithinJudgeRange(_judgeOffset[Judge.Bad], _judgeOffset[Judge.Good])) return Judge.Bad;
+                else return null;
             }
             else
             {
-                if (MissedJudge(_judgeOffset[Judge.Good]))
-                {
-                    return Judge.Miss;
-                }
-                else
-                {
-                    return null;
-                }
+                if (MissedJudge(_judgeOffset[Judge.Good])) return Judge.Miss;
+                else return null;
             }
 
             bool WithinJudge(ulong judgeOffset)
@@ -108,6 +81,7 @@ namespace LinearBeats.Judgement
             bool WithinJudgeRange(ulong judgeOffsetStart, ulong judgeOffsetEnd)
             {
                 Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
+
                 return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
             }
 

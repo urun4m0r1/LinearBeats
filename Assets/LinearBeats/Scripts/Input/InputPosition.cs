@@ -7,19 +7,9 @@ namespace LinearBeats.Input
         private readonly byte? _row;
         private readonly byte? _col;
 
-        public byte Row
-        {
-            get => _row ?? throw new NullReferenceException();
-        }
-        public byte Col
-        {
-            get => _col ?? throw new NullReferenceException();
-        }
-
-        public bool Exist
-        {
-            get => _row != null && _col != null;
-        }
+        public byte Row => _row ?? throw new NullReferenceException();
+        public byte Col => _col ?? throw new NullReferenceException();
+        public bool Exist => _row != null && _col != null;
 
         public InputPosition(byte? row, byte? col)
         {

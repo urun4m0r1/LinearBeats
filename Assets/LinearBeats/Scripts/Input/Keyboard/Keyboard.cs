@@ -103,19 +103,8 @@ namespace LinearBeats.Input
             },
         };
 
-        KeyCode IBindingProvider.GetBindingSpecial()
-        {
-            return _bindingSpecial;
-        }
-
-        KeyCode IBindingProvider.GetBinding(byte row, byte col)
-        {
-            return _bindingsLayout[row, col];
-        }
-
-        KeyCode IBindingProvider.GetBindingAlternative(byte row, byte col)
-        {
-            return _bindingsLayoutAlternative[row, col];
-        }
+        KeyCode IBindingProvider.GetBindingSpecial() => _bindingSpecial;
+        KeyCode IBindingProvider.GetBinding(byte row, byte col) => _bindingsLayout[row, col];
+        KeyCode IBindingProvider.GetBindingAlternative(byte row, byte col) => _bindingsLayoutAlternative[row, col];
     }
 }

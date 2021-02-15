@@ -23,6 +23,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pf_vfx-ult_xp-shockwaves_psys_oneshot_shockwaves
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012906409722, guid: 8887970892f60ae469bbd550b0a91a04, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1000013087680052, guid: 8887970892f60ae469bbd550b0a91a04, type: 3}
       propertyPath: m_IsActive
       value: 0

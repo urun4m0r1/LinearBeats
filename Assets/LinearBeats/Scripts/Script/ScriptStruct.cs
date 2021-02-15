@@ -1,6 +1,3 @@
-using LinearBeats.Visuals;
-using UnityEngine;
-
 namespace LinearBeats.Script
 {
     public struct LinearBeatsScript

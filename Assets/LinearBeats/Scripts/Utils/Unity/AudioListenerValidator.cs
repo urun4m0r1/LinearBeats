@@ -10,11 +10,7 @@ namespace Utils.Unity
         public AudioListenerValidator()
         {
             audioListeners = Object.FindObjectsOfType<AudioListener>();
-
-            if (audioListeners.IsNullOrEmpty())
-            {
-                NullOrEmptyAudioListenerMessage();
-            }
+            if (audioListeners.IsNullOrEmpty()) NullOrEmptyAudioListenerMessage();
         }
 
         private void NullOrEmptyAudioListenerMessage()
@@ -30,25 +26,19 @@ namespace Utils.Unity
                 return;
             }
 
-            bool foundFirstAudioListenerWithTag = false;
+            var foundFirstAudioListenerWithTag = false;
             foreach (var audioListener in audioListeners)
             {
                 if (audioListener.CompareTag(audioListenerTag))
                 {
-                    if (foundFirstAudioListenerWithTag)
-                    {
-                        audioListener.enabled = false;
-                    }
+                    if (foundFirstAudioListenerWithTag) audioListener.enabled = false;
                     else
                     {
                         audioListener.enabled = true;
                         foundFirstAudioListenerWithTag = true;
                     }
                 }
-                else
-                {
-                    audioListener.enabled = false;
-                }
+                else audioListener.enabled = false;
             }
 
             if (!foundFirstAudioListenerWithTag)
@@ -65,13 +55,10 @@ namespace Utils.Unity
                 return;
             }
 
-            bool foundFirstAudioListener = false;
+            var foundFirstAudioListener = false;
             foreach (var audioListener in audioListeners)
             {
-                if (foundFirstAudioListener)
-                {
-                    audioListener.enabled = false;
-                }
+                if (foundFirstAudioListener) audioListener.enabled = false;
                 else
                 {
                     audioListener.enabled = true;
@@ -84,10 +71,7 @@ namespace Utils.Unity
         {
             if (!audioListeners.IsNullOrEmpty())
             {
-                foreach (var audioListener in audioListeners)
-                {
-                    audioListener.enabled = false;
-                }
+                foreach (var audioListener in audioListeners) audioListener.enabled = false;
             }
             uniqueAudioListener.enabled = true;
         }

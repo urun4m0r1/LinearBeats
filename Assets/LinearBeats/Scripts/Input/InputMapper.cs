@@ -1,3 +1,5 @@
+//TODO: Implement InputMapper
+
 #pragma warning disable IDE0051
 
 using Sirenix.OdinInspector;
@@ -45,14 +47,7 @@ namespace LinearBeats.Input
             }
         }
 
-        private bool IsBindingReceiver()
-        {
-            return CurrentKeyboard is IBindingReceiver;
-        }
-
-        private IBindingReceiver GetBindingReceiver()
-        {
-            return CurrentKeyboard as IBindingReceiver;
-        }
+        private bool IsBindingReceiver() => CurrentKeyboard is IBindingReceiver;
+        private IBindingReceiver GetBindingReceiver() => CurrentKeyboard as IBindingReceiver;
     }
 }

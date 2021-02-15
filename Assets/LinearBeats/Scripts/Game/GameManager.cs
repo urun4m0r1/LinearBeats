@@ -2,16 +2,17 @@
 #pragma warning disable IDE0090
 
 using System.Collections.Generic;
+using System.Linq;
 using Lean.Pool;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
+using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Events;
-using Utils.Unity;
+using Utils.Extensions;
 
 namespace LinearBeats.Game
 {
@@ -19,7 +20,7 @@ namespace LinearBeats.Game
     {
 #pragma warning disable IDE0044
         [SerializeField]
-        private UnityEvent _gameFinishied = new UnityEvent();
+        private UnityEvent _onGameReset = new UnityEvent();
         [Range(0.0001f, 10)]
         [SerializeField]
         private float _meterPerPulse = 0.01f;
@@ -47,6 +48,7 @@ namespace LinearBeats.Game
             InitAudioSources();
             InitTimingController();
             InitGameObjects();
+
             ResetGame();
 
             void InitScriptLoader()
@@ -62,11 +64,12 @@ namespace LinearBeats.Game
 
             void InitTimingController()
             {
-                _timingController.InitTiming(
-                    _scriptLoader.Script.Timings,
-                    AudioUtils.GetSamplesPerTimes(_audioSources),
+                var timingConverter = new TimingConverter(
                     _scriptLoader.Script.Metadata.PulsesPerQuarterNote,
-                    _backgroundAudioSource.clip.samples);
+                    _scriptLoader.Script.Timings,
+                    (from audioSource in _audioSources select audioSource.clip.frequency).ToArray());
+
+                _timingController.InitTiming(timingConverter, _backgroundAudioSource.clip.samples);
             }
 
             void InitGameObjects()
@@ -99,18 +102,18 @@ namespace LinearBeats.Game
 
         public void ResetGame()
         {
-            _gameFinishied.Invoke();
-
             foreach (var audioSource in _audioSources)
             {
-                audioSource.Stop();
-                audioSource.Play();
-                audioSource.Pause();
+                audioSource.Reset();
             }
 
             _timingController.ResetTiming();
+
             nextNoteLoadIndex = 0;
+            //FIXME: 기존 버퍼 초기화
             BufferNotes(_noteLoadBufferSize);
+
+            _onGameReset.Invoke();
         }
 
         private void Update()
@@ -127,10 +130,13 @@ namespace LinearBeats.Game
 
                 void UpdateNoteJudge()
                 {
-                    List<uint> judgedNoteIndexes = new List<uint>();
+                    var judgedNoteIndexes = new List<uint>();
                     foreach (var noteBehaviour in _noteBehaviours)
                     {
-                        bool noteJudged = _noteJudgement.JudgeNote(noteBehaviour.Value, _timingController.CurrentPulse);
+                        bool noteJudged = _noteJudgement.JudgeNote(
+                            noteBehaviour.Value,
+                            _timingController.CurrentPulse);
+
                         if (noteJudged)
                         {
                             judgedNoteIndexes.Add(noteBehaviour.Key);
@@ -147,6 +153,7 @@ namespace LinearBeats.Game
             {
                 ResetGame();
             }
+
             UpdateDividerPosition();
             UpdateNotePosition();
 

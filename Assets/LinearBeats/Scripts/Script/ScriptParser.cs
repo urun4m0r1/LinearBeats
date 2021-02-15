@@ -13,20 +13,13 @@ namespace LinearBeats.Script
             private get => _scriptText;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new System.ArgumentNullException();
-                }
-
+                if (string.IsNullOrWhiteSpace(value)) throw new System.ArgumentNullException();
                 _scriptText = value;
             }
         }
         private string _scriptText = null;
 
-        public ScriptParser(string scriptText)
-        {
-            ScriptText = scriptText;
-        }
+        public ScriptParser(string scriptText) => ScriptText = scriptText;
 
         public static LinearBeatsScript ParseFromResources(string scriptPath)
         {
@@ -39,17 +32,16 @@ namespace LinearBeats.Script
             var scriptTextReader = new StringReader(ScriptText);
             var deserializerBuilder = new DeserializerBuilder().WithNamingConvention(new PascalCaseNamingConvention());
             IDeserializer deserializer = deserializerBuilder.Build();
-            LinearBeatsScript deserializedScript = deserializer.Deserialize<LinearBeatsScript>(scriptTextReader);
+            var deserializedScript = deserializer.Deserialize<LinearBeatsScript>(scriptTextReader);
             return Validate(deserializedScript);
         }
 
+        //TODO: Implement Validation
         private LinearBeatsScript Validate(LinearBeatsScript script)
         {
-            if (
-                script.VersionCode == 0
+            if (script.VersionCode == 0
                 || script.VersionName.IsNullOrWhitespace()
             ) throw new InvalidDataException();
-
             return script;
         }
     }

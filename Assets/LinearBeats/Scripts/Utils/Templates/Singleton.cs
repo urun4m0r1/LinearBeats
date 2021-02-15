@@ -11,10 +11,7 @@ namespace Utils.Templates
             CreateInstance,
             LazyThreadSafetyMode.ExecutionAndPublication);
 
-        public static T Instance
-        {
-            get => s_lazyInstance.Value;
-        }
+        public static T Instance => s_lazyInstance.Value;
 
         private static T CreateInstance()
         {

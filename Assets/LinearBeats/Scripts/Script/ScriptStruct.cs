@@ -10,6 +10,7 @@ namespace LinearBeats.Script
         public Effect[] Effects;
         public VideoChannel[] VideoChannels;
         public AudioChannel[] AudioChannels;
+        public Note[] Notes;
     }
 
     public struct Metadata
@@ -38,6 +39,7 @@ namespace LinearBeats.Script
 
     public struct Timing
     {
+        public int Sample;
         public ulong Pulse;
         public float Bpm;
         public ulong PulseStopDuration;
@@ -47,6 +49,7 @@ namespace LinearBeats.Script
     public struct Divider
     {
         public ulong Pulse;
+        public ulong PulseInterval;
         public byte DividerType;
     }
 
@@ -78,19 +81,19 @@ namespace LinearBeats.Script
         public string FileName;
         public ushort PulseOffset;
         public byte Layer;
-        public Note[] Notes;
     }
 
     public struct Note
     {
         public ulong Pulse;
         public ulong PulseDuration;
-        public byte AudioMode;
         public byte PositionRow;
         public byte PositionCol;
         public byte SizeRow;
         public byte SizeCol;
         public byte DstRow;
         public byte DstCol;
+        public ushort Channel;
+        public ushort Mode;
     }
 }

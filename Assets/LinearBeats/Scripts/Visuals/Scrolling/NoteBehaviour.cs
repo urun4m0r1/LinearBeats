@@ -1,12 +1,11 @@
 using LinearBeats.Script;
 using UnityEngine;
 
-namespace LinearBeats.Game
+namespace LinearBeats.Visuals
 {
     public class NoteBehaviour : RailBehaviour
     {
         public Note Note { get; set; }
-
+        public Transform JudgeEffectAnchor = null;
     }
-
 }

@@ -28,11 +28,7 @@ namespace Utils.Extensions
 
         public static bool IsIn<T>(this T obj, params T[] collection)
         {
-            if (collection.IsNullOrEmpty())
-            {
-                throw new ArgumentOutOfRangeException(nameof(collection));
-            }
-
+            if (collection.IsNullOrEmpty()) throw new ArgumentOutOfRangeException(nameof(collection));
             return collection.Contains(obj);
         }
     }

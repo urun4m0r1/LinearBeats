@@ -21,17 +21,14 @@ namespace LinearBeats.Input
             byte rowSize,
             byte colSize)
         {
-            byte rowEnd = (byte)(rowStart + rowSize);
-            byte colEnd = (byte)(colStart + colSize);
+            var rowEnd = (byte)(rowStart + rowSize);
+            var colEnd = (byte)(colStart + colSize);
 
             for (var row = rowStart; row < rowEnd; ++row)
             {
                 for (var col = colStart; col < colEnd; ++col)
                 {
-                    if (IsInputInvoked(row, col))
-                    {
-                        return new InputPosition(row, col);
-                    }
+                    if (IsInputInvoked(row, col)) return new InputPosition(row, col);
                 }
             }
             return new InputPosition(null, null);

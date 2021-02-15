@@ -42,6 +42,7 @@ namespace LinearBeats.Script
 
     public struct Timing
     {
+        public int Sample;
         public ulong Pulse;
         public float Bpm;
         public ulong PulseStopDuration;

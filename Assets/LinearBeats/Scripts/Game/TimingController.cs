@@ -65,10 +65,22 @@ namespace LinearBeats.Game
 
             ConvertPulseToSampleInTiming(_samplesPerPulse);
 
-            _pulsesLength = ConvertSamplePointToPulse(samplesLength);
+            _pulsesLength = SampleToPulse(samplesLength);
 
             OnBpmChanged();
             OnProgressChanged();
+        }
+
+        private float[] GetSamplesPerPulse(ushort pulsesPerQuarterNote, int[] samplesPerTime)
+        {
+            var samplesPerPulse = new float[_timings.Length];
+            for (var i = 0; i < _timings.Length; ++i)
+            {
+                float timePerQuarterNote = 60f / _timings[i].Bpm;
+                float timePerPulse = timePerQuarterNote / pulsesPerQuarterNote;
+                samplesPerPulse[i] = samplesPerTime[i] * timePerPulse;
+            }
+            return samplesPerPulse;
         }
 
         private void ConvertPulseToSampleInTiming(float[] samplesPerPulse)
@@ -92,51 +104,6 @@ namespace LinearBeats.Game
                 }
             }
         }
-
-        private float[] GetSamplesPerPulse(ushort pulsesPerQuarterNote, int[] samplesPerTime)
-        {
-            var samplesPerPulse = new float[_timings.Length];
-            for (var i = 0; i < _timings.Length; ++i)
-            {
-                float timePerQuarterNote = 60f / _timings[i].Bpm;
-                float timePerPulse = timePerQuarterNote / pulsesPerQuarterNote;
-                samplesPerPulse[i] = samplesPerTime[i] * timePerPulse;
-            }
-            return samplesPerPulse;
-        }
-
-        public int ConvertPulseToSamplePoint(ulong currentPulse)
-        {
-            return ConvertPulseToSamplePoint(currentPulse, GetTimingIndex(currentPulse));
-        }
-
-        private int ConvertPulseToSamplePoint(ulong currentPulse, uint timingIndex)
-        {
-            Assert.IsTrue(timingIndex >= 0);
-            Assert.IsTrue(currentPulse >= _timings[timingIndex].Pulse);
-
-            ulong pulsesElapsedAfterBpmChanged = currentPulse - _timings[timingIndex].Pulse;
-            float samplesElapsedAfterBpmChanged = _samplesPerPulse[timingIndex] * pulsesElapsedAfterBpmChanged;
-
-            return checked((int)(_timings[timingIndex].Sample + samplesElapsedAfterBpmChanged));
-        }
-
-        public ulong ConvertSamplePointToPulse(int currentSamplePoint)
-        {
-            return ConvertSamplePointToPulse(currentSamplePoint, GetTimingIndex(currentSamplePoint));
-        }
-
-        private ulong ConvertSamplePointToPulse(int currentSamplePoint, uint timingIndex)
-        {
-            Assert.IsTrue(timingIndex >= 0);
-            Assert.IsTrue(currentSamplePoint >= _timings[timingIndex].Sample);
-
-            float samplesElapsedAfterBpmChanged = currentSamplePoint - _timings[timingIndex].Sample;
-            ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSample[timingIndex] * samplesElapsedAfterBpmChanged);
-
-            return checked(_timings[timingIndex].Pulse + pulsesElapsedAfterBpmChanged);
-        }
-
         private void OnBpmChanged()
         {
             string bpm = _timings[TimingIndex].Bpm.ToString();
@@ -152,7 +119,44 @@ namespace LinearBeats.Game
         public void UpdateTiming(int currentSamplePoint)
         {
             TimingIndex = GetTimingIndex(currentSamplePoint);
-            CurrentPulse = ConvertSamplePointToPulse(currentSamplePoint, TimingIndex);
+            CurrentPulse = SampleToPulse(currentSamplePoint, TimingIndex);
+        }
+
+        public void ResetTiming()
+        {
+            TimingIndex = 0;
+            CurrentPulse = 0;
+        }
+
+        public ulong SampleToPulse(int currentSamplePoint)
+        {
+            return SampleToPulse(currentSamplePoint, GetTimingIndex(currentSamplePoint));
+        }
+        public int PulseToSample(ulong currentPulse)
+        {
+            return PulseToSample(currentPulse, GetTimingIndex(currentPulse));
+        }
+
+        private ulong SampleToPulse(int currentSamplePoint, uint timingIndex)
+        {
+            Assert.IsTrue(timingIndex >= 0);
+            Assert.IsTrue(currentSamplePoint >= _timings[timingIndex].Sample);
+
+            float samplesElapsedAfterBpmChanged = currentSamplePoint - _timings[timingIndex].Sample;
+            ulong pulsesElapsedAfterBpmChanged = (ulong)(_pulsesPerSample[timingIndex] * samplesElapsedAfterBpmChanged);
+
+            return checked(_timings[timingIndex].Pulse + pulsesElapsedAfterBpmChanged);
+        }
+
+        private int PulseToSample(ulong currentPulse, uint timingIndex)
+        {
+            Assert.IsTrue(timingIndex >= 0);
+            Assert.IsTrue(currentPulse >= _timings[timingIndex].Pulse);
+
+            ulong pulsesElapsedAfterBpmChanged = currentPulse - _timings[timingIndex].Pulse;
+            float samplesElapsedAfterBpmChanged = _samplesPerPulse[timingIndex] * pulsesElapsedAfterBpmChanged;
+
+            return checked((int)(_timings[timingIndex].Sample + samplesElapsedAfterBpmChanged));
         }
 
         private uint GetTimingIndex(int currentSamplePoint)
@@ -181,12 +185,6 @@ namespace LinearBeats.Game
                 }
             }
             return (uint)(_timings.Length - 1);
-        }
-
-        public void ResetTiming()
-        {
-            TimingIndex = 0;
-            CurrentPulse = 0;
         }
     }
 }

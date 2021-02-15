@@ -20,14 +20,13 @@ namespace LinearBeats.Visuals
         [SerializeField]
         private LaneBeam[] _laneBeams = new LaneBeam[Keyboard.Cols];
 
-
-        [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
         private Dictionary<Judge, LeanGameObjectPool> _judgeEffects = new Dictionary<Judge, LeanGameObjectPool>
         {
             [Judge.Perfect] = null,
             [Judge.Great] = null,
             [Judge.Good] = null,
+            [Judge.Bad] = null,
             [Judge.Miss] = null,
         };
 #pragma warning restore IDE0044

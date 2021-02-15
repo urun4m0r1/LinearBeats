@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Lean.Pool;
+using LinearBeats.Game;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace LinearBeats.Script
 
         public LinearBeatsScript Script { get; private set; }
 
-        private string _resourcesPath;
+        private string _resourcesPath = null;
 
         public void LoadScript(string resourcesPath, string scriptName)
         {
@@ -43,7 +44,7 @@ namespace LinearBeats.Script
             for (var i = 0; i < audioSources.Length; ++i)
             {
                 GameObject audioGameObject = CreateAudioGameObject(Script.AudioChannels[i].FileName);
-                audioSources[i] = AddAudioChannelToGameObject(audioGameObject, Script.AudioChannels[i]);
+                audioSources[i] = AddAudioSourcesToGameObject(audioGameObject, Script.AudioChannels[i]);
             }
             return audioSources;
 
@@ -54,7 +55,7 @@ namespace LinearBeats.Script
                 return audioObject;
             }
 
-            AudioSource AddAudioChannelToGameObject(GameObject audioObject, AudioChannel audioChannel)
+            AudioSource AddAudioSourcesToGameObject(GameObject audioObject, AudioChannel audioChannel)
             {
                 AudioSource audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
@@ -64,30 +65,23 @@ namespace LinearBeats.Script
             }
         }
 
-        public Queue<NoteBehaviour>[] InstantiateNotes()
+        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour)
         {
-            var notesBehaviours = new Queue<NoteBehaviour>[Script.AudioChannels.Length];
-            for (int i = 0; i < Script.AudioChannels.Length; ++i)
+            noteBehaviour = null;
+            if (index < Script.Notes.Length)
             {
-                notesBehaviours[i] = new Queue<NoteBehaviour>();
-                if (Script.AudioChannels[i].Notes != null)
-                {
-                    foreach (var note in Script.AudioChannels[i].Notes)
-                    {
-                        GameObject noteObject = _notesPool.Spawn(
-                            GetNotePosition(note),
-                            Quaternion.identity,
-                            _notesPool.transform);
-                        noteObject.transform.localScale = GetNoteSize(note);
+                Note note = Script.Notes[index];
+                GameObject noteObject = _notesPool.Spawn(
+                    GetNotePosition(note),
+                    Quaternion.identity,
+                    _notesPool.transform);
+                noteObject.transform.localScale = GetNoteSize(note);
 
-                        NoteBehaviour noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                        noteBehaviour.Pulse = note.Pulse;
-                        noteBehaviour.Note = note;
-                        notesBehaviours[i].Enqueue(noteBehaviour);
-                    }
-                }
+                noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
+                noteBehaviour.Pulse = note.Pulse;
+                noteBehaviour.Note = note;
             }
-            return notesBehaviours;
+            return noteBehaviour != null;
 
             Vector3 GetNotePosition(Note note)
             {

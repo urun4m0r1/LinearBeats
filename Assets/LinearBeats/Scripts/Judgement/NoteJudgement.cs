@@ -8,6 +8,7 @@ using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace LinearBeats.Judgement
 {
@@ -16,6 +17,7 @@ namespace LinearBeats.Judgement
         Perfect,
         Great,
         Good,
+        Bad,
         Miss,
     }
 
@@ -25,56 +27,99 @@ namespace LinearBeats.Judgement
 #pragma warning disable IDE0044
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
-        private Dictionary<Judge, ulong> _judgeTiming = new Dictionary<Judge, ulong>
+        private Dictionary<Judge, ulong> _judgeOffset = new Dictionary<Judge, ulong>
         {
-            [Judge.Perfect] = 30,
-            [Judge.Great] = 60,
-            [Judge.Good] = 100,
-            [Judge.Miss] = 150,
+            [Judge.Perfect] = 20,
+            [Judge.Great] = 40,
+            [Judge.Good] = 60,
+            [Judge.Bad] = 80,
         };
 
         [SerializeField]
         private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
-        public void JudgeNote(NoteBehaviour noteBehaviour, ulong currentPulse)
+        public bool JudgeNote(NoteBehaviour noteBehaviour, ulong currentPulse)
         {
-            if (ShouldJudgeNote(noteBehaviour.Note, currentPulse))
+            Judge? noteJudgement = GetJudge(noteBehaviour.Note, currentPulse);
+            if (noteJudgement != null)
             {
-                Judge noteJudgement = GetJudge(noteBehaviour.Note, currentPulse);
-                _laneEffect.OnJudge(noteBehaviour, noteJudgement);
+                _laneEffect.OnJudge(noteBehaviour, (Judge)noteJudgement);
+                return true;
             }
+            return false;
         }
 
-        public Judge GetJudge(Note note, ulong currentPulse)
+        public Judge? GetJudge(Note note, ulong currentPulse)
         {
+            ulong pulsePassedAfterNote;
+            ulong pulseLeftBeforeNote;
+            if (currentPulse >= note.Pulse)
+            {
+                pulsePassedAfterNote = currentPulse - note.Pulse;
+                pulseLeftBeforeNote = ulong.MaxValue;
+            }
+            else
+            {
+                pulsePassedAfterNote = 0;
+                pulseLeftBeforeNote = note.Pulse - currentPulse;
+            }
+
             if (InputHandler.IsNotePressed(note))
             {
-                if (WithinNoteJudgeTiming(note, currentPulse, _judgeTiming[Judge.Perfect]))
+                if (WithinJudge(_judgeOffset[Judge.Perfect]))
                 {
                     return Judge.Perfect;
                 }
-                else if (WithinNoteJudgeTiming(note, currentPulse, _judgeTiming[Judge.Great]))
+                else if (WithinJudge(_judgeOffset[Judge.Great]))
                 {
                     return Judge.Great;
                 }
-                else if (WithinNoteJudgeTiming(note, currentPulse, _judgeTiming[Judge.Good]))
+                else if (WithinJudge(_judgeOffset[Judge.Good]))
                 {
                     return Judge.Good;
                 }
+                else if (WithinJudgeRange(_judgeOffset[Judge.Bad], _judgeOffset[Judge.Good]))
+                {
+                    return Judge.Bad;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            return Judge.Miss;
-        }
+            else
+            {
+                if (MissedJudge(_judgeOffset[Judge.Good]))
+                {
+                    return Judge.Miss;
+                }
+                else
+                {
+                    return null;
+                }
+            }
 
-        public bool ShouldJudgeNote(Note note, ulong currentPulse)
-        {
-            return WithinNoteJudgeTiming(note, currentPulse, _judgeTiming[Judge.Miss]);
-        }
+            bool WithinJudge(ulong judgeOffset)
+            {
+                return !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
+            }
 
-        private static bool WithinNoteJudgeTiming(Note note, ulong currentPulse, ulong offset)
-        {
-            var diff = currentPulse - note.Pulse;
-            return Mathf.Abs(diff) <= offset;
+            bool WithinJudgeRange(ulong judgeOffsetStart, ulong judgeOffsetEnd)
+            {
+                Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
+                return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
+            }
+
+            bool PreJudge(ulong judgeOffset)
+            {
+                return pulseLeftBeforeNote >= judgeOffset;
+            }
+
+            bool MissedJudge(ulong judgeOffset)
+            {
+                return pulsePassedAfterNote >= judgeOffset;
+            }
         }
     }
 }

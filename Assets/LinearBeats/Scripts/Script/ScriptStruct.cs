@@ -1,4 +1,5 @@
 using LinearBeats.Visuals;
+using UnityEngine;
 
 namespace LinearBeats.Script
 {
@@ -12,6 +13,7 @@ namespace LinearBeats.Script
         public Effect[] Effects;
         public VideoChannel[] VideoChannels;
         public AudioChannel[] AudioChannels;
+        public Note[] Notes;
     }
 
     public struct Metadata
@@ -81,20 +83,19 @@ namespace LinearBeats.Script
         public string FileName;
         public ushort PulseOffset;
         public byte Layer;
-        public Note[] Notes;
     }
 
     public struct Note
     {
-        public NoteBehaviour NoteBehaviour;
         public ulong Pulse;
         public ulong PulseDuration;
-        public byte AudioMode;
         public byte PositionRow;
         public byte PositionCol;
         public byte SizeRow;
         public byte SizeCol;
         public byte DstRow;
         public byte DstCol;
+        public ushort Channel;
+        public ushort Mode;
     }
 }

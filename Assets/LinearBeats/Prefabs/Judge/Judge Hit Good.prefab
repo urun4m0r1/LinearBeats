@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2125118327479935433, guid: ca22c2b839388cf4cae8f745f1fa7b03, type: 3}
       propertyPath: m_Name
-      value: Judge Good
+      value: Judge Hit Good
       objectReference: {fileID: 0}
     - target: {fileID: 8132022301744876823, guid: ca22c2b839388cf4cae8f745f1fa7b03, type: 3}
       propertyPath: m_RootOrder

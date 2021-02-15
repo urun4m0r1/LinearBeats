@@ -120,7 +120,9 @@ namespace LinearBeats.Game
         {
             if (_backgroundAudioSource.isPlaying)
             {
+                //NOTE: timesamples가 int형인데 결국 ulong으로 pulse 해도 의미 없기때문에 바꿀 필요가 있다.
                 _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
+                //NOTE: Judge는 fixedUpdate에서 할 필요 있음 0.02정밀도
                 UpdateNoteJudge();
 
                 if (_noteBehaviours.Count < _noteLoadBufferSize)

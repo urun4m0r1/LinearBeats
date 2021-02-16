@@ -1,5 +1,3 @@
-//FIXME: 엄청난 프레임드랍 해결
-
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 

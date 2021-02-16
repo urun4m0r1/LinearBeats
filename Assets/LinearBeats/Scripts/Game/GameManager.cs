@@ -69,7 +69,10 @@ namespace LinearBeats.Game
                     _scriptLoader.Script.Timings,
                     (from audioSource in _audioSources select audioSource.clip.frequency).ToArray());
 
-                _timingController.InitTiming(timingConverter, _backgroundAudioSource.clip.samples);
+                _timingController.InitTiming(
+                    timingConverter,
+                    _backgroundAudioSource.clip.samples,
+                    _scriptLoader.Script.AudioChannels[0].PulseOffset);
             }
 
             void InitGameObjects()
@@ -144,6 +147,8 @@ namespace LinearBeats.Game
                             judgedNoteIndexes.Add(noteBehaviour.Key);
                         }
                     }
+
+                    //FIXME: 엄청난 프레임드랍 해결
                     foreach (var judgedNoteIndex in judgedNoteIndexes)
                     {
                         LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);

@@ -18,6 +18,7 @@ namespace LinearBeats.Visuals
 
         private void SetZPosition(float zPosition)
         {
+            //NOTE: rigidBody.MovePosition() 사용하는편이 성능이 낫다.
             transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
         }
     }

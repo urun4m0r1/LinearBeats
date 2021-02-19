@@ -57,6 +57,8 @@ namespace LinearBeats.Visuals
                 noteBehaviour.JudgeEffectAnchor.position.y,
                 0f);
 
+            //TODO: 모든spawn 부르는 곳을 수정 => 부모는 최상위로 하는것이 좋다.
+
             _judgeEffects[judge].Spawn(
                 judgeEffectPosition,
                 noteBehaviour.JudgeEffectAnchor.rotation,

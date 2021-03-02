@@ -1,9 +1,12 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LinearBeats.Visuals
 {
     public class RailBehaviour : MonoBehaviour
     {
+        [SerializeField]
+        private Rigidbody _rigidbody = null;
         public ulong Pulse { get; set; } = 0;
 
         public void UpdateRailPosition(ulong currentPulse, float meterPerPulse)
@@ -18,8 +21,7 @@ namespace LinearBeats.Visuals
 
         private void SetZPosition(float zPosition)
         {
-            //NOTE: rigidBody.MovePosition() 사용하는편이 성능이 낫다.
-            transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
+            _rigidbody.MovePosition(new Vector3(_rigidbody.position.x, _rigidbody.position.y, zPosition));
         }
     }
 }

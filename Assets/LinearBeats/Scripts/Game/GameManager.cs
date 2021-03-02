@@ -148,7 +148,6 @@ namespace LinearBeats.Game
                         }
                     }
 
-                    //FIXME: 엄청난 프레임드랍 해결
                     foreach (var judgedNoteIndex in judgedNoteIndexes)
                     {
                         LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);

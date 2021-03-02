@@ -1,5 +1,3 @@
-//TODO: Make part of GameManager
-
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 

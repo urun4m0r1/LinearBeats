@@ -35,7 +35,7 @@ namespace LinearBeats.Game
         private NoteJudgement _noteJudgement = null;
 #pragma warning restore IDE0044
 
-        private Queue<RailBehaviour> _dividerBehaviours = null;
+        private readonly Dictionary<uint, RailBehaviour> _dividerBehaviours = new Dictionary<uint, RailBehaviour>();
         private readonly Dictionary<uint, NoteBehaviour> _noteBehaviours = new Dictionary<uint, NoteBehaviour>();
         private AudioSource[] _audioSources = null;
         private AudioSource _backgroundAudioSource = null;
@@ -47,7 +47,6 @@ namespace LinearBeats.Game
             InitScriptLoader();
             InitAudioSources();
             InitTimingController();
-            InitGameObjects();
 
             ResetGame();
 
@@ -73,11 +72,6 @@ namespace LinearBeats.Game
                     timingConverter,
                     _backgroundAudioSource.clip.samples,
                     _scriptLoader.Script.AudioChannels[0].PulseOffset);
-            }
-
-            void InitGameObjects()
-            {
-                _dividerBehaviours = _scriptLoader.InstantiateDividers();
             }
         }
 
@@ -167,7 +161,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
                 }
             }
 
@@ -190,6 +184,10 @@ namespace LinearBeats.Game
                     {
                         TryAddNoteBehaviour(i);
                     }
+                    if (!_dividerBehaviours.ContainsKey(i))
+                    {
+                        TryAddDividerBehaviour(i);
+                    }
                 }
             }
             nextNoteLoadIndex += bufferSize;
@@ -199,6 +197,14 @@ namespace LinearBeats.Game
                 if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour))
                 {
                     _noteBehaviours.Add(i, noteBehaviour);
+                }
+            }
+
+            void TryAddDividerBehaviour(uint i)
+            {
+                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour))
+                {
+                    _dividerBehaviours.Add(i, dividerBehaviour);
                 }
             }
         }

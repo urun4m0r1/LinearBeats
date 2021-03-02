@@ -112,21 +112,21 @@ namespace LinearBeats.Script
             }
         }
 
-        //TODO: Use ObjectPool
-        public Queue<RailBehaviour> InstantiateDividers()
+        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour)
         {
-            var dividerBehaviours = new Queue<RailBehaviour>();
-            foreach (var divider in Script.Dividers)
+            dividerBehaviour = null;
+            if (index < Script.Dividers.Length)
             {
+                Divider divider = Script.Dividers[index];
                 GameObject dividerObject = _dividerPool.Spawn(
                     Vector3.zero,
                     Quaternion.identity,
                     _dividerPool.transform);
-                var dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
+
+                dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
                 dividerBehaviour.Pulse = divider.Pulse;
-                dividerBehaviours.Enqueue(dividerBehaviour);
             }
-            return dividerBehaviours;
+            return dividerBehaviour != null;
         }
     }
 }

@@ -65,7 +65,7 @@ namespace LinearBeats.Game
             {
                 var timingConverter = new TimingConverter(
                     _scriptLoader.Script.Timing,
-                    (from audioSource in _audioSources select audioSource.clip.frequency).ToArray());
+                    _audioSources[0].clip.frequency);
 
                 _timingController.InitTiming(
                     timingConverter,

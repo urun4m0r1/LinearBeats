@@ -1,6 +1,4 @@
 //TODO: 시작 딜레이
-
-#pragma warning disable IDE0051
 #pragma warning disable IDE0090
 
 using Sirenix.OdinInspector;
@@ -22,7 +20,7 @@ namespace LinearBeats.Time
         private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
 #pragma warning restore IDE0044
 
-        public uint TimingIndex
+        public int TimingIndex
         {
             get => _timingIndex;
             private set
@@ -34,7 +32,7 @@ namespace LinearBeats.Time
                 }
             }
         }
-        private uint _timingIndex = 0;
+        private int _timingIndex = 0;
 
         public int CurrentPulse
         {
@@ -66,8 +64,7 @@ namespace LinearBeats.Time
 
         private void OnBpmChanged()
         {
-            string bpm = _timingConverter.BpmEvents[_timingIndex].Bpm.ToString();
-            _onBpmChanged.Invoke(bpm);
+            _onBpmChanged.Invoke(_timingConverter.GetBpmText(_timingIndex));
         }
 
         private void OnProgressChanged()
@@ -79,7 +76,7 @@ namespace LinearBeats.Time
         public void UpdateTiming(int currentSample)
         {
             TimingIndex = _timingConverter.GetTimingIndexFromSample(currentSample);
-            CurrentPulse = _timingConverter.SampleToPulse(currentSample, _timingIndex) + _pulsesOffset;
+            CurrentPulse = _timingConverter.SampleToPulse(currentSample) + _pulsesOffset;
         }
 
         public void ResetTiming()

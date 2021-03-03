@@ -36,7 +36,7 @@ namespace LinearBeats.Time
         }
         private uint _timingIndex = 0;
 
-        public ulong CurrentPulse
+        public int CurrentPulse
         {
             get => _currentPulse;
             private set
@@ -48,13 +48,13 @@ namespace LinearBeats.Time
                 }
             }
         }
-        private ulong _currentPulse = 0;
+        private int _currentPulse = 0;
 
         private TimingConverter _timingConverter = null;
-        private ulong _pulsesLength = 0;
-        private ulong _pulsesOffset = 0;
+        private int _pulsesLength = 0;
+        private int _pulsesOffset = 0;
 
-        public void InitTiming(TimingConverter timingConverter, int samplesLength, ulong pulsesOffset)
+        public void InitTiming(TimingConverter timingConverter, int samplesLength, int pulsesOffset)
         {
             _timingConverter = timingConverter;
             _pulsesLength = timingConverter.SampleToPulse(samplesLength);
@@ -66,7 +66,7 @@ namespace LinearBeats.Time
 
         private void OnBpmChanged()
         {
-            string bpm = _timingConverter.Timings[_timingIndex].Bpm.ToString();
+            string bpm = _timingConverter.BpmEvents[_timingIndex].Bpm.ToString();
             _onBpmChanged.Invoke(bpm);
         }
 
@@ -78,7 +78,7 @@ namespace LinearBeats.Time
 
         public void UpdateTiming(int currentSample)
         {
-            TimingIndex = _timingConverter.GetTimingIndex(currentSample);
+            TimingIndex = _timingConverter.GetTimingIndexFromSample(currentSample);
             CurrentPulse = _timingConverter.SampleToPulse(currentSample, _timingIndex) + _pulsesOffset;
         }
 

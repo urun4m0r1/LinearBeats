@@ -53,7 +53,7 @@ namespace LinearBeats.Script
                 return audioObject;
             }
 
-            AudioSource AddAudioSourcesToGameObject(GameObject audioObject, AudioChannel audioChannel)
+            AudioSource AddAudioSourcesToGameObject(GameObject audioObject, MediaChannel audioChannel)
             {
                 var audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
@@ -70,44 +70,44 @@ namespace LinearBeats.Script
             {
                 Note note = Script.Notes[index];
                 GameObject noteObject = _notesPool.Spawn(
-                    GetNotePosition(note),
+                    GetNotePosition(note.Shape),
                     Quaternion.identity,
                     _notesPool.transform);
-                noteObject.transform.localScale = GetNoteSize(note);
+                noteObject.transform.localScale = GetNoteSize(note.Shape);
 
                 noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                noteBehaviour.Pulse = note.Pulse;
+                noteBehaviour.Pulse = note.Trigger.Pulse;
                 noteBehaviour.Note = note;
             }
             return noteBehaviour != null;
 
-            Vector3 GetNotePosition(Note note)
+            Vector3 GetNotePosition(Shape noteShape)
             {
                 return new Vector3(GetNoteCol(), GetNoteRow(), 0f);
 
                 float GetNoteCol()
                 {
-                    return note.PositionCol - 6f;
+                    return noteShape.PosCol - 6f;
                 }
 
                 float GetNoteRow()
                 {
-                    return note.PositionRow * 2f;
+                    return noteShape.PosRow * 2f;
                 }
             }
 
-            Vector3 GetNoteSize(Note note)
+            Vector3 GetNoteSize(Shape noteShape)
             {
                 return new Vector3(GetNoteWidth(), GetNoteHeight(), 1f);
 
                 float GetNoteWidth()
                 {
-                    return note.SizeCol;
+                    return noteShape.SizeCol;
                 }
 
                 float GetNoteHeight()
                 {
-                    return note.SizeRow == 1 ? 1 : 20;
+                    return noteShape.SizeRow == 1 ? 1 : 20;
                 }
             }
         }

@@ -64,14 +64,13 @@ namespace LinearBeats.Game
             void InitTimingController()
             {
                 var timingConverter = new TimingConverter(
-                    _scriptLoader.Script.Metadata.PulsesPerQuarterNote,
-                    _scriptLoader.Script.Timings,
+                    _scriptLoader.Script.Timing,
                     (from audioSource in _audioSources select audioSource.clip.frequency).ToArray());
 
                 _timingController.InitTiming(
                     timingConverter,
                     _backgroundAudioSource.clip.samples,
-                    _scriptLoader.Script.AudioChannels[0].PulseOffset);
+                    _scriptLoader.Script.AudioChannels[0].Offset);
             }
         }
 
@@ -117,7 +116,6 @@ namespace LinearBeats.Game
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                //NOTE: timesamples가 int형인데 결국 ulong으로 pulse 해도 의미 없기때문에 바꿀 필요가 있다.
                 _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
                 //NOTE: Judge는 fixedUpdate에서 할 필요 있음 0.02정밀도
                 UpdateNoteJudge();

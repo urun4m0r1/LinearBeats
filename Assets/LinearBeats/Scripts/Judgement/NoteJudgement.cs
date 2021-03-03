@@ -19,7 +19,7 @@ namespace LinearBeats.Judgement
         //TODO: Time based judgement
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
-        private Dictionary<Judge, ulong> _judgeOffset = new Dictionary<Judge, ulong>
+        private Dictionary<Judge, int> _judgeOffset = new Dictionary<Judge, int>
         {
             [Judge.Perfect] = 20,
             [Judge.Great] = 40,
@@ -31,7 +31,7 @@ namespace LinearBeats.Judgement
         private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
-        public bool JudgeNote(NoteBehaviour noteBehaviour, ulong currentPulse)
+        public bool JudgeNote(NoteBehaviour noteBehaviour, int currentPulse)
         {
             Judge? noteJudgement = GetJudge(noteBehaviour.Note, currentPulse);
             if (noteJudgement != null)
@@ -42,22 +42,22 @@ namespace LinearBeats.Judgement
             return false;
         }
 
-        public Judge? GetJudge(Note note, ulong currentPulse)
+        public Judge? GetJudge(Note note, int currentPulse)
         {
-            ulong pulsePassedAfterNote;
-            ulong pulseLeftBeforeNote;
-            if (currentPulse >= note.Pulse)
+            int pulsePassedAfterNote;
+            int pulseLeftBeforeNote;
+            if (currentPulse >= note.Trigger.Pulse)
             {
-                pulsePassedAfterNote = currentPulse - note.Pulse;
-                pulseLeftBeforeNote = ulong.MaxValue;
+                pulsePassedAfterNote = currentPulse - note.Trigger.Pulse;
+                pulseLeftBeforeNote = int.MaxValue;
             }
             else
             {
                 pulsePassedAfterNote = 0;
-                pulseLeftBeforeNote = note.Pulse - currentPulse;
+                pulseLeftBeforeNote = note.Trigger.Pulse - currentPulse;
             }
 
-            if (InputHandler.IsNotePressed(note))
+            if (InputHandler.IsNotePressed(note.Shape))
             {
                 if (WithinJudge(_judgeOffset[Judge.Perfect])) return Judge.Perfect;
                 else if (WithinJudge(_judgeOffset[Judge.Great])) return Judge.Great;
@@ -71,24 +71,24 @@ namespace LinearBeats.Judgement
                 else return null;
             }
 
-            bool WithinJudge(ulong judgeOffset)
+            bool WithinJudge(int judgeOffset)
             {
                 return !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
             }
 
-            bool WithinJudgeRange(ulong judgeOffsetStart, ulong judgeOffsetEnd)
+            bool WithinJudgeRange(int judgeOffsetStart, int judgeOffsetEnd)
             {
                 Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
 
                 return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
             }
 
-            bool PreJudge(ulong judgeOffset)
+            bool PreJudge(int judgeOffset)
             {
                 return pulseLeftBeforeNote >= judgeOffset;
             }
 
-            bool MissedJudge(ulong judgeOffset)
+            bool MissedJudge(int judgeOffset)
             {
                 return pulsePassedAfterNote >= judgeOffset;
             }

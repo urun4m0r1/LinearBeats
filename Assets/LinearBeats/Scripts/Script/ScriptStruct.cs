@@ -1,3 +1,5 @@
+using LinearBeats.Time;
+
 namespace LinearBeats.Script
 {
     public struct LinearBeatsScript
@@ -33,8 +35,8 @@ namespace LinearBeats.Script
         public string FileNameBanner;
         public string FileNameSplash;
         public string FileNamePreview;
-        public int PreviewStart;
-        public int PreviewEnd;
+        public Second PreviewStart;
+        public Second PreviewEnd;
     }
 
     public struct Timing
@@ -47,27 +49,27 @@ namespace LinearBeats.Script
 
     public struct BpmEvent
     {
-        public int Pulse;
+        public Pulse Pulse;
         public float Bpm;
     }
 
     public struct TimingEvent
     {
-        public int Pulse;
-        public int Duration;
+        public Pulse Pulse;
+        public Pulse Duration;
     }
 
     public struct Divider
     {
-        public int Pulse;
-        public int Interval;
+        public Pulse Pulse;
+        public Pulse Interval;
         public byte Type;
     }
 
     public struct MediaChannel
     {
         public string FileName;
-        public int Offset;
+        public Second Offset;
         public byte Layer;
     }
 
@@ -75,8 +77,8 @@ namespace LinearBeats.Script
     {
         public ushort Channel;
         public byte Mode;
-        public int Pulse;
-        public int Duration;
+        public Pulse Pulse;
+        public Pulse Duration;
     }
 
     public struct Note
@@ -96,3 +98,4 @@ namespace LinearBeats.Script
         public byte DstCol;
     }
 }
+

@@ -10,22 +10,31 @@ namespace LinearBeats.Time
     {
         private readonly int _bpmEventsLength = 0;
         private readonly float[] _bpms = null;
-        private readonly int _samplesPerTime = 0;
-        private readonly float _timesPerSample = 0f;
+        private readonly Pulse[] _pulses = null;
+        private readonly float[] _samples = null;
+        private readonly Sample _samplesPerSecond = 0;
+        private readonly float _secondsPerSample = 0f;
         private readonly float[] _samplesPerPulse = null;
         private readonly float[] _pulsesPerSample = null;
-        private readonly int[] _pulses = null;
-        private readonly int[] _samples = null;
 
-        public TimingConverter(Timing timing, int samplesPerTime)
+        public TimingConverter(Timing timing, Sample samplesPerSecond)
         {
+            if (timing.BpmEvents.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException();
+            }
+            if (samplesPerSecond <= 0)
+            {
+                throw new ArgumentException();
+            }
+
             _bpmEventsLength = timing.BpmEvents.Length;
 
             _bpms = (from bpmEvent in timing.BpmEvents select bpmEvent.Bpm).ToArray();
             _pulses = (from bpmEvent in timing.BpmEvents select bpmEvent.Pulse).ToArray();
 
-            _samplesPerTime = samplesPerTime;
-            _timesPerSample = 1f / samplesPerTime;
+            _samplesPerSecond = samplesPerSecond;
+            _secondsPerSample = 1f / samplesPerSecond;
 
             _samplesPerPulse = GetSamplesPerPulse();
             _pulsesPerSample = _samplesPerPulse.Reciprocal();
@@ -37,21 +46,21 @@ namespace LinearBeats.Time
                 var samplesPerPulse = new float[_bpmEventsLength];
                 for (var i = 0; i < _bpmEventsLength; ++i)
                 {
-                    float timePerQuarterNote = 60f / _bpms[i];
-                    float timePerPulse = timePerQuarterNote / timing.PulsesPerQuarterNote;
-                    samplesPerPulse[i] = _samplesPerTime * timePerPulse;
+                    float secondsPerQuarterNote = 60f / _bpms[i];
+                    float secondsPerPulse = secondsPerQuarterNote / timing.PulsesPerQuarterNote;
+                    samplesPerPulse[i] = _samplesPerSecond * secondsPerPulse;
                 }
                 return samplesPerPulse;
             }
 
-            int[] GetSamples()
+            float[] GetSamples()
             {
                 var timingIntervalSamples = new float[_bpmEventsLength];
-                var samples = new int[_bpmEventsLength];
+                var samples = new float[_bpmEventsLength];
                 for (var i = 0; i < _bpmEventsLength; ++i)
                 {
                     timingIntervalSamples[i] = _samplesPerPulse[i] * GetTimingIntervalPulses(i);
-                    samples[i] = (int)timingIntervalSamples.Sigma(0, i);
+                    samples[i] = timingIntervalSamples.Sigma(0, i);
                 }
                 return samples;
 
@@ -68,69 +77,69 @@ namespace LinearBeats.Time
             return _bpms[timingIndex].ToString();
         }
 
-        public int PulseToTime(int currentPulse)
+        public Second ToSecond(Pulse currentPulse)
         {
-            return SampleToTime(PulseToSample(currentPulse));
+            return ToSecond(ToSample(currentPulse));
         }
 
-        public int TimeToPulse(int currentTime)
+        public Pulse ToPulse(Second currentSecond)
         {
-            return SampleToPulse(TimeToSample(currentTime));
+            return ToPulse(ToSample(currentSecond));
         }
 
-        public int SampleToTime(int currentSample)
+        public Second ToSecond(Sample currentSample)
         {
-            return checked((int)(_timesPerSample * currentSample));
+            return _secondsPerSample * currentSample;
         }
 
-        public int TimeToSample(int currentTime)
+        public Sample ToSample(Second currentSecond)
         {
-            return checked(_samplesPerTime * currentTime);
+            return (_samplesPerSecond * currentSecond).RoundToInt();
         }
 
-        public int SampleToPulse(int currentSample)
+        public Pulse ToPulse(Sample currentSample)
         {
-            return SampleToPulse(currentSample, GetTimingIndexFromSample(currentSample));
+            return ToPulse(currentSample, GetTimingIndexFromSample(currentSample));
         }
 
-        public int PulseToSample(int currentPulse)
+        public Sample ToSample(Pulse currentPulse)
         {
-            return PulseToSample(currentPulse, GetTimingIndexFromPulse(currentPulse));
+            return ToSample(currentPulse, GetTimingIndexFromPulse(currentPulse));
         }
 
-        private int SampleToPulse(int currentSample, int timingIndex)
+        private Pulse ToPulse(Sample currentSample, int timingIndex)
         {
             Assert.IsTrue(currentSample >= _samples[timingIndex]);
 
-            int elapsedTimingSamples = currentSample - _samples[timingIndex];
+            float elapsedTimingSamples = currentSample - _samples[timingIndex];
             float elapsedTimingPulses = _pulsesPerSample[timingIndex] * elapsedTimingSamples;
-            int currentPulse = checked(_pulses[timingIndex] + (int)elapsedTimingPulses);
+            float currentPulse = _pulses[timingIndex] + elapsedTimingPulses;
 
-            return currentPulse;
+            return currentPulse.RoundToInt();
         }
 
-        private int PulseToSample(int currentPulse, int timingIndex)
+        private Sample ToSample(Pulse currentPulse, int timingIndex)
         {
             Assert.IsTrue(currentPulse >= _pulses[timingIndex]);
 
-            int elapsedTimingPulses = currentPulse - _pulses[timingIndex];
+            Pulse elapsedTimingPulses = currentPulse - _pulses[timingIndex];
             float elapsedTimingSamples = _samplesPerPulse[timingIndex] * elapsedTimingPulses;
-            int currentSample = checked(_samples[timingIndex] + (int)elapsedTimingSamples);
+            float currentSample = _samples[timingIndex] + elapsedTimingSamples;
 
-            return currentSample;
+            return currentSample.RoundToInt();
         }
 
-        public int GetTimingIndexFromTime(int currentTime)
+        public int GetTimingIndexFromSecond(Second currentSecond)
         {
-            return GetTimingIndexFromSample(TimeToSample(currentTime));
+            return GetTimingIndexFromSample(ToSample(currentSecond));
         }
 
-        public int GetTimingIndexFromSample(int currentSample)
+        public int GetTimingIndexFromSample(Sample currentSample)
         {
             return GetTimingIndex(currentSample, _samples);
         }
 
-        public int GetTimingIndexFromPulse(int currentPulse)
+        public int GetTimingIndexFromPulse(Pulse currentPulse)
         {
             return GetTimingIndex(currentPulse, _pulses);
         }
@@ -145,3 +154,4 @@ namespace LinearBeats.Time
         }
     }
 }
+

@@ -41,6 +41,7 @@ namespace LinearBeats.Game
         private AudioSource _backgroundAudioSource = null;
 
         private uint nextNoteLoadIndex = 0;
+        private TimingConverter _timingConverter = null;
 
         void Start()
         {
@@ -63,12 +64,12 @@ namespace LinearBeats.Game
 
             void InitTimingController()
             {
-                var timingConverter = new TimingConverter(
+                _timingConverter = new TimingConverter(
                     _scriptLoader.Script.Timing,
                     _audioSources[0].clip.frequency);
 
                 _timingController.InitTiming(
-                    timingConverter,
+                    _timingConverter,
                     _backgroundAudioSource.clip.samples,
                     _scriptLoader.Script.AudioChannels[0].Offset);
             }
@@ -132,7 +133,8 @@ namespace LinearBeats.Game
                     {
                         bool noteJudged = _noteJudgement.JudgeNote(
                             noteBehaviour.Value,
-                            _timingController.CurrentPulse);
+                            _backgroundAudioSource.time,
+                            _timingConverter);
 
                         if (noteJudged)
                         {

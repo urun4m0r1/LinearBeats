@@ -1,16 +1,19 @@
 #pragma warning disable IDE0090
-
 using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 
+[TestFixture]
 public class TimingConverterTest
 {
-    [Test]
-    public void Can_Convert_Time_To_Sample()
+    Timing timing;
+    TimingConverter converter;
+
+    [SetUp]
+    public void SetUp()
     {
         #region Given
-        Timing timing = new Timing()
+        timing = new Timing()
         {
             PulsesPerQuarterNote = 100,
             BpmEvents = new BpmEvent[]
@@ -21,15 +24,21 @@ public class TimingConverterTest
                 new BpmEvent() { Pulse = 1000, Bpm = 200f },
             }
         };
-        TimingConverter converter = new TimingConverter(timing, 500);
+        converter = new TimingConverter(timing, 500);
         #endregion
+    }
 
+    [Test]
+    public void Can_Convert_Time_To_Sample()
+    {
         #region When
-        int currentTime = 10;
+        Second currentSecond = 10;
         #endregion
 
         #region Then
-        Assert.AreEqual(5000, converter.TimeToSample(currentTime));
+        Assert.AreEqual((Sample)5000, converter.ToSample(currentSecond));
         #endregion
     }
 }
+
+

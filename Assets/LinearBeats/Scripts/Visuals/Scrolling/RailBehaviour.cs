@@ -1,3 +1,4 @@
+using LinearBeats.Time;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ namespace LinearBeats.Visuals
     {
         [SerializeField]
         private Rigidbody _rigidbody = null;
-        public int Pulse { get; set; } = 0;
+        public Pulse Pulse { get; set; } = 0;
 
-        public void UpdateRailPosition(int currentPulse, float meterPerPulse)
+        public void UpdateRailPosition(Pulse currentPulse, float meterPerPulse)
         {
             //TODO: BPM 정지 구현 int a = _script.Timings[0].PulseStopDuration;
             //TODO: BPM 역스크롤 구현 int a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)

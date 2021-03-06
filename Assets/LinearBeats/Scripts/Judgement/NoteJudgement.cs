@@ -1,9 +1,9 @@
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
-
 using System.Collections.Generic;
 using LinearBeats.Input;
 using LinearBeats.Script;
+using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -19,21 +19,21 @@ namespace LinearBeats.Judgement
         //TODO: Time based judgement
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
-        private Dictionary<Judge, int> _judgeOffset = new Dictionary<Judge, int>
+        private Dictionary<Judge, float> _judgeOffset = new Dictionary<Judge, float>
         {
-            [Judge.Perfect] = 20,
-            [Judge.Great] = 40,
-            [Judge.Good] = 60,
-            [Judge.Bad] = 80,
+            [Judge.Perfect] = 0.033f,
+            [Judge.Great] = 0.066f,
+            [Judge.Good] = 0.133f,
+            [Judge.Bad] = 0.150f,
         };
 
         [SerializeField]
         private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
-        public bool JudgeNote(NoteBehaviour noteBehaviour, int currentPulse)
+        public bool JudgeNote(NoteBehaviour noteBehaviour, Second currentSecond, TimingConverter converter)
         {
-            Judge? noteJudgement = GetJudge(noteBehaviour.Note, currentPulse);
+            Judge? noteJudgement = GetJudge(noteBehaviour.Note, currentSecond, converter);
             if (noteJudgement != null)
             {
                 _laneEffect.OnJudge(noteBehaviour, (Judge)noteJudgement);
@@ -42,19 +42,22 @@ namespace LinearBeats.Judgement
             return false;
         }
 
-        public Judge? GetJudge(Note note, int currentPulse)
+        public Judge? GetJudge(Note note, Second currentSecond, TimingConverter converter)
         {
-            int pulsePassedAfterNote;
-            int pulseLeftBeforeNote;
-            if (currentPulse >= note.Trigger.Pulse)
+            Second elapsed;
+            Second remaining;
+            Pulse notePulse = note.Trigger.Pulse;
+            Second noteSecond = converter.ToSecond(notePulse);
+
+            if (currentSecond >= noteSecond)
             {
-                pulsePassedAfterNote = currentPulse - note.Trigger.Pulse;
-                pulseLeftBeforeNote = int.MaxValue;
+                elapsed = currentSecond - noteSecond;
+                remaining = float.MaxValue;
             }
             else
             {
-                pulsePassedAfterNote = 0;
-                pulseLeftBeforeNote = note.Trigger.Pulse - currentPulse;
+                elapsed = 0f;
+                remaining = noteSecond - currentSecond;
             }
 
             if (InputHandler.IsNotePressed(note.Shape))
@@ -71,27 +74,28 @@ namespace LinearBeats.Judgement
                 else return null;
             }
 
-            bool WithinJudge(int judgeOffset)
+            bool WithinJudge(Second judgeOffset)
             {
                 return !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
             }
 
-            bool WithinJudgeRange(int judgeOffsetStart, int judgeOffsetEnd)
+            bool WithinJudgeRange(Second judgeOffsetStart, Second judgeOffsetEnd)
             {
                 Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
 
                 return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
             }
 
-            bool PreJudge(int judgeOffset)
+            bool PreJudge(Second judgeOffset)
             {
-                return pulseLeftBeforeNote >= judgeOffset;
+                return remaining >= judgeOffset;
             }
 
-            bool MissedJudge(int judgeOffset)
+            bool MissedJudge(Second judgeOffset)
             {
-                return pulsePassedAfterNote >= judgeOffset;
+                return elapsed >= judgeOffset;
             }
         }
     }
 }
+

@@ -6,6 +6,9 @@ using NUnit.Framework;
 [TestFixture]
 public class TimingConverterTest
 {
+    //TODO: 예외처리들이 잘 작동하는지 확인
+    //TODO: 변속이 없는 경우 예외 처리하기
+
     Timing timing;
     TimingConverter converter = null;
 
@@ -17,9 +20,9 @@ public class TimingConverterTest
             PulsesPerQuarterNote = 100,
             BpmEvents = new BpmEvent[]
             {
+                new BpmEvent() { Pulse = 800, Bpm = 30f },
                 new BpmEvent() { Pulse = 0, Bpm = 60f },
                 new BpmEvent() { Pulse = 400, Bpm = 120f },
-                new BpmEvent() { Pulse = 800, Bpm = 30f },
             }
         };
         converter = new TimingConverter(timing, 500f);

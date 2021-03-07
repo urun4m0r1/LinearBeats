@@ -5,6 +5,8 @@ using Sirenix.Utilities;
 using UnityEngine.Assertions;
 using Utils.Extensions;
 
+//TODO: timingIndex 관련 private로 만들기
+
 namespace LinearBeats.Time
 {
     public sealed class TimingConverter
@@ -23,13 +25,18 @@ namespace LinearBeats.Time
             {
                 throw new ArgumentNullException();
             }
-            if (samplesPerSecond <= 0f)
+            if (samplesPerSecond <= 0f || timing.PulsesPerQuarterNote <= 0)
+            {
+                throw new ArgumentException();
+            }
+            if (0f.IsIn(timing.BpmEvents.Select(v => v.Bpm).ToArray()))
             {
                 throw new ArgumentException();
             }
 
-            _bpms = timing.BpmEvents.Select(v => v.Bpm).ToArray();
-            _pulses = timing.BpmEvents.Select(v => v.Pulse).ToArray();
+            var bpmEvents = timing.BpmEvents.OrderBy(v => v.Pulse);
+            _bpms = bpmEvents.Select(v => v.Bpm).ToArray();
+            _pulses = bpmEvents.Select(v => v.Pulse).ToArray();
 
             _samplesPerSecond = samplesPerSecond;
             _secondsPerSample = 1f / samplesPerSecond;

@@ -12,5 +12,6 @@ namespace LinearBeats.Time
         public static implicit operator Pulse(int value) => new Pulse { _value = value };
         public static implicit operator Pulse(string value) => new Pulse { _value = int.Parse(value) };
         int IComparable<Pulse>.CompareTo(Pulse value) => _value.CompareTo(value);
+        public override string ToString() => _value.ToString();
     }
 }

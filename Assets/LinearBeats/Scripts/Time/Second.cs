@@ -12,5 +12,6 @@ namespace LinearBeats.Time
         public static implicit operator Second(float value) => new Second { _value = value };
         public static implicit operator Second(string value) => new Second { _value = float.Parse(value) };
         int IComparable<Second>.CompareTo(Second value) => _value.CompareTo(value);
+        public override string ToString() => _value.ToString();
     }
 }

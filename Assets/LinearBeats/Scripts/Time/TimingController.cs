@@ -64,7 +64,7 @@ namespace LinearBeats.Time
 
         private void OnBpmChanged()
         {
-            _onBpmChanged.Invoke(_timingConverter.GetBpmText(_timingIndex));
+            _onBpmChanged.Invoke(_timingConverter.GetBpm(_timingIndex).ToString());
         }
 
         private void OnProgressChanged()
@@ -75,7 +75,7 @@ namespace LinearBeats.Time
 
         public void UpdateTiming(Sample currentSample)
         {
-            TimingIndex = _timingConverter.GetTimingIndexFromSample(currentSample);
+            TimingIndex = _timingConverter.GetTimingIndex(currentSample);
             CurrentPulse = _timingConverter.ToPulse(currentSample);
         }
 

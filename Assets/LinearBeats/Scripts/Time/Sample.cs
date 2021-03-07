@@ -6,11 +6,12 @@ namespace LinearBeats.Time
 {
     public struct Sample : IComparable<Sample>
     {
-        private int _value;
-        public Sample(int value) => _value = value;
-        public static implicit operator int(Sample value) => value._value;
-        public static implicit operator Sample(int value) => new Sample { _value = value };
-        public static implicit operator Sample(string value) => new Sample { _value = int.Parse(value) };
+        private float _value;
+        public Sample(float value) => _value = value;
+        public static implicit operator float(Sample value) => value._value;
+        public static implicit operator Sample(float value) => new Sample { _value = value };
+        public static implicit operator Sample(string value) => new Sample { _value = float.Parse(value) };
         int IComparable<Sample>.CompareTo(Sample value) => _value.CompareTo(value);
+        public override string ToString() => _value.ToString();
     }
 }

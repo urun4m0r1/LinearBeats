@@ -1,4 +1,6 @@
 #pragma warning disable IDE0090
+
+using System;
 using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
@@ -6,130 +8,209 @@ using NUnit.Framework;
 [TestFixture]
 public class TimingConverterTest
 {
-    //TODO: 예외처리들이 잘 작동하는지 확인
-    //TODO: 변속이 없는 경우 예외 처리하기
+    private const float SamplesPerSecond = 500f;
+    private const int PulsesPerQuarterNote = 100;
+    private const int FirstPulse = 0;
+    private const int ThirdPulse = 800;
+    private const int SecondPulse = 400;
+    private const float FirstBpm = 60f;
+    private const float SecondBpm = 120f;
+    private const float ThirdBpm = 30f;
+    private readonly Pulse pulseA = 0;
+    private readonly Pulse pulseB = 600;
+    private readonly Pulse pulseC = 1200;
+    private readonly Pulse pulseD = 400;
+    private readonly Sample sampleA = 0;
+    private readonly Sample sampleB = 2500;
+    private readonly Sample sampleC = 7000;
+    private readonly Sample sampleD = 2000;
+    private readonly Second secondA = 0;
+    private readonly Second secondB = 5;
+    private readonly Second secondC = 14;
+    private readonly Second secondD = 4;
 
-    Timing timing;
-    TimingConverter converter = null;
+    private Timing timingDisorder;
+    private Timing timingSingle;
+    private TimingConverter converterDisorder = null;
+    private TimingConverter converterSingle = null;
 
     [SetUp]
     public void SetUp()
     {
-        timing = new Timing()
+        timingDisorder = new Timing()
         {
-            PulsesPerQuarterNote = 100,
+            PulsesPerQuarterNote = PulsesPerQuarterNote,
             BpmEvents = new BpmEvent[]
             {
-                new BpmEvent() { Pulse = 800, Bpm = 30f },
-                new BpmEvent() { Pulse = 0, Bpm = 60f },
-                new BpmEvent() { Pulse = 400, Bpm = 120f },
+                new BpmEvent() { Pulse = ThirdPulse, Bpm = ThirdBpm },
+                new BpmEvent() { Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent() { Pulse = SecondPulse, Bpm = SecondBpm },
             }
         };
-        converter = new TimingConverter(timing, 500f);
+
+        timingSingle = new Timing()
+        {
+            PulsesPerQuarterNote = PulsesPerQuarterNote,
+            BpmEvents = new BpmEvent[]
+            {
+                new BpmEvent() { Pulse = FirstPulse, Bpm = FirstBpm },
+            }
+        };
+
+        converterDisorder = new TimingConverter(timingDisorder, SamplesPerSecond);
+        converterSingle = new TimingConverter(timingSingle, SamplesPerSecond);
+    }
+
+    [Test]
+    public void Init_BpmEvents_Cannot_Be_Null()
+    {
+        timingSingle.BpmEvents = null;
+
+        Assert.Catch<ArgumentNullException>(() => new TimingConverter(timingSingle, SamplesPerSecond));
+    }
+
+    [Test]
+    public void Init_BpmEvents_Cannot_Be_Empty()
+    {
+        timingSingle.BpmEvents = new BpmEvent[] { };
+
+        Assert.Catch<ArgumentNullException>(() => new TimingConverter(timingSingle, SamplesPerSecond));
+    }
+
+    [Test]
+    public void Init_Any_BpmEvents_Bpm_Must_Be_Non_Zero_Positive()
+    {
+        timingSingle.BpmEvents = new BpmEvent[]
+        {
+            new BpmEvent() { Pulse = FirstPulse, Bpm = 0 },
+        };
+
+        Assert.Catch<ArgumentException>(() => new TimingConverter(timingSingle, SamplesPerSecond));
+    }
+
+    [Test]
+    public void Init_At_Least_One_BpmEvent_Pulse_Must_Be_Zero()
+    {
+        timingSingle.BpmEvents = new BpmEvent[]
+        {
+            new BpmEvent() { Pulse = 400, Bpm = FirstBpm },
+        };
+
+        Assert.Catch<ArgumentException>(() => new TimingConverter(timingSingle, SamplesPerSecond));
+    }
+
+    [Test]
+    public void Init_PulsesPerQuarterNote_Must_Be_Non_Zero_Positive()
+    {
+        timingSingle.PulsesPerQuarterNote = 0;
+
+        Assert.Catch<ArgumentException>(() => new TimingConverter(timingSingle, SamplesPerSecond));
+    }
+
+    [Test]
+    public void Init_SamplesPerSecond_Must_Be_Non_Zero_Positive()
+    {
+        Assert.Catch<ArgumentException>(() => new TimingConverter(timingSingle, 0));
+        Assert.Catch<ArgumentException>(() => new TimingConverter(timingSingle, -500));
     }
 
     [Test]
     public void Should_Get_Bpm_From_Pulse()
     {
-        AreEqual(60f, converter.GetBpm((Pulse)0));
-        AreEqual(120f, converter.GetBpm((Pulse)600));
-        AreEqual(30f, converter.GetBpm((Pulse)1200));
+        AreEqual(FirstBpm, converterDisorder.GetBpm(pulseA));
+        AreEqual(SecondBpm, converterDisorder.GetBpm(pulseB));
+        AreEqual(ThirdBpm, converterDisorder.GetBpm(pulseC));
+
+        AreEqual(FirstBpm, converterSingle.GetBpm(pulseA));
+        AreEqual(FirstBpm, converterSingle.GetBpm(pulseD));
     }
 
     [Test]
     public void Should_Get_Bpm_From_Sample()
     {
-        AreEqual(60f, converter.GetBpm((Sample)0));
-        AreEqual(120f, converter.GetBpm((Sample)2500));
-        AreEqual(30f, converter.GetBpm((Sample)7000));
+        AreEqual(FirstBpm, converterDisorder.GetBpm(sampleA));
+        AreEqual(SecondBpm, converterDisorder.GetBpm(sampleB));
+        AreEqual(ThirdBpm, converterDisorder.GetBpm(sampleC));
+
+        AreEqual(FirstBpm, converterSingle.GetBpm(sampleA));
+        AreEqual(FirstBpm, converterSingle.GetBpm(sampleD));
     }
 
     [Test]
     public void Should_Get_Bpm_From_Second()
     {
-        AreEqual(60f, converter.GetBpm((Second)0));
-        AreEqual(120f, converter.GetBpm((Second)5));
-        AreEqual(30f, converter.GetBpm((Second)14));
-    }
+        AreEqual(FirstBpm, converterDisorder.GetBpm(secondA));
+        AreEqual(SecondBpm, converterDisorder.GetBpm(secondB));
+        AreEqual(ThirdBpm, converterDisorder.GetBpm(secondC));
 
-    [Test]
-    public void Should_Get_Bpm_From_Index()
-    {
-        AreEqual(60f, converter.GetBpm(0));
-        AreEqual(120f, converter.GetBpm(1));
-        AreEqual(30f, converter.GetBpm(2));
+        AreEqual(FirstBpm, converterSingle.GetBpm(secondA));
+        AreEqual(FirstBpm, converterSingle.GetBpm(secondD));
     }
 
     [Test]
     public void Should_Convert_Pulse_To_Sample()
     {
-        AreEqual((Sample)0, converter.ToSample((Pulse)0));
-        AreEqual((Sample)2500, converter.ToSample((Pulse)600));
-        AreEqual((Sample)7000, converter.ToSample((Pulse)1200));
+        AreEqual(sampleA, converterDisorder.ToSample(pulseA));
+        AreEqual(sampleB, converterDisorder.ToSample(pulseB));
+        AreEqual(sampleC, converterDisorder.ToSample(pulseC));
+
+        AreEqual(sampleA, converterSingle.ToSample(pulseA));
+        AreEqual(sampleD, converterSingle.ToSample(pulseD));
     }
 
     [Test]
     public void Should_Convert_Sample_To_Pulse()
     {
-        AreEqual((Pulse)0, converter.ToPulse((Sample)0));
-        AreEqual((Pulse)600, converter.ToPulse((Sample)2500));
-        AreEqual((Pulse)1200, converter.ToPulse((Sample)7000));
+        AreEqual(pulseA, converterDisorder.ToPulse(sampleA));
+        AreEqual(pulseB, converterDisorder.ToPulse(sampleB));
+        AreEqual(pulseC, converterDisorder.ToPulse(sampleC));
+
+        AreEqual(pulseA, converterSingle.ToPulse(sampleA));
+        AreEqual(pulseD, converterSingle.ToPulse(sampleD));
     }
 
     [Test]
     public void Should_Convert_Sample_To_Second()
     {
-        AreEqual((Second)0, converter.ToSecond((Sample)0));
-        AreEqual((Second)5, converter.ToSecond((Sample)2500));
-        AreEqual((Second)14, converter.ToSecond((Sample)7000));
+        AreEqual(secondA, converterDisorder.ToSecond(sampleA));
+        AreEqual(secondB, converterDisorder.ToSecond(sampleB));
+        AreEqual(secondC, converterDisorder.ToSecond(sampleC));
+
+        AreEqual(secondA, converterSingle.ToSecond(sampleA));
+        AreEqual(secondD, converterSingle.ToSecond(sampleD));
     }
 
     [Test]
     public void Should_Convert_Second_To_Sample()
     {
-        AreEqual((Sample)0, converter.ToSample((Second)0));
-        AreEqual((Sample)2500, converter.ToSample((Second)5));
-        AreEqual((Sample)7000, converter.ToSample((Second)14));
+        AreEqual(sampleA, converterDisorder.ToSample(secondA));
+        AreEqual(sampleB, converterDisorder.ToSample(secondB));
+        AreEqual(sampleC, converterDisorder.ToSample(secondC));
+
+        AreEqual(sampleA, converterSingle.ToSample(secondA));
+        AreEqual(sampleD, converterSingle.ToSample(secondD));
     }
 
     [Test]
     public void Should_Convert_Second_To_Pulse()
     {
-        AreEqual((Pulse)0, converter.ToPulse((Second)0));
-        AreEqual((Pulse)600, converter.ToPulse((Second)5));
-        AreEqual((Pulse)1200, converter.ToPulse((Second)14));
+        AreEqual(pulseA, converterDisorder.ToPulse(secondA));
+        AreEqual(pulseB, converterDisorder.ToPulse(secondB));
+        AreEqual(pulseC, converterDisorder.ToPulse(secondC));
+
+        AreEqual(pulseA, converterSingle.ToPulse(secondA));
+        AreEqual(pulseD, converterSingle.ToPulse(secondD));
     }
 
     [Test]
     public void Should_Convert_Pulse_To_Second()
     {
-        AreEqual((Second)0, converter.ToSecond((Pulse)0));
-        AreEqual((Second)5, converter.ToSecond((Pulse)600));
-        AreEqual((Second)14, converter.ToSecond((Pulse)1200));
-    }
+        AreEqual(secondA, converterDisorder.ToSecond(pulseA));
+        AreEqual(secondB, converterDisorder.ToSecond(pulseB));
+        AreEqual(secondC, converterDisorder.ToSecond(pulseC));
 
-    [Test]
-    public void Should_Get_Index_From_Pulse()
-    {
-        AreEqual(0, converter.GetTimingIndex((Pulse)0));
-        AreEqual(1, converter.GetTimingIndex((Pulse)600));
-        AreEqual(2, converter.GetTimingIndex((Pulse)1200));
-    }
-
-    [Test]
-    public void Should_Get_Index_From_Sample()
-    {
-        AreEqual(0, converter.GetTimingIndex((Sample)0));
-        AreEqual(1, converter.GetTimingIndex((Sample)2500));
-        AreEqual(2, converter.GetTimingIndex((Sample)7000));
-    }
-
-    [Test]
-    public void Should_Get_Index_From_Second()
-    {
-        AreEqual(0, converter.GetTimingIndex((Second)0));
-        AreEqual(1, converter.GetTimingIndex((Second)5));
-        AreEqual(2, converter.GetTimingIndex((Second)14));
+        AreEqual(secondA, converterSingle.ToSecond(pulseA));
+        AreEqual(secondD, converterSingle.ToSecond(pulseD));
     }
 
     private void AreEqual(float expected, float actual)

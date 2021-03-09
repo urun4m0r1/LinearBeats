@@ -5,8 +5,6 @@ using Sirenix.Utilities;
 using UnityEngine.Assertions;
 using Utils.Extensions;
 
-//TODO: timingIndex 관련 private로 만들기
-
 namespace LinearBeats.Time
 {
     public sealed class TimingConverter
@@ -23,15 +21,23 @@ namespace LinearBeats.Time
         {
             if (timing.BpmEvents.IsNullOrEmpty())
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("BpmEvents cannot be null or empty");
             }
-            if (samplesPerSecond <= 0f || timing.PulsesPerQuarterNote <= 0)
+            if (timing.BpmEvents.Any(v => v.Bpm <= 0f))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Any BpmEvent.Bpm must be non-zero positive");
             }
-            if (0f.IsIn(timing.BpmEvents.Select(v => v.Bpm).ToArray()))
+            if (timing.BpmEvents.All(v => v.Pulse != 0))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("At least one BpmEvent.Pulse must be zero");
+            }
+            if (timing.PulsesPerQuarterNote <= 0)
+            {
+                throw new ArgumentException("PulsesPerQuarterNote must be non-zero positive");
+            }
+            if (samplesPerSecond <= 0f)
+            {
+                throw new ArgumentException("samplesPerSecond must be non-zero positive");
             }
 
             var bpmEvents = timing.BpmEvents.OrderBy(v => v.Pulse);
@@ -67,22 +73,29 @@ namespace LinearBeats.Time
             }
         }
 
-        public float GetBpm(Pulse pulse) => GetBpm(GetTimingIndex(pulse));
         public float GetBpm(Second second) => GetBpm(GetTimingIndex(second));
+        public float GetBpm(Pulse pulse) => GetBpm(GetTimingIndex(pulse));
         public float GetBpm(Sample sample) => GetBpm(GetTimingIndex(sample));
-
-        public float GetBpm(int timingIndex) => _bpms[timingIndex];
-
-        public Pulse ToPulse(Second second) => ToPulse(ToSample(second));
-        public Pulse ToPulse(Sample sample) => ToPulse(sample, GetTimingIndex(sample));
         public Second ToSecond(Pulse pulse) => ToSecond(ToSample(pulse));
+        public Pulse ToPulse(Second second) => ToPulse(ToSample(second));
         public Second ToSecond(Sample sample) => _secondsPerSample * sample;
-        public Sample ToSample(Pulse pulse) => ToSample(pulse, GetTimingIndex(pulse));
         public Sample ToSample(Second second) => _samplesPerSecond * second;
+        public Sample ToSample(Pulse pulse) => ToSample(pulse, GetTimingIndex(pulse));
+        public Pulse ToPulse(Sample sample) => ToPulse(sample, GetTimingIndex(sample));
 
-        public int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
-        public int GetTimingIndex(Second second) => GetTimingIndex(ToSample(second));
-        public int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
+        private float GetBpm(int timingIndex) => _bpms[timingIndex];
+
+        private int GetTimingIndex(Second second) => GetTimingIndex(ToSample(second));
+        private int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
+        private int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
+        private int GetTimingIndex<T>(T timing, T[] sortedTiming) where T : IComparable<T>
+        {
+            for (var i = 0; i < sortedTiming.Length - 1; ++i)
+            {
+                if (timing.IsBetweenIE(sortedTiming[i], sortedTiming[i + 1])) return i;
+            }
+            return sortedTiming.Length - 1;
+        }
 
         private Pulse ToPulse(Sample sample, int timingIndex)
         {
@@ -104,15 +117,6 @@ namespace LinearBeats.Time
             var sample = _samples[timingIndex] + samplesElapsed;
 
             return sample;
-        }
-
-        private int GetTimingIndex<T>(T timing, T[] sortedTiming) where T : IComparable<T>
-        {
-            for (var i = 0; i < sortedTiming.Length - 1; ++i)
-            {
-                if (timing.IsBetweenIE(sortedTiming[i], sortedTiming[i + 1])) return i;
-            }
-            return sortedTiming.Length - 1;
         }
     }
 }

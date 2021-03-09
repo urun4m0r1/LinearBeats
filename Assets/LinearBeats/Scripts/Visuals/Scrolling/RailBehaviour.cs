@@ -10,6 +10,8 @@ namespace LinearBeats.Visuals
         private Rigidbody _rigidbody = null;
         public Pulse Pulse { get; set; } = 0;
 
+        //public Timing Timing { get; set; } = 0;
+
         public void UpdateRailPosition(Pulse currentPulse, float meterPerPulse)
         {
             //TODO: BPM 정지 구현 int a = _script.Timings[0].PulseStopDuration;

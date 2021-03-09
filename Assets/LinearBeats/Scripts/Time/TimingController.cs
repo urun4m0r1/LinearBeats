@@ -20,19 +20,19 @@ namespace LinearBeats.Time
         private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
 #pragma warning restore IDE0044
 
-        public int TimingIndex
+        public float CurrentBpm
         {
-            get => _timingIndex;
+            get => _currentBpm;
             private set
             {
-                if (_timingIndex != value)
+                if (_currentBpm != value)
                 {
-                    _timingIndex = value;
+                    _currentBpm = value;
                     OnBpmChanged();
                 }
             }
         }
-        private int _timingIndex = 0;
+        private float _currentBpm = 0f;
 
         public Pulse CurrentPulse
         {
@@ -55,34 +55,34 @@ namespace LinearBeats.Time
         public void InitTiming(TimingConverter timingConverter, Sample length, Second offset)
         {
             _timingConverter = timingConverter;
-            _length = timingConverter.ToPulse(length);
+            _length = _timingConverter.ToPulse(length);
             _offset = offset;
 
             OnBpmChanged();
             OnProgressChanged();
         }
 
+        public void UpdateTiming(Sample currentSample)
+        {
+            CurrentBpm = _timingConverter.GetBpm(currentSample);
+            CurrentPulse = _timingConverter.ToPulse(currentSample);
+        }
+
+        public void ResetTiming()
+        {
+            CurrentBpm = 0f;
+            CurrentPulse = 0;
+        }
+
         private void OnBpmChanged()
         {
-            _onBpmChanged.Invoke(_timingConverter.GetBpm(_timingIndex).ToString());
+            _onBpmChanged.Invoke(_currentBpm.ToString());
         }
 
         private void OnProgressChanged()
         {
             var progress = (float)_currentPulse / _length;
             _onProgressChanged.Invoke(progress);
-        }
-
-        public void UpdateTiming(Sample currentSample)
-        {
-            TimingIndex = _timingConverter.GetTimingIndex(currentSample);
-            CurrentPulse = _timingConverter.ToPulse(currentSample);
-        }
-
-        public void ResetTiming()
-        {
-            TimingIndex = 0;
-            CurrentPulse = 0;
         }
     }
 }

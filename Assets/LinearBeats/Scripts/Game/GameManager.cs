@@ -2,7 +2,6 @@
 #pragma warning disable IDE0090
 
 using System.Collections.Generic;
-using System.Linq;
 using Lean.Pool;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
@@ -41,7 +40,6 @@ namespace LinearBeats.Game
         private AudioSource _backgroundAudioSource = null;
 
         private uint nextNoteLoadIndex = 0;
-        private TimingConverter _timingConverter = null;
 
         void Start()
         {
@@ -64,13 +62,14 @@ namespace LinearBeats.Game
 
             void InitTimingController()
             {
-                _timingConverter = new TimingConverter(
+                TimingConverter converter = new TimingConverter(
                     _scriptLoader.Script.Timing,
                     _audioSources[0].clip.frequency);
 
+                FixedTime.Converter = converter;
+
                 _timingController.InitTiming(
-                    _timingConverter,
-                    _backgroundAudioSource.clip.samples,
+                    (Sample)_backgroundAudioSource.clip.samples,
                     _scriptLoader.Script.AudioChannels[0].Offset);
             }
         }
@@ -117,7 +116,7 @@ namespace LinearBeats.Game
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
+                _timingController.UpdateTiming((Sample)_backgroundAudioSource.timeSamples);
                 //NOTE: Judge는 fixedUpdate에서 할 필요 있음 0.02정밀도
                 UpdateNoteJudge();
 
@@ -133,8 +132,7 @@ namespace LinearBeats.Game
                     {
                         bool noteJudged = _noteJudgement.JudgeNote(
                             noteBehaviour.Value,
-                            _backgroundAudioSource.time,
-                            _timingConverter);
+                            _backgroundAudioSource.time);
 
                         if (noteJudged)
                         {
@@ -161,7 +159,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
                 }
             }
 
@@ -169,7 +167,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
+                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
                 }
             }
         }
@@ -207,6 +205,11 @@ namespace LinearBeats.Game
                     _dividerBehaviours.Add(i, dividerBehaviour);
                 }
             }
+        }
+
+        private void OnDisable()
+        {
+            FixedTime.Converter = null;
         }
     }
 }

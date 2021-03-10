@@ -31,9 +31,11 @@ namespace LinearBeats.Judgement
         private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
-        public bool JudgeNote(NoteBehaviour noteBehaviour, Second currentSecond, TimingConverter converter)
+        public bool JudgeNote(NoteBehaviour noteBehaviour, Second currentSecond)
         {
-            Judge? noteJudgement = GetJudge(noteBehaviour.Note, currentSecond, converter);
+            Second noteSecond = noteBehaviour.FixedTime.Second;
+            Shape noteShape = noteBehaviour.Note.Shape;
+            Judge? noteJudgement = GetJudge(noteSecond, noteShape, currentSecond);
             if (noteJudgement != null)
             {
                 _laneEffect.OnJudge(noteBehaviour, (Judge)noteJudgement);
@@ -42,13 +44,10 @@ namespace LinearBeats.Judgement
             return false;
         }
 
-        public Judge? GetJudge(Note note, Second currentSecond, TimingConverter converter)
+        public Judge? GetJudge(Second noteSecond, Shape noteShape, Second currentSecond)
         {
             Second elapsed;
             Second remaining;
-            Pulse notePulse = note.Trigger.Pulse;
-            Second noteSecond = converter.ToSecond(notePulse);
-
             if (currentSecond >= noteSecond)
             {
                 elapsed = currentSecond - noteSecond;
@@ -60,7 +59,7 @@ namespace LinearBeats.Judgement
                 remaining = noteSecond - currentSecond;
             }
 
-            if (InputHandler.IsNotePressed(note.Shape))
+            if (InputHandler.IsNotePressed(noteShape))
             {
                 if (WithinJudge(_judgeOffset[Judge.Perfect])) return Judge.Perfect;
                 else if (WithinJudge(_judgeOffset[Judge.Great])) return Judge.Great;

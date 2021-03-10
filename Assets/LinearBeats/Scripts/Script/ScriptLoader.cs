@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
@@ -76,7 +75,7 @@ namespace LinearBeats.Script
                 noteObject.transform.localScale = GetNoteSize(note.Shape);
 
                 noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                noteBehaviour.Pulse = note.Trigger.Pulse;
+                noteBehaviour.FixedTime = note.Trigger.Pulse;
                 noteBehaviour.Note = note;
             }
             return noteBehaviour != null;
@@ -124,7 +123,7 @@ namespace LinearBeats.Script
                     _dividerPool.transform);
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
-                dividerBehaviour.Pulse = divider.Pulse;
+                dividerBehaviour.FixedTime = divider.Pulse;
             }
             return dividerBehaviour != null;
         }

@@ -112,39 +112,43 @@ namespace LinearBeats.Game
             _onGameReset.Invoke();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (_backgroundAudioSource.isPlaying)
             {
                 _timingController.UpdateTiming((Sample)_backgroundAudioSource.timeSamples);
-                //NOTE: Judge는 fixedUpdate에서 할 필요 있음 0.02정밀도
                 UpdateNoteJudge();
+            }
 
+            void UpdateNoteJudge()
+            {
+                var judgedNoteIndexes = new List<uint>();
+                foreach (var noteBehaviour in _noteBehaviours)
+                {
+                    bool noteJudged = _noteJudgement.JudgeNote(
+                        noteBehaviour.Value,
+                        _backgroundAudioSource.time);
+
+                    if (noteJudged)
+                    {
+                        judgedNoteIndexes.Add(noteBehaviour.Key);
+                    }
+                }
+
+                foreach (var judgedNoteIndex in judgedNoteIndexes)
+                {
+                    LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);
+                    _noteBehaviours.Remove(judgedNoteIndex);
+                }
+            }
+        }
+        private void Update()
+        {
+            if (_backgroundAudioSource.isPlaying)
+            {
                 if (_noteBehaviours.Count < _noteLoadBufferSize)
                 {
                     BufferNotes(_noteLoadBufferSize - (uint)_noteBehaviours.Count);
-                }
-
-                void UpdateNoteJudge()
-                {
-                    var judgedNoteIndexes = new List<uint>();
-                    foreach (var noteBehaviour in _noteBehaviours)
-                    {
-                        bool noteJudged = _noteJudgement.JudgeNote(
-                            noteBehaviour.Value,
-                            _backgroundAudioSource.time);
-
-                        if (noteJudged)
-                        {
-                            judgedNoteIndexes.Add(noteBehaviour.Key);
-                        }
-                    }
-
-                    foreach (var judgedNoteIndex in judgedNoteIndexes)
-                    {
-                        LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);
-                        _noteBehaviours.Remove(judgedNoteIndex);
-                    }
                 }
             }
             else if (_backgroundAudioSource.timeSamples >= _backgroundAudioSource.clip.samples)

@@ -16,7 +16,6 @@ namespace LinearBeats.Judgement
     public sealed class NoteJudgement
     {
 #pragma warning disable IDE0044
-        //TODO: Time based judgement
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
         private Dictionary<Judge, float> _judgeOffset = new Dictionary<Judge, float>

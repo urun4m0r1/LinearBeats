@@ -1,4 +1,3 @@
-//TODO: 시작 딜레이
 #pragma warning disable IDE0090
 
 using Sirenix.OdinInspector;
@@ -52,6 +51,7 @@ namespace LinearBeats.Time
 
         public void UpdateTiming(FixedTime inputTime)
         {
+            //TODO: Is this working?
             FixedTime offsetTime = (Sample)(inputTime.Sample + _offset.Sample);
             CurrentTime = offsetTime;
         }

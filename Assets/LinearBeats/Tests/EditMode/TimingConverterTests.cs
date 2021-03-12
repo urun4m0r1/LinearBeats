@@ -6,7 +6,7 @@ using LinearBeats.Time;
 using NUnit.Framework;
 
 [TestFixture]
-public class TimingConverterTest
+public class TimingConverterTests
 {
     private const float SamplesPerSecond = 500f;
     private const int PulsesPerQuarterNote = 100;

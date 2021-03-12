@@ -3,7 +3,7 @@ using LinearBeats.Script;
 using NUnit.Framework;
 using UnityEngine;
 
-public class InputListenerTest
+public class InputListenerTests
 {
     private static IBindingReceiver GetBindingReceiver()
     {

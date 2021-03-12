@@ -6,7 +6,7 @@ using NUnit.Framework;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-public class YamlParserTest
+public class YamlParserTests
 {
     [Test]
     public void Should_Parse_Pulse()

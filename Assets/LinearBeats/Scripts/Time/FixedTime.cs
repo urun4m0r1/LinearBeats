@@ -4,7 +4,7 @@ namespace LinearBeats.Time
 {
     public struct FixedTime
     {
-        public static TimingConverter Converter; //Singleton에서 받아오기
+        public static TimingConverter Converter;
         public Pulse Pulse { get; }
         public Second Second { get; }
         public Sample Sample { get; }

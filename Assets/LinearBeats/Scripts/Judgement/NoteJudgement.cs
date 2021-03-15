@@ -18,23 +18,23 @@ namespace LinearBeats.Judgement
 #pragma warning disable IDE0044
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
-        private Dictionary<Judge, float> _judgeOffset = new Dictionary<Judge, float>
+        private Dictionary<Judge, FixedTime> _judgeOffset = new Dictionary<Judge, FixedTime>
         {
-            [Judge.Perfect] = 0.033f,
-            [Judge.Great] = 0.066f,
-            [Judge.Good] = 0.133f,
-            [Judge.Bad] = 0.150f,
+            [Judge.Perfect] = (Second)0.033f,
+            [Judge.Great] = (Second)0.066f,
+            [Judge.Good] = (Second)0.133f,
+            [Judge.Bad] = (Second)0.150f,
         };
 
         [SerializeField]
         private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
-        public bool JudgeNote(NoteBehaviour noteBehaviour, Second currentSecond)
+        public bool JudgeNote(NoteBehaviour noteBehaviour, FixedTime currentFixedTime)
         {
-            Second noteSecond = noteBehaviour.FixedTime.Second;
+            FixedTime noteTime = noteBehaviour.FixedTime;
             Shape noteShape = noteBehaviour.Note.Shape;
-            Judge? noteJudgement = GetJudge(noteSecond, noteShape, currentSecond);
+            Judge? noteJudgement = GetJudge(noteTime, noteShape, currentFixedTime);
             if (noteJudgement != null)
             {
                 _laneEffect.OnJudge(noteBehaviour, (Judge)noteJudgement);
@@ -43,19 +43,19 @@ namespace LinearBeats.Judgement
             return false;
         }
 
-        public Judge? GetJudge(Second noteSecond, Shape noteShape, Second currentSecond)
+        public Judge? GetJudge(FixedTime noteTime, Shape noteShape, FixedTime currentTime)
         {
-            Second elapsed;
-            Second remaining;
-            if (currentSecond >= noteSecond)
+            FixedTime elapsedTime;
+            FixedTime remainingTime;
+            if (currentTime >= noteTime)
             {
-                elapsed = currentSecond - noteSecond;
-                remaining = float.MaxValue;
+                elapsedTime = currentTime - noteTime;
+                remainingTime = FixedTime.MaxValue;
             }
             else
             {
-                elapsed = 0f;
-                remaining = noteSecond - currentSecond;
+                elapsedTime = FixedTime.Zero;
+                remainingTime = noteTime - currentTime;
             }
 
             if (InputHandler.IsNotePressed(noteShape))
@@ -72,26 +72,26 @@ namespace LinearBeats.Judgement
                 else return null;
             }
 
-            bool WithinJudge(Second judgeOffset)
+            bool WithinJudge(FixedTime judgeOffset)
             {
                 return !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
             }
 
-            bool WithinJudgeRange(Second judgeOffsetStart, Second judgeOffsetEnd)
+            bool WithinJudgeRange(FixedTime judgeOffsetStart, FixedTime judgeOffsetEnd)
             {
                 Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
 
                 return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
             }
 
-            bool PreJudge(Second judgeOffset)
+            bool PreJudge(FixedTime judgeOffset)
             {
-                return remaining >= judgeOffset;
+                return remainingTime >= judgeOffset;
             }
 
-            bool MissedJudge(Second judgeOffset)
+            bool MissedJudge(FixedTime judgeOffset)
             {
-                return elapsed >= judgeOffset;
+                return elapsedTime >= judgeOffset;
             }
         }
     }

@@ -15,5 +15,11 @@ namespace LinearBeatsTests.Time
             TestUtils.AreEqual(SecondBpm, new FixedTime(pulseB).Bpm);
             TestUtils.AreEqual(ThirdBpm, new FixedTime(pulseC).Bpm);
         }
+
+        [Test]
+        public void Should_Compare_Between_FixedTime()
+        {
+            Assert.IsTrue(pulseB > new FixedTime(pulseA));
+        }
     }
 }

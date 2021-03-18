@@ -21,5 +21,6 @@ namespace LinearBeats.Time
         bool IEquatable<Second>.Equals(Second value) => _value == value._value;
         public override bool Equals(object obj) => (obj is Second value) && (_value == value._value);
         public override int GetHashCode() => _value.GetHashCode();
+        public override string ToString() => _value.ToString();
     }
 }

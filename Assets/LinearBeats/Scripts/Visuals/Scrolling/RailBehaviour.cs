@@ -17,8 +17,14 @@ namespace LinearBeats.Visuals
             //TODO: BPM 역스크롤 구현 int a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)
             //TODO: 변속 대응하기
 
-            float positionInMeter = meterPerPulse * (Pulse)FixedTime - (Pulse)currentTime;
-            SetZPosition(positionInMeter);
+            if (FixedTime <= currentTime)
+                SetZPosition(0);
+            else
+            {
+
+                float positionInMeter = meterPerPulse * (Pulse)(FixedTime - currentTime);
+                SetZPosition(positionInMeter);
+            }
         }
 
         private void SetZPosition(float zPosition)

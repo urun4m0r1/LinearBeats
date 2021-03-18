@@ -97,6 +97,7 @@ namespace LinearBeats.Time
             return sortedTiming.Length - 1;
         }
 
+        //TODO 입력값이 음수일때 음수 반환하게 바꾸기
         private Pulse ToPulse(Sample sample, int timingIndex)
         {
             Assert.IsTrue(sample >= _samples[timingIndex]);

@@ -127,7 +127,7 @@ namespace LinearBeats.Game
                 {
                     bool noteJudged = _noteJudgement.JudgeNote(
                         noteBehaviour.Value,
-                        _backgroundAudioSource.time);
+                        (Second)_backgroundAudioSource.time);
 
                     if (noteJudged)
                     {

@@ -7,9 +7,9 @@ namespace LinearBeats.Time
     public struct FixedTime : IComparable<FixedTime>, IEquatable<FixedTime>
     {
         public static TimingConverter Converter;
-        public static FixedTime MaxValue = (Sample)float.MaxValue;
-        public static FixedTime MinValue = (Sample)float.MinValue;
-        public static FixedTime Zero = (Sample)0f;
+        public static FixedTime MaxValue = new FixedTime(int.MaxValue, float.MaxValue);
+        public static FixedTime MinValue = new FixedTime(int.MinValue, float.MinValue);
+        public static FixedTime Zero = new FixedTime(0, 0f);
 
         public Pulse Pulse { get; }
         public Second Second { get; }
@@ -46,6 +46,16 @@ namespace LinearBeats.Time
             Bpm = Converter.GetBpm(value);
 
             _value = Sample;
+        }
+
+        private FixedTime(int intValue, float floatValue)
+        {
+            Pulse = intValue;
+            Second = floatValue;
+            Sample = floatValue;
+            Bpm = floatValue;
+
+            _value = floatValue;
         }
 
         public static implicit operator Pulse(FixedTime value) => value.Pulse;

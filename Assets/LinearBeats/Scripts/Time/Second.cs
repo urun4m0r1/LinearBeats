@@ -1,11 +1,13 @@
 #pragma warning disable IDE0090
 
 using System;
+using UnityEngine;
 
 namespace LinearBeats.Time
 {
     public struct Second : IComparable<Second>, IEquatable<Second>
     {
+        [SerializeField]
         private readonly float _value;
 
         public Second(float value) => _value = value;

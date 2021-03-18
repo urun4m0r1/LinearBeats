@@ -16,14 +16,28 @@ namespace LinearBeats.Judgement
     public sealed class NoteJudgement
     {
 #pragma warning disable IDE0044
+        /* NOTE: 직렬화랑 게임 로직을 구분해서 사용하자
+        [Serializeable]
+        public class MonsterData
+        {
+            몬스터 관련 변수데이터
+            public Vector3 Position => transform.position;
+            public int Health { get; set; } ...
+        }
+        public class Monster
+        {
+            public MonsterData data;
+
+        }
+        */
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
-        private Dictionary<Judge, FixedTime> _judgeOffset = new Dictionary<Judge, FixedTime>
+        private Dictionary<Judge, Second> _judgeOffset = new Dictionary<Judge, Second>
         {
-            [Judge.Perfect] = (Second)0.033f,
-            [Judge.Great] = (Second)0.066f,
-            [Judge.Good] = (Second)0.133f,
-            [Judge.Bad] = (Second)0.150f,
+            [Judge.Perfect] = 0.033f,
+            [Judge.Great] = 0.066f,
+            [Judge.Good] = 0.133f,
+            [Judge.Bad] = 0.150f,
         };
 
         [SerializeField]

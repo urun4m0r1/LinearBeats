@@ -1,5 +1,6 @@
 using System;
 using Lean.Pool;
+using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -62,7 +63,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour)
+        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTimeFactory fixedTimeFactory)
         {
             noteBehaviour = null;
             if (index < Script.Notes.Length)
@@ -75,7 +76,7 @@ namespace LinearBeats.Script
                 noteObject.transform.localScale = GetNoteSize(note.Shape);
 
                 noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                noteBehaviour.FixedTime = note.Trigger.Pulse;
+                noteBehaviour.FixedTime = fixedTimeFactory.Create(note.Trigger.Pulse);
                 noteBehaviour.Note = note;
             }
             return noteBehaviour != null;
@@ -111,7 +112,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour)
+        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTimeFactory fixedTimeFactory)
         {
             dividerBehaviour = null;
             if (index < Script.Dividers.Length)
@@ -123,7 +124,7 @@ namespace LinearBeats.Script
                     _dividerPool.transform);
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
-                dividerBehaviour.FixedTime = divider.Pulse;
+                dividerBehaviour.FixedTime = fixedTimeFactory.Create(divider.Pulse);
             }
             return dividerBehaviour != null;
         }

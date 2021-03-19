@@ -38,7 +38,7 @@ namespace LinearBeats.Game
         private readonly Dictionary<uint, NoteBehaviour> _noteBehaviours = new Dictionary<uint, NoteBehaviour>();
         private AudioSource[] _audioSources = null;
         private AudioSource _backgroundAudioSource = null;
-
+        private FixedTimeFactory _fixedTimeFactory;
         private uint nextNoteLoadIndex = 0;
 
         void Start()
@@ -66,11 +66,11 @@ namespace LinearBeats.Game
                     _scriptLoader.Script.Timing,
                     _audioSources[0].clip.frequency);
 
-                FixedTime.Converter = converter;
+                _fixedTimeFactory = new FixedTimeFactory(converter);
 
                 _timingController.InitTiming(
-                    (Sample)_backgroundAudioSource.clip.samples,
-                    _scriptLoader.Script.AudioChannels[0].Offset);
+                    _fixedTimeFactory.Create((Sample)_backgroundAudioSource.clip.samples),
+                    _fixedTimeFactory.Create(_scriptLoader.Script.AudioChannels[0].Offset));
             }
         }
 
@@ -116,7 +116,7 @@ namespace LinearBeats.Game
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                _timingController.UpdateTiming((Sample)_backgroundAudioSource.timeSamples);
+                _timingController.UpdateTiming(_fixedTimeFactory.Create((Sample)_backgroundAudioSource.timeSamples));
                 UpdateNoteJudge();
             }
 
@@ -127,7 +127,7 @@ namespace LinearBeats.Game
                 {
                     bool noteJudged = _noteJudgement.JudgeNote(
                         noteBehaviour.Value,
-                        (Second)_backgroundAudioSource.time);
+                        _timingController.CurrentTime);
 
                     if (noteJudged)
                     {
@@ -196,7 +196,7 @@ namespace LinearBeats.Game
 
             void TryAddNoteBehaviour(uint i)
             {
-                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour))
+                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour, _fixedTimeFactory))
                 {
                     _noteBehaviours.Add(i, noteBehaviour);
                 }
@@ -204,16 +204,11 @@ namespace LinearBeats.Game
 
             void TryAddDividerBehaviour(uint i)
             {
-                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour))
+                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour, _fixedTimeFactory))
                 {
                     _dividerBehaviours.Add(i, dividerBehaviour);
                 }
             }
-        }
-
-        private void OnDisable()
-        {
-            FixedTime.Converter = null;
         }
     }
 }

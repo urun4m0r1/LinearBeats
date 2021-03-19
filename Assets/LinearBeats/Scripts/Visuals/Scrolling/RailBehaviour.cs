@@ -22,7 +22,7 @@ namespace LinearBeats.Visuals
             else
             {
 
-                float positionInMeter = meterPerPulse * (Pulse)(FixedTime - currentTime);
+                float positionInMeter = meterPerPulse * (FixedTime.Pulse - currentTime.Pulse);
                 SetZPosition(positionInMeter);
             }
         }

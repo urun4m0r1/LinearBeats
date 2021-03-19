@@ -20,7 +20,21 @@ namespace LinearBeats.Time
         int IComparable<Second>.CompareTo(Second value) => _value.CompareTo(value._value);
         bool IEquatable<Second>.Equals(Second value) => _value == value._value;
         public override bool Equals(object obj) => (obj is Second value) && (_value == value._value);
-        public override int GetHashCode() => _value.GetHashCode();
+        public override int GetHashCode() => GetHashCode();
         public override string ToString() => _value.ToString();
+
+        public static Second operator +(Second a, Second b) => a._value + b._value;
+        public static Second operator -(Second a, Second b) => a._value - b._value;
+        public static Second operator *(Second a, Second b) => a._value * b._value;
+        public static Second operator /(Second a, Second b) => a._value / b._value;
+
+        public static bool operator ==(Second a, Second b) => a._value == b._value;
+        public static bool operator !=(Second a, Second b) => a._value != b._value;
+
+        public static bool operator <(Second a, Second b) => a._value < b._value;
+        public static bool operator >(Second a, Second b) => a._value > b._value;
+
+        public static bool operator <=(Second a, Second b) => a._value <= b._value;
+        public static bool operator >=(Second a, Second b) => a._value >= b._value;
     }
 }

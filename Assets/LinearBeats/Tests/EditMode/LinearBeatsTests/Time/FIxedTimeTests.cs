@@ -11,15 +11,15 @@ namespace LinearBeatsTests.Time
         [Test]
         public void Should_Store_Bpm_With_Pulse()
         {
-            TestUtils.AreEqual(FirstBpm, new FixedTime(pulseA).Bpm);
-            TestUtils.AreEqual(SecondBpm, new FixedTime(pulseB).Bpm);
-            TestUtils.AreEqual(ThirdBpm, new FixedTime(pulseC).Bpm);
+            TestUtils.AreEqual(FirstBpm, fixedTimeFactory.Create(pulseA).Bpm);
+            TestUtils.AreEqual(SecondBpm, fixedTimeFactory.Create(pulseB).Bpm);
+            TestUtils.AreEqual(ThirdBpm, fixedTimeFactory.Create(pulseC).Bpm);
         }
 
         [Test]
         public void Should_Compare_Between_FixedTime()
         {
-            Assert.IsTrue(pulseB > new FixedTime(pulseA));
+            Assert.IsTrue(fixedTimeFactory.Create(pulseB) > fixedTimeFactory.Create(pulseA));
         }
     }
 }

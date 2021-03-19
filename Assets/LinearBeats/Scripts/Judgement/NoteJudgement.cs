@@ -59,8 +59,8 @@ namespace LinearBeats.Judgement
 
         public Judge? GetJudge(FixedTime noteTime, Shape noteShape, FixedTime currentTime)
         {
-            FixedTime elapsedTime;
-            FixedTime remainingTime;
+            Second elapsedTime;
+            Second remainingTime;
             if (currentTime >= noteTime)
             {
                 elapsedTime = currentTime - noteTime;
@@ -86,24 +86,24 @@ namespace LinearBeats.Judgement
                 else return null;
             }
 
-            bool WithinJudge(FixedTime judgeOffset)
+            bool WithinJudge(Second judgeOffset)
             {
                 return !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
             }
 
-            bool WithinJudgeRange(FixedTime judgeOffsetStart, FixedTime judgeOffsetEnd)
+            bool WithinJudgeRange(Second judgeOffsetStart, Second judgeOffsetEnd)
             {
                 Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
 
                 return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
             }
 
-            bool PreJudge(FixedTime judgeOffset)
+            bool PreJudge(Second judgeOffset)
             {
                 return remainingTime >= judgeOffset;
             }
 
-            bool MissedJudge(FixedTime judgeOffset)
+            bool MissedJudge(Second judgeOffset)
             {
                 return elapsedTime >= judgeOffset;
             }

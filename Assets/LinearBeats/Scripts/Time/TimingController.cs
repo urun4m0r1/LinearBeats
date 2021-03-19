@@ -24,15 +24,15 @@ namespace LinearBeats.Time
             get => _currentTime;
             private set
             {
+                if (_currentTime != value)
+                {
+                    OnProgressChanged();
+                }
                 if (_currentTime.Bpm != value.Bpm)
                 {
                     OnBpmChanged();
                 }
-                if (_currentTime != value)
-                {
-                    _currentTime = value;
-                    OnProgressChanged();
-                }
+                _currentTime = value;
             }
         }
 
@@ -45,6 +45,7 @@ namespace LinearBeats.Time
             _length = length;
             _offset = offset;
 
+            ResetTiming();
             OnProgressChanged();
             OnBpmChanged();
         }
@@ -57,7 +58,7 @@ namespace LinearBeats.Time
 
         public void ResetTiming()
         {
-            CurrentTime = FixedTime.Zero;
+            CurrentTime = _offset;
         }
 
         private void OnProgressChanged()
@@ -68,7 +69,6 @@ namespace LinearBeats.Time
 
         private void OnBpmChanged()
         {
-            //Always return zero
             _onBpmChanged.Invoke(CurrentTime.Bpm.ToString());
         }
     }

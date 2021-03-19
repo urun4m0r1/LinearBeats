@@ -33,6 +33,7 @@ namespace LinearBeatsTests.Time
         protected Timing timingSingle;
         protected TimingConverter converterDisorder = null;
         protected TimingConverter converterSingle = null;
+        protected FixedTimeFactory fixedTimeFactory = null;
 
         [SetUp]
         public void SetUp()
@@ -60,7 +61,7 @@ namespace LinearBeatsTests.Time
             converterDisorder = new TimingConverter(timingDisorder, SamplesPerSecond);
             converterSingle = new TimingConverter(timingSingle, SamplesPerSecond);
 
-            FixedTime.Converter = converterDisorder;
+            fixedTimeFactory = new FixedTimeFactory(converterDisorder);
         }
 
         [TearDown]
@@ -69,7 +70,7 @@ namespace LinearBeatsTests.Time
             converterDisorder = null;
             converterSingle = null;
 
-            FixedTime.Converter = null;
+            fixedTimeFactory = null;
         }
     }
 }

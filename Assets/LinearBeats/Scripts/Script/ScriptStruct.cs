@@ -41,7 +41,6 @@ namespace LinearBeats.Script
 
     public struct Timing
     {
-        public ushort PulsesPerQuarterNote;
         public BpmEvent[] BpmEvents;
         public TimingEvent[] StopEvents;
         public TimingEvent[] ReverseEvents;
@@ -49,6 +48,7 @@ namespace LinearBeats.Script
 
     public struct BpmEvent
     {
+        public ushort PulsesPerQuarterNote;
         public Pulse Pulse;
         public float Bpm;
     }

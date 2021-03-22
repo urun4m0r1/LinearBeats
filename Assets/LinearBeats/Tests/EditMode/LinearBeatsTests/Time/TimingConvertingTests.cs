@@ -40,21 +40,19 @@ namespace LinearBeatsTests.Time
         {
             timingDisorder = new Timing()
             {
-                PulsesPerQuarterNote = PulsesPerQuarterNote,
                 BpmEvents = new BpmEvent[]
                 {
-                new BpmEvent() { Pulse = ThirdPulse, Bpm = ThirdBpm },
-                new BpmEvent() { Pulse = FirstPulse, Bpm = FirstBpm },
-                new BpmEvent() { Pulse = SecondPulse, Bpm = SecondBpm },
+                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = ThirdPulse, Bpm = ThirdBpm },
+                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = SecondPulse, Bpm = SecondBpm },
                 }
             };
 
             timingSingle = new Timing()
             {
-                PulsesPerQuarterNote = PulsesPerQuarterNote,
                 BpmEvents = new BpmEvent[]
                 {
-                new BpmEvent() { Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = FirstPulse, Bpm = FirstBpm },
                 }
             };
 

@@ -51,7 +51,7 @@ namespace LinearBeatsTests.Time
         [Test]
         public void Init_PulsesPerQuarterNote_Must_Be_Non_Zero_Positive()
         {
-            timingSingle.PulsesPerQuarterNote = 0;
+            timingSingle.BpmEvents[0].PulsesPerQuarterNote = 0;
 
             Assert.Catch<ArgumentException>(() => new TimingConverter(timingSingle, SamplesPerSecond));
         }

@@ -3,7 +3,7 @@ using LinearBeats.Script;
 using NUnit.Framework;
 using UnityEngine;
 
-public class InputListenerTest
+public class InputListenerTests
 {
     private static IBindingReceiver GetBindingReceiver()
     {
@@ -121,10 +121,10 @@ public class InputListenerTest
             }
         }
 
-        var note = new Note
+        var noteShape = new Shape
         {
-            PositionRow = RowIn.Row,
-            PositionCol = ColMinRight.Col,
+            PosRow = RowIn.Row,
+            PosCol = ColMinRight.Col,
             SizeRow = (byte)(RowOut.Row - RowIn.Row),
             SizeCol = (byte)(ColMaxRight.Col - ColMinRight.Col),
         };
@@ -137,7 +137,7 @@ public class InputListenerTest
         bool IsBoundaryInvokedInNoteRange(Boundary boundary)
         {
             receiver.Invoke(boundary.Binding);
-            return listener.GetNoteInvoked(note).Exist;
+            return listener.GetNoteInvoked(noteShape).Exist;
         }
         #endregion
 

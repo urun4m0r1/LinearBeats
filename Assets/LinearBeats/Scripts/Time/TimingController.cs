@@ -1,6 +1,3 @@
-//TODO: 시작 딜레이
-
-#pragma warning disable IDE0051
 #pragma warning disable IDE0090
 
 using Sirenix.OdinInspector;
@@ -22,70 +19,57 @@ namespace LinearBeats.Time
         private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
 #pragma warning restore IDE0044
 
-        public uint TimingIndex
+        public FixedTime CurrentTime
         {
-            get => _timingIndex;
+            get => _currentTime;
             private set
             {
-                if (_timingIndex != value)
+                if (_currentTime != value)
                 {
-                    _timingIndex = value;
-                    OnBpmChanged();
-                }
-            }
-        }
-        private uint _timingIndex = 0;
-
-        public ulong CurrentPulse
-        {
-            get => _currentPulse;
-            private set
-            {
-                if (_currentPulse != value)
-                {
-                    _currentPulse = value;
                     OnProgressChanged();
                 }
+                if (_currentTime.Bpm != value.Bpm)
+                {
+                    OnBpmChanged();
+                }
+                _currentTime = value;
             }
         }
-        private ulong _currentPulse = 0;
 
-        private TimingConverter _timingConverter = null;
-        private ulong _pulsesLength = 0;
-        private ulong _pulsesOffset = 0;
+        private FixedTime _currentTime;
+        private FixedTime _length;
+        private FixedTime _offset;
 
-        public void InitTiming(TimingConverter timingConverter, int samplesLength, ulong pulsesOffset)
+        public void InitTiming(FixedTime length, FixedTime offset)
         {
-            _timingConverter = timingConverter;
-            _pulsesLength = timingConverter.SampleToPulse(samplesLength);
-            _pulsesOffset = pulsesOffset;
+            _length = length;
+            _offset = offset;
 
-            OnBpmChanged();
+            ResetTiming();
             OnProgressChanged();
+            OnBpmChanged();
         }
 
-        private void OnBpmChanged()
+        public void UpdateTiming(FixedTime inputTime)
         {
-            string bpm = _timingConverter.Timings[_timingIndex].Bpm.ToString();
-            _onBpmChanged.Invoke(bpm);
-        }
-
-        private void OnProgressChanged()
-        {
-            var progress = (float)_currentPulse / _pulsesLength;
-            _onProgressChanged.Invoke(progress);
-        }
-
-        public void UpdateTiming(int currentSample)
-        {
-            TimingIndex = _timingConverter.GetTimingIndex(currentSample);
-            CurrentPulse = _timingConverter.SampleToPulse(currentSample, _timingIndex) + _pulsesOffset;
+            //TODO: Is this working?
+            CurrentTime = inputTime + _offset;
         }
 
         public void ResetTiming()
         {
-            TimingIndex = 0;
-            CurrentPulse = 0;
+            CurrentTime = _offset;
+        }
+
+        private void OnProgressChanged()
+        {
+            var progress = CurrentTime.Sample / _length.Sample;
+            _onProgressChanged.Invoke(progress);
+        }
+
+        private void OnBpmChanged()
+        {
+            _onBpmChanged.Invoke(CurrentTime.Bpm.ToString());
         }
     }
 }

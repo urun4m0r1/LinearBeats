@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+using LinearBeats.Time;
 using UnityEngine;
 
 namespace LinearBeats.Visuals
@@ -7,16 +7,24 @@ namespace LinearBeats.Visuals
     {
         [SerializeField]
         private Rigidbody _rigidbody = null;
-        public ulong Pulse { get; set; } = 0;
+        public FixedTime FixedTime { get; set; }
 
-        public void UpdateRailPosition(ulong currentPulse, float meterPerPulse)
+        //public Timing Timing { get; set; } = 0;
+
+        public void UpdateRailPosition(FixedTime currentTime, float meterPerPulse)
         {
-            //TODO: BPM 정지 구현 ulong a = _script.Timings[0].PulseStopDuration;
-            //TODO: BPM 역스크롤 구현 ulong a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)
+            //TODO: BPM 정지 구현 int a = _script.Timings[0].PulseStopDuration;
+            //TODO: BPM 역스크롤 구현 int a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)
             //TODO: 변속 대응하기
 
-            float positionInMeter = meterPerPulse * (Pulse - currentPulse);
-            SetZPosition(positionInMeter);
+            if (FixedTime <= currentTime)
+                SetZPosition(0);
+            else
+            {
+
+                float positionInMeter = meterPerPulse * (FixedTime.Pulse - currentTime.Pulse);
+                SetZPosition(positionInMeter);
+            }
         }
 
         private void SetZPosition(float zPosition)

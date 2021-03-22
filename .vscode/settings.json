@@ -53,4 +53,7 @@
         "temp/":true,
         "Temp/":true
     },
+    "cSpell.words": [
+        "bpms"
+    ],
 }

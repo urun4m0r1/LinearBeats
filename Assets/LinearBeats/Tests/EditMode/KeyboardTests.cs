@@ -2,7 +2,7 @@ using LinearBeats.Input;
 using NUnit.Framework;
 using UnityEngine;
 
-public class KeyboardTest
+public class KeyboardTests
 {
     [Test]
     public void Name_And_Description_Can_Be_Modified()

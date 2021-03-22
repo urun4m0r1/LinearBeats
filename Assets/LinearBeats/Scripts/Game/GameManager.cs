@@ -2,7 +2,6 @@
 #pragma warning disable IDE0090
 
 using System.Collections.Generic;
-using System.Linq;
 using Lean.Pool;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
@@ -39,7 +38,7 @@ namespace LinearBeats.Game
         private readonly Dictionary<uint, NoteBehaviour> _noteBehaviours = new Dictionary<uint, NoteBehaviour>();
         private AudioSource[] _audioSources = null;
         private AudioSource _backgroundAudioSource = null;
-
+        private FixedTimeFactory _fixedTimeFactory;
         private uint nextNoteLoadIndex = 0;
 
         void Start()
@@ -63,15 +62,15 @@ namespace LinearBeats.Game
 
             void InitTimingController()
             {
-                var timingConverter = new TimingConverter(
-                    _scriptLoader.Script.Metadata.PulsesPerQuarterNote,
-                    _scriptLoader.Script.Timings,
-                    (from audioSource in _audioSources select audioSource.clip.frequency).ToArray());
+                TimingConverter converter = new TimingConverter(
+                    _scriptLoader.Script.Timing,
+                    _audioSources[0].clip.frequency);
+
+                _fixedTimeFactory = new FixedTimeFactory(converter);
 
                 _timingController.InitTiming(
-                    timingConverter,
-                    _backgroundAudioSource.clip.samples,
-                    _scriptLoader.Script.AudioChannels[0].PulseOffset);
+                    _fixedTimeFactory.Create((Sample)_backgroundAudioSource.clip.samples),
+                    _fixedTimeFactory.Create(_scriptLoader.Script.AudioChannels[0].Offset));
             }
         }
 
@@ -113,40 +112,43 @@ namespace LinearBeats.Game
             _onGameReset.Invoke();
         }
 
+        private void FixedUpdate()
+        {
+            if (_backgroundAudioSource.isPlaying)
+            {
+                _timingController.UpdateTiming(_fixedTimeFactory.Create((Sample)_backgroundAudioSource.timeSamples));
+                UpdateNoteJudge();
+            }
+
+            void UpdateNoteJudge()
+            {
+                var judgedNoteIndexes = new List<uint>();
+                foreach (var noteBehaviour in _noteBehaviours)
+                {
+                    bool noteJudged = _noteJudgement.JudgeNote(
+                        noteBehaviour.Value,
+                        _timingController.CurrentTime);
+
+                    if (noteJudged)
+                    {
+                        judgedNoteIndexes.Add(noteBehaviour.Key);
+                    }
+                }
+
+                foreach (var judgedNoteIndex in judgedNoteIndexes)
+                {
+                    LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);
+                    _noteBehaviours.Remove(judgedNoteIndex);
+                }
+            }
+        }
         private void Update()
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                //NOTE: timesamples가 int형인데 결국 ulong으로 pulse 해도 의미 없기때문에 바꿀 필요가 있다.
-                _timingController.UpdateTiming(_backgroundAudioSource.timeSamples);
-                //NOTE: Judge는 fixedUpdate에서 할 필요 있음 0.02정밀도
-                UpdateNoteJudge();
-
                 if (_noteBehaviours.Count < _noteLoadBufferSize)
                 {
                     BufferNotes(_noteLoadBufferSize - (uint)_noteBehaviours.Count);
-                }
-
-                void UpdateNoteJudge()
-                {
-                    var judgedNoteIndexes = new List<uint>();
-                    foreach (var noteBehaviour in _noteBehaviours)
-                    {
-                        bool noteJudged = _noteJudgement.JudgeNote(
-                            noteBehaviour.Value,
-                            _timingController.CurrentPulse);
-
-                        if (noteJudged)
-                        {
-                            judgedNoteIndexes.Add(noteBehaviour.Key);
-                        }
-                    }
-
-                    foreach (var judgedNoteIndex in judgedNoteIndexes)
-                    {
-                        LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);
-                        _noteBehaviours.Remove(judgedNoteIndex);
-                    }
                 }
             }
             else if (_backgroundAudioSource.timeSamples >= _backgroundAudioSource.clip.samples)
@@ -161,7 +163,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
                 }
             }
 
@@ -169,7 +171,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentPulse, _meterPerPulse);
+                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
                 }
             }
         }
@@ -194,7 +196,7 @@ namespace LinearBeats.Game
 
             void TryAddNoteBehaviour(uint i)
             {
-                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour))
+                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour, _fixedTimeFactory))
                 {
                     _noteBehaviours.Add(i, noteBehaviour);
                 }
@@ -202,7 +204,7 @@ namespace LinearBeats.Game
 
             void TryAddDividerBehaviour(uint i)
             {
-                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour))
+                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour, _fixedTimeFactory))
                 {
                     _dividerBehaviours.Add(i, dividerBehaviour);
                 }

@@ -11,6 +11,6 @@ namespace LinearBeats.Input
         private static readonly UserInputListener s_holdingListener = new UserInputListener(new HoldingReceiver());
 
         public static bool IsHolding(byte row, byte col) => s_holdingListener.IsInputInvoked(row, col);
-        public static bool IsNotePressed(Note note) => s_pressedListener.GetNoteInvoked(note).Exist;
+        public static bool IsNotePressed(Shape noteShape) => s_pressedListener.GetNoteInvoked(noteShape).Exist;
     }
 }

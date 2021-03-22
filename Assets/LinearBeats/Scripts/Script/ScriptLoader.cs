@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Lean.Pool;
+using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -53,7 +53,7 @@ namespace LinearBeats.Script
                 return audioObject;
             }
 
-            AudioSource AddAudioSourcesToGameObject(GameObject audioObject, AudioChannel audioChannel)
+            AudioSource AddAudioSourcesToGameObject(GameObject audioObject, MediaChannel audioChannel)
             {
                 var audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
@@ -63,56 +63,56 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour)
+        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTimeFactory fixedTimeFactory)
         {
             noteBehaviour = null;
             if (index < Script.Notes.Length)
             {
                 Note note = Script.Notes[index];
                 GameObject noteObject = _notesPool.Spawn(
-                    GetNotePosition(note),
+                    GetNotePosition(note.Shape),
                     Quaternion.identity,
                     _notesPool.transform);
-                noteObject.transform.localScale = GetNoteSize(note);
+                noteObject.transform.localScale = GetNoteSize(note.Shape);
 
                 noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                noteBehaviour.Pulse = note.Pulse;
+                noteBehaviour.FixedTime = fixedTimeFactory.Create(note.Trigger.Pulse);
                 noteBehaviour.Note = note;
             }
             return noteBehaviour != null;
 
-            Vector3 GetNotePosition(Note note)
+            Vector3 GetNotePosition(Shape noteShape)
             {
                 return new Vector3(GetNoteCol(), GetNoteRow(), 0f);
 
                 float GetNoteCol()
                 {
-                    return note.PositionCol - 6f;
+                    return noteShape.PosCol - 6f;
                 }
 
                 float GetNoteRow()
                 {
-                    return note.PositionRow * 2f;
+                    return noteShape.PosRow * 2f;
                 }
             }
 
-            Vector3 GetNoteSize(Note note)
+            Vector3 GetNoteSize(Shape noteShape)
             {
                 return new Vector3(GetNoteWidth(), GetNoteHeight(), 1f);
 
                 float GetNoteWidth()
                 {
-                    return note.SizeCol;
+                    return noteShape.SizeCol;
                 }
 
                 float GetNoteHeight()
                 {
-                    return note.SizeRow == 1 ? 1 : 20;
+                    return noteShape.SizeRow == 1 ? 1 : 20;
                 }
             }
         }
 
-        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour)
+        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTimeFactory fixedTimeFactory)
         {
             dividerBehaviour = null;
             if (index < Script.Dividers.Length)
@@ -124,7 +124,7 @@ namespace LinearBeats.Script
                     _dividerPool.transform);
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
-                dividerBehaviour.Pulse = divider.Pulse;
+                dividerBehaviour.FixedTime = fixedTimeFactory.Create(divider.Pulse);
             }
             return dividerBehaviour != null;
         }

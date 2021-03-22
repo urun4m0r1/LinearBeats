@@ -6,13 +6,13 @@ namespace LinearBeats.Input
 {
     public abstract class InputListener
     {
-        public InputPosition GetNoteInvoked(Note note)
+        public InputPosition GetNoteInvoked(Shape noteShape)
         {
             return GetAnyInputInvokedIn(
-             note.PositionRow,
-             note.PositionCol,
-             note.SizeRow,
-             note.SizeCol);
+             noteShape.PosRow,
+             noteShape.PosCol,
+             noteShape.SizeRow,
+             noteShape.SizeCol);
         }
 
         public InputPosition GetAnyInputInvokedIn(

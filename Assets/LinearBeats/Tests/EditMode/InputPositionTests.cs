@@ -1,7 +1,7 @@
 using LinearBeats.Input;
 using NUnit.Framework;
 
-public class InputPositionTest
+public class InputPositionTests
 {
     [Test]
     public void Will_Throw_Exception_When_Any_Input_Is_Null()

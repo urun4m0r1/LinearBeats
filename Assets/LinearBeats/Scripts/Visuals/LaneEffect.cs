@@ -1,5 +1,3 @@
-//TODO: Make part of GameManager
-
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
@@ -56,6 +54,8 @@ namespace LinearBeats.Visuals
                 noteBehaviour.JudgeEffectAnchor.position.x,
                 noteBehaviour.JudgeEffectAnchor.position.y,
                 0f);
+
+            //TODO: 모든spawn 부르는 곳을 수정 => 부모는 최상위로 하는것이 좋다.
 
             _judgeEffects[judge].Spawn(
                 judgeEffectPosition,

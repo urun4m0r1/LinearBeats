@@ -2,7 +2,7 @@ using System.IO;
 using LinearBeats.Script;
 using NUnit.Framework;
 
-public class ScriptParserTest
+public class ScriptParserTests
 {
     [Test]
     public void Should_Not_Set_Empty_Script()

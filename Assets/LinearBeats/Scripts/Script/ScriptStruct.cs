@@ -1,3 +1,5 @@
+using LinearBeats.Time;
+
 namespace LinearBeats.Script
 {
     public struct LinearBeatsScript
@@ -5,11 +7,12 @@ namespace LinearBeats.Script
         public ushort VersionCode;
         public string VersionName;
         public Metadata Metadata;
-        public Timing[] Timings;
+        public MediaChannel[] VideoChannels;
+        public MediaChannel[] AudioChannels;
+        public Timing Timing;
         public Divider[] Dividers;
-        public Effect[] Effects;
-        public VideoChannel[] VideoChannels;
-        public AudioChannel[] AudioChannels;
+        public Trigger[] Effects;
+        public Trigger[] Videos;
         public Note[] Notes;
     }
 
@@ -18,8 +21,8 @@ namespace LinearBeats.Script
         public string GameMode;
         public string Category;
         public byte Level;
-        public byte LevelJudge;
-        public byte LevelLife;
+        public byte JudgeLevel;
+        public byte LifeLevel;
         public byte Difficulty;
         public string DifficultyName;
         public string Genre;
@@ -32,68 +35,67 @@ namespace LinearBeats.Script
         public string FileNameBanner;
         public string FileNameSplash;
         public string FileNamePreview;
-        public ulong PulsePreviewStart;
-        public ulong PulsePreviewEnd;
-        public ushort PulsesPerQuarterNote;
+        public Second PreviewStart;
+        public Second PreviewEnd;
     }
 
     public struct Timing
     {
-        public int Sample;
-        public ulong Pulse;
+        public BpmEvent[] BpmEvents;
+        public TimingEvent[] StopEvents;
+        public TimingEvent[] ReverseEvents;
+    }
+
+    public struct BpmEvent
+    {
+        public ushort PulsesPerQuarterNote;
+        public Pulse Pulse;
         public float Bpm;
-        public ulong PulseStopDuration;
-        public ulong PulseReverseDuration;
+    }
+
+    public struct TimingEvent
+    {
+        public Pulse Pulse;
+        public Pulse Duration;
     }
 
     public struct Divider
     {
-        public ulong Pulse;
-        public ulong PulseInterval;
-        public byte DividerType;
+        public Pulse Pulse;
+        public Pulse Interval;
+        public byte Type;
     }
 
-    public struct Effect
-    {
-        public ulong Pulse;
-        public ulong PulseDuration;
-        public byte Trigger;
-        public byte EffectMode;
-    }
-
-    public struct VideoChannel
+    public struct MediaChannel
     {
         public string FileName;
-        public ushort PulseOffset;
+        public Second Offset;
         public byte Layer;
-        public Video[] Videos;
     }
 
-    public struct Video
+    public struct Trigger
     {
-        public ulong Pulse;
-        public byte Trigger;
-        public byte VideoMode;
-    }
-
-    public struct AudioChannel
-    {
-        public string FileName;
-        public ushort PulseOffset;
-        public byte Layer;
+        public ushort Channel;
+        public byte Mode;
+        public Pulse Pulse;
+        public Pulse Duration;
     }
 
     public struct Note
     {
-        public ulong Pulse;
-        public ulong PulseDuration;
-        public byte PositionRow;
-        public byte PositionCol;
+        public Trigger Trigger;
+        public Shape Shape;
+    }
+
+    public struct Shape
+    {
+        public byte Type;
+        public byte PosRow;
+        public byte PosCol;
         public byte SizeRow;
         public byte SizeCol;
         public byte DstRow;
         public byte DstCol;
-        public ushort Channel;
-        public ushort Mode;
     }
 }
+

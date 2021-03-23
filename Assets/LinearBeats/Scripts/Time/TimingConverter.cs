@@ -9,7 +9,7 @@ namespace LinearBeats.Time
 {
     public sealed class TimingConverter
     {
-        private readonly ushort[] _pulsesPerQuarterNote = null;
+        private readonly ushort[] _ppqn = null;
         private readonly float[] _bpms = null;
         private readonly Pulse[] _pulses = null;
         private readonly Sample[] _samples = null;
@@ -32,9 +32,9 @@ namespace LinearBeats.Time
             {
                 throw new ArgumentException("At least one BpmEvent.Pulse must be zero");
             }
-            if (timing.BpmEvents.Any(v => v.PulsesPerQuarterNote <= 0))
+            if (timing.BpmEvents.Any(v => v.Ppqn <= 0))
             {
-                throw new ArgumentException("Any BpmEvent.PulsesPerQuarterNote must be non-zero positive");
+                throw new ArgumentException("Any BpmEvent.Ppqn must be non-zero positive");
             }
             if (samplesPerSecond <= 0f)
             {
@@ -44,7 +44,7 @@ namespace LinearBeats.Time
             var bpmEvents = timing.BpmEvents.OrderBy(v => v.Pulse);
             _bpms = bpmEvents.Select(v => v.Bpm).ToArray();
             _pulses = bpmEvents.Select(v => v.Pulse).ToArray();
-            _pulsesPerQuarterNote = bpmEvents.Select(v => v.PulsesPerQuarterNote).ToArray();
+            _ppqn = bpmEvents.Select(v => v.Ppqn).ToArray();
 
             _samplesPerSecond = samplesPerSecond;
             _secondsPerSample = 1f / samplesPerSecond;
@@ -56,7 +56,7 @@ namespace LinearBeats.Time
             float[] CalculateSamplesPerPulse()
             {
                 var secondsPerQuarterNote = _bpms.Select(v => 60f / v);
-                var secondsPerPulse = secondsPerQuarterNote.Zip(_pulsesPerQuarterNote, (a, b) => a / b);
+                var secondsPerPulse = secondsPerQuarterNote.Zip(_ppqn, (a, b) => a / b);
                 var samplesPerPulse = secondsPerPulse.Select(v => v * _samplesPerSecond);
                 return samplesPerPulse.ToArray();
             }

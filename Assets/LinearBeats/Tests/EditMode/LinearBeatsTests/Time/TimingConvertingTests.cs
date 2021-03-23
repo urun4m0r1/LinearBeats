@@ -9,7 +9,7 @@ namespace LinearBeatsTests.Time
     public abstract class TimingConvertingTests
     {
         protected const float SamplesPerSecond = 500f;
-        protected const int PulsesPerQuarterNote = 100;
+        protected const int Ppqn = 100;
         protected const int FirstPulse = 0;
         protected const int ThirdPulse = 800;
         protected const int SecondPulse = 400;
@@ -42,9 +42,9 @@ namespace LinearBeatsTests.Time
             {
                 BpmEvents = new BpmEvent[]
                 {
-                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = ThirdPulse, Bpm = ThirdBpm },
-                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = FirstPulse, Bpm = FirstBpm },
-                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = SecondPulse, Bpm = SecondBpm },
+                new BpmEvent() { Ppqn = Ppqn, Pulse = ThirdPulse, Bpm = ThirdBpm },
+                new BpmEvent() { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent() { Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm },
                 }
             };
 
@@ -52,7 +52,7 @@ namespace LinearBeatsTests.Time
             {
                 BpmEvents = new BpmEvent[]
                 {
-                new BpmEvent() { PulsesPerQuarterNote = PulsesPerQuarterNote, Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent() { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
                 }
             };
 

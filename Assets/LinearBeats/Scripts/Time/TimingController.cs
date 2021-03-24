@@ -24,12 +24,12 @@ namespace LinearBeats.Time
             get => _currentTime;
             private set
             {
-                if (value != _currentTime)
+                if (!_currentTime.Equals(value))
                 {
                     var progress = value / _length;
                     _onProgressChanged.Invoke(progress.Second);
                 }
-                if (value.Bpm != _currentTime.Bpm)
+                if (_currentTime.Bpm != value.Bpm)
                 {
                     _onBpmChanged.Invoke(value.Bpm.ToString());
                 }

@@ -51,14 +51,14 @@ namespace LinearBeats.Time
 
         int IComparable<FixedTime>.CompareTo(FixedTime value)
         {
-            if (value.Converter != Converter) throw new InvalidOperationException();
-            else return value.Value.CompareTo(Value);
+            if (Converter != value.Converter) throw new InvalidOperationException();
+            else return Value.CompareTo(value.Value);
         }
 
-        bool IEquatable<FixedTime>.Equals(FixedTime value) => value.Equals(this);
+        bool IEquatable<FixedTime>.Equals(FixedTime value) => Equals(value);
         public override bool Equals(object obj)
         {
-            return (obj is FixedTime value) && (value.Value == Value) && (value.Converter == Converter);
+            return (obj is FixedTime value) && (Value == value.Value) && (Converter == value.Converter);
         }
 
         public override int GetHashCode() => GetHashCode();

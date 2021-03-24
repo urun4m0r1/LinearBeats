@@ -15,9 +15,9 @@ namespace LinearBeats.Time
         public static implicit operator Pulse(float value) => new Pulse(value);
         public static implicit operator Pulse(string value) => new Pulse(float.Parse(value));
 
-        int IComparable<Pulse>.CompareTo(Pulse value) => value._value.CompareTo(_value);
-        bool IEquatable<Pulse>.Equals(Pulse value) => value.Equals(this);
-        public override bool Equals(object obj) => (obj is Pulse value) && (value._value == _value);
+        int IComparable<Pulse>.CompareTo(Pulse value) => _value.CompareTo(value._value);
+        bool IEquatable<Pulse>.Equals(Pulse value) => Equals(value);
+        public override bool Equals(object obj) => (obj is Pulse value) && (_value == value._value);
         public override int GetHashCode() => GetHashCode();
         public override string ToString() => _value.ToString();
 

@@ -640,10 +640,10 @@ MonoBehaviour:
     - Name: _noteJudgement
       Entry: 7
       Data: 11|LinearBeats.Judgement.NoteJudgement, LinearBeats
-    - Name: _judgeOffset
+    - Name: _judgeRangeInSeconds
       Entry: 7
       Data: 12|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
-        LinearBeats],[LinearBeats.Time.Second, LinearBeats]], mscorlib
+        LinearBeats],[System.Single, mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 13|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
@@ -667,14 +667,8 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: $v
-      Entry: 7
-      Data: LinearBeats.Time.Second, LinearBeats
-    - Name: _value
       Entry: 4
       Data: 0.033
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -685,14 +679,8 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
-      Entry: 7
-      Data: LinearBeats.Time.Second, LinearBeats
-    - Name: _value
       Entry: 4
       Data: 0.066
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -703,14 +691,8 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
-      Entry: 7
-      Data: LinearBeats.Time.Second, LinearBeats
-    - Name: _value
       Entry: 4
       Data: 0.133
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -721,14 +703,8 @@ MonoBehaviour:
       Entry: 3
       Data: 3
     - Name: $v
-      Entry: 7
-      Data: LinearBeats.Time.Second, LinearBeats
-    - Name: _value
       Entry: 4
       Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -759,7 +735,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _meterPerPulse: 0.01
+  _meterPerSecond: 10
   _noteLoadBufferSize: 4
   _scriptLoader:
     _notesPool: {fileID: 518583840}

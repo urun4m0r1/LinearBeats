@@ -11,18 +11,16 @@ namespace LinearBeats.Visuals
 
         //public Timing Timing { get; set; } = 0;
 
-        public void UpdateRailPosition(FixedTime currentTime, float meterPerPulse)
+        public void UpdateRailPosition(FixedTime currentTime, float meterPerSecond)
         {
             //TODO: BPM 정지 구현 int a = _script.Timings[0].PulseStopDuration;
             //TODO: BPM 역스크롤 구현 int a = _script.Timings[0].PulseReverseDuration (like a folded timeline!)
-            //TODO: 변속 대응하기
 
             if (FixedTime <= currentTime)
                 SetZPosition(0);
             else
             {
-
-                float positionInMeter = meterPerPulse * (FixedTime.Pulse - currentTime.Pulse);
+                float positionInMeter = meterPerSecond * (FixedTime - currentTime).Second;
                 SetZPosition(positionInMeter);
             }
         }

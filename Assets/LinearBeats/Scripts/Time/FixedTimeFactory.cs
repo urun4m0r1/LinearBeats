@@ -10,11 +10,11 @@ namespace LinearBeats.Time
 
         public FixedTimeFactory(TimingConverter converter)
         {
-            Converter = converter;
+            Converter = converter ?? throw new ArgumentNullException();
         }
 
-        public FixedTime Create(Pulse value) => new FixedTime(value, Converter);
-        public FixedTime Create(Sample value) => new FixedTime(value, Converter);
-        public FixedTime Create(Second value) => new FixedTime(value, Converter);
+        public FixedTime Create(Pulse value) => new FixedTime(Converter, value);
+        public FixedTime Create(Sample value) => new FixedTime(Converter, value);
+        public FixedTime Create(Second value) => new FixedTime(Converter, value);
     }
 }

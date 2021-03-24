@@ -9,7 +9,7 @@ namespace LinearBeats.Time
 {
     public sealed class TimingConverter
     {
-        private readonly ushort[] _ppqn = null;
+        private readonly float[] _ppqn = null;
         private readonly float[] _bpms = null;
         private readonly Pulse[] _pulses = null;
         private readonly Sample[] _samples = null;
@@ -24,17 +24,21 @@ namespace LinearBeats.Time
             {
                 throw new ArgumentNullException("BpmEvents cannot be null or empty");
             }
-            if (timing.BpmEvents.Any(v => v.Bpm <= 0f))
-            {
-                throw new ArgumentException("Any BpmEvent.Bpm must be non-zero positive");
-            }
-            if (timing.BpmEvents.All(v => v.Pulse != 0))
+            if (timing.BpmEvents.All(v => v.Pulse != 0f))
             {
                 throw new ArgumentException("At least one BpmEvent.Pulse must be zero");
             }
-            if (timing.BpmEvents.Any(v => v.Ppqn <= 0))
+            if (timing.BpmEvents.Any(v => v.Pulse < 0f))
             {
-                throw new ArgumentException("Any BpmEvent.Ppqn must be non-zero positive");
+                throw new ArgumentException("All BpmEvent.Bpm must be positive");
+            }
+            if (timing.BpmEvents.Any(v => v.Bpm <= 0f))
+            {
+                throw new ArgumentException("All BpmEvent.Bpm must be non-zero positive");
+            }
+            if (timing.BpmEvents.Any(v => v.Ppqn <= 0f))
+            {
+                throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
             }
             if (samplesPerSecond <= 0f)
             {
@@ -95,6 +99,7 @@ namespace LinearBeats.Time
         private int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
         private int GetTimingIndex<T>(T timing, T[] sortedTiming) where T : IComparable<T>
         {
+            if (timing.CompareTo(sortedTiming[0]) < 0) return 0;
             for (var i = 0; i < sortedTiming.Length - 1; ++i)
             {
                 if (timing.IsBetweenIE(sortedTiming[i], sortedTiming[i + 1])) return i;

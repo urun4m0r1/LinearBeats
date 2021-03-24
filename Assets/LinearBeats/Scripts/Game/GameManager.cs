@@ -20,9 +20,9 @@ namespace LinearBeats.Game
 #pragma warning disable IDE0044
         [SerializeField]
         private UnityEvent _onGameReset = new UnityEvent();
-        [Range(0.0001f, 10)]
+        [Range(1f, 100f)]
         [SerializeField]
-        private float _meterPerPulse = 0.01f;
+        private float _meterPerSecond = 1f;
         [Range(1, 128)]
         [SerializeField]
         private uint _noteLoadBufferSize = 4;
@@ -163,7 +163,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerSecond);
                 }
             }
 
@@ -171,7 +171,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
+                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerSecond);
                 }
             }
         }

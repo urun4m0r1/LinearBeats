@@ -11,8 +11,8 @@ namespace LinearBeatsTests.Time
         protected const float SamplesPerSecond = 500f;
         protected const int Ppqn = 100;
         protected const int FirstPulse = 0;
-        protected const int ThirdPulse = 800;
         protected const int SecondPulse = 400;
+        protected const int ThirdPulse = 800;
         protected const float FirstBpm = 60f;
         protected const float SecondBpm = 120f;
         protected const float ThirdBpm = 30f;

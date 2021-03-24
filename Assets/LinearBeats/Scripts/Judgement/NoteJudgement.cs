@@ -32,7 +32,7 @@ namespace LinearBeats.Judgement
         */
         [DictionaryDrawerSettings(IsReadOnly = true)]
         [OdinSerialize]
-        private Dictionary<Judge, Second> _judgeOffset = new Dictionary<Judge, Second>
+        private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
         {
             [Judge.Perfect] = 0.033f,
             [Judge.Great] = 0.066f,
@@ -44,11 +44,11 @@ namespace LinearBeats.Judgement
         private LaneEffect _laneEffect = null;
 #pragma warning restore IDE0044
 
-        public bool JudgeNote(NoteBehaviour noteBehaviour, FixedTime currentFixedTime)
+        public bool JudgeNote(NoteBehaviour noteBehaviour, FixedTime currentTime)
         {
             FixedTime noteTime = noteBehaviour.FixedTime;
             Shape noteShape = noteBehaviour.Note.Shape;
-            Judge? noteJudgement = GetJudge(noteTime, noteShape, currentFixedTime);
+            Judge? noteJudgement = GetJudge(noteTime, noteShape, currentTime);
             if (noteJudgement != null)
             {
                 _laneEffect.OnJudge(noteBehaviour, (Judge)noteJudgement);
@@ -64,25 +64,25 @@ namespace LinearBeats.Judgement
             if (currentTime >= noteTime)
             {
                 elapsedTime = currentTime - noteTime;
-                remainingTime = FixedTime.MaxValue;
+                remainingTime = float.MaxValue;
             }
             else
             {
-                elapsedTime = FixedTime.Zero;
+                elapsedTime = 0f;
                 remainingTime = noteTime - currentTime;
             }
 
             if (InputHandler.IsNotePressed(noteShape))
             {
-                if (WithinJudge(_judgeOffset[Judge.Perfect])) return Judge.Perfect;
-                else if (WithinJudge(_judgeOffset[Judge.Great])) return Judge.Great;
-                else if (WithinJudge(_judgeOffset[Judge.Good])) return Judge.Good;
-                else if (WithinJudgeRange(_judgeOffset[Judge.Bad], _judgeOffset[Judge.Good])) return Judge.Bad;
+                if (WithinJudge(_judgeRangeInSeconds[Judge.Perfect])) return Judge.Perfect;
+                else if (WithinJudge(_judgeRangeInSeconds[Judge.Great])) return Judge.Great;
+                else if (WithinJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Good;
+                else if (WithinJudgeRange(_judgeRangeInSeconds[Judge.Bad], _judgeRangeInSeconds[Judge.Good])) return Judge.Bad;
                 else return null;
             }
             else
             {
-                if (MissedJudge(_judgeOffset[Judge.Good])) return Judge.Miss;
+                if (MissedJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Miss;
                 else return null;
             }
 

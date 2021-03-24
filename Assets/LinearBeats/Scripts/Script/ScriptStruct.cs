@@ -48,7 +48,7 @@ namespace LinearBeats.Script
 
     public struct BpmEvent
     {
-        public ushort Ppqn;
+        public float Ppqn;
         public Pulse Pulse;
         public float Bpm;
     }

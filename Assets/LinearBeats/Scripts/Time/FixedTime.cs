@@ -1,54 +1,67 @@
 #pragma warning disable IDE0090
 
 using System;
+using LinearBeats.Visuals;
 
 namespace LinearBeats.Time
 {
     public struct FixedTime : IComparable<FixedTime>, IEquatable<FixedTime>
     {
         public TimingConverter Converter { get; }
-        public Pulse NormalizedPulse => Converter.ToNormalizedPulse(Pulse);
+        public PositionConverter PositionConverter { get; }
+        public float Position { get; }
         public Pulse Pulse { get; }
         public Second Second { get; }
         public Sample Sample { get; }
-        public int TimingIndex { get; }
         public float Bpm { get; }
 
         private float Value => Second;
 
-        private FixedTime(TimingConverter converter) : this()
+        private FixedTime(PositionConverter positionConverter)
+            : this()
         {
-            Converter = converter ?? throw new ArgumentNullException();
+            PositionConverter = positionConverter ?? throw new ArgumentNullException();
+            Converter = positionConverter?.Converter ?? throw new ArgumentNullException();
         }
 
-        public FixedTime(TimingConverter converter, Pulse value) : this(converter)
+        public FixedTime(PositionConverter positionConverter, Pulse value)
+            : this(positionConverter)
         {
-            Pulse = converter.ToPulse(value);
-            Second = converter.ToSecond(value);
-            Sample = converter.ToSample(value);
-            TimingIndex = converter.GetTimingIndex(value);
-            Bpm = converter.GetBpm(value);
+            Pulse = Converter.ToPulse(value);
+            Second = Converter.ToSecond(value);
+            Sample = Converter.ToSample(value);
+            Bpm = Converter.GetBpm(value);
+
+            var normalizedPulse = Converter.ToNormalizedPulse(Pulse);
+            Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
-        public FixedTime(TimingConverter converter, Second value) : this(converter)
+        public FixedTime(PositionConverter positionConverter, Second value)
+            : this(positionConverter)
         {
-            Pulse = converter.ToPulse(value);
-            Second = converter.ToSecond(value);
-            Sample = converter.ToSample(value);
-            TimingIndex = converter.GetTimingIndex(value);
-            Bpm = converter.GetBpm(value);
+            Pulse = Converter.ToPulse(value);
+            Second = Converter.ToSecond(value);
+            Sample = Converter.ToSample(value);
+            Bpm = Converter.GetBpm(value);
+
+            var normalizedPulse = Converter.ToNormalizedPulse(Pulse);
+            Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
-        public FixedTime(TimingConverter converter, Sample value) : this(converter)
+        public FixedTime(PositionConverter positionConverter, Sample value)
+            : this(positionConverter)
         {
-            Pulse = converter.ToPulse(value);
-            Second = converter.ToSecond(value);
-            Sample = converter.ToSample(value);
-            TimingIndex = converter.GetTimingIndex(value);
-            Bpm = converter.GetBpm(value);
+            Pulse = Converter.ToPulse(value);
+            Second = Converter.ToSecond(value);
+            Sample = Converter.ToSample(value);
+            Bpm = Converter.GetBpm(value);
+
+            var normalizedPulse = Converter.ToNormalizedPulse(Pulse);
+            Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
-        private FixedTime(TimingConverter converter, float value) : this(converter, (Second)value) { }
+        private FixedTime(PositionConverter positionConverter, float value)
+            : this(positionConverter, (Second)value) { }
 
         public static implicit operator Pulse(FixedTime value) => value.Pulse;
         public static implicit operator Second(FixedTime value) => value.Second;
@@ -56,14 +69,14 @@ namespace LinearBeats.Time
 
         int IComparable<FixedTime>.CompareTo(FixedTime value)
         {
-            if (Converter != value.Converter) throw new InvalidOperationException();
-            else return Value.CompareTo(value.Value);
+            ValidateEquality(this, value);
+            return Value.CompareTo(value.Value);
         }
 
         bool IEquatable<FixedTime>.Equals(FixedTime value) => Equals(value);
         public override bool Equals(object obj)
         {
-            return (obj is FixedTime value) && (Value == value.Value) && (Converter == value.Converter);
+            return (obj is FixedTime value) && (Value == value.Value) && (PositionConverter == value.PositionConverter);
         }
 
         public override int GetHashCode() => GetHashCode();
@@ -74,18 +87,23 @@ namespace LinearBeats.Time
         }
 
         public static FixedTime operator +(FixedTime value) => value;
-        public static FixedTime operator -(FixedTime value) => new FixedTime(value.Converter, -value.Value);
+        public static FixedTime operator -(FixedTime value) => new FixedTime(value.PositionConverter, -value.Value);
 
         private static FixedTime ValidateEquality(FixedTime a, FixedTime b, float result)
         {
-            if (a.Converter != b.Converter) throw new InvalidOperationException();
-            else return new FixedTime(a.Converter, result);
+            ValidateEquality(a, b);
+            return new FixedTime(a.PositionConverter, result);
         }
 
         private static bool ValidateEquality(FixedTime a, FixedTime b, bool result)
         {
-            if (a.Converter != b.Converter) throw new InvalidOperationException();
-            else return result;
+            ValidateEquality(a, b);
+            return result;
+        }
+
+        private static void ValidateEquality(FixedTime a, FixedTime b)
+        {
+            if (a.PositionConverter != b.PositionConverter) throw new InvalidOperationException();
         }
 
         public static FixedTime operator +(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value + b.Value);

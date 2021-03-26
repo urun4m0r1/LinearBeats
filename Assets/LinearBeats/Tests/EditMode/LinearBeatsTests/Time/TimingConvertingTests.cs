@@ -2,6 +2,7 @@
 
 using LinearBeats.Script;
 using LinearBeats.Time;
+using LinearBeats.Visuals;
 using NUnit.Framework;
 
 namespace LinearBeatsTests.Time
@@ -54,7 +55,9 @@ namespace LinearBeatsTests.Time
             converterDisorder = new TimingConverter(disorderedBpmEvents, StandardBpm, SamplesPerSecond);
             converterSingle = new TimingConverter(singleBpmEvents, StandardBpm, SamplesPerSecond);
 
-            fixedTimeFactory = new FixedTimeFactory(converterDisorder);
+            var positionConverter = new PositionConverter(converterDisorder, new Timing());
+
+            fixedTimeFactory = new FixedTimeFactory(positionConverter);
         }
 
         [TearDown]

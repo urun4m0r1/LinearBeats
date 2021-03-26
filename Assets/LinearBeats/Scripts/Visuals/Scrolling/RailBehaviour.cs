@@ -9,13 +9,13 @@ namespace LinearBeats.Visuals
         private Rigidbody _rigidbody = null;
         public FixedTime FixedTime { get; set; }
 
-        public void UpdateRailPosition(FixedTime currentTime, float meterPerNormalizedPulse, PositionConverter positionConverter)
+        public void UpdateRailPosition(FixedTime currentTime, float meterPerNormalizedPulse)
         {
             if (FixedTime <= currentTime)
                 SetZPosition(0);
             else
             {
-                float positionInMeter = meterPerNormalizedPulse * positionConverter.ToPosition(FixedTime, currentTime);
+                float positionInMeter = meterPerNormalizedPulse * (FixedTime.Position - currentTime.Position);
                 SetZPosition(positionInMeter);
             }
         }

@@ -1,95 +1,117 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using LinearBeats.Script;
 using LinearBeats.Time;
 using Sirenix.Utilities;
-using UnityEngine.Assertions;
 
 namespace LinearBeats.Visuals
 {
     public sealed class PositionConverter
     {
-        private readonly TimingConverter _converter;
-        private readonly TimingEvent[] _normalizedStopEvents;
-        private readonly TimingEvent[] _normalizedRewindEvents;
-        private readonly TimingEvent[] _normalizedJumpEvents;
+        public TimingConverter Converter { get; private set; }
 
-        public PositionConverter(Timing timing, TimingConverter converter)
+        private TimingEvent[] _normalizedStopEvents = new TimingEvent[] { };
+        private TimingEvent[] _normalizedRewindEvents = new TimingEvent[] { };
+        private TimingEvent[] _normalizedJumpEvents = new TimingEvent[] { };
+
+        private PositionConverter() { }
+
+        public class Builder
         {
-            _converter = converter;
-            _normalizedStopEvents = NormalizePulse(timing.StopEvents);
-            _normalizedRewindEvents = NormalizePulse(timing.RewindEvents);
-            _normalizedJumpEvents = NormalizePulse(timing.JumpEvents);
+            public PositionConverter PositionConverter { get; private set; }
 
-            TimingEvent[] NormalizePulse(TimingEvent[] timingEvents)
+            public Builder(TimingConverter converter)
             {
-                if (timingEvents.IsNullOrEmpty()) return new TimingEvent[] { };
+                PositionConverter.Converter = converter;
+            }
+
+            public Builder StopEvent(TimingEvent[] events)
+            {
+                PositionConverter._normalizedStopEvents = NormalizeTimingEvents(events);
+                return this;
+            }
+
+            public Builder RewindEvent(TimingEvent[] events)
+            {
+                PositionConverter._normalizedRewindEvents = NormalizeTimingEvents(events);
+                return this;
+            }
+
+            public Builder JumpEvent(TimingEvent[] events)
+            {
+                PositionConverter._normalizedJumpEvents = NormalizeTimingEvents(events);
+                return this;
+            }
+
+            public PositionConverter Build()
+            {
+                return PositionConverter;
+            }
+
+            private TimingEvent[] NormalizeTimingEvents(TimingEvent[] timingEvents)
+            {
+                if (timingEvents.IsNullOrEmpty()) return timingEvents;
                 var events = timingEvents.OrderBy(v => v.Pulse);
-                var eventsPulse = events.Select(v => converter.ToNormalizedPulse(v.Pulse));
-                var eventsDuration = events.Select(v => converter.ToNormalizedPulse(v.Duration));
+                var eventsPulse = events.Select(v => PositionConverter.Converter.ToNormalizedPulse(v.Pulse));
+                var eventsDuration = events.Select(v => PositionConverter.Converter.ToNormalizedPulse(v.Duration));
                 var result = eventsPulse.Zip(eventsDuration, (a, b) => new TimingEvent() { Pulse = a, Duration = b });
                 return result.ToArray();
             }
         }
 
-        public float ToPosition(FixedTime fixedTime, FixedTime currentTime)
+        public float ToPosition(Pulse normalizedPulse)
         {
-            if (_converter != fixedTime.Converter) throw new InvalidOperationException();
+            float position = normalizedPulse;
 
-            Pulse note = fixedTime.NormalizedPulse;
-            Pulse current = currentTime.NormalizedPulse;
+            HandleJumpEvents(normalizedPulse, ref position);
+            HandleElapsedRewindEvents(normalizedPulse, ref position);
+            HandleRewindEvents(normalizedPulse, ref position);
+            HandleStopEvents(normalizedPulse, ref position);
 
-            Pulse newNote = note;
-            Pulse newCurrent = current;
+            return position;
+        }
 
-            foreach (var jumpEvent in _normalizedJumpEvents)
+        private void HandleJumpEvents(Pulse pulse, ref float position)
+        {
+            foreach (var jumpEvent in from var in _normalizedJumpEvents
+                                      let noteDist = pulse - var.Pulse
+                                      where noteDist >= 0
+                                      select var)
             {
-                Pulse noteDist = note - jumpEvent.Pulse;
-                Pulse currentDist = current - jumpEvent.Pulse;
-
-                if (noteDist >= 0)
-                    newNote += jumpEvent.Duration;
-                if (currentDist >= 0)
-                    newCurrent += jumpEvent.Duration;
+                position += jumpEvent.Duration;
             }
+        }
 
-            foreach (var rewindEvent in _normalizedRewindEvents)
+        private void HandleElapsedRewindEvents(Pulse pulse, ref float position)
+        {
+            foreach (var rewindEvent in from var in _normalizedRewindEvents
+                                        let noteDist = pulse - var.Pulse
+                                        where noteDist >= var.Duration
+                                        select var)
             {
-                Pulse noteDist = note - rewindEvent.Pulse;
-                Pulse currentDist = current - rewindEvent.Pulse;
-
-                if (noteDist >= rewindEvent.Duration)
-                    newNote -= rewindEvent.Duration * 2;
-                if (currentDist >= rewindEvent.Duration)
-                    newCurrent -= rewindEvent.Duration * 2;
+                position -= rewindEvent.Duration * 2;
             }
+        }
 
-            foreach (var rewindEvent in _normalizedRewindEvents)
+        private void HandleRewindEvents(Pulse pulse, ref float position)
+        {
+            foreach (var rewindEvent in from rewindEvent in _normalizedRewindEvents
+                                        let noteDist = pulse - rewindEvent.Pulse
+                                        where noteDist >= 0 && noteDist < rewindEvent.Duration
+                                        select rewindEvent)
             {
-                Pulse noteDist = note - rewindEvent.Pulse;
-                Pulse currentDist = current - rewindEvent.Pulse;
-
-                if (noteDist >= 0 && noteDist < rewindEvent.Duration)
-                    newNote = rewindEvent.Pulse - noteDist;
-                if (currentDist >= 0 && currentDist < rewindEvent.Duration)
-                    newCurrent = rewindEvent.Pulse - currentDist;
+                position = (rewindEvent.Pulse * 2) - pulse;
             }
+        }
 
-            foreach (var stopEvent in _normalizedStopEvents)
+        private void HandleStopEvents(Pulse pulse, ref float position)
+        {
+            foreach (var stopEvent in from stopEvent in _normalizedStopEvents
+                                      let noteDist = pulse - stopEvent.Pulse
+                                      where noteDist >= 0 && noteDist < stopEvent.Duration
+                                      select stopEvent)
             {
-                Pulse noteDist = note - stopEvent.Pulse;
-                Pulse currentDist = current - stopEvent.Pulse;
-
-                if (noteDist >= 0 && noteDist < stopEvent.Duration)
-                    newNote = stopEvent.Pulse;
-                if (currentDist >= 0 && currentDist < stopEvent.Duration)
-                    newCurrent = stopEvent.Pulse;
+                position = stopEvent.Pulse;
             }
-
-            return newNote - newCurrent;
-
-
         }
     }
 }

@@ -7,7 +7,7 @@ using Utils.Extensions;
 
 namespace LinearBeats.Time
 {
-    public sealed class TimingConverter
+    public class TimingConverter
     {
         private readonly float[] _ppqns = null;
         private readonly float[] _bpms = null;

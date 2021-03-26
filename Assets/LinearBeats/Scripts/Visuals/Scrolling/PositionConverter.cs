@@ -76,8 +76,6 @@ namespace LinearBeats.Visuals
             float position = normalizedPulse;
 
             HandleJumpEvents(normalizedPulse, ref position);
-
-            //FIXME: 리와인드, 스탑이 2개 이상일경우 노트가 점프하는 현상 수정
             HandleElapsedRewindEvents(normalizedPulse, ref position);
             HandleRewindEvents(normalizedPulse, ref position);
             HandleElapsedStopEvents(normalizedPulse, ref position);
@@ -104,10 +102,10 @@ namespace LinearBeats.Visuals
 
         private void HandleRewindEvents(Pulse pulse, ref float position)
         {
-            position = (from var in _rewindEvents
-                        let pulseElapsed = pulse - var.Pulse
-                        where pulseElapsed.IsBetweenIE(0, var.Duration)
-                        select var.Pulse - pulseElapsed).DefaultIfEmpty(position).First();
+            position -= (from var in _rewindEvents
+                         let pulseElapsed = pulse - var.Pulse
+                         where pulseElapsed.IsBetweenIE(0, var.Duration)
+                         select pulseElapsed * 2).FirstOrDefault();
         }
 
         private void HandleElapsedStopEvents(Pulse pulse, ref float position)
@@ -120,10 +118,10 @@ namespace LinearBeats.Visuals
 
         private void HandleStopEvents(Pulse pulse, ref float position)
         {
-            position = (from var in _stopEvents
-                        let pulseElapsed = pulse - var.Pulse
-                        where pulseElapsed.IsBetweenIE(0, var.Duration)
-                        select var.Pulse).DefaultIfEmpty(position).First();
+            position -= (from var in _stopEvents
+                         let pulseElapsed = pulse - var.Pulse
+                         where pulseElapsed.IsBetweenIE(0, var.Duration)
+                         select pulseElapsed).FirstOrDefault();
         }
     }
 }

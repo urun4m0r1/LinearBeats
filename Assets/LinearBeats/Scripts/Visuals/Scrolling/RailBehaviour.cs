@@ -5,14 +5,19 @@ namespace LinearBeats.Visuals
 {
     public class RailBehaviour : MonoBehaviour
     {
+#pragma warning disable IDE0044
         [SerializeField]
         private Rigidbody _rigidbody = null;
+        private float _noteDisappearOffset = 1f;
+#pragma warning restore IDE0044
+
+
         public FixedTime FixedTime { get; set; }
 
         public void UpdateRailPosition(FixedTime currentTime, float meterPerNormalizedPulse)
         {
-            if (FixedTime <= currentTime)
-                SetZPosition(0);
+            if (currentTime.Second - _noteDisappearOffset >= FixedTime.Second)
+                SetZPosition(-10f);
             else
             {
                 float positionInMeter = meterPerNormalizedPulse * (FixedTime.Position - currentTime.Position);

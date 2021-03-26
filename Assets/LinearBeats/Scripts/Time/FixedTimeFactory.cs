@@ -1,20 +1,21 @@
 #pragma warning disable IDE0090
 
 using System;
+using LinearBeats.Visuals;
 
 namespace LinearBeats.Time
 {
     public class FixedTimeFactory
     {
-        public TimingConverter Converter { get; }
+        public PositionConverter PositionConverter { get; }
 
-        public FixedTimeFactory(TimingConverter converter)
+        public FixedTimeFactory(PositionConverter positionConverter)
         {
-            Converter = converter;
+            PositionConverter = positionConverter ?? throw new ArgumentNullException();
         }
 
-        public FixedTime Create(Pulse value) => new FixedTime(value, Converter);
-        public FixedTime Create(Sample value) => new FixedTime(value, Converter);
-        public FixedTime Create(Second value) => new FixedTime(value, Converter);
+        public FixedTime Create(Pulse value) => new FixedTime(PositionConverter, value);
+        public FixedTime Create(Sample value) => new FixedTime(PositionConverter, value);
+        public FixedTime Create(Second value) => new FixedTime(PositionConverter, value);
     }
 }

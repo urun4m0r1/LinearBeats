@@ -1,121 +1,123 @@
 #pragma warning disable IDE0090
 
 using System;
+using LinearBeats.Visuals;
 
 namespace LinearBeats.Time
 {
     public struct FixedTime : IComparable<FixedTime>, IEquatable<FixedTime>
     {
-        public static FixedTime MaxValue = new FixedTime(int.MaxValue, float.MaxValue);
-        public static FixedTime MinValue = new FixedTime(int.MinValue, float.MinValue);
-        public static FixedTime Zero = new FixedTime(0, 0f);
-
         public TimingConverter Converter { get; }
+        public PositionConverter PositionConverter { get; }
+        public float Position { get; }
         public Pulse Pulse { get; }
         public Second Second { get; }
         public Sample Sample { get; }
         public float Bpm { get; }
 
-        private readonly float _value;
+        private float Value => Second;
 
-        public FixedTime(Pulse value, TimingConverter converter)
+        private FixedTime(PositionConverter positionConverter)
+            : this()
         {
-            Converter = converter;
-
-            Pulse = converter.ToPulse(value);
-            Second = converter.ToSecond(value);
-            Sample = converter.ToSample(value);
-            Bpm = converter.GetBpm(value);
-
-            _value = Sample;
+            PositionConverter = positionConverter ?? throw new ArgumentNullException();
+            Converter = positionConverter?.Converter ?? throw new ArgumentNullException();
         }
 
-        public FixedTime(Second value, TimingConverter converter)
+        public FixedTime(PositionConverter positionConverter, Pulse value)
+            : this(positionConverter)
         {
-            Converter = converter;
+            Pulse = Converter.ToPulse(value);
+            Second = Converter.ToSecond(value);
+            Sample = Converter.ToSample(value);
+            Bpm = Converter.GetBpm(value);
 
-            Pulse = converter.ToPulse(value);
-            Second = converter.ToSecond(value);
-            Sample = converter.ToSample(value);
-            Bpm = converter.GetBpm(value);
-
-            _value = Sample;
+            var normalizedPulse = Converter.Normalize(Pulse);
+            Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
-        public FixedTime(Sample value, TimingConverter converter)
+        public FixedTime(PositionConverter positionConverter, Second value)
+            : this(positionConverter)
         {
-            Converter = converter;
+            Pulse = Converter.ToPulse(value);
+            Second = Converter.ToSecond(value);
+            Sample = Converter.ToSample(value);
+            Bpm = Converter.GetBpm(value);
 
-            Pulse = converter.ToPulse(value);
-            Second = converter.ToSecond(value);
-            Sample = converter.ToSample(value);
-            Bpm = converter.GetBpm(value);
-
-            _value = Sample;
+            var normalizedPulse = Converter.Normalize(Pulse);
+            Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
-        private FixedTime(int intValue, float floatValue)
+        public FixedTime(PositionConverter positionConverter, Sample value)
+            : this(positionConverter)
         {
-            Converter = null;
+            Pulse = Converter.ToPulse(value);
+            Second = Converter.ToSecond(value);
+            Sample = Converter.ToSample(value);
+            Bpm = Converter.GetBpm(value);
 
-            Pulse = intValue;
-            Second = floatValue;
-            Sample = floatValue;
-            Bpm = floatValue;
-
-            _value = floatValue;
+            var normalizedPulse = Converter.Normalize(Pulse);
+            Position = PositionConverter.ToPosition(normalizedPulse);
         }
+
+        private FixedTime(PositionConverter positionConverter, float value)
+            : this(positionConverter, (Second)value) { }
 
         public static implicit operator Pulse(FixedTime value) => value.Pulse;
         public static implicit operator Second(FixedTime value) => value.Second;
         public static implicit operator Sample(FixedTime value) => value.Sample;
 
-        int IComparable<FixedTime>.CompareTo(FixedTime value) => _value.CompareTo(value._value);
-        bool IEquatable<FixedTime>.Equals(FixedTime value) => (_value == value._value) && (Converter == value.Converter);
-        public override bool Equals(object obj) => (obj is FixedTime value) && (_value == value._value);
+        int IComparable<FixedTime>.CompareTo(FixedTime value)
+        {
+            ValidateEquality(this, value);
+            return Value.CompareTo(value.Value);
+        }
+
+        bool IEquatable<FixedTime>.Equals(FixedTime value) => Equals(value);
+        public override bool Equals(object obj)
+        {
+            return (obj is FixedTime value) && (Value == value.Value) && (PositionConverter == value.PositionConverter);
+        }
+
         public override int GetHashCode() => GetHashCode();
+
         public override string ToString()
         {
             return $"Bpm: {Bpm:0.##} / Pulse: {Pulse:0.##} / Second: {Second:0.##} / Sample: {Sample:0.##}";
         }
 
         public static FixedTime operator +(FixedTime value) => value;
-        public static FixedTime operator -(FixedTime value)
+        public static FixedTime operator -(FixedTime value) => new FixedTime(value.PositionConverter, -value.Value);
+
+        private static FixedTime ValidateEquality(FixedTime a, FixedTime b, float result)
         {
-            return new FixedTime((Sample)(-value._value), value.Converter);
+            ValidateEquality(a, b);
+            return new FixedTime(a.PositionConverter, result);
         }
 
-        public static FixedTime operator +(FixedTime a, FixedTime b)
+        private static bool ValidateEquality(FixedTime a, FixedTime b, bool result)
         {
-            if (a.Converter == b.Converter) return new FixedTime((Sample)(a._value + b._value), a.Converter);
-            else throw new InvalidOperationException();
+            ValidateEquality(a, b);
+            return result;
         }
 
-        public static FixedTime operator -(FixedTime a, FixedTime b)
+        private static void ValidateEquality(FixedTime a, FixedTime b)
         {
-            if (a.Converter == b.Converter) return new FixedTime((Sample)(a._value - b._value), a.Converter);
-            else throw new InvalidOperationException();
+            if (a.PositionConverter != b.PositionConverter) throw new InvalidOperationException();
         }
 
-        public static FixedTime operator *(FixedTime a, FixedTime b)
-        {
-            if (a.Converter == b.Converter) return new FixedTime((Sample)(a._value * b._value), a.Converter);
-            else throw new InvalidOperationException();
-        }
+        public static FixedTime operator +(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value + b.Value);
+        public static FixedTime operator -(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value - b.Value);
+        public static FixedTime operator *(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value * b.Value);
+        public static FixedTime operator /(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value / b.Value);
 
-        public static FixedTime operator /(FixedTime a, FixedTime b)
-        {
-            if (a.Converter == b.Converter) return new FixedTime((Sample)(a._value / b._value), a.Converter);
-            else throw new InvalidOperationException();
-        }
+        public static bool operator ==(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value == b.Value);
+        public static bool operator !=(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value != b.Value);
 
-        public static bool operator ==(FixedTime a, FixedTime b) => a._value == b._value;
-        public static bool operator !=(FixedTime a, FixedTime b) => a._value != b._value;
+        public static bool operator <(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value < b.Value);
+        public static bool operator >(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value > b.Value);
 
-        public static bool operator <(FixedTime a, FixedTime b) => a._value < b._value;
-        public static bool operator >(FixedTime a, FixedTime b) => a._value > b._value;
-
-        public static bool operator <=(FixedTime a, FixedTime b) => a._value <= b._value;
-        public static bool operator >=(FixedTime a, FixedTime b) => a._value >= b._value;
+        public static bool operator <=(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value <= b.Value);
+        public static bool operator >=(FixedTime a, FixedTime b) => ValidateEquality(a, b, a.Value >= b.Value);
     }
 }

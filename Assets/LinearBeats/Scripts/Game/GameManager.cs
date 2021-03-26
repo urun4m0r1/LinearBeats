@@ -20,9 +20,9 @@ namespace LinearBeats.Game
 #pragma warning disable IDE0044
         [SerializeField]
         private UnityEvent _onGameReset = new UnityEvent();
-        [Range(0.0001f, 10)]
+        [Range(1f, 100f)]
         [SerializeField]
-        private float _meterPerPulse = 0.01f;
+        private float _meterPerNormalizedPulse = 1f;
         [Range(1, 128)]
         [SerializeField]
         private uint _noteLoadBufferSize = 4;
@@ -62,11 +62,18 @@ namespace LinearBeats.Game
 
             void InitTimingController()
             {
-                TimingConverter converter = new TimingConverter(
-                    _scriptLoader.Script.Timing,
+                var converter = new TimingConverter(
+                    _scriptLoader.Script.Timing.BpmEvents,
+                    _scriptLoader.Script.Timing.StandardBpm,
                     _audioSources[0].clip.frequency);
 
-                _fixedTimeFactory = new FixedTimeFactory(converter);
+                var positionConverter = new PositionConverter.Builder(converter)
+                    .StopEvent(_scriptLoader.Script.Timing.StopEvents)
+                    .RewindEvent(_scriptLoader.Script.Timing.RewindEvents)
+                    .JumpEvent(_scriptLoader.Script.Timing.JumpEvents)
+                    .Build();
+
+                _fixedTimeFactory = new FixedTimeFactory(positionConverter);
 
                 _timingController.InitTiming(
                     _fixedTimeFactory.Create((Sample)_backgroundAudioSource.clip.samples),
@@ -163,7 +170,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerNormalizedPulse);
                 }
             }
 
@@ -171,7 +178,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerPulse);
+                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerNormalizedPulse);
                 }
             }
         }

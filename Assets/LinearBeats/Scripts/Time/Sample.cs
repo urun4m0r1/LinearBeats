@@ -16,10 +16,13 @@ namespace LinearBeats.Time
         public static implicit operator Sample(string value) => new Sample(float.Parse(value));
 
         int IComparable<Sample>.CompareTo(Sample value) => _value.CompareTo(value._value);
-        bool IEquatable<Sample>.Equals(Sample value) => _value == value._value;
+        bool IEquatable<Sample>.Equals(Sample value) => Equals(value);
         public override bool Equals(object obj) => (obj is Sample value) && (_value == value._value);
         public override int GetHashCode() => GetHashCode();
         public override string ToString() => _value.ToString();
+
+        public static Sample operator +(Sample value) => value;
+        public static Sample operator -(Sample value) => -value._value;
 
         public static Sample operator +(Sample a, Sample b) => a._value + b._value;
         public static Sample operator -(Sample a, Sample b) => a._value - b._value;

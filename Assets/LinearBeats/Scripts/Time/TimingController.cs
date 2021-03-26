@@ -24,13 +24,14 @@ namespace LinearBeats.Time
             get => _currentTime;
             private set
             {
-                if (_currentTime != value)
+                if (!_currentTime.Equals(value))
                 {
-                    OnProgressChanged();
+                    var progress = value / _length;
+                    _onProgressChanged.Invoke(progress.Second);
                 }
                 if (_currentTime.Bpm != value.Bpm)
                 {
-                    OnBpmChanged();
+                    _onBpmChanged.Invoke(value.Bpm.ToString());
                 }
                 _currentTime = value;
             }
@@ -46,30 +47,16 @@ namespace LinearBeats.Time
             _offset = offset;
 
             ResetTiming();
-            OnProgressChanged();
-            OnBpmChanged();
         }
 
         public void UpdateTiming(FixedTime inputTime)
         {
-            //TODO: Is this working?
             CurrentTime = inputTime + _offset;
         }
 
         public void ResetTiming()
         {
             CurrentTime = _offset;
-        }
-
-        private void OnProgressChanged()
-        {
-            var progress = CurrentTime.Sample / _length.Sample;
-            _onProgressChanged.Invoke(progress);
-        }
-
-        private void OnBpmChanged()
-        {
-            _onBpmChanged.Invoke(CurrentTime.Bpm.ToString());
         }
     }
 }

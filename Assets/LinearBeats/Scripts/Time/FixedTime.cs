@@ -32,7 +32,7 @@ namespace LinearBeats.Time
             Sample = Converter.ToSample(value);
             Bpm = Converter.GetBpm(value);
 
-            var normalizedPulse = Converter.ToNormalizedPulse(Pulse);
+            var normalizedPulse = Converter.Normalize(Pulse);
             Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
@@ -44,7 +44,7 @@ namespace LinearBeats.Time
             Sample = Converter.ToSample(value);
             Bpm = Converter.GetBpm(value);
 
-            var normalizedPulse = Converter.ToNormalizedPulse(Pulse);
+            var normalizedPulse = Converter.Normalize(Pulse);
             Position = PositionConverter.ToPosition(normalizedPulse);
         }
 
@@ -56,7 +56,7 @@ namespace LinearBeats.Time
             Sample = Converter.ToSample(value);
             Bpm = Converter.GetBpm(value);
 
-            var normalizedPulse = Converter.ToNormalizedPulse(Pulse);
+            var normalizedPulse = Converter.Normalize(Pulse);
             Position = PositionConverter.ToPosition(normalizedPulse);
         }
 

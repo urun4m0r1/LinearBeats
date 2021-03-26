@@ -104,7 +104,7 @@ namespace LinearBeats.Time
         public Second ToSecond(Second value) => value;
         public Pulse ToPulse(Pulse value) => value;
         public Sample ToSample(Sample value) => value;
-        public Pulse ToNormalizedPulse(Pulse value) => ToNormalizedPulse(value, GetTimingIndex(value));
+        public Pulse Normalize(Pulse value) => Normalize(value, GetTimingIndex(value));
 
         private float GetBpm(int timingIndex) => _bpms[timingIndex];
 
@@ -145,7 +145,7 @@ namespace LinearBeats.Time
             return sample;
         }
 
-        private Pulse ToNormalizedPulse(Pulse pulse, int timingIndex)
+        private Pulse Normalize(Pulse pulse, int timingIndex)
         {
             if (pulse < _pulses[0]) timingIndex = 0;
             else Assert.IsTrue(pulse >= _pulses[timingIndex]);

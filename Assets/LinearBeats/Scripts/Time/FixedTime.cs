@@ -7,9 +7,11 @@ namespace LinearBeats.Time
     public struct FixedTime : IComparable<FixedTime>, IEquatable<FixedTime>
     {
         public TimingConverter Converter { get; }
+        public Pulse NormalizedPulse => Converter.ToNormalizedPulse(Pulse);
         public Pulse Pulse { get; }
         public Second Second { get; }
         public Sample Sample { get; }
+        public int TimingIndex { get; }
         public float Bpm { get; }
 
         private float Value => Second;
@@ -24,6 +26,7 @@ namespace LinearBeats.Time
             Pulse = converter.ToPulse(value);
             Second = converter.ToSecond(value);
             Sample = converter.ToSample(value);
+            TimingIndex = converter.GetTimingIndex(value);
             Bpm = converter.GetBpm(value);
         }
 
@@ -32,6 +35,7 @@ namespace LinearBeats.Time
             Pulse = converter.ToPulse(value);
             Second = converter.ToSecond(value);
             Sample = converter.ToSample(value);
+            TimingIndex = converter.GetTimingIndex(value);
             Bpm = converter.GetBpm(value);
         }
 
@@ -40,6 +44,7 @@ namespace LinearBeats.Time
             Pulse = converter.ToPulse(value);
             Second = converter.ToSecond(value);
             Sample = converter.ToSample(value);
+            TimingIndex = converter.GetTimingIndex(value);
             Bpm = converter.GetBpm(value);
         }
 

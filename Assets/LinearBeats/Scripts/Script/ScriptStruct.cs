@@ -41,9 +41,11 @@ namespace LinearBeats.Script
 
     public struct Timing
     {
+        public float StandardBpm;
         public BpmEvent[] BpmEvents;
         public TimingEvent[] StopEvents;
-        public TimingEvent[] ReverseEvents;
+        public TimingEvent[] RewindEvents;
+        public TimingEvent[] JumpEvents;
     }
 
     public struct BpmEvent

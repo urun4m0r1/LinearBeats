@@ -22,7 +22,7 @@ namespace LinearBeats.Game
         private UnityEvent _onGameReset = new UnityEvent();
         [Range(1f, 100f)]
         [SerializeField]
-        private float _meterPerSecond = 1f;
+        private float _meterPerNormalizedPulse = 1f;
         [Range(1, 128)]
         [SerializeField]
         private uint _noteLoadBufferSize = 4;
@@ -40,6 +40,7 @@ namespace LinearBeats.Game
         private AudioSource _backgroundAudioSource = null;
         private FixedTimeFactory _fixedTimeFactory;
         private uint nextNoteLoadIndex = 0;
+        private PositionConverter _positionConverter;
 
         void Start()
         {
@@ -63,8 +64,12 @@ namespace LinearBeats.Game
             void InitTimingController()
             {
                 TimingConverter converter = new TimingConverter(
-                    _scriptLoader.Script.Timing,
+                    _scriptLoader.Script.Timing.BpmEvents,
+                    _scriptLoader.Script.Timing.StandardBpm,
                     _audioSources[0].clip.frequency);
+
+                _positionConverter = new PositionConverter(
+                    _scriptLoader.Script.Timing, converter);
 
                 _fixedTimeFactory = new FixedTimeFactory(converter);
 
@@ -163,7 +168,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerSecond);
+                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerNormalizedPulse, _positionConverter);
                 }
             }
 
@@ -171,7 +176,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerSecond);
+                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerNormalizedPulse, _positionConverter);
                 }
             }
         }

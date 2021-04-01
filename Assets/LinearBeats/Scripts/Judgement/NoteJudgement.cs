@@ -46,6 +46,7 @@ namespace LinearBeats.Judgement
 
         public bool JudgeNote(NoteBehaviour noteBehaviour, FixedTime currentTime)
         {
+            //TODO: 늦게치면 무조건 miss인 현상 해결
             FixedTime noteTime = noteBehaviour.FixedTime;
             Shape noteShape = noteBehaviour.Note.Shape;
             Judge? noteJudgement = GetJudge(noteTime, noteShape, currentTime);

@@ -73,8 +73,10 @@ namespace LinearBeats.Visuals
 
         public float ToPosition(Pulse normalizedPulse)
         {
+            //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
             float position = normalizedPulse;
 
+            //TODO: 백점프 추가
             HandleJumpEvents(normalizedPulse, ref position);
             HandleElapsedRewindEvents(normalizedPulse, ref position);
             HandleRewindEvents(normalizedPulse, ref position);

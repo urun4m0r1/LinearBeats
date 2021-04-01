@@ -9,15 +9,9 @@ namespace LinearBeats.Time
     [HideReferenceObjectPicker]
     public sealed class TimingController
     {
-#pragma warning disable IDE0044
-        [HideReferenceObjectPicker]
-        [SerializeField]
-        private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
-
-        [HideReferenceObjectPicker]
-        [SerializeField]
-        private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
-#pragma warning restore IDE0044
+        private FixedTime _currentTime;
+        private FixedTime _length;
+        private FixedTime _offset;
 
         public FixedTime CurrentTime
         {
@@ -25,21 +19,20 @@ namespace LinearBeats.Time
             private set
             {
                 if (!_currentTime.Equals(value))
-                {
+               {
                     var progress = value / _length;
                     _onProgressChanged.Invoke(progress.Second);
                 }
+
                 if (_currentTime.Bpm != value.Bpm)
                 {
                     _onBpmChanged.Invoke(value.Bpm.ToString());
                 }
+
                 _currentTime = value;
             }
         }
 
-        private FixedTime _currentTime;
-        private FixedTime _length;
-        private FixedTime _offset;
 
         public void InitTiming(FixedTime length, FixedTime offset)
         {
@@ -51,6 +44,7 @@ namespace LinearBeats.Time
 
         public void UpdateTiming(FixedTime inputTime)
         {
+            //TODO: TimingEvent invoke하기
             CurrentTime = inputTime + _offset;
         }
 
@@ -58,5 +52,12 @@ namespace LinearBeats.Time
         {
             CurrentTime = _offset;
         }
+#pragma warning disable IDE0044
+        [HideReferenceObjectPicker] [SerializeField]
+        private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
+
+        [HideReferenceObjectPicker] [SerializeField]
+        private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
+#pragma warning restore IDE0044
     }
 }

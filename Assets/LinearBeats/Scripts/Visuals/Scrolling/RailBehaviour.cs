@@ -20,6 +20,7 @@ namespace LinearBeats.Visuals
                 SetZPosition(-10f);
             else
             {
+                //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
                 float positionInMeter = meterPerNormalizedPulse * (FixedTime.Position - currentTime.Position);
                 SetZPosition(positionInMeter);
             }

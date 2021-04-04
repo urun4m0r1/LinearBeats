@@ -4,301 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Script.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/AssemblyInfo.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Audio.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioMixer.mixer" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Audio/AudioMixer.mixer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioMixer.mixer.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Audio/AudioMixer.mixer.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Keybeam_Air.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Keybeam_Air.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Keybeam_Air.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Keybeam_Air.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Keybeam_Ground.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Keybeam_Ground.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Keybeam_Ground.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Keybeam_Ground.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Lane.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Lane.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Lane.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Lane.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Lane_L.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Lane_L.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Lane_L.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Lane_L.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Lane_R.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Lane_R.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Lane_R.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Lane_R.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/ParticlesUnlit.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/ParticlesUnlit.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/ParticlesUnlit.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/ParticlesUnlit.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Timing Line.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Timing Line.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Gear/Timing Line.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Gear/Timing Line.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Divider.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Divider.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Divider.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Divider.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Short.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Short.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Short.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Short.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Slide L.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Slide L.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Slide L.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Slide L.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Slide R.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Slide R.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Slide R.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Slide R.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Vertical Shadow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Vertical Shadow.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Vertical Shadow.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Vertical Shadow.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Vertical.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Vertical.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/Note/Notes Vertical.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/Note/Notes Vertical.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Font.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Font.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Font.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Font.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Lane.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Lane.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Lane.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Lane.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Side L.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Side L.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Side L.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Side L.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Side R.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Side R.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Materials/UI/Keyhint Side R.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Materials/UI/Keyhint Side R.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Cameras.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Cameras.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Cameras/Cameras.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Cameras/Cameras.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Cameras/Cameras.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Cameras/Cameras.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Gear Light.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Gear Light.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Gear Light.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Gear Light.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Gear.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Gear.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Gear.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Gear.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Key Hint L.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Key Hint L.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Key Hint L.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Key Hint L.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Key Hint R.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Key Hint R.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Key Hint R.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Key Hint R.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Key Hint.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Key Hint.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Key Hint.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Key Hint.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Lane L.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Lane L.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Lane L.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Lane L.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Lane R.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Lane R.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Lane R.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Lane R.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Lane.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Lane.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Lane.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Lane.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Timing Line.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Timing Line.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Timing Line.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Timing Line.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Wall Particle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Wall Particle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Gear/Wall Particle.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Gear/Wall Particle.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Bad.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Bad.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Bad.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Bad.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit Good.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit Good.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit Good.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit Good.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit Great.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit Great.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit Great.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit Great.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit Perfect.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit Perfect.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit Perfect.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit Perfect.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Hit.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Hit.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Miss.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Miss.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Judge/Judge Miss.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Judge/Judge Miss.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note/Divider.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Divider.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note/Divider.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Divider.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note/Note.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Note.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note/Note.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Note.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note/Short Note.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Short Note.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Note/Short Note.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Short Note.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Test.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Test.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Test/Keys.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Test/Keys.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Test/Keys.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Test/Keys.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Test/Notes Example.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Test/Notes Example.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/Test/Notes Example.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Test/Notes Example.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/UI.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/UI.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/UI/UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/UI/UI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Prefabs/UI/UI.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/UI/UI.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/AudioCompressedInMemory.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/AudioCompressedInMemory.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/AudioCompressedInMemory.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/AudioCompressedInMemory.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/AudioStreaming.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/AudioStreaming.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/AudioStreaming.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/AudioStreaming.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults/AlbedoTexture_Default.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults/AlbedoTexture_Default.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults/AlbedoTexture_Default.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults/AlbedoTexture_Default.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults/AudioDecompressOnLoad.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults/AudioDecompressOnLoad.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults/AudioDecompressOnLoad.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults/AudioDecompressOnLoad.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults/DirectionalLight_Default.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults/DirectionalLight_Default.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/Defaults/DirectionalLight_Default.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/Defaults/DirectionalLight_Default.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/NormalTexture.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/NormalTexture.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/NormalTexture.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/NormalTexture.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/UtilityTexture.preset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/UtilityTexture.preset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Presets/UtilityTexture.preset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Presets/UtilityTexture.preset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes/GameView.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes/GameView.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes/GameViewLightingSettings.lighting" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameViewLightingSettings.lighting" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes/GameViewLightingSettings.lighting.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameViewLightingSettings.lighting.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes/New Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/New Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scenes/New Scene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/New Scene.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Game.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Game/GameManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Game/SceneLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Game/SceneLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/AutoInputListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/AutoInputListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/AutoInputListener.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/AutoInputListener.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputListener.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputMapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputMapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputMapper.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputMapper.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputPosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputPosition.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputPosition.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputReceiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputReceiver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/InputReceiver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputReceiver.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Ansi.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Ansi.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Ansi.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Ansi.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Custom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Custom.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/IBindingProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/IBindingProvider.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingProvider.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/IBindingReceiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingReceiver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/IBindingReceiver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingReceiver.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Iso.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Iso.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Iso.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Iso.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Jis.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Jis.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Jis.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Jis.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Keyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/Keyboard.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/KeyboardCustom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/Keyboard/KeyboardCustom.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/NetworkInputListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/NetworkInputListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/NetworkInputListener.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/NetworkInputListener.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/UserInputListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/UserInputListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Input/UserInputListener.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/UserInputListener.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Judgement.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Judgement/Judge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Judgement/Judge.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Judgement/NoteJudgement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/LinearBeats.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/LinearBeats.asmdef.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats.asmdef.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script/ScriptLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script/ScriptLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script/ScriptParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script/ScriptParser.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Script/ScriptStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/FixedTime.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/FixedTime.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/FixedTimeFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTimeFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/FixedTimeFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTimeFactory.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Pulse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Pulse.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Sample.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Sample.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Second.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Second.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/TimingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/TimingController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/TimingConverter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/ArrayExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ArrayExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/ArrayExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ArrayExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/AudioSourceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/AudioSourceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/AudioSourceExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/AudioSourceExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/BetweenExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/BetweenExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/BetweenExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/BetweenExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/CSharpExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/CSharpExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/FloatExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/FloatExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/FloatExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/FloatExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/Vector3Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/Vector3Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Extensions/Vector3Extensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/Vector3Extensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Templates.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Templates/Singleton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates/Singleton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Templates/Singleton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates/Singleton.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Unity/AudioListenerValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/AudioListenerValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Unity/AudioListenerValidator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/AudioListenerValidator.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Unity/ComponentInitializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/ComponentInitializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Utils/Unity/ComponentInitializer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/ComponentInitializer.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/JudgeEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/JudgeEffect.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/LaneBeam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/LaneBeam.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/LaneEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/LaneEffect.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/NoteBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/NoteBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/NoteBehaviour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/NoteBehaviour.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/PositionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/PositionConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/PositionConverter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/PositionConverter.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/RailBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/RailBehaviour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/ForwardRenderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/ForwardRenderer.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/ForwardRenderer.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/ForwardRenderer.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/PostProcessVolume.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/PostProcessVolume.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/PostProcessVolume.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/PostProcessVolume.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-HighQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-HighQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-HighQuality.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-HighQuality.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-LowQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-LowQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-LowQuality.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-LowQuality.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-MediumQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-MediumQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-MediumQuality.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-MediumQuality.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-UltraQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-UltraQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Settings/UniversalRP-UltraQuality.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-UltraQuality.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/EditorTests.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/EditorTests.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/InputListenerTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/InputListenerTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/InputPositionTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/InputPositionTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/KeyboardTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/KeyboardTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time/FIxedTimeTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time/FIxedTimeTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time/TimingConverterTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time/TimingConverterTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time/TimingConvertingTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/LinearBeatsTests/Time/TimingConvertingTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/ScriptParserTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/ScriptParserTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/TestReceiver.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/TestReceiver.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/TestUtils.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/TestUtils.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/YamlParserTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/YamlParserTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/PlayMode.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/PlayMode/NewTestScript.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/PlayMode/NewTestScript.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/PlayMode/Tests.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Tests/PlayMode/Tests.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures/Beveled_Normal.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures/Beveled_Normal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures/Beveled_Normal.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures/Beveled_Normal.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures/JudgeEffect.psd" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures/JudgeEffect.psd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures/JudgeEffect.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures/JudgeEffect.psd.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures/VideoTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures/VideoTexture.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Textures/VideoTexture.renderTexture.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Textures/VideoTexture.renderTexture.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -418,7 +124,7 @@
       <workItem from="1617237064830" duration="618000" />
       <workItem from="1617244838011" duration="9525000" />
       <workItem from="1617333392692" duration="684000" />
-      <workItem from="1617334522521" duration="20172000" />
+      <workItem from="1617334522521" duration="20508000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -427,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617245609076</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="File structure changed">
+      <created>1617515785560</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1617515785560</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,7 +175,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Project updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project updated" />
+    <MESSAGE value="File structure changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="File structure changed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

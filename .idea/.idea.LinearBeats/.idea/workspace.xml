@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
+      <change afterPath="$PROJECT_DIR$/LinearBeats.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/shelf/__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/shelf/__________.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTimeFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTimeFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,13 +36,16 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/PTJ/OneDrive/Documents/Projects/Unity/LinearBeats/Assets/LinearBeats/Scripts/Time/Pulse.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/3a/c2986129/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/42/f57e2c82/ValueType.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/PTJ/OneDrive/Documents/Projects/Unity/LinearBeats/Assets/LinearBeats/EditorTests/Time/TimingConvertingTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/ad/e6d9be50/IFormattable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/47/024c5586/IEqualityComparer`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/PTJ/OneDrive/Documents/Projects/Unity/LinearBeats/Assets/LinearBeats/Time/TimingConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/db/ccedbd5a/IConvertible.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/PTJ/OneDrive/Documents/Projects/Unity/LinearBeats/Assets/LinearBeats/Time/Pulse.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/f7/bafc5835/Number.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/PTJ/OneDrive/Documents/Projects/Unity/LinearBeats/Assets/LinearBeats/Visuals/Scrolling/PositionConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/0e/a937fa1d/Single.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/60/9a6a525d/0200003D.il" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -58,9 +68,17 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats/Tests/Time/FIxedTimeTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Tests/Time/FIxedTimeTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/AssemblyInfo.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConvertingTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/PositionConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConvertingTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTimeFactory.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -85,7 +103,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="Script" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.file-colors" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
@@ -131,7 +152,8 @@
       <workItem from="1617237064830" duration="618000" />
       <workItem from="1617244838011" duration="9525000" />
       <workItem from="1617333392692" duration="684000" />
-      <workItem from="1617334522521" duration="21022000" />
+      <workItem from="1617334522521" duration="24902000" />
+      <workItem from="1617621803274" duration="9221000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -161,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617516006816</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Git settings changed">
+      <created>1617516845308</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1617516845308</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,7 +226,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Project updated" />
     <MESSAGE value="File structure changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="File structure changed" />
+    <MESSAGE value="Git settings changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Git settings changed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

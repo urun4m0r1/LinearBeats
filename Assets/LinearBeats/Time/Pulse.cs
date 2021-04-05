@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace LinearBeats.Time
@@ -28,12 +29,16 @@ namespace LinearBeats.Time
 
         public override int GetHashCode() => _value.GetHashCode();
 
-        // ReSharper disable once SpecifyACultureInStringConversionExplicitly
+        [NotNull]
+        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         public override string ToString() => _value.ToString();
+
         [NotNull]
         public string ToString(string format) => _value.ToString(format);
+
         [NotNull]
         public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
+
         public string ToString(string format, IFormatProvider formatProvider) => _value.ToString(format, formatProvider);
 
         public static Pulse operator +(Pulse right) => right;

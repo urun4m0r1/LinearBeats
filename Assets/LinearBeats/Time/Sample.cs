@@ -8,7 +8,7 @@ namespace LinearBeats.Time
     {
         private readonly float _value;
 
-        private Sample(float value) => _value = value;
+        public Sample(float value) => _value = value;
 
         public static implicit operator float(Sample right) => right._value;
         public static implicit operator Sample(float right) => new Sample(right);

@@ -2,6 +2,7 @@
 #pragma warning disable IDE0090
 
 using System.Collections.Generic;
+using System.Globalization;
 using Lean.Pool;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
@@ -18,6 +19,10 @@ namespace LinearBeats.Game
     public sealed class GameManager : SerializedMonoBehaviour
     {
 #pragma warning disable IDE0044
+        [SerializeField]
+        private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
+        [SerializeField]
+        private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
         [SerializeField]
         private UnityEvent _onGameReset = new UnityEvent();
         [Range(1f, 100f)]
@@ -75,9 +80,10 @@ namespace LinearBeats.Game
 
                 _fixedTimeFactory = new FixedTimeFactory(positionConverter);
 
-                _timingController.InitTiming(
-                    _fixedTimeFactory.Create((Sample)_backgroundAudioSource.clip.samples),
-                    _fixedTimeFactory.Create(_scriptLoader.Script.AudioChannels[0].Offset));
+                _timingController = new TimingController(
+                    _fixedTimeFactory,
+                    _backgroundAudioSource,
+                    _scriptLoader.Script.AudioChannels[0].Offset);
             }
         }
 
@@ -110,8 +116,6 @@ namespace LinearBeats.Game
                 audioSource.Reset();
             }
 
-            _timingController.ResetTiming();
-
             nextNoteLoadIndex = 0;
             //FIXME: 기존 버퍼 초기화
             BufferNotes(_noteLoadBufferSize);
@@ -123,7 +127,6 @@ namespace LinearBeats.Game
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                _timingController.UpdateTiming(_fixedTimeFactory.Create((Sample)_backgroundAudioSource.timeSamples));
                 UpdateNoteJudge();
             }
 
@@ -151,6 +154,9 @@ namespace LinearBeats.Game
         }
         private void Update()
         {
+            _onProgressChanged.Invoke(_timingController.CurrentProgress);
+            _onBpmChanged.Invoke(_timingController.CurrentTime.Bpm.ToString(CultureInfo.InvariantCulture));
+
             if (_backgroundAudioSource.isPlaying)
             {
                 if (_noteBehaviours.Count < _noteLoadBufferSize)

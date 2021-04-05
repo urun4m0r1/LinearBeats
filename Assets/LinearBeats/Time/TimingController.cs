@@ -1,64 +1,27 @@
-#pragma warning disable IDE0090
-
-using System.Globalization;
-using Sirenix.OdinInspector;
+using System;
+using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace LinearBeats.Time
 {
-    [HideReferenceObjectPicker]
-    internal sealed class TimingController
+    public sealed class TimingController
     {
-        private FixedTime _currentTime;
-        private FixedTime _length;
-        private FixedTime _offset;
+        public FixedTime CurrentTime => _fixedTimeFactory.Create(new Sample(_audioSource.timeSamples) + _offset);
+        public float CurrentProgress => (CurrentTime / _length).Second;
 
-        public FixedTime CurrentTime
+        private readonly AudioSource _audioSource;
+        private readonly FixedTimeFactory _fixedTimeFactory;
+        private readonly FixedTime _length;
+        private readonly FixedTime _offset;
+
+        public TimingController([NotNull] FixedTimeFactory fixedTimeFactory,
+            [NotNull] AudioSource audioSource,
+            Second offset = default)
         {
-            get => _currentTime;
-            private set
-            {
-                if (!_currentTime.Equals(value))
-                {
-                    var progress = value / _length;
-                    _onProgressChanged.Invoke(progress.Second);
-                }
-
-                if (_currentTime.Bpm != value.Bpm)
-                {
-                    _onBpmChanged.Invoke(value.Bpm.ToString(CultureInfo.InvariantCulture));
-                }
-
-                _currentTime = value;
-            }
+            _audioSource = audioSource ? audioSource : throw new ArgumentNullException();
+            _fixedTimeFactory = fixedTimeFactory ?? throw new ArgumentNullException();
+            _length = fixedTimeFactory.Create(new Sample(audioSource.clip.samples));
+            _offset = fixedTimeFactory.Create(offset);
         }
-
-
-        public void InitTiming(FixedTime length, FixedTime offset)
-        {
-            _length = length;
-            _offset = offset;
-
-            ResetTiming();
-        }
-
-        public void UpdateTiming(FixedTime inputTime)
-        {
-            //TODO: TimingEvent invoke하기
-            CurrentTime = inputTime + _offset;
-        }
-
-        public void ResetTiming()
-        {
-            CurrentTime = _offset;
-        }
-#pragma warning disable IDE0044
-        [HideReferenceObjectPicker] [SerializeField]
-        private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
-
-        [HideReferenceObjectPicker] [SerializeField]
-        private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
-#pragma warning restore IDE0044
     }
 }

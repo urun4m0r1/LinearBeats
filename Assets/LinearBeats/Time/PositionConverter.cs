@@ -1,19 +1,17 @@
 using System;
 using System.Linq;
 using LinearBeats.Script;
-using LinearBeats.Time;
-using Sirenix.Utilities;
 using Utils.Extensions;
 
-namespace LinearBeats.Visuals
+namespace LinearBeats.Time
 {
     public sealed class PositionConverter
     {
         public TimingConverter TimingConverter { get; }
 
-        private TimingEvent[] _stopEvents = new TimingEvent[] { };
-        private TimingEvent[] _rewindEvents = new TimingEvent[] { };
-        private TimingEvent[] _jumpEvents = new TimingEvent[] { };
+        private TimingEvent[] _stopEvents = { };
+        private TimingEvent[] _rewindEvents = { };
+        private TimingEvent[] _jumpEvents = { };
 
         private PositionConverter(TimingConverter timingConverter) =>
             TimingConverter = timingConverter;
@@ -64,11 +62,11 @@ namespace LinearBeats.Visuals
                 }
 
                 return (from var in timingEvents
-                        orderby var.Pulse ascending
-                        let converter = _positionConverter.TimingConverter
-                        let a = converter.Normalize(var.Pulse)
-                        let b = converter.Normalize(var.Duration)
-                        select new TimingEvent() { Pulse = a, Duration = b }).ToArray();
+                    orderby var.Pulse
+                    let converter = _positionConverter.TimingConverter
+                    let a = converter.Normalize(var.Pulse)
+                    let b = converter.Normalize(var.Duration)
+                    select new TimingEvent { Pulse = a, Duration = b }).ToArray();
             }
         }
 
@@ -90,41 +88,41 @@ namespace LinearBeats.Visuals
         private void HandleJumpEvents(Pulse pulse, ref float position)
         {
             position += (from var in _jumpEvents
-                         let pulseElapsed = pulse - var.Pulse
-                         where pulseElapsed >= 0
-                         select var.Duration).Sum(v => v);
+                let pulseElapsed = pulse - var.Pulse
+                where pulseElapsed >= 0
+                select var.Duration).Sum(v => v);
         }
 
         private void HandleElapsedRewindEvents(Pulse pulse, ref float position)
         {
             position -= (from var in _rewindEvents
-                         let pulseElapsed = pulse - var.Pulse
-                         where pulseElapsed >= var.Duration
-                         select var.Duration * 2).Sum(v => v);
+                let pulseElapsed = pulse - var.Pulse
+                where pulseElapsed >= var.Duration
+                select var.Duration * 2).Sum(v => v);
         }
 
         private void HandleRewindEvents(Pulse pulse, ref float position)
         {
             position -= (from var in _rewindEvents
-                         let pulseElapsed = pulse - var.Pulse
-                         where pulseElapsed.IsBetweenIE(0, var.Duration)
-                         select pulseElapsed * 2).FirstOrDefault();
+                let pulseElapsed = pulse - var.Pulse
+                where pulseElapsed.IsBetweenIE(0, var.Duration)
+                select pulseElapsed * 2).FirstOrDefault();
         }
 
         private void HandleElapsedStopEvents(Pulse pulse, ref float position)
         {
             position -= (from var in _stopEvents
-                         let pulseElapsed = pulse - var.Pulse
-                         where pulseElapsed >= var.Duration
-                         select var.Duration).Sum(v => v);
+                let pulseElapsed = pulse - var.Pulse
+                where pulseElapsed >= var.Duration
+                select var.Duration).Sum(v => v);
         }
 
         private void HandleStopEvents(Pulse pulse, ref float position)
         {
             position -= (from var in _stopEvents
-                         let pulseElapsed = pulse - var.Pulse
-                         where pulseElapsed.IsBetweenIE(0, var.Duration)
-                         select pulseElapsed).FirstOrDefault();
+                let pulseElapsed = pulse - var.Pulse
+                where pulseElapsed.IsBetweenIE(0, var.Duration)
+                select pulseElapsed).FirstOrDefault();
         }
     }
 }

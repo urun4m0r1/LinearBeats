@@ -1,6 +1,5 @@
 using System;
 using JetBrains.Annotations;
-using LinearBeats.Visuals;
 
 namespace LinearBeats.Time
 {

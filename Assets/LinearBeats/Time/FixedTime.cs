@@ -2,13 +2,11 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using JetBrains.Annotations;
-using LinearBeats.Visuals;
 
 namespace LinearBeats.Time
 {
     public readonly struct FixedTime : IComparable, IComparable<FixedTime>, IEquatable<FixedTime>
     {
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public Pulse Pulse
         {
             get
@@ -20,7 +18,6 @@ namespace LinearBeats.Time
             }
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public Second Second
         {
             get
@@ -32,7 +29,6 @@ namespace LinearBeats.Time
             }
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public Sample Sample
         {
             get
@@ -44,7 +40,6 @@ namespace LinearBeats.Time
             }
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
         public float Bpm
         {
@@ -58,7 +53,6 @@ namespace LinearBeats.Time
             }
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public float Position => _positionConverter?.ToPosition(TimingConverter.Normalize(Pulse)) ?? default;
 
 

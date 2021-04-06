@@ -11,8 +11,8 @@ namespace LinearBeats.Time
         {
             get
             {
-                if (_second != null) return TimingConverter.ToPulse((Second) _second);
-                if (_sample != null) return TimingConverter.ToPulse((Sample) _sample);
+                if (_second != null) return _converter?.ToPulse((Second) _second) ?? default;
+                if (_sample != null) return _converter?.ToPulse((Sample) _sample) ?? default;
 
                 return _pulse ?? default;
             }
@@ -22,8 +22,8 @@ namespace LinearBeats.Time
         {
             get
             {
-                if (_sample != null) return TimingConverter.ToSecond((Sample) _sample);
-                if (_pulse != null) return TimingConverter.ToSecond((Pulse) _pulse);
+                if (_sample != null) return _converter?.ToSecond((Sample) _sample) ?? default;
+                if (_pulse != null) return _converter?.ToSecond((Pulse) _pulse) ?? default;
 
                 return _second ?? default;
             }
@@ -33,8 +33,8 @@ namespace LinearBeats.Time
         {
             get
             {
-                if (_second != null) return TimingConverter.ToSample((Second) _second);
-                if (_pulse != null) return TimingConverter.ToSample((Pulse) _pulse);
+                if (_second != null) return _converter?.ToSample((Second) _second) ?? default;
+                if (_pulse != null) return _converter?.ToSample((Pulse) _pulse) ?? default;
 
                 return _sample ?? default;
             }
@@ -45,40 +45,27 @@ namespace LinearBeats.Time
         {
             get
             {
-                if (_pulse != null) return TimingConverter.GetBpm((Pulse) _pulse);
-                if (_second != null) return TimingConverter.GetBpm((Second) _second);
-                if (_sample != null) return TimingConverter.GetBpm((Sample) _sample);
+                if (_pulse != null) return _converter?.GetBpm((Pulse) _pulse) ?? default;
+                if (_second != null) return _converter?.GetBpm((Second) _second) ?? default;
+                if (_sample != null) return _converter?.GetBpm((Sample) _sample) ?? default;
 
                 return default;
             }
         }
 
-        public float Position => _positionConverter?.ToPosition(TimingConverter.Normalize(Pulse)) ?? default;
+        public float Position => _converter?.ToPosition((Pulse) _converter?.Normalize(Pulse)) ?? default;
 
-
-        private TimingConverter TimingConverter => _positionConverter.TimingConverter;
-        private readonly PositionConverter _positionConverter;
-
+        private readonly IPositionConverter _converter;
         private readonly Pulse? _pulse;
         private readonly Second? _second;
         private readonly Sample? _sample;
-
         private float Value => Second;
 
-        private FixedTime([CanBeNull] PositionConverter positionConverter)
-            : this() => _positionConverter = positionConverter;
-
-        public FixedTime([NotNull] PositionConverter positionConverter, Pulse value)
-            : this(positionConverter) => _pulse = value;
-
-        public FixedTime([NotNull] PositionConverter positionConverter, Second value)
-            : this(positionConverter) => _second = value;
-
-        public FixedTime([NotNull] PositionConverter positionConverter, Sample value)
-            : this(positionConverter) => _sample = value;
-
-        private FixedTime([NotNull] PositionConverter positionConverter, float value)
-            : this(positionConverter) => _second = value;
+        private FixedTime([CanBeNull] IPositionConverter converter) : this() => _converter = converter;
+        public FixedTime(IPositionConverter converter, Pulse value) : this(converter) => _pulse = value;
+        public FixedTime(IPositionConverter converter, Second value) : this(converter) => _second = value;
+        public FixedTime(IPositionConverter converter, Sample value) : this(converter) => _sample = value;
+        private FixedTime(IPositionConverter converter, float value) : this(converter) => _second = value;
 
         public static implicit operator Pulse(FixedTime right) => right.Pulse;
         public static implicit operator Second(FixedTime right) => right.Second;
@@ -98,10 +85,10 @@ namespace LinearBeats.Time
         public bool Equals(FixedTime right) => Value.Equals(right.Value) && ConverterEquals(this, right);
         public override int GetHashCode() => Value.GetHashCode();
 
-        private static bool ConverterEquals(FixedTime left, FixedTime right)
+        public static bool ConverterEquals(FixedTime left, FixedTime right)
         {
-            var a = left._positionConverter;
-            var b = right._positionConverter;
+            var a = left._converter;
+            var b = right._converter;
 
             if (ReferenceEquals(a, null)) return false;
             if (ReferenceEquals(b, null)) return false;
@@ -110,11 +97,12 @@ namespace LinearBeats.Time
             return a.GetType() == b.GetType() && a.Equals(b);
         }
 
-        private static PositionConverter ChooseConverter(FixedTime left, FixedTime right)
+        [NotNull]
+        private static IPositionConverter ChooseConverter(FixedTime left, FixedTime right)
         {
             if (!ConverterEquals(left, right)) throw new InvalidOperationException();
 
-            return left._positionConverter;
+            return left._converter;
         }
 
         [NotNull]
@@ -135,7 +123,7 @@ namespace LinearBeats.Time
         public static FixedTime operator +(FixedTime right) => right;
 
         public static FixedTime operator -(FixedTime right) =>
-            new FixedTime(right._positionConverter, -right.Value);
+            new FixedTime(right._converter, -right.Value);
 
         public static FixedTime operator +(FixedTime left, FixedTime right) =>
             new FixedTime(ChooseConverter(left, right), left.Value + right.Value);

@@ -1,51 +1,53 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using LinearBeats.Script;
-using Sirenix.Utilities;
 using UnityEngine.Assertions;
 using Utils.Extensions;
 
 namespace LinearBeats.Time
 {
-    public class TimingConverter
+    public interface ITimingConverter
     {
-        private readonly float[] _ppqns = null;
-        private readonly float[] _bpms = null;
-        private readonly float[] _bpmScales = null;
-        private readonly Pulse[] _pulses = null;
-        private readonly Pulse[] _scaledPulses = null;
-        private readonly Sample[] _samples = null;
-        private readonly float _samplesPerSecond = 0f;
-        private readonly float _secondsPerSample = 0f;
-        private readonly float[] _samplesPerPulse = null;
-        private readonly float[] _pulsesPerSample = null;
+        float GetBpm(Second value);
+        float GetBpm(Pulse value);
+        float GetBpm(Sample value);
+        Second ToSecond(Pulse value);
+        Pulse ToPulse(Second value);
+        Second ToSecond(Sample value);
+        Sample ToSample(Second value);
+        Sample ToSample(Pulse value);
+        Pulse ToPulse(Sample value);
+        Pulse Normalize(Pulse value);
+    }
 
-        public TimingConverter(BpmEvent[] bpmEvents, float standardBpm, float samplesPerSecond)
+    public sealed class TimingConverter : ITimingConverter
+    {
+        private readonly float[] _ppqns;
+        private readonly float[] _bpms;
+        private readonly float[] _bpmScales;
+        private readonly Pulse[] _pulses;
+        private readonly Pulse[] _scaledPulses;
+        private readonly Sample[] _samples;
+        private readonly float _samplesPerSecond;
+        private readonly float _secondsPerSample;
+        private readonly float[] _samplesPerPulse;
+        private readonly float[] _pulsesPerSample;
+
+        public TimingConverter([NotNull] BpmEvent[] bpmEvents, float standardBpm, float samplesPerSecond)
         {
             if (bpmEvents.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException("BpmEvents cannot be null or empty");
-            }
-            if (bpmEvents.All(v => v.Pulse != 0f))
-            {
+                throw new ArgumentNullException(nameof(bpmEvents));
+            if (bpmEvents.All(v => v.Pulse != new Pulse(0f)))
                 throw new ArgumentException("At least one BpmEvent.Pulse must be zero");
-            }
-            if (bpmEvents.Any(v => v.Pulse < 0f))
-            {
+            if (bpmEvents.Any(v => v.Pulse < new Pulse(0f)))
                 throw new ArgumentException("All BpmEvent.Bpm must be positive");
-            }
             if (bpmEvents.Any(v => v.Bpm <= 0f))
-            {
                 throw new ArgumentException("All BpmEvent.Bpm must be non-zero positive");
-            }
             if (bpmEvents.Any(v => v.Ppqn <= 0f))
-            {
                 throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
-            }
             if (samplesPerSecond <= 0f)
-            {
                 throw new ArgumentException("samplesPerSecond must be non-zero positive");
-            }
 
             var orderedBpmEvents = bpmEvents.OrderBy(v => v.Pulse);
             _bpms = orderedBpmEvents.Select(v => v.Bpm).ToArray();
@@ -80,14 +82,14 @@ namespace LinearBeats.Time
             Sample[] CalculateSamples()
             {
                 var intervalSamples = intervalPulses.Zip(_samplesPerPulse, (a, b) => (float)a * b);
-                var samples = intervalSamples.CumulativeSum().PrependWith(0);
+                var samples = intervalSamples.CumulativeSum().Prepend(0);
                 return samples.Select(v => (Sample)v).ToArray();
             }
 
             Pulse[] CalculateScaledPulses()
             {
                 var scaledIntervalPulses = intervalPulses.Zip(_bpmScales, (a, b) => (float)a * b);
-                var scaledPulses = scaledIntervalPulses.CumulativeSum().PrependWith(0);
+                var scaledPulses = scaledIntervalPulses.CumulativeSum().Prepend(0);
                 return scaledPulses.Select(v => (Pulse)v).ToArray();
             }
         }
@@ -101,16 +103,13 @@ namespace LinearBeats.Time
         public Sample ToSample(Second value) => _samplesPerSecond * (float)value;
         public Sample ToSample(Pulse value) => ToSample(value, GetTimingIndex(value));
         public Pulse ToPulse(Sample value) => ToPulse(value, GetTimingIndex(value));
-        public Second ToSecond(Second value) => value;
-        public Pulse ToPulse(Pulse value) => value;
-        public Sample ToSample(Sample value) => value;
         public Pulse Normalize(Pulse value) => Normalize(value, GetTimingIndex(value));
 
         private float GetBpm(int timingIndex) => _bpms[timingIndex];
 
-        public int GetTimingIndex(Second second) => GetTimingIndex(ToSample(second));
-        public int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
-        public int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
+        private int GetTimingIndex(Second second) => GetTimingIndex(ToSample(second));
+        private int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
+        private int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
         private int GetTimingIndex<T>(T timing, T[] sortedTiming) where T : IComparable<T>
         {
             if (timing.CompareTo(sortedTiming[0]) < 0) return 0;

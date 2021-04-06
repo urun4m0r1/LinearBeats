@@ -5,16 +5,20 @@ using Utils.Extensions;
 
 namespace LinearBeats.Time
 {
-    public sealed class PositionConverter
+    public interface IPositionConverter : ITimingConverter
     {
-        public TimingConverter TimingConverter { get; }
+        float ToPosition(Pulse normalizedPulse);
+    }
+
+    public sealed class PositionConverter : IPositionConverter
+    {
+        private ITimingConverter TimingConverter { get; }
 
         private TimingEvent[] _stopEvents = { };
         private TimingEvent[] _rewindEvents = { };
         private TimingEvent[] _jumpEvents = { };
 
-        private PositionConverter(TimingConverter timingConverter) =>
-            TimingConverter = timingConverter;
+        private PositionConverter(TimingConverter timingConverter) => TimingConverter = timingConverter;
 
         public sealed class Builder
         {
@@ -124,5 +128,16 @@ namespace LinearBeats.Time
                 where pulseElapsed.IsBetweenIE(0, var.Duration)
                 select pulseElapsed).FirstOrDefault();
         }
+
+        public float GetBpm(Second value) => TimingConverter.GetBpm(value);
+        public float GetBpm(Pulse value) => TimingConverter.GetBpm(value);
+        public float GetBpm(Sample value) => TimingConverter.GetBpm(value);
+        public Second ToSecond(Pulse value) => TimingConverter.ToSecond(value);
+        public Pulse ToPulse(Second value) => TimingConverter.ToPulse(value);
+        public Second ToSecond(Sample value) => TimingConverter.ToSecond(value);
+        public Sample ToSample(Second value) => TimingConverter.ToSample(value);
+        public Sample ToSample(Pulse value) => TimingConverter.ToSample(value);
+        public Pulse ToPulse(Sample value) => TimingConverter.ToPulse(value);
+        public Pulse Normalize(Pulse value) => TimingConverter.Normalize(value);
     }
 }

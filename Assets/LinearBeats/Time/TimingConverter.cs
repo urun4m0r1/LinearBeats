@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
@@ -23,75 +24,70 @@ namespace LinearBeats.Time
 
     public sealed class TimingConverter : ITimingConverter
     {
-        private readonly float[] _ppqns;
-        private readonly float[] _bpms;
-        private readonly float[] _bpmScales;
-        private readonly Pulse[] _pulses;
-        private readonly Pulse[] _scaledPulses;
-        private readonly Sample[] _samples;
         private readonly float _samplesPerSecond;
         private readonly float _secondsPerSample;
+
+        private readonly float[] _ppqns;
+        private readonly Pulse[] _pulses;
+        private readonly float[] _bpms;
+        private readonly float[] _bpmScales;
+
+        private readonly Pulse[] _scaledPulses;
+        private readonly Sample[] _samples;
         private readonly float[] _samplesPerPulse;
         private readonly float[] _pulsesPerSample;
 
-        public TimingConverter([NotNull] BpmEvent[] bpmEvents, float standardBpm, float samplesPerSecond)
+        public TimingConverter([NotNull] IReadOnlyCollection<BpmEvent> bpmEvents,
+            float standardBpm,
+            float samplesPerSecond)
         {
-            if (bpmEvents.IsNullOrEmpty())
+            if (bpmEvents == null || bpmEvents.Count == 0)
                 throw new ArgumentNullException(nameof(bpmEvents));
+            if (bpmEvents.Any(v => v.Ppqn <= 0f))
+                throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
             if (bpmEvents.All(v => v.Pulse != new Pulse(0f)))
                 throw new ArgumentException("At least one BpmEvent.Pulse must be zero");
             if (bpmEvents.Any(v => v.Pulse < new Pulse(0f)))
                 throw new ArgumentException("All BpmEvent.Bpm must be positive");
             if (bpmEvents.Any(v => v.Bpm <= 0f))
                 throw new ArgumentException("All BpmEvent.Bpm must be non-zero positive");
-            if (bpmEvents.Any(v => v.Ppqn <= 0f))
-                throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
             if (samplesPerSecond <= 0f)
                 throw new ArgumentException("samplesPerSecond must be non-zero positive");
-
-            var orderedBpmEvents = bpmEvents.OrderBy(v => v.Pulse);
-            _bpms = orderedBpmEvents.Select(v => v.Bpm).ToArray();
-            _bpmScales = _bpms.Select(v => v / standardBpm).ToArray();
-            _pulses = orderedBpmEvents.Select(v => v.Pulse).ToArray();
-            _ppqns = orderedBpmEvents.Select(v => v.Ppqn).ToArray();
 
             _samplesPerSecond = samplesPerSecond;
             _secondsPerSample = 1f / samplesPerSecond;
 
-            _samplesPerPulse = CalculateSamplesPerPulse();
-            _pulsesPerSample = CalculatePulsesPerSample();
+            var orderedBpmEvents = (from v in bpmEvents orderby v.Pulse select v).ToArray();
+            _ppqns = (from v in orderedBpmEvents select v.Ppqn).ToArray();
+            _pulses = (from v in orderedBpmEvents select v.Pulse).ToArray();
+            _bpms = (from v in orderedBpmEvents select v.Bpm).ToArray();
+            _bpmScales = (from v in orderedBpmEvents select v.Bpm / standardBpm).ToArray();
 
-            var intervalPulses = _pulses.Zip(_pulses.Skip(1), (current, next) => next - current);
+            _samplesPerPulse = CalculateSamplesPerPulse().ToArray();
+            _pulsesPerSample = CalculatePulsesPerSample().ToArray();
 
-            _samples = CalculateSamples();
-            _scaledPulses = CalculateScaledPulses();
+            var intervalPulses = _pulses.Zip(_pulses.Skip(1), (current, next) => next - current).ToArray();
 
-            float[] CalculateSamplesPerPulse()
+            _samples = CalculateSamples().ToArray();
+            _scaledPulses = CalculateScaledPulses().ToArray();
+
+            IEnumerable<float> CalculateSamplesPerPulse()
             {
-                var secondsPerQuarterNote = _bpms.Select(v => 60f / v);
-                var secondsPerPulse = secondsPerQuarterNote.Zip(_ppqns, (a, b) => a / b);
-                var samplesPerPulse = secondsPerPulse.Select(v => v * _samplesPerSecond);
-                return samplesPerPulse.ToArray();
+                var samplesPerQuarterNote = from v in _bpms select (60f / v) * _samplesPerSecond;
+                return samplesPerQuarterNote.Zip(_ppqns, (a, b) => a / b);
             }
 
-            float[] CalculatePulsesPerSample()
-            {
-                return _samplesPerPulse.Select(v => 1f / v).ToArray();
-            }
+            IEnumerable<float> CalculatePulsesPerSample() => (from v in _samplesPerPulse select 1f / v);
 
-            Sample[] CalculateSamples()
-            {
-                var intervalSamples = intervalPulses.Zip(_samplesPerPulse, (a, b) => (float)a * b);
-                var samples = intervalSamples.CumulativeSum().Prepend(0);
-                return samples.Select(v => (Sample)v).ToArray();
-            }
+            IEnumerable<Sample> CalculateSamples() =>
+                (from v in ScaledCumulativeSum(intervalPulses, _samplesPerPulse) select (Sample) v);
 
-            Pulse[] CalculateScaledPulses()
-            {
-                var scaledIntervalPulses = intervalPulses.Zip(_bpmScales, (a, b) => (float)a * b);
-                var scaledPulses = scaledIntervalPulses.CumulativeSum().Prepend(0);
-                return scaledPulses.Select(v => (Pulse)v).ToArray();
-            }
+            IEnumerable<Pulse> CalculateScaledPulses() =>
+                (from v in ScaledCumulativeSum(intervalPulses, _bpmScales) select (Pulse) v);
+
+            static IEnumerable<float> ScaledCumulativeSum<T>(IEnumerable<T> value, IEnumerable<float> scales)
+                where T : IFloat<T> =>
+                value.Zip(scales, (a, b) => a.ToFloat() * b).CumulativeSum().Prepend(0);
         }
 
         public float GetBpm(Second value) => GetBpm(GetTimingIndex(value));
@@ -99,8 +95,8 @@ namespace LinearBeats.Time
         public float GetBpm(Sample value) => GetBpm(GetTimingIndex(value));
         public Second ToSecond(Pulse value) => ToSecond(ToSample(value));
         public Pulse ToPulse(Second value) => ToPulse(ToSample(value));
-        public Second ToSecond(Sample value) => _secondsPerSample * (float)value;
-        public Sample ToSample(Second value) => _samplesPerSecond * (float)value;
+        public Second ToSecond(Sample value) => _secondsPerSample * (float) value;
+        public Sample ToSample(Second value) => _samplesPerSecond * (float) value;
         public Sample ToSample(Pulse value) => ToSample(value, GetTimingIndex(value));
         public Pulse ToPulse(Sample value) => ToPulse(value, GetTimingIndex(value));
         public Pulse Normalize(Pulse value) => Normalize(value, GetTimingIndex(value));
@@ -110,14 +106,17 @@ namespace LinearBeats.Time
         private int GetTimingIndex(Second second) => GetTimingIndex(ToSample(second));
         private int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
         private int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
-        private int GetTimingIndex<T>(T timing, T[] sortedTiming) where T : IComparable<T>
+
+        private static int GetTimingIndex<T>(T timing, [NotNull] IReadOnlyList<T> orderedTiming)
+            where T : struct, IComparable<T>
         {
-            if (timing.CompareTo(sortedTiming[0]) < 0) return 0;
-            for (var i = 0; i < sortedTiming.Length - 1; ++i)
-            {
-                if (timing.IsBetweenIE(sortedTiming[i], sortedTiming[i + 1])) return i;
-            }
-            return sortedTiming.Length - 1;
+            if (timing.CompareTo(orderedTiming.First()) < 0) return 0;
+
+            for (var i = 0; i < orderedTiming.Count - 1; ++i)
+                if (timing.IsBetweenIE(orderedTiming[i], orderedTiming[i + 1]))
+                    return i;
+
+            return orderedTiming.Count - 1;
         }
 
         private Pulse ToPulse(Sample sample, int timingIndex)
@@ -152,9 +151,9 @@ namespace LinearBeats.Time
             var pulsesElapsed = pulse - _pulses[timingIndex];
             var scaledPulsesElapsed = _bpmScales[timingIndex] * pulsesElapsed;
             var scaledPulse = _scaledPulses[timingIndex] + scaledPulsesElapsed;
-            var nomalizedPulse = scaledPulse / _ppqns[timingIndex];
+            var normalizedPulse = scaledPulse / _ppqns[timingIndex];
 
-            return nomalizedPulse;
+            return normalizedPulse;
         }
     }
 }

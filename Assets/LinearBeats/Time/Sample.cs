@@ -4,12 +4,13 @@ using JetBrains.Annotations;
 
 namespace LinearBeats.Time
 {
-    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>
+    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>, IFloat<Sample>
     {
         private readonly float _value;
 
         public Sample(float value) => _value = value;
 
+        public float ToFloat() => _value;
         public static implicit operator float(Sample right) => right._value;
         public static implicit operator Sample(float right) => new Sample(right);
 
@@ -23,6 +24,7 @@ namespace LinearBeats.Time
         }
 
         public int CompareTo(Sample right) => _value.CompareTo(right._value);
+
 
         public override bool Equals(object obj) => obj is Sample right && Equals(right);
         public bool Equals(Sample right) => _value.Equals(right._value);

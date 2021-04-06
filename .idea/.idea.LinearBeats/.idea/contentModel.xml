@@ -2416,6 +2416,7 @@
           <e p="Time" t="Include">
             <e p="FixedTime.cs" t="Include" />
             <e p="FixedTimeFactory.cs" t="Include" />
+            <e p="IFloat.cs" t="Include" />
             <e p="PositionConverter.cs" t="Include" />
             <e p="Pulse.cs" t="Include" />
             <e p="Sample.cs" t="Include" />

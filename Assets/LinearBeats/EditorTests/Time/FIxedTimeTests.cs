@@ -9,28 +9,28 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Bpm_With_Pulse()
         {
-            TestUtils.AreEqual(FirstBpm, fixedTimeFactory.Create(pulseA).Bpm);
-            TestUtils.AreEqual(SecondBpm, fixedTimeFactory.Create(pulseB).Bpm);
-            TestUtils.AreEqual(ThirdBpm, fixedTimeFactory.Create(pulseC).Bpm);
+            TestUtils.AreEqual(FirstBpm, FixedTimeFactory.Create(PulseA).Bpm);
+            TestUtils.AreEqual(SecondBpm, FixedTimeFactory.Create(PulseB).Bpm);
+            TestUtils.AreEqual(ThirdBpm, FixedTimeFactory.Create(PulseC).Bpm);
         }
 
         [Test]
         public void Should_Compare_Between_FixedTime()
         {
-            Assert.IsTrue(fixedTimeFactory.Create(pulseA) < fixedTimeFactory.Create(pulseB));
-            Assert.IsTrue(fixedTimeFactory.Create(pulseB) < fixedTimeFactory.Create(pulseC));
-            Assert.IsTrue(fixedTimeFactory.Create(pulseA) < fixedTimeFactory.Create(pulseC));
+            Assert.IsTrue(FixedTimeFactory.Create(PulseA) < FixedTimeFactory.Create(PulseB));
+            Assert.IsTrue(FixedTimeFactory.Create(PulseB) < FixedTimeFactory.Create(PulseC));
+            Assert.IsTrue(FixedTimeFactory.Create(PulseA) < FixedTimeFactory.Create(PulseC));
 
-            Assert.IsFalse(fixedTimeFactory.Create(pulseA) > fixedTimeFactory.Create(pulseB));
-            Assert.IsFalse(fixedTimeFactory.Create(pulseB) > fixedTimeFactory.Create(pulseC));
-            Assert.IsFalse(fixedTimeFactory.Create(pulseA) > fixedTimeFactory.Create(pulseC));
+            Assert.IsFalse(FixedTimeFactory.Create(PulseA) > FixedTimeFactory.Create(PulseB));
+            Assert.IsFalse(FixedTimeFactory.Create(PulseB) > FixedTimeFactory.Create(PulseC));
+            Assert.IsFalse(FixedTimeFactory.Create(PulseA) > FixedTimeFactory.Create(PulseC));
         }
 
         [Test]
         public void Should_Compare_Equatable_Between_FixedTime()
         {
-            Assert.IsTrue(fixedTimeFactory.Create(pulseA) == fixedTimeFactory.Create(new Pulse(0f)));
-            Assert.IsTrue(fixedTimeFactory.Create(pulseA) != fixedTimeFactory.Create(pulseB));
+            Assert.IsTrue(FixedTimeFactory.Create(PulseA) == FixedTimeFactory.Create(new Pulse(0f)));
+            Assert.IsTrue(FixedTimeFactory.Create(PulseA) != FixedTimeFactory.Create(PulseB));
         }
     }
 }

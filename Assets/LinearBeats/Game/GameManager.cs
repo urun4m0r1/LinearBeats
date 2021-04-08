@@ -80,9 +80,8 @@ namespace LinearBeats.Game
 
                 _fixedTimeFactory = new FixedTimeFactory(positionConverter);
 
-                _timingController = new TimingController(
+                _timingController = new TimingController(_backgroundAudioSource,
                     _fixedTimeFactory,
-                    _backgroundAudioSource,
                     _scriptLoader.Script.AudioChannels[0].Offset);
             }
         }

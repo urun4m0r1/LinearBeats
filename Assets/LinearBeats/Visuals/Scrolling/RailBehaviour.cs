@@ -16,8 +16,10 @@ namespace LinearBeats.Visuals
 
         public void UpdateRailPosition(FixedTime currentTime, float meterPerNormalizedPulse)
         {
-            if (currentTime.Second - _noteDisappearOffset >= FixedTime.Second)
+            if ((Second) currentTime - _noteDisappearOffset >= FixedTime)
+            {
                 SetZPosition(-10f);
+            }
             else
             {
                 //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));

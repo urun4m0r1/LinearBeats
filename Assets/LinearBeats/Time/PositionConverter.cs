@@ -67,15 +67,15 @@ namespace LinearBeats.Time
 
                 return (from var in timingEvents
                     orderby var.Pulse
-                    let converter = _positionConverter.TimingConverter
-                    let a = converter.Normalize(var.Pulse)
-                    let b = converter.Normalize(var.Duration)
-                    select new TimingEvent { Pulse = a, Duration = b }).ToArray();
+                    let a = _positionConverter.Normalize(var.Pulse)
+                    let b = _positionConverter.Normalize(var.Duration)
+                    select new TimingEvent {Pulse = a, Duration = b}).ToArray();
             }
         }
 
         public float ToPosition(Pulse normalizedPulse)
         {
+            //TODO: normalizedPulse가 아닌 FixedTime를 인자로 받아 float를 반환하는 메소드로 수정 => FixedTime에서 PositionConverter 의존성을 제거
             //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
             float position = normalizedPulse;
 
@@ -129,15 +129,15 @@ namespace LinearBeats.Time
                 select pulseElapsed).FirstOrDefault();
         }
 
-        public float GetBpm(Second value) => TimingConverter.GetBpm(value);
-        public float GetBpm(Pulse value) => TimingConverter.GetBpm(value);
-        public float GetBpm(Sample value) => TimingConverter.GetBpm(value);
-        public Second ToSecond(Pulse value) => TimingConverter.ToSecond(value);
-        public Pulse ToPulse(Second value) => TimingConverter.ToPulse(value);
+        private Pulse Normalize(Pulse value) => TimingConverter.Normalize(value, GetTimingIndex(value));
+
         public Second ToSecond(Sample value) => TimingConverter.ToSecond(value);
         public Sample ToSample(Second value) => TimingConverter.ToSample(value);
-        public Sample ToSample(Pulse value) => TimingConverter.ToSample(value);
-        public Pulse ToPulse(Sample value) => TimingConverter.ToPulse(value);
-        public Pulse Normalize(Pulse value) => TimingConverter.Normalize(value);
+        public Pulse ToPulse(Sample value, int timingIndex) => TimingConverter.ToPulse(value, timingIndex);
+        public Sample ToSample(Pulse value, int timingIndex) => TimingConverter.ToSample(value, timingIndex);
+        public Pulse Normalize(Pulse value, int timingIndex) => TimingConverter.Normalize(value, timingIndex);
+        public float GetBpm(int timingIndex) => TimingConverter.GetBpm(timingIndex);
+        public int GetTimingIndex(Pulse pulse) => TimingConverter.GetTimingIndex(pulse);
+        public int GetTimingIndex(Sample sample) => TimingConverter.GetTimingIndex(sample);
     }
 }

@@ -10,16 +10,14 @@ namespace LinearBeats.Time
 {
     public interface ITimingConverter
     {
-        float GetBpm(Second value);
-        float GetBpm(Pulse value);
-        float GetBpm(Sample value);
-        Second ToSecond(Pulse value);
-        Pulse ToPulse(Second value);
         Second ToSecond(Sample value);
         Sample ToSample(Second value);
-        Sample ToSample(Pulse value);
-        Pulse ToPulse(Sample value);
-        Pulse Normalize(Pulse value);
+        Pulse ToPulse(Sample value, int timingIndex);
+        Sample ToSample(Pulse value, int timingIndex);
+        Pulse Normalize(Pulse value, int timingIndex);
+        float GetBpm(int timingIndex);
+        int GetTimingIndex(Pulse pulse);
+        int GetTimingIndex(Sample sample);
     }
 
     public sealed class TimingConverter : ITimingConverter
@@ -86,40 +84,14 @@ namespace LinearBeats.Time
                 (from v in ScaledCumulativeSum(intervalPulses, _bpmScales) select (Pulse) v);
 
             static IEnumerable<float> ScaledCumulativeSum<T>(IEnumerable<T> value, IEnumerable<float> scales)
-                where T : IFloat<T> =>
+                where T : IFloat =>
                 value.Zip(scales, (a, b) => a.ToFloat() * b).CumulativeSum().Prepend(0);
         }
 
-        public float GetBpm(Second value) => GetBpm(GetTimingIndex(value));
-        public float GetBpm(Pulse value) => GetBpm(GetTimingIndex(value));
-        public float GetBpm(Sample value) => GetBpm(GetTimingIndex(value));
-        public Second ToSecond(Pulse value) => ToSecond(ToSample(value));
-        public Pulse ToPulse(Second value) => ToPulse(ToSample(value));
         public Second ToSecond(Sample value) => _secondsPerSample * (float) value;
         public Sample ToSample(Second value) => _samplesPerSecond * (float) value;
-        public Sample ToSample(Pulse value) => ToSample(value, GetTimingIndex(value));
-        public Pulse ToPulse(Sample value) => ToPulse(value, GetTimingIndex(value));
-        public Pulse Normalize(Pulse value) => Normalize(value, GetTimingIndex(value));
 
-        private float GetBpm(int timingIndex) => _bpms[timingIndex];
-
-        private int GetTimingIndex(Second second) => GetTimingIndex(ToSample(second));
-        private int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
-        private int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
-
-        private static int GetTimingIndex<T>(T timing, [NotNull] IReadOnlyList<T> orderedTiming)
-            where T : struct, IComparable<T>
-        {
-            if (timing.CompareTo(orderedTiming.First()) < 0) return 0;
-
-            for (var i = 0; i < orderedTiming.Count - 1; ++i)
-                if (timing.IsBetweenIE(orderedTiming[i], orderedTiming[i + 1]))
-                    return i;
-
-            return orderedTiming.Count - 1;
-        }
-
-        private Pulse ToPulse(Sample sample, int timingIndex)
+        public Pulse ToPulse(Sample sample, int timingIndex)
         {
             if (sample < _samples[0]) timingIndex = 0;
             else Assert.IsTrue(sample >= _samples[timingIndex]);
@@ -131,7 +103,7 @@ namespace LinearBeats.Time
             return pulse;
         }
 
-        private Sample ToSample(Pulse pulse, int timingIndex)
+        public Sample ToSample(Pulse pulse, int timingIndex)
         {
             if (pulse < _pulses[0]) timingIndex = 0;
             else Assert.IsTrue(pulse >= _pulses[timingIndex]);
@@ -143,7 +115,7 @@ namespace LinearBeats.Time
             return sample;
         }
 
-        private Pulse Normalize(Pulse pulse, int timingIndex)
+        public Pulse Normalize(Pulse pulse, int timingIndex)
         {
             if (pulse < _pulses[0]) timingIndex = 0;
             else Assert.IsTrue(pulse >= _pulses[timingIndex]);
@@ -154,6 +126,23 @@ namespace LinearBeats.Time
             var normalizedPulse = scaledPulse / _ppqns[timingIndex];
 
             return normalizedPulse;
+        }
+
+        public float GetBpm(int timingIndex) => _bpms[timingIndex];
+
+        public int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
+        public int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
+
+        private static int GetTimingIndex<T>(T timing, [NotNull] IReadOnlyList<T> orderedTiming)
+            where T : struct, IComparable<T>
+        {
+            if (timing.CompareTo(orderedTiming.First()) < 0) return 0;
+
+            for (var i = 0; i < orderedTiming.Count - 1; ++i)
+                if (timing.IsBetweenIE(orderedTiming[i], orderedTiming[i + 1]))
+                    return i;
+
+            return orderedTiming.Count - 1;
         }
     }
 }

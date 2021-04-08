@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace LinearBeats.Time
 {
-    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>, IFloat<Sample>
+    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>, IFloat
     {
         private readonly float _value;
 

@@ -2,7 +2,6 @@
 
 using LinearBeats.Script;
 using LinearBeats.Time;
-using LinearBeats.Visuals;
 using NUnit.Framework;
 
 namespace LinearBeats.EditorTests.Time
@@ -18,55 +17,55 @@ namespace LinearBeats.EditorTests.Time
         protected const float FirstBpm = 60f;
         protected const float SecondBpm = 120f;
         protected const float ThirdBpm = 30f;
-        protected readonly Pulse pulseA = 0;
-        protected readonly Pulse pulseB = 600;
-        protected readonly Pulse pulseC = 1200;
-        protected readonly Pulse pulseD = 400;
-        protected readonly Sample sampleA = 0;
-        protected readonly Sample sampleB = 2500;
-        protected readonly Sample sampleC = 7000;
-        protected readonly Sample sampleD = 2000;
-        protected readonly Second secondA = 0;
-        protected readonly Second secondB = 5;
-        protected readonly Second secondC = 14;
-        protected readonly Second secondD = 4;
+        protected readonly Pulse PulseA = 0;
+        protected readonly Pulse PulseB = 600;
+        protected readonly Pulse PulseC = 1200;
+        protected readonly Pulse PulseD = 400;
+        protected readonly Sample SampleA = 0;
+        protected readonly Sample SampleB = 2500;
+        protected readonly Sample SampleC = 7000;
+        protected readonly Sample SampleD = 2000;
+        protected readonly Second SecondA = 0;
+        protected readonly Second SecondB = 5;
+        protected readonly Second SecondC = 14;
+        protected readonly Second SecondD = 4;
 
-        protected BpmEvent[] disorderedBpmEvents;
-        protected BpmEvent[] singleBpmEvents;
-        protected TimingConverter converterDisorder = null;
-        protected TimingConverter converterSingle = null;
-        protected FixedTimeFactory fixedTimeFactory = null;
+        protected BpmEvent[] DisorderedBpmEvents;
+        protected BpmEvent[] SingleBpmEvents;
+        protected TimingConverter ConverterDisorder;
+        protected TimingConverter ConverterSingle;
+        protected FixedTimeFactory FixedTimeFactory;
 
         [SetUp]
         public void SetUp()
         {
-            disorderedBpmEvents = new BpmEvent[]
+            DisorderedBpmEvents = new[]
             {
-                new BpmEvent() { Ppqn = Ppqn, Pulse = ThirdPulse, Bpm = ThirdBpm },
-                new BpmEvent() { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
-                new BpmEvent() { Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm },
+                new BpmEvent { Ppqn = Ppqn, Pulse = ThirdPulse, Bpm = ThirdBpm },
+                new BpmEvent { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent { Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm },
             };
 
-            singleBpmEvents = new BpmEvent[]
+            SingleBpmEvents = new[]
             {
-                new BpmEvent() { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
+                new BpmEvent { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
             };
 
-            converterDisorder = new TimingConverter(disorderedBpmEvents, StandardBpm, SamplesPerSecond);
-            converterSingle = new TimingConverter(singleBpmEvents, StandardBpm, SamplesPerSecond);
+            ConverterDisorder = new TimingConverter(DisorderedBpmEvents, StandardBpm, SamplesPerSecond);
+            ConverterSingle = new TimingConverter(SingleBpmEvents, StandardBpm, SamplesPerSecond);
 
-            var positionConverter = new PositionConverter.Builder(converterDisorder).Build();
+            var positionConverter = new PositionConverter.Builder(ConverterDisorder).Build();
 
-            fixedTimeFactory = new FixedTimeFactory(positionConverter);
+            FixedTimeFactory = new FixedTimeFactory(positionConverter);
         }
 
         [TearDown]
         public void TearDown()
         {
-            converterDisorder = null;
-            converterSingle = null;
+            ConverterDisorder = null;
+            ConverterSingle = null;
 
-            fixedTimeFactory = null;
+            FixedTimeFactory = null;
         }
     }
 }

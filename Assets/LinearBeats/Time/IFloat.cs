@@ -1,6 +1,6 @@
 ﻿namespace LinearBeats.Time
 {
-    public interface IFloat<in T>
+    public interface IFloat
     {
         float ToFloat();
     }

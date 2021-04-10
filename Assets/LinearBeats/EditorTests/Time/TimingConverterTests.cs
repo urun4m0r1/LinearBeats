@@ -13,7 +13,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = null;
 
-            Assert.Catch<ArgumentNullException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+            Assert.Catch<NullReferenceException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
         }
 
         [Test]

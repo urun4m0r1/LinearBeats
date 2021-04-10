@@ -67,8 +67,8 @@ namespace LinearBeats.Script
     {
         public Pulse Pulse;
         public Pulse Duration;
-        public string IgnoreLane;
         public float Multiplier;
+        public string IgnoreLane;
     }
 
     public struct Divider
@@ -81,7 +81,7 @@ namespace LinearBeats.Script
 
     public struct MediaChannel
     {
-        public ushort Id;
+        public ushort Channel;
         public string FileName;
         public Second Offset;
         public byte Layer;
@@ -89,7 +89,7 @@ namespace LinearBeats.Script
 
     public struct Trigger
     {
-        public ushort MediaChannelId;
+        public ushort Channel;
         public byte Mode;
         public Pulse Pulse;
         public Pulse Duration;

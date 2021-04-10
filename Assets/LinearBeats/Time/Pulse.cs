@@ -16,15 +16,10 @@ namespace LinearBeats.Time
 
         public static implicit operator Pulse([NotNull] string right) => new Pulse(float.Parse(right));
 
-        int IComparable.CompareTo([CanBeNull] object obj)
-        {
-            if (obj is Pulse right) return CompareTo(right);
-
-            throw new InvalidOperationException();
-        }
+        int IComparable.CompareTo([CanBeNull] object obj) =>
+            obj is Pulse right ? CompareTo(right) : throw new InvalidOperationException();
 
         public int CompareTo(Pulse right) => _value.CompareTo(right._value);
-
 
         public override bool Equals(object obj) => obj is Pulse right && Equals(right);
         public bool Equals(Pulse right) => _value.Equals(right._value);

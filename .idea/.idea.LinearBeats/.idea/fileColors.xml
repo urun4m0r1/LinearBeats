@@ -4,9 +4,6 @@
     <fileColor scope="All Changed Files" color="000833" />
     <fileColor scope="디폴트 변경 목록" color="330000" />
     <fileColor scope="Open Files" color="003300" />
-    <fileColor scope="Script" color="333333" />
-    <fileColor scope="Resources" color="333333" />
-    <fileColor scope="Non-Project Files" color="333300" />
-    <fileColor scope="All" color="404040" />
+    <fileColor scope="Script" color="1a1a1a" />
   </component>
 </project>

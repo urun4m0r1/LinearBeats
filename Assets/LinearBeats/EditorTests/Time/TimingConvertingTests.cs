@@ -54,9 +54,7 @@ namespace LinearBeats.EditorTests.Time
             ConverterDisorder = new TimingConverter(DisorderedBpmEvents, StandardBpm, SamplesPerSecond);
             ConverterSingle = new TimingConverter(SingleBpmEvents, StandardBpm, SamplesPerSecond);
 
-            var positionConverter = new PositionConverter.Builder(ConverterDisorder).Build();
-
-            FixedTimeFactory = new FixedTimeFactory(positionConverter);
+            FixedTimeFactory = new FixedTimeFactory(ConverterDisorder);
         }
 
         [TearDown]

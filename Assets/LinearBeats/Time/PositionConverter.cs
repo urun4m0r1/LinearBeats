@@ -1,97 +1,112 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using LinearBeats.Script;
 using Utils.Extensions;
 
 namespace LinearBeats.Time
 {
-    public interface IPositionConverter : ITimingConverter
+    public interface IPositionConverter
     {
-        float ToPosition(Pulse normalizedPulse);
+        float ToPosition(FixedTime fixedTime);
     }
 
     public sealed class PositionConverter : IPositionConverter
     {
-        private ITimingConverter TimingConverter { get; }
+        private readonly struct NormalizedTimingEvent
+        {
+            public float Pulse { get; }
+            public float Duration { get; }
 
-        private TimingEvent[] _stopEvents = { };
-        private TimingEvent[] _rewindEvents = { };
-        private TimingEvent[] _jumpEvents = { };
+            public NormalizedTimingEvent(float pulse, float duration)
+            {
+                Pulse = pulse;
+                Duration = duration;
+            }
+        }
 
-        private PositionConverter(TimingConverter timingConverter) => TimingConverter = timingConverter;
+        [NotNull] private ITimingConverter TimingConverter { get; }
+        [NotNull] private NormalizedTimingEvent[] _stopEvents;
+        [NotNull] private NormalizedTimingEvent[] _rewindEvents;
+        [NotNull] private NormalizedTimingEvent[] _jumpEvents;
+
+        private PositionConverter([NotNull] ITimingConverter timingConverter) =>
+            TimingConverter = timingConverter;
 
         public sealed class Builder
         {
-            private readonly PositionConverter _positionConverter;
+            [NotNull] private readonly PositionConverter _positionConverter;
 
+            [NotNull]
             public PositionConverter Build() => _positionConverter;
 
-            public Builder(TimingConverter converter)
+            public Builder([NotNull] ITimingConverter converter)
             {
                 if (converter == null) throw new ArgumentNullException();
+
                 _positionConverter = new PositionConverter(converter);
             }
 
-            public Builder StopEvent(TimingEvent[] events)
+            [NotNull]
+            public Builder StopEvent([NotNull] TimingEvent[] events)
             {
                 _positionConverter._stopEvents = NormalizeTimingEvents(events);
                 return this;
             }
 
-            public Builder RewindEvent(TimingEvent[] events)
+            [NotNull]
+            public Builder RewindEvent([NotNull] TimingEvent[] events)
             {
                 _positionConverter._rewindEvents = NormalizeTimingEvents(events);
                 return this;
             }
 
-            public Builder JumpEvent(TimingEvent[] events)
+            [NotNull]
+            public Builder JumpEvent([NotNull] TimingEvent[] events)
             {
                 _positionConverter._jumpEvents = NormalizeTimingEvents(events);
                 return this;
             }
 
-            private TimingEvent[] NormalizeTimingEvents(TimingEvent[] timingEvents)
+            [NotNull]
+            private NormalizedTimingEvent[] NormalizeTimingEvents([NotNull] TimingEvent[] timingEvents)
             {
                 if (timingEvents.IsNullOrEmpty())
-                {
-                    throw new IndexOutOfRangeException("At least one TimingEvent item must be decleared");
-                }
+                    throw new IndexOutOfRangeException("At least one TimingEvent item must be declared");
                 if (timingEvents.Any(v => v.Pulse < 0))
-                {
                     throw new ArgumentException("All TimingEvent.Pulse must be positive");
-                }
                 if (timingEvents.Any(v => v.Duration <= 0))
-                {
                     throw new ArgumentException("All TimingEvent.Duration must be non-zero positive");
-                }
 
                 return (from var in timingEvents
                     orderby var.Pulse
                     let a = _positionConverter.Normalize(var.Pulse)
                     let b = _positionConverter.Normalize(var.Duration)
-                    select new TimingEvent {Pulse = a, Duration = b}).ToArray();
+                    select new NormalizedTimingEvent(a, b)).ToArray();
             }
         }
 
-        public float ToPosition(Pulse normalizedPulse)
+        public float ToPosition(FixedTime fixedTime)
         {
             //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
-            float position = normalizedPulse;
+
+            var input = fixedTime.NormalizedPulse;
+            var result = input;
 
             //TODO: SpeedEvent 처리 (구간강제배속)
             //TODO: Ignore 플래그 처리
 
             //TODO: 백점프 추가
-            HandleJumpEvents(normalizedPulse, ref position);
-            HandleElapsedRewindEvents(normalizedPulse, ref position);
-            HandleRewindEvents(normalizedPulse, ref position);
-            HandleElapsedStopEvents(normalizedPulse, ref position);
-            HandleStopEvents(normalizedPulse, ref position);
+            HandleJumpEvents(input, ref result);
+            HandleElapsedRewindEvents(input, ref result);
+            HandleRewindEvents(input, ref result);
+            HandleElapsedStopEvents(input, ref result);
+            HandleStopEvents(input, ref result);
 
-            return position;
+            return result;
         }
 
-        private void HandleJumpEvents(Pulse pulse, ref float position)
+        private void HandleJumpEvents(float pulse, ref float position)
         {
             position += (from var in _jumpEvents
                 let pulseElapsed = pulse - var.Pulse
@@ -99,7 +114,7 @@ namespace LinearBeats.Time
                 select var.Duration).Sum(v => v);
         }
 
-        private void HandleElapsedRewindEvents(Pulse pulse, ref float position)
+        private void HandleElapsedRewindEvents(float pulse, ref float position)
         {
             position -= (from var in _rewindEvents
                 let pulseElapsed = pulse - var.Pulse
@@ -107,7 +122,7 @@ namespace LinearBeats.Time
                 select var.Duration * 2).Sum(v => v);
         }
 
-        private void HandleRewindEvents(Pulse pulse, ref float position)
+        private void HandleRewindEvents(float pulse, ref float position)
         {
             position -= (from var in _rewindEvents
                 let pulseElapsed = pulse - var.Pulse
@@ -115,7 +130,7 @@ namespace LinearBeats.Time
                 select pulseElapsed * 2).FirstOrDefault();
         }
 
-        private void HandleElapsedStopEvents(Pulse pulse, ref float position)
+        private void HandleElapsedStopEvents(float pulse, ref float position)
         {
             position -= (from var in _stopEvents
                 let pulseElapsed = pulse - var.Pulse
@@ -123,7 +138,7 @@ namespace LinearBeats.Time
                 select var.Duration).Sum(v => v);
         }
 
-        private void HandleStopEvents(Pulse pulse, ref float position)
+        private void HandleStopEvents(float pulse, ref float position)
         {
             position -= (from var in _stopEvents
                 let pulseElapsed = pulse - var.Pulse
@@ -131,15 +146,6 @@ namespace LinearBeats.Time
                 select pulseElapsed).FirstOrDefault();
         }
 
-        private Pulse Normalize(Pulse value) => TimingConverter.Normalize(value, GetTimingIndex(value));
-
-        public Second ToSecond(Sample value) => TimingConverter.ToSecond(value);
-        public Sample ToSample(Second value) => TimingConverter.ToSample(value);
-        public Pulse ToPulse(Sample value, int timingIndex) => TimingConverter.ToPulse(value, timingIndex);
-        public Sample ToSample(Pulse value, int timingIndex) => TimingConverter.ToSample(value, timingIndex);
-        public Pulse Normalize(Pulse value, int timingIndex) => TimingConverter.Normalize(value, timingIndex);
-        public float GetBpm(int timingIndex) => TimingConverter.GetBpm(timingIndex);
-        public int GetTimingIndex(Pulse pulse) => TimingConverter.GetTimingIndex(pulse);
-        public int GetTimingIndex(Sample sample) => TimingConverter.GetTimingIndex(sample);
+        private float Normalize(Pulse value) => TimingConverter.Normalize(value, TimingConverter.GetTimingIndex(value));
     }
 }

@@ -16,15 +16,10 @@ namespace LinearBeats.Time
 
         public static implicit operator Second([NotNull] string right) => new Second(float.Parse(right));
 
-        int IComparable.CompareTo([CanBeNull] object obj)
-        {
-            if (obj is Second right) return CompareTo(right);
-
-            throw new InvalidOperationException();
-        }
+        int IComparable.CompareTo([CanBeNull] object obj) =>
+            obj is Second right ? CompareTo(right) : throw new InvalidOperationException();
 
         public int CompareTo(Second right) => _value.CompareTo(right._value);
-
 
         public override bool Equals(object obj) => obj is Second right && Equals(right);
         public bool Equals(Second right) => _value.Equals(right._value);

@@ -14,7 +14,7 @@ namespace LinearBeats.Time
         Sample ToSample(Second value);
         Pulse ToPulse(Sample value, int timingIndex);
         Sample ToSample(Pulse value, int timingIndex);
-        Pulse Normalize(Pulse value, int timingIndex);
+        float Normalize(Pulse value, int timingIndex);
         float GetBpm(int timingIndex);
         int GetTimingIndex(Pulse pulse);
         int GetTimingIndex(Sample sample);
@@ -25,21 +25,21 @@ namespace LinearBeats.Time
         private readonly float _samplesPerSecond;
         private readonly float _secondsPerSample;
 
-        private readonly float[] _ppqns;
-        private readonly Pulse[] _pulses;
-        private readonly float[] _bpms;
-        private readonly float[] _bpmScales;
+        [NotNull] private readonly float[] _ppqns;
+        [NotNull] private readonly Pulse[] _pulses;
+        [NotNull] private readonly float[] _bpms;
+        [NotNull] private readonly float[] _bpmScales;
 
-        private readonly Pulse[] _scaledPulses;
-        private readonly Sample[] _samples;
-        private readonly float[] _samplesPerPulse;
-        private readonly float[] _pulsesPerSample;
+        [NotNull] private readonly Pulse[] _scaledPulses;
+        [NotNull] private readonly Sample[] _samples;
+        [NotNull] private readonly float[] _samplesPerPulse;
+        [NotNull] private readonly float[] _pulsesPerSample;
 
         public TimingConverter([NotNull] IReadOnlyCollection<BpmEvent> bpmEvents,
             float standardBpm,
             float samplesPerSecond)
         {
-            if (bpmEvents == null || bpmEvents.Count == 0)
+            if (bpmEvents.Count == 0)
                 throw new ArgumentNullException(nameof(bpmEvents));
             if (bpmEvents.Any(v => v.Ppqn <= 0f))
                 throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
@@ -115,7 +115,7 @@ namespace LinearBeats.Time
             return sample;
         }
 
-        public Pulse Normalize(Pulse pulse, int timingIndex)
+        public float Normalize(Pulse pulse, int timingIndex)
         {
             if (pulse < _pulses[0]) timingIndex = 0;
             else Assert.IsTrue(pulse >= _pulses[timingIndex]);

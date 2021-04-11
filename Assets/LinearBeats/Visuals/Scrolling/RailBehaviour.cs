@@ -12,22 +12,27 @@ namespace LinearBeats.Visuals
 #pragma warning restore IDE0044
 
 
-        public FixedTime FixedTime { get; set; }
+        public FixedTime StartTime { get; set; }
+        public FixedTime Duration { get; set; }
 
         public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
             float meterPerNormalizedPulse)
         {
-            if ((Second) currentTime - _noteDisappearOffset >= FixedTime)
+            if ((Second) currentTime - _noteDisappearOffset >= StartTime)
             {
                 SetZPosition(-10f);
             }
             else
             {
-                var a = positionConverter.ToPosition(FixedTime);
-                var b = positionConverter.ToPosition(currentTime);
+                var start = positionConverter.ToPosition(StartTime);
+                var current = positionConverter.ToPosition(currentTime);
                 //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
-                float positionInMeter = meterPerNormalizedPulse * (a - b);
+                var positionInMeter = meterPerNormalizedPulse * (start - current);
                 SetZPosition(positionInMeter);
+
+                var scale = transform.localScale;
+                var duration = positionConverter.ToPosition(Duration);
+                transform.localScale = new Vector3(scale.x, scale.y, meterPerNormalizedPulse * duration);
             }
         }
 

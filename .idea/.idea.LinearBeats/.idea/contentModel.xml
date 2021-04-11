@@ -3149,6 +3149,9 @@
                 <e p="ButtonManagerIcon.cs" t="Include" />
                 <e p="ButtonManagerWithIcon.cs" t="Include" />
               </e>
+              <e p="Charts" t="Include">
+                <e p="PieChart.cs" t="Include" />
+              </e>
               <e p="Context Menu" t="Include">
                 <e p="ContextMenuContent.cs" t="Include" />
                 <e p="ContextMenuManager.cs" t="Include" />
@@ -3187,6 +3190,7 @@
                 <e p="Notification" t="Include">
                   <e p="NotificationManagerEditor.cs" t="Include" />
                 </e>
+                <e p="PieChartEditor.cs" t="Include" />
                 <e p="Progress Bar" t="Include">
                   <e p="ProgressBarEditor.cs" t="Include" />
                 </e>

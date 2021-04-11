@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using UnityEngine.Assertions;
 using Utils.Extensions;
 
 namespace LinearBeats.Time
@@ -40,7 +39,7 @@ namespace LinearBeats.Time
             float samplesPerSecond)
         {
             if (bpmEvents.Count == 0)
-                throw new ArgumentNullException(nameof(bpmEvents));
+                throw new ArgumentException("At least one BpmEvent required");
             if (bpmEvents.Any(v => v.Ppqn <= 0f))
                 throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
             if (bpmEvents.All(v => v.Pulse != new Pulse(0f)))
@@ -55,7 +54,7 @@ namespace LinearBeats.Time
             _samplesPerSecond = samplesPerSecond;
             _secondsPerSample = 1f / samplesPerSecond;
 
-            var orderedBpmEvents = (from v in bpmEvents orderby v.Pulse select v).ToArray();
+            var orderedBpmEvents = (from v in bpmEvents.AsParallel() orderby v.Pulse select v).ToArray();
             _ppqns = (from v in orderedBpmEvents select v.Ppqn).ToArray();
             _pulses = (from v in orderedBpmEvents select v.Pulse).ToArray();
             _bpms = (from v in orderedBpmEvents select v.Bpm).ToArray();
@@ -93,39 +92,24 @@ namespace LinearBeats.Time
 
         public Pulse ToPulse(Sample sample, int timingIndex)
         {
-            if (sample < _samples[0]) timingIndex = 0;
-            else Assert.IsTrue(sample >= _samples[timingIndex]);
-
             var samplesElapsed = sample - _samples[timingIndex];
             var pulsesElapsed = _pulsesPerSample[timingIndex] * samplesElapsed;
-            var pulse = _pulses[timingIndex] + pulsesElapsed;
-
-            return pulse;
+            return _pulses[timingIndex] + pulsesElapsed;
         }
 
         public Sample ToSample(Pulse pulse, int timingIndex)
         {
-            if (pulse < _pulses[0]) timingIndex = 0;
-            else Assert.IsTrue(pulse >= _pulses[timingIndex]);
-
             var pulsesElapsed = pulse - _pulses[timingIndex];
             var samplesElapsed = _samplesPerPulse[timingIndex] * pulsesElapsed;
-            var sample = _samples[timingIndex] + samplesElapsed;
-
-            return sample;
+            return _samples[timingIndex] + samplesElapsed;
         }
 
         public float Normalize(Pulse pulse, int timingIndex)
         {
-            if (pulse < _pulses[0]) timingIndex = 0;
-            else Assert.IsTrue(pulse >= _pulses[timingIndex]);
-
             var pulsesElapsed = pulse - _pulses[timingIndex];
             var scaledPulsesElapsed = _bpmScales[timingIndex] * pulsesElapsed;
             var scaledPulse = _scaledPulses[timingIndex] + scaledPulsesElapsed;
-            var normalizedPulse = scaledPulse / _ppqns[timingIndex];
-
-            return normalizedPulse;
+            return scaledPulse / _ppqns[timingIndex];
         }
 
         public float GetBpm(int timingIndex) => _bpms[timingIndex];
@@ -139,7 +123,7 @@ namespace LinearBeats.Time
             if (timing.CompareTo(orderedTiming.First()) < 0) return 0;
 
             for (var i = 0; i < orderedTiming.Count - 1; ++i)
-                if (timing.IsBetweenIE(orderedTiming[i], orderedTiming[i + 1]))
+                if (timing.CompareTo(orderedTiming[i + 1]) < 0)
                     return i;
 
             return orderedTiming.Count - 1;

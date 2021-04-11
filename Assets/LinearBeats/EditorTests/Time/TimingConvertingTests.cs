@@ -1,5 +1,3 @@
-#pragma warning disable IDE0090
-
 using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
@@ -30,40 +28,40 @@ namespace LinearBeats.EditorTests.Time
         protected readonly Second SecondC = 14;
         protected readonly Second SecondD = 4;
 
-        protected BpmEvent[] DisorderedBpmEvents;
-        protected BpmEvent[] SingleBpmEvents;
-        protected TimingConverter ConverterDisorder;
-        protected TimingConverter ConverterSingle;
-        protected FixedTimeFactory FixedTimeFactory;
-
-        [SetUp]
-        public void SetUp()
+        protected static readonly BpmEvent[] BpmEvents =
         {
-            DisorderedBpmEvents = new[]
-            {
-                new BpmEvent { Ppqn = Ppqn, Pulse = ThirdPulse, Bpm = ThirdBpm },
-                new BpmEvent { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
-                new BpmEvent { Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm },
-            };
+            new BpmEvent {Ppqn = Ppqn, Pulse = ThirdPulse, Bpm = ThirdBpm},
+            new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm},
+            new BpmEvent {Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm},
+        };
 
-            SingleBpmEvents = new[]
-            {
-                new BpmEvent { Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm },
-            };
-
-            ConverterDisorder = new TimingConverter(DisorderedBpmEvents, StandardBpm, SamplesPerSecond);
-            ConverterSingle = new TimingConverter(SingleBpmEvents, StandardBpm, SamplesPerSecond);
-
-            FixedTimeFactory = new FixedTimeFactory(ConverterDisorder);
-        }
-
-        [TearDown]
-        public void TearDown()
+        protected static readonly BpmEvent[] SingleBpmEvents =
         {
-            ConverterDisorder = null;
-            ConverterSingle = null;
+            new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm},
+        };
 
-            FixedTimeFactory = null;
+        protected static readonly TimingConverter Converter =
+            new TimingConverter(BpmEvents, StandardBpm, SamplesPerSecond);
+
+        protected static readonly TimingConverter ConverterSingle =
+            new TimingConverter(SingleBpmEvents, StandardBpm, SamplesPerSecond);
+
+        protected static readonly FixedTimeFactory Factory =
+            new FixedTimeFactory(Converter);
+
+
+        protected static Sample ToSample(Pulse v) => Converter.ToSample(v, Converter.GetTimingIndex(v));
+        protected static Pulse ToPulse(Sample v) => Converter.ToPulse(v, Converter.GetTimingIndex(v));
+        protected static Second ToSecond(Sample v) => Converter.ToSecond(v);
+        protected static Sample ToSample(Second v) => Converter.ToSample(v);
+
+        protected static Second ToSecond(Pulse v) =>
+            Converter.ToSecond(Converter.ToSample(v, Converter.GetTimingIndex(v)));
+
+        protected static Pulse ToPulse(Second v)
+        {
+            var sample = Converter.ToSample(v);
+            return Converter.ToPulse(sample, Converter.GetTimingIndex(sample));
         }
     }
 }

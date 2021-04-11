@@ -7,7 +7,7 @@ namespace LinearBeats.Time
     public sealed class TimingController
     {
         public FixedTime CurrentTime => _fixedTimeFactory.Create(new Sample(_audioSource.timeSamples) + _offset);
-        public float CurrentProgress => (Sample) (CurrentTime / _length);
+        public float CurrentProgress => CurrentTime.NormalizedPulse / _length.NormalizedPulse;
 
         [NotNull] private readonly AudioSource _audioSource;
         [NotNull] private readonly FixedTimeFactory _fixedTimeFactory;

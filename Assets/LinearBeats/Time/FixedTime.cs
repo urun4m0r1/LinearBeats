@@ -1,10 +1,10 @@
 using System;
-using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace LinearBeats.Time
 {
-    public readonly struct FixedTime : IComparable, IComparable<FixedTime>, IEquatable<FixedTime>
+    public readonly struct FixedTime : IComparable, IFormattable, IComparable<FixedTime>, IEquatable<FixedTime>
     {
         public float Bpm { get; }
         public float NormalizedPulse { get; }
@@ -86,18 +86,21 @@ namespace LinearBeats.Time
         }
 
         [NotNull]
-        public override string ToString()
-        {
-            const string format = "0.##";
-            var provider = CultureInfo.InvariantCulture;
+        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
+        public override string ToString() => GetString(v => v.ToString());
 
-            var pulse = _pulse.ToString(format, provider);
-            var second = _second.ToString(format, provider);
-            var sample = _sample.ToString(format, provider);
-            var bpm = Bpm.ToString(format, provider);
+        [NotNull]
+        public string ToString(string format) => GetString(v => v.ToString(format));
 
-            return $"Pulse: {pulse} / Second: {second} / Sample: {sample} / Bpm: {bpm}";
-        }
+        [NotNull]
+        public string ToString(IFormatProvider formatProvider) => GetString(v => v.ToString(formatProvider));
+
+        public string ToString(string format, IFormatProvider formatProvider) =>
+            GetString(v => v.ToString(format, formatProvider));
+
+        [NotNull]
+        private string GetString([NotNull] Func<float, string> format) =>
+            $"Pulse: {format(_pulse)} / Second: {format(_second)} / Sample: {format(_sample)} / Bpm: {format(Bpm)}";
 
         public static FixedTime operator +(FixedTime right) => right;
 
@@ -109,12 +112,6 @@ namespace LinearBeats.Time
 
         public static FixedTime operator -(FixedTime left, FixedTime right) =>
             new FixedTime(ChooseConverter(left, right), left._sample - right._sample);
-
-        public static FixedTime operator *(FixedTime left, FixedTime right) =>
-            new FixedTime(ChooseConverter(left, right), left._sample * right._sample);
-
-        public static FixedTime operator /(FixedTime left, FixedTime right) =>
-            new FixedTime(ChooseConverter(left, right), left._sample / right._sample);
 
         public static bool operator ==(FixedTime left, FixedTime right) => left.Equals(right);
         public static bool operator !=(FixedTime left, FixedTime right) => !left.Equals(right);

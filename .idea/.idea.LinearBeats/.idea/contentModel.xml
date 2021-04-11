@@ -2378,6 +2378,10 @@
             <e p="TestUtils.cs" t="Include" />
             <e p="Time" t="Include">
               <e p="FIxedTimeTests.cs" t="Include" />
+              <e p="FloatTests.cs" t="Include" />
+              <e p="PulseTests.cs" t="Include" />
+              <e p="SampleTests.cs" t="Include" />
+              <e p="SecondTests.cs" t="Include" />
               <e p="TimingConverterTests.cs" t="Include" />
               <e p="TimingConvertingTests.cs" t="Include" />
             </e>

@@ -21,7 +21,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = new BpmEvent[] { };
 
-            Assert.Catch<ArgumentNullException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
         }
 
         [Test]
@@ -67,9 +67,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Index_From_Pulse()
         {
-            TestUtils.AreEqual(0, ConverterDisorder.GetTimingIndex(PulseA));
-            TestUtils.AreEqual(1, ConverterDisorder.GetTimingIndex(PulseB));
-            TestUtils.AreEqual(2, ConverterDisorder.GetTimingIndex(PulseC));
+            TestUtils.AreEqual(0, Converter.GetTimingIndex(PulseA));
+            TestUtils.AreEqual(1, Converter.GetTimingIndex(PulseB));
+            TestUtils.AreEqual(2, Converter.GetTimingIndex(PulseC));
 
             TestUtils.AreEqual(0, ConverterSingle.GetTimingIndex(PulseA));
             TestUtils.AreEqual(0, ConverterSingle.GetTimingIndex(PulseD));
@@ -78,9 +78,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Bpm_From_Index()
         {
-            TestUtils.AreEqual(FirstBpm, ConverterDisorder.GetBpm(0));
-            TestUtils.AreEqual(SecondBpm, ConverterDisorder.GetBpm(1));
-            TestUtils.AreEqual(ThirdBpm, ConverterDisorder.GetBpm(2));
+            TestUtils.AreEqual(FirstBpm, Converter.GetBpm(0));
+            TestUtils.AreEqual(SecondBpm, Converter.GetBpm(1));
+            TestUtils.AreEqual(ThirdBpm, Converter.GetBpm(2));
 
             TestUtils.AreEqual(FirstBpm, ConverterSingle.GetBpm(0));
         }
@@ -88,9 +88,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Pulse_To_Sample()
         {
-            TestUtils.AreEqual(SampleA, ConverterDisorder.ToSample(PulseA, 0));
-            TestUtils.AreEqual(SampleB, ConverterDisorder.ToSample(PulseB, 1));
-            TestUtils.AreEqual(SampleC, ConverterDisorder.ToSample(PulseC, 2));
+            TestUtils.AreEqual(SampleA, Converter.ToSample(PulseA, 0));
+            TestUtils.AreEqual(SampleB, Converter.ToSample(PulseB, 1));
+            TestUtils.AreEqual(SampleC, Converter.ToSample(PulseC, 2));
 
             TestUtils.AreEqual(SampleA, ConverterSingle.ToSample(PulseA, 0));
             TestUtils.AreEqual(SampleD, ConverterSingle.ToSample(PulseD, 0));
@@ -99,9 +99,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Sample_To_Pulse()
         {
-            TestUtils.AreEqual(PulseA, ConverterDisorder.ToPulse(SampleA, 0));
-            TestUtils.AreEqual(PulseB, ConverterDisorder.ToPulse(SampleB, 1));
-            TestUtils.AreEqual(PulseC, ConverterDisorder.ToPulse(SampleC, 2));
+            TestUtils.AreEqual(PulseA, Converter.ToPulse(SampleA, 0));
+            TestUtils.AreEqual(PulseB, Converter.ToPulse(SampleB, 1));
+            TestUtils.AreEqual(PulseC, Converter.ToPulse(SampleC, 2));
 
             TestUtils.AreEqual(PulseA, ConverterSingle.ToPulse(SampleA, 0));
             TestUtils.AreEqual(PulseD, ConverterSingle.ToPulse(SampleD, 0));
@@ -110,9 +110,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Sample_To_Second()
         {
-            TestUtils.AreEqual(SecondA, ConverterDisorder.ToSecond(SampleA));
-            TestUtils.AreEqual(SecondB, ConverterDisorder.ToSecond(SampleB));
-            TestUtils.AreEqual(SecondC, ConverterDisorder.ToSecond(SampleC));
+            TestUtils.AreEqual(SecondA, Converter.ToSecond(SampleA));
+            TestUtils.AreEqual(SecondB, Converter.ToSecond(SampleB));
+            TestUtils.AreEqual(SecondC, Converter.ToSecond(SampleC));
 
             TestUtils.AreEqual(SecondA, ConverterSingle.ToSecond(SampleA));
             TestUtils.AreEqual(SecondD, ConverterSingle.ToSecond(SampleD));
@@ -121,9 +121,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Second_To_Sample()
         {
-            TestUtils.AreEqual(SampleA, ConverterDisorder.ToSample(SecondA));
-            TestUtils.AreEqual(SampleB, ConverterDisorder.ToSample(SecondB));
-            TestUtils.AreEqual(SampleC, ConverterDisorder.ToSample(SecondC));
+            TestUtils.AreEqual(SampleA, Converter.ToSample(SecondA));
+            TestUtils.AreEqual(SampleB, Converter.ToSample(SecondB));
+            TestUtils.AreEqual(SampleC, Converter.ToSample(SecondC));
 
             TestUtils.AreEqual(SampleA, ConverterSingle.ToSample(SecondA));
             TestUtils.AreEqual(SampleD, ConverterSingle.ToSample(SecondD));

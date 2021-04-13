@@ -2370,6 +2370,7 @@
           <e p="AssemblyInfo.cs" t="Include" />
           <e p="EditorTests" t="Include">
             <e p="EditorTests.asmdef" t="Include" />
+            <e p="FloatTests.cs" t="Include" />
             <e p="InputListenerTests.cs" t="Include" />
             <e p="InputPositionTests.cs" t="Include" />
             <e p="KeyboardTests.cs" t="Include" />
@@ -2378,12 +2379,12 @@
             <e p="TestUtils.cs" t="Include" />
             <e p="Time" t="Include">
               <e p="FIxedTimeTests.cs" t="Include" />
-              <e p="FloatTests.cs" t="Include" />
+              <e p="PositionConverterTests.cs" t="Include" />
               <e p="PulseTests.cs" t="Include" />
               <e p="SampleTests.cs" t="Include" />
               <e p="SecondTests.cs" t="Include" />
+              <e p="TimingControllerTests.cs" t="Include" />
               <e p="TimingConverterTests.cs" t="Include" />
-              <e p="TimingConvertingTests.cs" t="Include" />
             </e>
             <e p="YamlParserTests.cs" t="Include" />
           </e>
@@ -2419,7 +2420,6 @@
           </e>
           <e p="Time" t="Include">
             <e p="FixedTime.cs" t="Include" />
-            <e p="FixedTimeFactory.cs" t="Include" />
             <e p="IFloat.cs" t="Include" />
             <e p="PositionConverter.cs" t="Include" />
             <e p="Pulse.cs" t="Include" />

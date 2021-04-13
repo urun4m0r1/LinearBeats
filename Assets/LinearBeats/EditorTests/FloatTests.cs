@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinearBeats.EditorTests.Time
+namespace LinearBeats.EditorTests
 {
     public static class FloatTests
     {

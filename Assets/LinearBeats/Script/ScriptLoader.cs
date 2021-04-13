@@ -63,7 +63,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTimeFactory fixedTimeFactory)
+        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTime.Factory fixedTimeFactory)
         {
             noteBehaviour = null;
             if (index < Script.Notes.Length)
@@ -113,7 +113,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTimeFactory fixedTimeFactory)
+        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTime.Factory fixedTimeFactory)
         {
             dividerBehaviour = null;
             if (index < Script.Dividers.Length)

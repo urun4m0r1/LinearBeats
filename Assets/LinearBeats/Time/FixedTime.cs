@@ -16,7 +16,7 @@ namespace LinearBeats.Time
 
         private FixedTime([NotNull] ITimingConverter converter) : this() => _converter = converter;
 
-        public FixedTime([NotNull] ITimingConverter converter, Second value) : this(converter)
+        private FixedTime([NotNull] ITimingConverter converter, Second value) : this(converter)
         {
             _second = value;
 
@@ -27,7 +27,7 @@ namespace LinearBeats.Time
             NormalizedPulse = _converter.Normalize(_pulse, timingIndex);
         }
 
-        public FixedTime([NotNull] ITimingConverter converter, Pulse value) : this(converter)
+        private FixedTime([NotNull] ITimingConverter converter, Pulse value) : this(converter)
         {
             _pulse = value;
 
@@ -38,7 +38,7 @@ namespace LinearBeats.Time
             NormalizedPulse = _converter.Normalize(_pulse, timingIndex);
         }
 
-        public FixedTime([NotNull] ITimingConverter converter, Sample value) : this(converter)
+        private FixedTime([NotNull] ITimingConverter converter, Sample value) : this(converter)
         {
             _sample = value;
 
@@ -47,6 +47,17 @@ namespace LinearBeats.Time
             _pulse = converter.ToPulse(_sample, timingIndex);
             Bpm = _converter.GetBpm(timingIndex);
             NormalizedPulse = _converter.Normalize(_pulse, timingIndex);
+        }
+
+        public sealed class Factory
+        {
+            [NotNull] private readonly ITimingConverter _converter;
+
+            public Factory([NotNull] ITimingConverter converter) => _converter = converter;
+
+            public FixedTime Create(Pulse value) => new FixedTime(_converter, value);
+            public FixedTime Create(Sample value) => new FixedTime(_converter, value);
+            public FixedTime Create(Second value) => new FixedTime(_converter, value);
         }
 
         public static implicit operator Pulse(FixedTime right) => right._pulse;

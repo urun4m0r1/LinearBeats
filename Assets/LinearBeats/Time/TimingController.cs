@@ -10,12 +10,12 @@ namespace LinearBeats.Time
         public float CurrentProgress => CurrentTime.NormalizedPulse / _length.NormalizedPulse;
 
         [NotNull] private readonly AudioSource _audioSource;
-        [NotNull] private readonly FixedTimeFactory _fixedTimeFactory;
+        [NotNull] private readonly FixedTime.Factory _fixedTimeFactory;
         private readonly FixedTime _offset;
         private readonly FixedTime _length;
 
         public TimingController([NotNull] AudioSource audioSource,
-            [NotNull] FixedTimeFactory fixedTimeFactory,
+            [NotNull] FixedTime.Factory fixedTimeFactory,
             Second offset = default)
         {
             _audioSource = audioSource;

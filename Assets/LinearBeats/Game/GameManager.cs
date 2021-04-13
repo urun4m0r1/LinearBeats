@@ -43,7 +43,7 @@ namespace LinearBeats.Game
         private readonly Dictionary<uint, NoteBehaviour> _noteBehaviours = new Dictionary<uint, NoteBehaviour>();
         private AudioSource[] _audioSources = null;
         private AudioSource _backgroundAudioSource;
-        private FixedTimeFactory _fixedTimeFactory;
+        private FixedTime.Factory _fixedTimeFactory;
         private uint nextNoteLoadIndex = 0;
         private IPositionConverter _positionConverter;
 
@@ -73,7 +73,7 @@ namespace LinearBeats.Game
                     _scriptLoader.Script.Timing.StandardBpm,
                     _audioSources[0].clip.frequency);
 
-                _fixedTimeFactory = new FixedTimeFactory(converter);
+                _fixedTimeFactory = new FixedTime.Factory(converter);
 
                 _positionConverter = new PositionConverter.Builder(converter)
                     .StopEvent(_scriptLoader.Script.Timing.StopEvents)

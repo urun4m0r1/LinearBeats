@@ -13,7 +13,7 @@ namespace LinearBeats.Audio
     public sealed class AudioClipSource : IAudioClip
     {
         [NotNull] private readonly AudioSource _audioSource;
-        public Sample Current => _audioSource.clip.samples;
+        public Sample Current => _audioSource.timeSamples;
         public Sample Length => _audioSource.clip.length;
 
         public AudioClipSource([NotNull] AudioSource audioSource) => _audioSource = audioSource;

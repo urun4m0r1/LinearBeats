@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Lean.Pool;
+using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Time;
@@ -81,7 +82,9 @@ namespace LinearBeats.Game
                     .JumpEvent(_scriptLoader.Script.Timing.JumpEvents)
                     .Build();
 
-                _timingController = new TimingController(_backgroundAudioSource,
+                var audioClipSource = new AudioClipSource(_backgroundAudioSource);
+
+                _timingController = new TimingController(audioClipSource,
                     _fixedTimeFactory,
                     _scriptLoader.Script.AudioChannels[0].Offset);
             }

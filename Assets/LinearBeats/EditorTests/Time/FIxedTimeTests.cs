@@ -16,9 +16,9 @@ namespace LinearBeats.EditorTests.Time
     [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
     public class FixedTimeTests
     {
-        private static readonly BpmEvent[] BpmEvents = {new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 120}};
-        private static readonly ITimingConverter Converter = new TimingConverter(BpmEvents, 120, 1000);
-        private static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
+        [NotNull] private static readonly BpmEvent[] BpmEvents = {new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 120}};
+        [NotNull] private static readonly ITimingConverter Converter = new TimingConverter(BpmEvents, 120, 1000);
+        [NotNull] public static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
 
         private static readonly Pulse Pulse0 = new Pulse(default);
         private static readonly Sample Sample0 = new Sample(default);

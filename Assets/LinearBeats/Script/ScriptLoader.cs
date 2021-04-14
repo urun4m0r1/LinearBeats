@@ -63,7 +63,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTimeFactory fixedTimeFactory)
+        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTime.Factory fixedTimeFactory)
         {
             noteBehaviour = null;
             if (index < Script.Notes.Length)
@@ -76,7 +76,8 @@ namespace LinearBeats.Script
                 noteObject.transform.localScale = GetNoteSize(note.Shape);
 
                 noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                noteBehaviour.FixedTime = fixedTimeFactory.Create(note.Trigger.Pulse);
+                noteBehaviour.StartTime = fixedTimeFactory.Create(note.Trigger.Pulse);
+                noteBehaviour.Duration = fixedTimeFactory.Create(note.Trigger.Duration);
                 noteBehaviour.Note = note;
             }
             return noteBehaviour != null;
@@ -112,7 +113,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTimeFactory fixedTimeFactory)
+        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTime.Factory fixedTimeFactory)
         {
             dividerBehaviour = null;
             if (index < Script.Dividers.Length)
@@ -124,7 +125,7 @@ namespace LinearBeats.Script
                     _dividerPool.transform);
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
-                dividerBehaviour.FixedTime = fixedTimeFactory.Create(divider.Pulse);
+                dividerBehaviour.StartTime = fixedTimeFactory.Create(divider.Pulse);
             }
             return dividerBehaviour != null;
         }

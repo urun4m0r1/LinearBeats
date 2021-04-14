@@ -2,7 +2,9 @@
 #pragma warning disable IDE0090
 
 using System.Collections.Generic;
+using System.Globalization;
 using Lean.Pool;
+using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Time;
@@ -19,8 +21,12 @@ namespace LinearBeats.Game
     {
 #pragma warning disable IDE0044
         [SerializeField]
+        private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
+        [SerializeField]
+        private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
+        [SerializeField]
         private UnityEvent _onGameReset = new UnityEvent();
-        [Range(1f, 100f)]
+        [Range(0.01f, 100f)]
         [SerializeField]
         private float _meterPerNormalizedPulse = 1f;
         [Range(1, 128)]
@@ -37,9 +43,10 @@ namespace LinearBeats.Game
         private readonly Dictionary<uint, RailBehaviour> _dividerBehaviours = new Dictionary<uint, RailBehaviour>();
         private readonly Dictionary<uint, NoteBehaviour> _noteBehaviours = new Dictionary<uint, NoteBehaviour>();
         private AudioSource[] _audioSources = null;
-        private AudioSource _backgroundAudioSource = null;
-        private FixedTimeFactory _fixedTimeFactory;
+        private AudioSource _backgroundAudioSource;
+        private FixedTime.Factory _fixedTimeFactory;
         private uint nextNoteLoadIndex = 0;
+        private IPositionConverter _positionConverter;
 
         void Start()
         {
@@ -67,17 +74,20 @@ namespace LinearBeats.Game
                     _scriptLoader.Script.Timing.StandardBpm,
                     _audioSources[0].clip.frequency);
 
-                var positionConverter = new PositionConverter.Builder(converter)
+                _fixedTimeFactory = new FixedTime.Factory(converter);
+
+                _positionConverter = new PositionConverter.Builder(converter)
                     .StopEvent(_scriptLoader.Script.Timing.StopEvents)
                     .RewindEvent(_scriptLoader.Script.Timing.RewindEvents)
                     .JumpEvent(_scriptLoader.Script.Timing.JumpEvents)
+                    .Normalize(true)
                     .Build();
 
-                _fixedTimeFactory = new FixedTimeFactory(positionConverter);
+                var audioClipSource = new AudioClipSource(_backgroundAudioSource);
 
-                _timingController.InitTiming(
-                    _fixedTimeFactory.Create((Sample)_backgroundAudioSource.clip.samples),
-                    _fixedTimeFactory.Create(_scriptLoader.Script.AudioChannels[0].Offset));
+                _timingController = new TimingController(audioClipSource,
+                    _fixedTimeFactory,
+                    _scriptLoader.Script.AudioChannels[0].Offset);
             }
         }
 
@@ -110,8 +120,6 @@ namespace LinearBeats.Game
                 audioSource.Reset();
             }
 
-            _timingController.ResetTiming();
-
             nextNoteLoadIndex = 0;
             //FIXME: 기존 버퍼 초기화
             BufferNotes(_noteLoadBufferSize);
@@ -123,7 +131,6 @@ namespace LinearBeats.Game
         {
             if (_backgroundAudioSource.isPlaying)
             {
-                _timingController.UpdateTiming(_fixedTimeFactory.Create((Sample)_backgroundAudioSource.timeSamples));
                 UpdateNoteJudge();
             }
 
@@ -151,6 +158,9 @@ namespace LinearBeats.Game
         }
         private void Update()
         {
+            _onProgressChanged.Invoke(_timingController.CurrentProgress);
+            _onBpmChanged.Invoke(_timingController.CurrentTime.Bpm.ToString(CultureInfo.InvariantCulture));
+
             if (_backgroundAudioSource.isPlaying)
             {
                 if (_noteBehaviours.Count < _noteLoadBufferSize)
@@ -170,7 +180,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerNormalizedPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerNormalizedPulse);
                 }
             }
 
@@ -178,7 +188,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_timingController.CurrentTime, _meterPerNormalizedPulse);
+                    noteBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerNormalizedPulse);
                 }
             }
         }

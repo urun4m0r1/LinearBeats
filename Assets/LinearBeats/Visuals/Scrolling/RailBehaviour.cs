@@ -7,28 +7,39 @@ namespace LinearBeats.Visuals
     {
 #pragma warning disable IDE0044
         [SerializeField]
-        private Rigidbody _rigidbody = null;
+        private Rigidbody _rigidbody;
         private float _noteDisappearOffset = 1f;
 #pragma warning restore IDE0044
 
 
-        public FixedTime FixedTime { get; set; }
+        public FixedTime StartTime { get; set; }
+        public FixedTime Duration { get; set; }
 
-        public void UpdateRailPosition(FixedTime currentTime, float meterPerNormalizedPulse)
+        public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
+            float meterPerNormalizedPulse)
         {
-            if (currentTime.Second - _noteDisappearOffset >= FixedTime.Second)
+            if (currentTime.Second - _noteDisappearOffset >= StartTime)
+            {
                 SetZPosition(-10f);
+            }
             else
             {
+                var start = positionConverter.ToPosition(StartTime);
+                var current = positionConverter.ToPosition(currentTime);
                 //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
-                float positionInMeter = meterPerNormalizedPulse * (FixedTime.Position - currentTime.Position);
+                var positionInMeter = meterPerNormalizedPulse * (start - current);
                 SetZPosition(positionInMeter);
+
+                var scale = transform.localScale;
+                var duration = positionConverter.ToPosition(Duration);
+                transform.localScale = new Vector3(scale.x, scale.y, meterPerNormalizedPulse * duration);
             }
         }
 
         private void SetZPosition(float zPosition)
         {
-            _rigidbody.MovePosition(new Vector3(_rigidbody.position.x, _rigidbody.position.y, zPosition));
+            var position = _rigidbody.position;
+            _rigidbody.MovePosition(new Vector3(position.x, position.y, zPosition));
         }
     }
 }

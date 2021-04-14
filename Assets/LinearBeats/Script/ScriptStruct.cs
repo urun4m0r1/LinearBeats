@@ -46,6 +46,7 @@ namespace LinearBeats.Script
         public TimingEvent[] StopEvents;
         public TimingEvent[] RewindEvents;
         public TimingEvent[] JumpEvents;
+        public SpeedEvent[] SpeedEvents;
     }
 
     public struct BpmEvent
@@ -59,6 +60,15 @@ namespace LinearBeats.Script
     {
         public Pulse Pulse;
         public Pulse Duration;
+        public string IgnoreLane;
+    }
+
+    public struct SpeedEvent
+    {
+        public Pulse Pulse;
+        public Pulse Duration;
+        public float Multiplier;
+        public string IgnoreLane;
     }
 
     public struct Divider
@@ -66,10 +76,12 @@ namespace LinearBeats.Script
         public Pulse Pulse;
         public Pulse Interval;
         public byte Type;
+        public string IgnoreTimingEvent;
     }
 
     public struct MediaChannel
     {
+        public ushort Channel;
         public string FileName;
         public Second Offset;
         public byte Layer;
@@ -87,6 +99,7 @@ namespace LinearBeats.Script
     {
         public Trigger Trigger;
         public Shape Shape;
+        public string IgnoreTimingEvent;
     }
 
     public struct Shape
@@ -100,4 +113,3 @@ namespace LinearBeats.Script
         public byte DstCol;
     }
 }
-

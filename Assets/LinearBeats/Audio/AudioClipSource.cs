@@ -7,14 +7,14 @@ namespace LinearBeats.Audio
     public interface IAudioClip
     {
         Sample Current { get; }
-        Sample Length { get; }
+        Second Length { get; }
     }
 
     public sealed class AudioClipSource : IAudioClip
     {
         [NotNull] private readonly AudioSource _audioSource;
         public Sample Current => _audioSource.timeSamples;
-        public Sample Length => _audioSource.clip.length;
+        public Second Length => _audioSource.clip.length;
 
         public AudioClipSource([NotNull] AudioSource audioSource) => _audioSource = audioSource;
     }

@@ -19,7 +19,7 @@ namespace LinearBeats.EditorTests.Time
         {
             private readonly float _x = RandomFloat;
             public Sample Current => _x + 5_000f; // [0 ~ 10_000]
-            public Sample Length => 10_000f;
+            public Second Length => 10f;
         }
 
         private static void Iterate([NotNull] Action<MockAudioClip, TimingController> action)
@@ -46,7 +46,7 @@ namespace LinearBeats.EditorTests.Time
         {
             Iterate((a, c) =>
             {
-                var progress = a.Current / a.Length;
+                var progress = Factory.Create(a.Current) / a.Length;
                 Assert.AreEqual(progress, c.CurrentProgress, Delta);
                 Assert.GreaterOrEqual(c.CurrentProgress, 0f);
                 Assert.LessOrEqual(c.CurrentProgress, 1f);

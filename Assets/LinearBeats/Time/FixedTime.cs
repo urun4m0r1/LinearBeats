@@ -10,43 +10,43 @@ namespace LinearBeats.Time
         public float NormalizedPulse { get; }
 
         [NotNull] private readonly ITimingConverter _converter;
-        private readonly Pulse _pulse;
-        private readonly Sample _sample;
-        private readonly Second _second;
+        public Pulse Pulse { get; }
+        public Sample Sample { get; }
+        public Second Second { get; }
 
         private FixedTime([NotNull] ITimingConverter converter) : this() => _converter = converter;
 
         private FixedTime([NotNull] ITimingConverter converter, Second value) : this(converter)
         {
-            _second = value;
+            Second = value;
 
-            _sample = converter.ToSample(value);
-            var timingIndex = _converter.GetTimingIndex(_sample);
-            _pulse = converter.ToPulse(_sample, timingIndex);
+            Sample = converter.ToSample(value);
+            var timingIndex = _converter.GetTimingIndex(Sample);
+            Pulse = converter.ToPulse(Sample, timingIndex);
             Bpm = _converter.GetBpm(timingIndex);
-            NormalizedPulse = _converter.Normalize(_pulse, timingIndex);
+            NormalizedPulse = _converter.Normalize(Pulse, timingIndex);
         }
 
         private FixedTime([NotNull] ITimingConverter converter, Pulse value) : this(converter)
         {
-            _pulse = value;
+            Pulse = value;
 
             var timingIndex = _converter.GetTimingIndex(value);
-            _sample = converter.ToSample(_pulse, timingIndex);
-            _second = converter.ToSecond(_sample);
+            Sample = converter.ToSample(Pulse, timingIndex);
+            Second = converter.ToSecond(Sample);
             Bpm = _converter.GetBpm(timingIndex);
-            NormalizedPulse = _converter.Normalize(_pulse, timingIndex);
+            NormalizedPulse = _converter.Normalize(Pulse, timingIndex);
         }
 
         private FixedTime([NotNull] ITimingConverter converter, Sample value) : this(converter)
         {
-            _sample = value;
+            Sample = value;
 
-            _second = converter.ToSecond(_sample);
+            Second = converter.ToSecond(Sample);
             var timingIndex = _converter.GetTimingIndex(value);
-            _pulse = converter.ToPulse(_sample, timingIndex);
+            Pulse = converter.ToPulse(Sample, timingIndex);
             Bpm = _converter.GetBpm(timingIndex);
-            NormalizedPulse = _converter.Normalize(_pulse, timingIndex);
+            NormalizedPulse = _converter.Normalize(Pulse, timingIndex);
         }
 
         public sealed class Factory
@@ -60,9 +60,9 @@ namespace LinearBeats.Time
             public FixedTime Create(Second value) => new FixedTime(_converter, value);
         }
 
-        public static implicit operator Pulse(FixedTime right) => right._pulse;
-        public static implicit operator Second(FixedTime right) => right._second;
-        public static implicit operator Sample(FixedTime right) => right._sample;
+        public static implicit operator Pulse(FixedTime right) => right.Pulse;
+        public static implicit operator Second(FixedTime right) => right.Second;
+        public static implicit operator Sample(FixedTime right) => right.Sample;
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
             obj is FixedTime right ? CompareTo(right) : throw new InvalidOperationException();
@@ -71,12 +71,12 @@ namespace LinearBeats.Time
         {
             if (!ConverterEquals(this, right)) throw new InvalidOperationException();
 
-            return _sample.CompareTo(right._sample);
+            return Sample.CompareTo(right.Sample);
         }
 
         public override bool Equals(object obj) => obj is FixedTime right && Equals(right);
-        public bool Equals(FixedTime right) => _sample.Equals(right._sample) && ConverterEquals(this, right);
-        public override int GetHashCode() => _sample.GetHashCode();
+        public bool Equals(FixedTime right) => Sample.Equals(right.Sample) && ConverterEquals(this, right);
+        public override int GetHashCode() => Sample.GetHashCode();
 
         public static bool ConverterEquals(FixedTime left, FixedTime right)
         {
@@ -111,18 +111,18 @@ namespace LinearBeats.Time
 
         [NotNull]
         private string GetString([NotNull] Func<float, string> format) =>
-            $"Pulse: {format(_pulse)} / Second: {format(_second)} / Sample: {format(_sample)} / Bpm: {format(Bpm)}";
+            $"Pulse: {format(Pulse)} / Second: {format(Second)} / Sample: {format(Sample)} / Bpm: {format(Bpm)}";
 
         public static FixedTime operator +(FixedTime right) => right;
 
         public static FixedTime operator -(FixedTime right) =>
-            new FixedTime(right._converter, -right._sample);
+            new FixedTime(right._converter, -right.Sample);
 
         public static FixedTime operator +(FixedTime left, FixedTime right) =>
-            new FixedTime(ChooseConverter(left, right), left._sample + right._sample);
+            new FixedTime(ChooseConverter(left, right), left.Sample + right.Sample);
 
         public static FixedTime operator -(FixedTime left, FixedTime right) =>
-            new FixedTime(ChooseConverter(left, right), left._sample - right._sample);
+            new FixedTime(ChooseConverter(left, right), left.Sample - right.Sample);
 
         public static bool operator ==(FixedTime left, FixedTime right) => left.Equals(right);
         public static bool operator !=(FixedTime left, FixedTime right) => !left.Equals(right);

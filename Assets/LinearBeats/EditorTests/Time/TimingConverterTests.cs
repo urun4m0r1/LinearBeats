@@ -8,7 +8,7 @@ namespace LinearBeats.EditorTests.Time
     [TestFixture]
     public class TimingConverterTests
     {
-            protected const float SamplesPerSecond = 500f;
+        protected const float SamplesPerSecond = 500f;
         protected const int Ppqn = 100;
         protected const int FirstPulse = 0;
         protected const int SecondPulse = 400;

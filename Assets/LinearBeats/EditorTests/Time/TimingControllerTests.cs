@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using LinearBeats.Audio;
+using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 using static LinearBeats.EditorTests.FloatTests;
@@ -10,6 +11,10 @@ namespace LinearBeats.EditorTests.Time
     [TestFixture]
     public class TimingControllerTests
     {
+        [NotNull] private static readonly BpmEvent[] BpmEvents = {new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 120}};
+        [NotNull] private static readonly ITimingConverter Converter = new TimingConverter(BpmEvents, 120, 1000);
+        [NotNull] private static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
+
         private sealed class MockAudioClip : IAudioClip
         {
             private readonly float _x = RandomFloat;
@@ -22,7 +27,7 @@ namespace LinearBeats.EditorTests.Time
             for (var i = 0; i < Iteration; ++i)
             {
                 var audio = new MockAudioClip();
-                action(audio, new TimingController(audio, FixedTimeTests.Factory));
+                action(audio, new TimingController(audio, Factory));
             }
         }
 
@@ -31,7 +36,7 @@ namespace LinearBeats.EditorTests.Time
         {
             Iterate((a, c) =>
             {
-                var currentTime = FixedTimeTests.Factory.Create(a.Current);
+                var currentTime = Factory.Create(a.Current);
                 Assert.IsTrue(currentTime == c.CurrentTime);
             });
         }
@@ -51,9 +56,9 @@ namespace LinearBeats.EditorTests.Time
         {
             Iterate((a, _) =>
             {
-                var offset = FixedTimeTests.Factory.Create(new Second(1f));
-                var c = new TimingController(a, FixedTimeTests.Factory, offset);
-                var currentTime = FixedTimeTests.Factory.Create(a.Current);
+                var offset = Factory.Create(new Second(1f));
+                var c = new TimingController(a, Factory, offset);
+                var currentTime = Factory.Create(a.Current);
                 Assert.IsTrue(currentTime + offset == c.CurrentTime);
             });
         }

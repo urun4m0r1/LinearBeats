@@ -80,6 +80,7 @@ namespace LinearBeats.Game
                     .StopEvent(_scriptLoader.Script.Timing.StopEvents)
                     .RewindEvent(_scriptLoader.Script.Timing.RewindEvents)
                     .JumpEvent(_scriptLoader.Script.Timing.JumpEvents)
+                    .Normalize(true)
                     .Build();
 
                 var audioClipSource = new AudioClipSource(_backgroundAudioSource);

@@ -18,7 +18,7 @@ namespace LinearBeats.EditorTests.Time
     {
         [NotNull] private static readonly BpmEvent[] BpmEvents = {new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 120}};
         [NotNull] private static readonly ITimingConverter Converter = new TimingConverter(BpmEvents, 120, 1000);
-        [NotNull] public static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
+        [NotNull] private static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
 
         private static readonly Pulse Pulse0 = new Pulse(default);
         private static readonly Sample Sample0 = new Sample(default);
@@ -171,11 +171,11 @@ namespace LinearBeats.EditorTests.Time
 
             Iterate((f, v) =>
             {
-                var vx = Factory.Create(new Pulse(f)); // [-0.5 ~ 0.5]
+                var vx = Factory.Create(new Pulse(f)); // [-5_000 ~ 5_000]
                 AssertEquatable(v, vx);
 
-                var vn = Factory.Create(new Pulse(f - 0.5f)); // [-1, 0]
-                var vp = Factory.Create(new Pulse(f + 0.5f)); // [0, 1]
+                var vn = Factory.Create(new Pulse(f - 0.5f)); // [-10_000, 0]
+                var vp = Factory.Create(new Pulse(f + 0.5f)); // [0, 10_000]
                 AssertRightIsBigger(vn, vp);
                 AssertRightIsBigger(v, vp);
                 AssertRightIsBigger(vn, v);

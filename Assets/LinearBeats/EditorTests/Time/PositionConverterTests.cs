@@ -11,6 +11,7 @@ namespace LinearBeats.EditorTests.Time
     [TestFixture]
     public class PositionConverterTests
     {
+        //TODO: normalize 분기 검사
         [NotNull] private static readonly BpmEvent[] BpmEvents =
         {
             new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 100},
@@ -55,7 +56,7 @@ namespace LinearBeats.EditorTests.Time
         private static Pulse GetJumpDistance(Pulse f)
         {
             var pos = JumpEvent.Where(v => f >= v.Pulse)
-                .Aggregate(f, (current, v) => current + v.Duration);
+                .Aggregate(0f, (current, v) => current + v.Duration);
 
             return pos;
         }
@@ -63,7 +64,7 @@ namespace LinearBeats.EditorTests.Time
 
         private static Pulse GetStopDistance(Pulse f)
         {
-            var pos = f;
+            var pos = 0f;
             foreach (var v in StopEvent)
             {
                 if (f >= v.Pulse && f < v.Pulse + v.Duration) pos -= f - v.Pulse;
@@ -75,7 +76,7 @@ namespace LinearBeats.EditorTests.Time
 
         private static Pulse GetRewindDistance(Pulse f)
         {
-            var pos = f;
+            var pos = 0f;
             foreach (var v in RewindEvent)
             {
                 if (f >= v.Pulse && f < v.Pulse + v.Duration) pos -= (f - v.Pulse) * 2;
@@ -93,7 +94,7 @@ namespace LinearBeats.EditorTests.Time
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
 
-            Iterate(converter, (f, p) => Assert.AreEqual((Pulse) f, p, Delta));
+            Iterate(converter, (f, p) => Assert.AreEqual(f.Pulse, p, Delta));
         }
 
         [Test]
@@ -104,7 +105,11 @@ namespace LinearBeats.EditorTests.Time
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
 
-            Iterate(converter, (f, p) => Assert.AreEqual(GetJumpDistance(f), p, Delta));
+            Iterate(converter, (f, p) =>
+            {
+                var distance = f + GetJumpDistance(f);
+                Assert.AreEqual(distance, p, Delta);
+            });
         }
 
         [Test]
@@ -115,7 +120,11 @@ namespace LinearBeats.EditorTests.Time
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
 
-            Iterate(converter, (f, p) => Assert.AreEqual(GetStopDistance(f), p, Delta));
+            Iterate(converter, (f, p) =>
+            {
+                var distance = f + GetStopDistance(f);
+                Assert.AreEqual(distance, p, Delta);
+            });
         }
 
         [Test]
@@ -126,7 +135,29 @@ namespace LinearBeats.EditorTests.Time
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
 
-            Iterate(converter, (f, p) => Assert.AreEqual(GetRewindDistance(f), p, Delta));
+            Iterate(converter, (f, p) =>
+            {
+                var distance = f + GetRewindDistance(f);
+                Assert.AreEqual(distance, p, Delta);
+            });
+        }
+
+        [Test]
+        public void Should_Calculate_CombinedEvents()
+        {
+            var converter = Builder.JumpEvent(JumpEvent).StopEvent(StopEvent).RewindEvent(RewindEvent).Build();
+
+            var p0 = converter.ToPosition(V0);
+            Assert.AreEqual(V0.Pulse, p0, Delta);
+
+            Iterate(converter, (f, p) =>
+            {
+                var dj = GetJumpDistance(f);
+                var ds = GetStopDistance(f);
+                var dr = GetRewindDistance(f);
+                var distance = f + dj + ds + dr;
+                Assert.AreEqual(distance, p, Delta);
+            });
         }
     }
 }

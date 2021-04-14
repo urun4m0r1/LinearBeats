@@ -174,8 +174,8 @@ namespace LinearBeats.EditorTests.Time
                 var vx = Factory.Create(new Pulse(f)); // [-5_000 ~ 5_000]
                 AssertEquatable(v, vx);
 
-                var vn = Factory.Create(new Pulse(f - 0.5f)); // [-10_000, 0]
-                var vp = Factory.Create(new Pulse(f + 0.5f)); // [0, 10_000]
+                var vn = Factory.Create(new Pulse(f - 5_000f)); // [-10_000, 0]
+                var vp = Factory.Create(new Pulse(f + 5_000f)); // [0, 10_000]
                 AssertRightIsBigger(vn, vp);
                 AssertRightIsBigger(v, vp);
                 AssertRightIsBigger(vn, v);
@@ -283,6 +283,52 @@ namespace LinearBeats.EditorTests.Time
                 var vx = Factory.Create(new Pulse(f));
 
                 Assert.AreEqual(v.Bpm, vx.Bpm);
+            });
+        }
+
+
+        [Test]
+        public void Should_Get_Pulse()
+        {
+            Assert.AreEqual(Pulse0, Factory.Create(Pulse0).Pulse);
+            Assert.AreEqual(Pulse0, Factory.Create(Sample0).Pulse);
+            Assert.AreEqual(Pulse0, Factory.Create(Second0).Pulse);
+
+            Iterate((pulse, sample, second) =>
+            {
+                Assert.AreEqual(pulse, Factory.Create(pulse).Pulse);
+                Assert.AreEqual(ToPulse(sample), Factory.Create(sample).Pulse);
+                Assert.AreEqual(ToPulse(second), Factory.Create(second).Pulse);
+            });
+        }
+
+        [Test]
+        public void Should_Get_Sample()
+        {
+            Assert.AreEqual(Sample0, Factory.Create(Pulse0).Sample);
+            Assert.AreEqual(Sample0, Factory.Create(Sample0).Sample);
+            Assert.AreEqual(Sample0, Factory.Create(Second0).Sample);
+
+            Iterate((pulse, sample, second) =>
+            {
+                Assert.AreEqual(ToSample(pulse), Factory.Create(pulse).Sample);
+                Assert.AreEqual(sample, Factory.Create(sample).Sample);
+                Assert.AreEqual(ToSample(second), Factory.Create(second).Sample);
+            });
+        }
+
+        [Test]
+        public void Should_Get_Second()
+        {
+            Assert.AreEqual(Second0, Factory.Create(Pulse0).Second);
+            Assert.AreEqual(Second0, Factory.Create(Sample0).Second);
+            Assert.AreEqual(Second0, Factory.Create(Second0).Second);
+
+            Iterate((pulse, sample, second) =>
+            {
+                Assert.AreEqual(ToSecond(pulse), Factory.Create(pulse).Second);
+                Assert.AreEqual(ToSecond(sample), Factory.Create(sample).Second);
+                Assert.AreEqual(second, Factory.Create(second).Second);
             });
         }
     }

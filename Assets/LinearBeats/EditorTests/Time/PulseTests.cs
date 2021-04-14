@@ -136,8 +136,8 @@ namespace LinearBeats.EditorTests.Time
                 var vx = new Pulse(f); // [-5_000 ~ 5_000]
                 AssertEquatable(v, vx);
 
-                var vn = new Pulse(f - 0.5f); // [-10_000, 0]
-                var vp = new Pulse(f + 0.5f); // [0, 10_000]
+                var vn = new Pulse(f - 5_000f); // [-10_000, 0]
+                var vp = new Pulse(f + 5_000f); // [0, 10_000]
                 AssertRightIsBigger(vn, vp);
                 AssertRightIsBigger(v, vp);
                 AssertRightIsBigger(vn, v);

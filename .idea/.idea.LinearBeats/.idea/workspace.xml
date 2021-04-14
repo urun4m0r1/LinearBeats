@@ -6,17 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,20 +86,20 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Audio/IAudio.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClip.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -187,7 +185,7 @@
       <workItem from="1618140867833" duration="29000" />
       <workItem from="1618141152913" duration="22069000" />
       <workItem from="1618261604854" duration="20804000" />
-      <workItem from="1618348970612" duration="15601000" />
+      <workItem from="1618348970612" duration="17697000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -315,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618329748200</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Refactoring">
+      <created>1618412392307</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1618412392307</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,14 +359,14 @@
     <MESSAGE value="File structure changed" />
     <MESSAGE value="Git settings changed" />
     <MESSAGE value="Organize codes" />
-    <MESSAGE value="Refactoring" />
     <MESSAGE value=" Refactoring" />
     <MESSAGE value="Rollback Rider" />
     <MESSAGE value="Clean project" />
     <MESSAGE value="Applying long note implementation" />
     <MESSAGE value="Add unit tests" />
     <MESSAGE value="Wrote some test cases." />
-    <option name="LAST_COMMIT_MESSAGE" value="Wrote some test cases." />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

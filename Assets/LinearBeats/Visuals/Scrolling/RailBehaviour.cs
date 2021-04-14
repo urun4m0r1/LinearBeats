@@ -18,7 +18,7 @@ namespace LinearBeats.Visuals
         public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
             float meterPerNormalizedPulse)
         {
-            if ((Second) currentTime - _noteDisappearOffset >= StartTime)
+            if (currentTime.Second - _noteDisappearOffset >= StartTime)
             {
                 SetZPosition(-10f);
             }

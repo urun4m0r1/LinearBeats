@@ -18,8 +18,8 @@ namespace LinearBeats.EditorTests.Time
         private sealed class MockAudioClip : IAudioClip
         {
             private readonly float _x = RandomFloat;
-            public Sample Current => _x + 0.5f; // [0 ~ 1.0]
-            public Sample Length => 1f;
+            public Sample Current => _x + 5_000f; // [0 ~ 10_000]
+            public Sample Length => 10_000f;
         }
 
         private static void Iterate([NotNull] Action<MockAudioClip, TimingController> action)
@@ -48,6 +48,8 @@ namespace LinearBeats.EditorTests.Time
             {
                 var progress = a.Current / a.Length;
                 Assert.AreEqual(progress, c.CurrentProgress, Delta);
+                Assert.GreaterOrEqual(c.CurrentProgress, 0f);
+                Assert.LessOrEqual(c.CurrentProgress, 1f);
             });
         }
 

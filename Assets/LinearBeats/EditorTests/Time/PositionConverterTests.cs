@@ -11,7 +11,6 @@ namespace LinearBeats.EditorTests.Time
     [TestFixture]
     public class PositionConverterTests
     {
-        //TODO: normalize 분기 검사
         [NotNull] private static readonly BpmEvent[] BpmEvents =
         {
             new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 100},
@@ -95,6 +94,17 @@ namespace LinearBeats.EditorTests.Time
             Assert.AreEqual(V0.Pulse, p0, Delta);
 
             Iterate(converter, (f, p) => Assert.AreEqual(f.Pulse, p, Delta));
+        }
+
+        [Test]
+        public void Should_Return_Same_Position_With_Normalize_Options()
+        {
+            var converter = Builder.Normalize(true).Build();
+
+            var p0 = converter.ToPosition(V0);
+            Assert.AreEqual(V0.NormalizedPulse, p0, Delta);
+
+            Iterate(converter, (f, p) => Assert.AreEqual(f.NormalizedPulse, p, Delta));
         }
 
         [Test]

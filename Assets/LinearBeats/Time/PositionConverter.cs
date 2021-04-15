@@ -10,6 +10,7 @@ namespace LinearBeats.Time
 {
     public interface IPositionConverter
     {
+        bool Normalized { get; }
         float ToPosition(FixedTime fixedTime);
     }
 
@@ -33,7 +34,7 @@ namespace LinearBeats.Time
         [NotNull] private TimingEventData[] _stopEvents;
         [NotNull] private TimingEventData[] _rewindEvents;
         [NotNull] private TimingEventData[] _jumpEvents;
-        private bool _normalize;
+        public bool Normalized { get; private set; }
 
         [SuppressMessage("ReSharper", "NotNullMemberIsNotInitialized")]
         private PositionConverter([NotNull] ITimingConverter timingConverter) =>
@@ -83,7 +84,7 @@ namespace LinearBeats.Time
             [NotNull]
             public Builder Normalize(bool normalize)
             {
-                _positionConverter._normalize = normalize;
+                _positionConverter.Normalized = normalize;
                 return this;
             }
 
@@ -113,7 +114,7 @@ namespace LinearBeats.Time
 
             private float Normalize(Pulse value)
             {
-                if (!_positionConverter._normalize) return value;
+                if (!_positionConverter.Normalized) return value;
 
                 var timingIndex = _positionConverter._timingConverter.GetTimingIndex(value);
                 return _positionConverter._timingConverter.Normalize(value, timingIndex);
@@ -130,7 +131,7 @@ namespace LinearBeats.Time
             //TODO: Ignore 플래그 처리
             //TODO: 백점프 추가
 
-            var input = _normalize ? fixedTime.NormalizedPulse : (float) fixedTime.Pulse;
+            var input = Normalized ? fixedTime.NormalizedPulse : (float) fixedTime.Pulse;
 
             var result = input;
             result += GetJumpDistance(input);

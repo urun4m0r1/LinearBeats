@@ -18,6 +18,8 @@ namespace LinearBeats.Visuals
         public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
             float meterPerNormalizedPulse)
         {
+            const float standardBpm = 100f;
+            var speed = meterPerNormalizedPulse * (positionConverter.Normalized ? 1f : standardBpm);
             if (currentTime.Second - _noteDisappearOffset >= StartTime)
             {
                 SetZPosition(-10f);
@@ -27,12 +29,12 @@ namespace LinearBeats.Visuals
                 var start = positionConverter.ToPosition(StartTime);
                 var current = positionConverter.ToPosition(currentTime);
                 //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
-                var positionInMeter = meterPerNormalizedPulse * (start - current);
+                var positionInMeter = speed * (start - current);
                 SetZPosition(positionInMeter);
 
                 var scale = transform.localScale;
                 var duration = positionConverter.ToPosition(Duration);
-                transform.localScale = new Vector3(scale.x, scale.y, meterPerNormalizedPulse * duration);
+                transform.localScale = new Vector3(scale.x, scale.y, speed * duration);
             }
         }
 

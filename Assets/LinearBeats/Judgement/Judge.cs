@@ -6,6 +6,6 @@ namespace LinearBeats.Judgement
         Great,
         Good,
         Bad,
-        Miss,
+        Miss
     }
 }

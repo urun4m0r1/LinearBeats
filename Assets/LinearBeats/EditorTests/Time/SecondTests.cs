@@ -14,7 +14,7 @@ namespace LinearBeats.EditorTests.Time
     [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
     public class SecondTests
     {
-        private static readonly Second V0 = new Second(default);
+        public static readonly Second V0 = new Second(default);
 
         private static void Iterate([NotNull] Action<float, Second> action)
         {

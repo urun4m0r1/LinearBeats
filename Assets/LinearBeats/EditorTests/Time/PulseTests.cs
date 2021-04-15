@@ -14,7 +14,7 @@ namespace LinearBeats.EditorTests.Time
     [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
     public class PulseTests
     {
-        private static readonly Pulse V0 = new Pulse(default);
+        public static readonly Pulse V0 = new Pulse(default);
 
         private static void Iterate([NotNull] Action<float, Pulse> action)
         {

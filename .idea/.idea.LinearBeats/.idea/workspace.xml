@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,19 +103,21 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClip.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -190,7 +204,7 @@
       <workItem from="1618141152913" duration="22069000" />
       <workItem from="1618261604854" duration="20804000" />
       <workItem from="1618348970612" duration="22120000" />
-      <workItem from="1618486702193" duration="4886000" />
+      <workItem from="1618486702193" duration="7288000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -346,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618494969853</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fix errors">
+      <created>1618495413159</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1618495413159</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,47 +377,38 @@
     <option name="coveragePercentColumnWidth" value="150" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="278" />
+    <option name="symbolColumnWidth" value="283" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 67% 712/2172" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 67% 712/2172" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 37% 682/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 67% 712/2172" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 37% 682/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 45% 478/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 49% 439/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 67% 712/2172" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 37% 682/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 45% 478/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Time 87% 45/342" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 49% 439/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Judgement 8% 47/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 67% 712/2172" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 37% 682/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 45% 478/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Time 87% 45/342" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="TimingConverter 59% 34/82" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 67% 712/2172" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 37% 682/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 45% 478/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Time 87% 45/342" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="TimingConverter 59% 34/82" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="TimingConverter(IReadOnlyCollection&lt;BpmEvent&gt;,float,float) 33% 34/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 49% 439/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Judgement 8% 47/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="NoteJudgement 8% 47/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
@@ -433,7 +445,8 @@
     <MESSAGE value="Wrote some test cases." />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Linearbeats.Time namespace test completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Linearbeats.Time namespace test completed" />
+    <MESSAGE value="Fix errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix errors" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -11,7 +11,7 @@ namespace LinearBeats.EditorTests.Time
     [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
     public class TimingConverterTests
     {
-        private const float SamplesPerSecond = 500f;
+        public const float SamplesPerSecond = 500f;
         private const int Ppqn = 100;
         private const int FirstPulse = 0;
         private const int SecondPulse = 400;
@@ -40,13 +40,11 @@ namespace LinearBeats.EditorTests.Time
             new BpmEvent {Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm},
         };
 
-        private static readonly BpmEvent[] SingleBpmEvents =
-        {
-            new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm},
-        };
-
-        private readonly TimingConverter _converter =
+        public static readonly TimingConverter Converter =
             new TimingConverter(BpmEvents, StandardBpm, SamplesPerSecond);
+
+        private static readonly BpmEvent[] SingleBpmEvents =
+            {new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm}};
 
         private readonly TimingConverter _converterSingle =
             new TimingConverter(SingleBpmEvents, StandardBpm, SamplesPerSecond);
@@ -75,6 +73,14 @@ namespace LinearBeats.EditorTests.Time
         }
 
         [Test]
+        public void Init_All_BpmEvent_Pulse_Must_Be_Positive()
+        {
+            BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = -400, Bpm = FirstBpm}};
+
+            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+        }
+
+        [Test]
         public void Init_Ppqn_Must_Be_Non_Zero_Positive()
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = 0, Pulse = FirstPulse, Bpm = FirstBpm}};
@@ -92,9 +98,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Index_From_Pulse()
         {
-            Assert.AreEqual(0, _converter.GetTimingIndex(_pulseA), Delta);
-            Assert.AreEqual(1, _converter.GetTimingIndex(_pulseB), Delta);
-            Assert.AreEqual(2, _converter.GetTimingIndex(_pulseC), Delta);
+            Assert.AreEqual(0, Converter.GetTimingIndex(_pulseA), Delta);
+            Assert.AreEqual(1, Converter.GetTimingIndex(_pulseB), Delta);
+            Assert.AreEqual(2, Converter.GetTimingIndex(_pulseC), Delta);
 
             Assert.AreEqual(0, _converterSingle.GetTimingIndex(_pulseA), Delta);
             Assert.AreEqual(0, _converterSingle.GetTimingIndex(_pulseD), Delta);
@@ -103,9 +109,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Bpm_From_Index()
         {
-            Assert.AreEqual(FirstBpm, _converter.GetBpm(0), Delta);
-            Assert.AreEqual(SecondBpm, _converter.GetBpm(1), Delta);
-            Assert.AreEqual(ThirdBpm, _converter.GetBpm(2), Delta);
+            Assert.AreEqual(FirstBpm, Converter.GetBpm(0), Delta);
+            Assert.AreEqual(SecondBpm, Converter.GetBpm(1), Delta);
+            Assert.AreEqual(ThirdBpm, Converter.GetBpm(2), Delta);
 
             Assert.AreEqual(FirstBpm, _converterSingle.GetBpm(0), Delta);
         }
@@ -113,9 +119,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Pulse_To_Sample()
         {
-            Assert.AreEqual(_sampleA, _converter.ToSample(_pulseA, 0), Delta);
-            Assert.AreEqual(_sampleB, _converter.ToSample(_pulseB, 1), Delta);
-            Assert.AreEqual(_sampleC, _converter.ToSample(_pulseC, 2), Delta);
+            Assert.AreEqual(_sampleA, Converter.ToSample(_pulseA, 0), Delta);
+            Assert.AreEqual(_sampleB, Converter.ToSample(_pulseB, 1), Delta);
+            Assert.AreEqual(_sampleC, Converter.ToSample(_pulseC, 2), Delta);
 
             Assert.AreEqual(_sampleA, _converterSingle.ToSample(_pulseA, 0), Delta);
             Assert.AreEqual(_sampleD, _converterSingle.ToSample(_pulseD, 0), Delta);
@@ -124,9 +130,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Sample_To_Pulse()
         {
-            Assert.AreEqual(_pulseA, _converter.ToPulse(_sampleA, 0), Delta);
-            Assert.AreEqual(_pulseB, _converter.ToPulse(_sampleB, 1), Delta);
-            Assert.AreEqual(_pulseC, _converter.ToPulse(_sampleC, 2), Delta);
+            Assert.AreEqual(_pulseA, Converter.ToPulse(_sampleA, 0), Delta);
+            Assert.AreEqual(_pulseB, Converter.ToPulse(_sampleB, 1), Delta);
+            Assert.AreEqual(_pulseC, Converter.ToPulse(_sampleC, 2), Delta);
 
             Assert.AreEqual(_pulseA, _converterSingle.ToPulse(_sampleA, 0), Delta);
             Assert.AreEqual(_pulseD, _converterSingle.ToPulse(_sampleD, 0), Delta);
@@ -135,9 +141,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Sample_To_Second()
         {
-            Assert.AreEqual(_secondA, _converter.ToSecond(_sampleA), Delta);
-            Assert.AreEqual(_secondB, _converter.ToSecond(_sampleB), Delta);
-            Assert.AreEqual(_secondC, _converter.ToSecond(_sampleC), Delta);
+            Assert.AreEqual(_secondA, Converter.ToSecond(_sampleA), Delta);
+            Assert.AreEqual(_secondB, Converter.ToSecond(_sampleB), Delta);
+            Assert.AreEqual(_secondC, Converter.ToSecond(_sampleC), Delta);
 
             Assert.AreEqual(_secondA, _converterSingle.ToSecond(_sampleA), Delta);
             Assert.AreEqual(_secondD, _converterSingle.ToSecond(_sampleD), Delta);
@@ -146,9 +152,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Convert_Second_To_Sample()
         {
-            Assert.AreEqual(_sampleA, _converter.ToSample(_secondA), Delta);
-            Assert.AreEqual(_sampleB, _converter.ToSample(_secondB), Delta);
-            Assert.AreEqual(_sampleC, _converter.ToSample(_secondC), Delta);
+            Assert.AreEqual(_sampleA, Converter.ToSample(_secondA), Delta);
+            Assert.AreEqual(_sampleB, Converter.ToSample(_secondB), Delta);
+            Assert.AreEqual(_sampleC, Converter.ToSample(_secondC), Delta);
 
             Assert.AreEqual(_sampleA, _converterSingle.ToSample(_secondA), Delta);
             Assert.AreEqual(_sampleD, _converterSingle.ToSample(_secondD), Delta);

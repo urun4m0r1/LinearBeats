@@ -5,43 +5,34 @@ using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 using static LinearBeats.EditorTests.FloatTests;
+using static LinearBeats.EditorTests.Time.FixedTimeTests;
 
 namespace LinearBeats.EditorTests.Time
 {
     [TestFixture]
     public class PositionConverterTests
     {
-        //TODO: normalize 분기 검사
-        [NotNull] private static readonly BpmEvent[] BpmEvents =
-        {
-            new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 100},
-            new BpmEvent {Ppqn = 100, Pulse = 500, Bpm = 200},
-            new BpmEvent {Ppqn = 100, Pulse = 1000, Bpm = 300},
-        };
+        [NotNull]
+        private static PositionConverter.Builder Builder =>
+            new PositionConverter.Builder(TimingConverterTests.Converter);
 
-        [NotNull] private static readonly ITimingConverter Converter = new TimingConverter(BpmEvents, 120, 1000);
-        [NotNull] private static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
-        [NotNull] private static PositionConverter.Builder Builder => new PositionConverter.Builder(Converter);
-
-        [NotNull] private static readonly TimingEvent[] JumpEvent =
+        [NotNull] private readonly TimingEvent[] _jumpEvent =
         {
             new TimingEvent {Pulse = 200, Duration = 100},
             new TimingEvent {Pulse = 400, Duration = 100},
         };
 
-        [NotNull] private static readonly TimingEvent[] StopEvent =
+        [NotNull] private readonly TimingEvent[] _stopEvent =
         {
             new TimingEvent {Pulse = 600, Duration = 100},
             new TimingEvent {Pulse = 800, Duration = 100},
         };
 
-        [NotNull] private static readonly TimingEvent[] RewindEvent =
+        [NotNull] private readonly TimingEvent[] _rewindEvent =
         {
             new TimingEvent {Pulse = 1000, Duration = 100},
             new TimingEvent {Pulse = 1500, Duration = 100},
         };
-
-        private static readonly FixedTime V0 = Factory.Create(new Pulse(default));
 
         private static void Iterate([NotNull] IPositionConverter converter, [NotNull] Action<FixedTime, float> action)
         {
@@ -53,19 +44,19 @@ namespace LinearBeats.EditorTests.Time
             }
         }
 
-        private static Pulse GetJumpDistance(Pulse f)
+        private Pulse GetJumpDistance(Pulse f)
         {
-            var pos = JumpEvent.Where(v => f >= v.Pulse)
+            var pos = _jumpEvent.Where(v => f >= v.Pulse)
                 .Aggregate(0f, (current, v) => current + v.Duration);
 
             return pos;
         }
 
 
-        private static Pulse GetStopDistance(Pulse f)
+        private Pulse GetStopDistance(Pulse f)
         {
             var pos = 0f;
-            foreach (var v in StopEvent)
+            foreach (var v in _stopEvent)
             {
                 if (f >= v.Pulse && f < v.Pulse + v.Duration) pos -= f - v.Pulse;
                 if (f >= v.Pulse + v.Duration) pos -= v.Duration;
@@ -74,10 +65,10 @@ namespace LinearBeats.EditorTests.Time
             return pos;
         }
 
-        private static Pulse GetRewindDistance(Pulse f)
+        private Pulse GetRewindDistance(Pulse f)
         {
             var pos = 0f;
-            foreach (var v in RewindEvent)
+            foreach (var v in _rewindEvent)
             {
                 if (f >= v.Pulse && f < v.Pulse + v.Duration) pos -= (f - v.Pulse) * 2;
                 if (f >= v.Pulse + v.Duration) pos -= v.Duration * 2;
@@ -98,9 +89,20 @@ namespace LinearBeats.EditorTests.Time
         }
 
         [Test]
+        public void Should_Return_Same_Position_With_Normalize_Options()
+        {
+            var converter = Builder.Normalize(true).Build();
+
+            var p0 = converter.ToPosition(V0);
+            Assert.AreEqual(V0.NormalizedPulse, p0, Delta);
+
+            Iterate(converter, (f, p) => Assert.AreEqual(f.NormalizedPulse, p, Delta));
+        }
+
+        [Test]
         public void Should_Calculate_JumpEvents()
         {
-            var converter = Builder.JumpEvent(JumpEvent).Build();
+            var converter = Builder.JumpEvent(_jumpEvent).Build();
 
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
@@ -115,7 +117,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Calculate_StopEvents()
         {
-            var converter = Builder.StopEvent(StopEvent).Build();
+            var converter = Builder.StopEvent(_stopEvent).Build();
 
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
@@ -130,7 +132,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Calculate_RewindEvents()
         {
-            var converter = Builder.RewindEvent(RewindEvent).Build();
+            var converter = Builder.RewindEvent(_rewindEvent).Build();
 
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);
@@ -145,7 +147,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Calculate_CombinedEvents()
         {
-            var converter = Builder.JumpEvent(JumpEvent).StopEvent(StopEvent).RewindEvent(RewindEvent).Build();
+            var converter = Builder.JumpEvent(_jumpEvent).StopEvent(_stopEvent).RewindEvent(_rewindEvent).Build();
 
             var p0 = converter.ToPosition(V0);
             Assert.AreEqual(V0.Pulse, p0, Delta);

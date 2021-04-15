@@ -4,11 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
-using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 using UnityEngine;
 using static LinearBeats.EditorTests.FloatTests;
+using static LinearBeats.EditorTests.Time.TimingConverterTests;
 
 namespace LinearBeats.EditorTests.Time
 {
@@ -16,15 +16,9 @@ namespace LinearBeats.EditorTests.Time
     [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
     public class FixedTimeTests
     {
-        [NotNull] private static readonly BpmEvent[] BpmEvents = {new BpmEvent {Ppqn = 100, Pulse = 0, Bpm = 120}};
-        [NotNull] private static readonly ITimingConverter Converter = new TimingConverter(BpmEvents, 120, 1000);
-        [NotNull] private static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
+        [NotNull] public static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
 
-        private static readonly Pulse Pulse0 = new Pulse(default);
-        private static readonly Sample Sample0 = new Sample(default);
-        private static readonly Second Second0 = new Second(default);
-
-        private static readonly FixedTime V0 = Factory.Create(Pulse0);
+        public static readonly FixedTime V0 = Factory.Create(PulseTests.V0);
 
         private static Sample ToSample(Pulse v) => Converter.ToSample(v, Converter.GetTimingIndex(v));
         private static Pulse ToPulse(Sample v) => Converter.ToPulse(v, Converter.GetTimingIndex(v));
@@ -61,9 +55,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Cast_To_Pulse()
         {
-            Assert.AreEqual(Pulse0, (Pulse) Factory.Create(Pulse0));
-            Assert.AreEqual(Pulse0, (Pulse) Factory.Create(Sample0));
-            Assert.AreEqual(Pulse0, (Pulse) Factory.Create(Second0));
+            Assert.AreEqual(PulseTests.V0, (Pulse) Factory.Create(PulseTests.V0));
+            Assert.AreEqual(PulseTests.V0, (Pulse) Factory.Create(SampleTests.V0));
+            Assert.AreEqual(PulseTests.V0, (Pulse) Factory.Create(SecondTests.V0));
 
             Iterate((pulse, sample, second) =>
             {
@@ -76,9 +70,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Cast_To_Sample()
         {
-            Assert.AreEqual(Sample0, (Sample) Factory.Create(Pulse0));
-            Assert.AreEqual(Sample0, (Sample) Factory.Create(Sample0));
-            Assert.AreEqual(Sample0, (Sample) Factory.Create(Second0));
+            Assert.AreEqual(SampleTests.V0, (Sample) Factory.Create(PulseTests.V0));
+            Assert.AreEqual(SampleTests.V0, (Sample) Factory.Create(SampleTests.V0));
+            Assert.AreEqual(SampleTests.V0, (Sample) Factory.Create(SecondTests.V0));
 
             Iterate((pulse, sample, second) =>
             {
@@ -91,9 +85,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Cast_To_Second()
         {
-            Assert.AreEqual(Second0, (Second) Factory.Create(Pulse0));
-            Assert.AreEqual(Second0, (Second) Factory.Create(Sample0));
-            Assert.AreEqual(Second0, (Second) Factory.Create(Second0));
+            Assert.AreEqual(SecondTests.V0, (Second) Factory.Create(PulseTests.V0));
+            Assert.AreEqual(SecondTests.V0, (Second) Factory.Create(SampleTests.V0));
+            Assert.AreEqual(SecondTests.V0, (Second) Factory.Create(SecondTests.V0));
 
             Iterate((pulse, sample, second) =>
             {
@@ -140,7 +134,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Implements_IEquatable()
         {
-            var v0 = Factory.Create(Pulse0);
+            var v0 = Factory.Create(PulseTests.V0);
             AssertEquatable(v0, V0);
 
             Iterate((f, v) =>
@@ -166,7 +160,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Implements_IComparable()
         {
-            var v0 = Factory.Create(Pulse0);
+            var v0 = Factory.Create(PulseTests.V0);
             AssertEquatable(v0, V0);
 
             Iterate((f, v) =>
@@ -244,7 +238,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Converter_Comparable()
         {
-            var v0 = Factory.Create(Pulse0);
+            var v0 = Factory.Create(PulseTests.V0);
 
             Assert.IsTrue(FixedTime.ConverterEquals(v0, V0));
 
@@ -261,7 +255,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_NormalizedPulse()
         {
-            var v0 = Factory.Create(Pulse0);
+            var v0 = Factory.Create(PulseTests.V0);
             Assert.AreEqual(v0.NormalizedPulse, V0.NormalizedPulse);
 
             Iterate((f, v) =>
@@ -275,7 +269,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Bpm()
         {
-            var v0 = Factory.Create(Pulse0);
+            var v0 = Factory.Create(PulseTests.V0);
             Assert.AreEqual(v0.Bpm, V0.Bpm);
 
             Iterate((f, v) =>
@@ -290,9 +284,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Pulse()
         {
-            Assert.AreEqual(Pulse0, Factory.Create(Pulse0).Pulse);
-            Assert.AreEqual(Pulse0, Factory.Create(Sample0).Pulse);
-            Assert.AreEqual(Pulse0, Factory.Create(Second0).Pulse);
+            Assert.AreEqual(PulseTests.V0, Factory.Create(PulseTests.V0).Pulse);
+            Assert.AreEqual(PulseTests.V0, Factory.Create(SampleTests.V0).Pulse);
+            Assert.AreEqual(PulseTests.V0, Factory.Create(SecondTests.V0).Pulse);
 
             Iterate((pulse, sample, second) =>
             {
@@ -305,9 +299,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Sample()
         {
-            Assert.AreEqual(Sample0, Factory.Create(Pulse0).Sample);
-            Assert.AreEqual(Sample0, Factory.Create(Sample0).Sample);
-            Assert.AreEqual(Sample0, Factory.Create(Second0).Sample);
+            Assert.AreEqual(SampleTests.V0, Factory.Create(PulseTests.V0).Sample);
+            Assert.AreEqual(SampleTests.V0, Factory.Create(SampleTests.V0).Sample);
+            Assert.AreEqual(SampleTests.V0, Factory.Create(SecondTests.V0).Sample);
 
             Iterate((pulse, sample, second) =>
             {
@@ -320,9 +314,9 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Should_Get_Second()
         {
-            Assert.AreEqual(Second0, Factory.Create(Pulse0).Second);
-            Assert.AreEqual(Second0, Factory.Create(Sample0).Second);
-            Assert.AreEqual(Second0, Factory.Create(Second0).Second);
+            Assert.AreEqual(SecondTests.V0, Factory.Create(PulseTests.V0).Second);
+            Assert.AreEqual(SecondTests.V0, Factory.Create(SampleTests.V0).Second);
+            Assert.AreEqual(SecondTests.V0, Factory.Create(SecondTests.V0).Second);
 
             Iterate((pulse, sample, second) =>
             {

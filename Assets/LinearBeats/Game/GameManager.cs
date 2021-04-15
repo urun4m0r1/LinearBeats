@@ -26,7 +26,7 @@ namespace LinearBeats.Game
         private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
         [SerializeField]
         private UnityEvent _onGameReset = new UnityEvent();
-        [Range(0.01f, 100f)]
+        [Range(1f, 100f)]
         [SerializeField]
         private float _meterPerNormalizedPulse = 1f;
         [Range(1, 128)]

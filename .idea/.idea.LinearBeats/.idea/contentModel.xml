@@ -2376,10 +2376,12 @@
             <e p="FloatTests.cs" t="Include" />
             <e p="InputListenerTests.cs" t="Include" />
             <e p="InputPositionTests.cs" t="Include" />
+            <e p="Judgement" t="Include">
+              <e p="NoteJudgementTests.cs" t="Include" />
+            </e>
             <e p="KeyboardTests.cs" t="Include" />
             <e p="ScriptParserTests.cs" t="Include" />
             <e p="TestReceiver.cs" t="Include" />
-            <e p="TestUtils.cs" t="Include" />
             <e p="Time" t="Include">
               <e p="FIxedTimeTests.cs" t="Include" />
               <e p="PositionConverterTests.cs" t="Include" />

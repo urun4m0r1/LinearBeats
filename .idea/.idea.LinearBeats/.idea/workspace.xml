@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,10 +95,7 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClip.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" />
@@ -115,9 +104,12 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -204,7 +196,7 @@
       <workItem from="1618141152913" duration="22069000" />
       <workItem from="1618261604854" duration="20804000" />
       <workItem from="1618348970612" duration="22120000" />
-      <workItem from="1618486702193" duration="7288000" />
+      <workItem from="1618486702193" duration="10512000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -367,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618495413159</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Change static variables to share data.">
+      <created>1618497847912</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1618497847912</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,33 +381,33 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 663/2165" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 663/2165" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 40% 657/1090" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 49% 439/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 663/2165" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 40% 657/1090" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 48% 453/872" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 49% 439/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Judgement 8% 47/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 663/2165" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 40% 657/1090" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 48% 453/872" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Judgement 4% 49/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 70% 651/2169" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 41% 643/1086" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 49% 439/868" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Judgement 8% 47/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="NoteJudgement 8% 47/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 663/2165" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 40% 657/1090" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats 48% 453/872" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Judgement 4% 49/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="NoteJudgement 4% 49/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
@@ -446,7 +445,8 @@
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Linearbeats.Time namespace test completed" />
     <MESSAGE value="Fix errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix errors" />
+    <MESSAGE value="Change static variables visibility to share data." />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

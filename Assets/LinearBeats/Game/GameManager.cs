@@ -83,11 +83,10 @@ namespace LinearBeats.Game
                     .Normalize(true)
                     .Build();
 
-                var audioClipSource = new AudioClipSource(_backgroundAudioSource);
-
-                _timingController = new TimingController(audioClipSource,
-                    _fixedTimeFactory,
+                var audioClipSource = new AudioClipSource(_backgroundAudioSource,
                     _scriptLoader.Script.AudioChannels[0].Offset);
+
+                _timingController = new TimingController(audioClipSource, _fixedTimeFactory);
             }
         }
 

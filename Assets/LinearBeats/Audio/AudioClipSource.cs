@@ -8,14 +8,21 @@ namespace LinearBeats.Audio
     {
         Sample Current { get; }
         Second Length { get; }
+        Second Offset { get; }
     }
 
     public sealed class AudioClipSource : IAudioClip
     {
-        [NotNull] private readonly AudioSource _audioSource;
         public Sample Current => _audioSource.timeSamples;
         public Second Length => _audioSource.clip.length;
+        public Second Offset { get; }
 
-        public AudioClipSource([NotNull] AudioSource audioSource) => _audioSource = audioSource;
+        [NotNull] private readonly AudioSource _audioSource;
+
+        public AudioClipSource([NotNull] AudioSource audioSource, Second offset = default)
+        {
+            _audioSource = audioSource;
+            Offset = offset;
+        }
     }
 }

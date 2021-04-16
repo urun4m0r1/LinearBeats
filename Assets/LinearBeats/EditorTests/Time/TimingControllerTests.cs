@@ -14,8 +14,10 @@ namespace LinearBeats.EditorTests.Time
         private sealed class MockAudioClip : IAudioClip
         {
             private readonly float _x = RandomFloat;
+            private readonly float _y = RandomFloat;
             public Sample Current => _x + 5_000f; // [0 ~ 10_000]
             public Second Length => 10_000f / TimingConverterTests.SamplesPerSecond;
+            public Second Offset => _y;
         }
 
         private static void Iterate([NotNull] Action<MockAudioClip, TimingController> action)
@@ -33,7 +35,7 @@ namespace LinearBeats.EditorTests.Time
             Iterate((a, c) =>
             {
                 var currentTime = Factory.Create(a.Current);
-                Assert.IsTrue(currentTime == c.CurrentTime);
+                Assert.AreEqual(currentTime + a.Offset, c.CurrentTime.Second);
             });
         }
 
@@ -46,18 +48,6 @@ namespace LinearBeats.EditorTests.Time
                 Assert.AreEqual(progress, c.CurrentProgress, Delta);
                 Assert.GreaterOrEqual(c.CurrentProgress, 0f);
                 Assert.LessOrEqual(c.CurrentProgress, 1f);
-            });
-        }
-
-        [Test]
-        public void Should_Apply_Offset()
-        {
-            Iterate((a, _) =>
-            {
-                var offset = Factory.Create(new Second(1f));
-                var c = new TimingController(a, Factory, offset);
-                var currentTime = Factory.Create(a.Current);
-                Assert.IsTrue(currentTime + offset == c.CurrentTime);
             });
         }
     }

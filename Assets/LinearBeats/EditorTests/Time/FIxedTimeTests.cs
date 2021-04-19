@@ -253,20 +253,6 @@ namespace LinearBeats.EditorTests.Time
         }
 
         [Test]
-        public void Should_Get_NormalizedPulse()
-        {
-            var v0 = Factory.Create(PulseTests.V0);
-            Assert.AreEqual(v0.NormalizedPulse, V0.NormalizedPulse);
-
-            Iterate((f, v) =>
-            {
-                var vx = Factory.Create(new Pulse(f));
-
-                Assert.AreEqual(v.NormalizedPulse, vx.NormalizedPulse);
-            });
-        }
-
-        [Test]
         public void Should_Get_Bpm()
         {
             var v0 = Factory.Create(PulseTests.V0);

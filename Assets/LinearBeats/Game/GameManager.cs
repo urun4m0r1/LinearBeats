@@ -28,7 +28,7 @@ namespace LinearBeats.Game
         private UnityEvent _onGameReset = new UnityEvent();
         [Range(1f, 100f)]
         [SerializeField]
-        private float _meterPerNormalizedPulse = 1f;
+        private float _meterPerQuarterNote = 1f;
         [Range(1, 128)]
         [SerializeField]
         private uint _noteLoadBufferSize = 4;
@@ -71,8 +71,9 @@ namespace LinearBeats.Game
             {
                 var converter = new TimingConverter(
                     _scriptLoader.Script.Timing.BpmEvents,
+                    _audioSources[0].clip.frequency,
                     _scriptLoader.Script.Timing.StandardBpm,
-                    _audioSources[0].clip.frequency);
+                    _scriptLoader.Script.Timing.StandardPpqn);
 
                 _fixedTimeFactory = new FixedTime.Factory(converter);
 
@@ -80,6 +81,7 @@ namespace LinearBeats.Game
                     .StopEvent(_scriptLoader.Script.Timing.StopEvents)
                     .RewindEvent(_scriptLoader.Script.Timing.RewindEvents)
                     .JumpEvent(_scriptLoader.Script.Timing.JumpEvents)
+                    .Scale(true)
                     .Normalize(true)
                     .Build();
 
@@ -179,7 +181,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerNormalizedPulse);
+                    dividerBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerQuarterNote);
                 }
             }
 
@@ -187,7 +189,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerNormalizedPulse);
+                    noteBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerQuarterNote);
                 }
             }
         }

@@ -10,7 +10,6 @@ namespace LinearBeats.Time
 {
     public interface IPositionConverter
     {
-        bool Normalized { get; }
         float ToPosition(FixedTime fixedTime);
     }
 
@@ -20,13 +19,13 @@ namespace LinearBeats.Time
         {
             public float Start { get; }
             public float End { get; }
-            public float CumulativeDuration { get; }
+            public float Duration { get; }
 
-            public TimingEventData(float start, float duration, float cumulativeDuration)
+            public TimingEventData(float start, float end)
             {
                 Start = start;
-                End = start + duration;
-                CumulativeDuration = cumulativeDuration;
+                End = end;
+                Duration = end - start;
             }
         }
 
@@ -34,7 +33,8 @@ namespace LinearBeats.Time
         [NotNull] private TimingEventData[] _stopEvents;
         [NotNull] private TimingEventData[] _rewindEvents;
         [NotNull] private TimingEventData[] _jumpEvents;
-        public bool Normalized { get; private set; }
+        private bool _scaled = true;
+        private bool _normalized = true;
 
         [SuppressMessage("ReSharper", "NotNullMemberIsNotInitialized")]
         private PositionConverter([NotNull] ITimingConverter timingConverter) =>
@@ -61,30 +61,37 @@ namespace LinearBeats.Time
                 _positionConverter = new PositionConverter(converter);
 
             [NotNull]
-            public Builder StopEvent([NotNull] IEnumerable<TimingEvent> events)
+            public Builder StopEvent([CanBeNull] IEnumerable<TimingEvent> events)
             {
-                _stopEvents = events.ToArray();
+                _stopEvents = events?.ToArray();
                 return this;
             }
 
             [NotNull]
-            public Builder RewindEvent([NotNull] IEnumerable<TimingEvent> events)
+            public Builder RewindEvent([CanBeNull] IEnumerable<TimingEvent> events)
             {
-                _rewindEvents = events.ToArray();
+                _rewindEvents = events?.ToArray();
                 return this;
             }
 
             [NotNull]
-            public Builder JumpEvent([NotNull] IEnumerable<TimingEvent> events)
+            public Builder JumpEvent([CanBeNull] IEnumerable<TimingEvent> events)
             {
-                _jumpEvents = events.ToArray();
+                _jumpEvents = events?.ToArray();
+                return this;
+            }
+
+            [NotNull]
+            public Builder Scale(bool scale)
+            {
+                _positionConverter._scaled = scale;
                 return this;
             }
 
             [NotNull]
             public Builder Normalize(bool normalize)
             {
-                _positionConverter.Normalized = normalize;
+                _positionConverter._normalized = normalize;
                 return this;
             }
 
@@ -102,73 +109,100 @@ namespace LinearBeats.Time
 
                 var orderedEvents = timingEvents.OrderBy(v => v.Pulse).ToArray();
 
-                var cumulativeDuration = (from v in orderedEvents
-                    select Normalize(v.Duration)).CumulativeSum().ToArray();
-
-                return (from v in orderedEvents.Zip(cumulativeDuration, (a, b) => (a, b))
-                    let pulse = Normalize(v.a.Pulse)
-                    let duration = Normalize(v.a.Duration)
-                    select new TimingEventData(pulse, duration, v.b)).ToArray();
+                return (from v in orderedEvents
+                    let sp = ApplyScale(v.Pulse, v.Pulse + v.Duration)
+                    let np = ApplyNormalize(sp.Start, sp.End)
+                    select new TimingEventData(np.Start, np.End)).ToArray();
             }
 
-
-            private float Normalize(Pulse value)
+            private (Pulse Start, Pulse End) ApplyScale(Pulse start, Pulse end)
             {
-                if (!_positionConverter.Normalized) return value;
+                if (!_positionConverter._scaled) return (start, end);
 
-                var timingIndex = _positionConverter._timingConverter.GetTimingIndex(value);
-                return _positionConverter._timingConverter.Normalize(value, timingIndex);
+                var converter = _positionConverter._timingConverter;
+                var timingIndex = converter.GetTimingIndex(start);
+                start = converter.Scale(start, timingIndex);
+                end = converter.Scale(end, timingIndex);
+
+                return (start, end);
+            }
+
+            private (float Start, float End) ApplyNormalize(Pulse start, Pulse end)
+            {
+                var converter = _positionConverter._timingConverter;
+
+                if (_positionConverter._normalized)
+                {
+                    var timingIndex = converter.GetTimingIndex(start);
+                    start = converter.Normalize(start, timingIndex);
+                    end = converter.Normalize(end, timingIndex);
+                }
+                else
+                {
+                    start = converter.Flatten(start);
+                    end = converter.Flatten(end);
+                }
+
+                return (start, end);
             }
         }
 
+        //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
+        //TODO: SpeedEvent 처리 (구간강제배속)
+        //TODO: Ignore 플래그 처리
+        //TODO: 백점프 추가
 
         // ReSharper restore Unity.ExpensiveCode
 
         public float ToPosition(FixedTime fixedTime)
         {
-            //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
-            //TODO: SpeedEvent 처리 (구간강제배속)
-            //TODO: Ignore 플래그 처리
-            //TODO: 백점프 추가
+            var index = _timingConverter.GetTimingIndex(fixedTime.Pulse);
+            var pulse = _scaled ? _timingConverter.Scale(fixedTime.Pulse, index) : fixedTime.Pulse;
+            var original = _normalized ? _timingConverter.Normalize(pulse, index) : _timingConverter.Flatten(pulse);
 
-            var input = Normalized ? fixedTime.NormalizedPulse : (float) fixedTime.Pulse;
+            return AddDistance(original);
+        }
 
-            var result = input;
-            result += GetJumpDistance(input);
-            result -= GetStopDistance(input);
-            result -= GetRewindDistance(input);
-
+        private float AddDistance(float original)
+        {
+            var result = original;
+            result += GetJumpDistance(original);
+            result += GetStopDistance(original);
+            result += GetRewindDistance(original);
             return result;
         }
 
-        private float GetJumpDistance(float point) =>
-            (from v in _jumpEvents where point > v.Start select v.CumulativeDuration).LastOrDefault();
+        private float GetJumpDistance(float point)
+        {
+            var pos = _jumpEvents.Where(v => point >= v.Start)
+                .Aggregate(0f, (current, v) => current + v.Duration);
+
+            return pos;
+        }
 
 
         private float GetRewindDistance(float point)
         {
-            var rewound = (from v in _rewindEvents
-                where point >= v.End
-                select v.CumulativeDuration * 2).LastOrDefault();
+            var pos = 0f;
+            foreach (var v in _rewindEvents)
+            {
+                if (point.IsBetweenIE(v.Start, v.End)) pos -= (point - v.Start) * 2;
+                if (point >= v.End) pos -= v.Duration * 2;
+            }
 
-            var rewinding = (from v in _rewindEvents
-                where point.IsBetweenIE(v.Start, v.End)
-                select (point - v.Start) * 2).FirstOrDefault();
-
-            return rewound + rewinding;
+            return pos;
         }
 
         private float GetStopDistance(float point)
         {
-            var stopped = (from v in _stopEvents
-                where point >= v.End
-                select v.CumulativeDuration).LastOrDefault();
+            var pos = 0f;
+            foreach (var v in _stopEvents)
+            {
+                if (point.IsBetweenIE(v.Start, v.End)) pos -= point - v.Start;
+                if (point >= v.Start + v.Duration) pos -= v.Duration;
+            }
 
-            var stopping = (from v in _stopEvents
-                where point.IsBetweenIE(v.Start, v.End)
-                select point - v.Start).FirstOrDefault();
-
-            return stopped + stopping;
+            return pos;
         }
     }
 }

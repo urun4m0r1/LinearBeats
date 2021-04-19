@@ -16,7 +16,6 @@ namespace LinearBeats.EditorTests.Time
         private const int FirstPulse = 0;
         private const int SecondPulse = 400;
         private const int ThirdPulse = 800;
-        private const float StandardBpm = 60f;
         private const float FirstBpm = 60f;
         private const float SecondBpm = 120f;
         private const float ThirdBpm = 30f;
@@ -41,27 +40,27 @@ namespace LinearBeats.EditorTests.Time
         };
 
         public static readonly TimingConverter Converter =
-            new TimingConverter(BpmEvents, StandardBpm, SamplesPerSecond);
+            new TimingConverter(BpmEvents, SamplesPerSecond);
 
         private static readonly BpmEvent[] SingleBpmEvents =
             {new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm}};
 
         private readonly TimingConverter _converterSingle =
-            new TimingConverter(SingleBpmEvents, StandardBpm, SamplesPerSecond);
+            new TimingConverter(SingleBpmEvents, SamplesPerSecond);
 
         [Test]
         public void Init_BpmEvents_Cannot_Be_Null() =>
-            Assert.Catch<NullReferenceException>(() => new TimingConverter(null!, StandardBpm, SamplesPerSecond));
+            Assert.Catch<NullReferenceException>(() => new TimingConverter(null!, SamplesPerSecond));
 
         [Test]
         public void Init_BpmEvents_Cannot_Be_Empty() =>
-            Assert.Catch<ArgumentException>(() => new TimingConverter(new BpmEvent[] { }, StandardBpm, SamplesPerSecond));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(new BpmEvent[] { }, SamplesPerSecond));
 
         [Test]
         public void Init_Any_BpmEvents_Bpm_Must_Be_Non_Zero_Positive()
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = 0}};
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
@@ -69,7 +68,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = 400, Bpm = FirstBpm}};
 
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
@@ -77,7 +76,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = -400, Bpm = FirstBpm}};
 
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
@@ -85,14 +84,14 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = 0, Pulse = FirstPulse, Bpm = FirstBpm}};
 
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, StandardBpm, SamplesPerSecond));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
         public void Init_SamplesPerSecond_Must_Be_Non_Zero_Positive()
         {
-            Assert.Catch<ArgumentException>(() => new TimingConverter(SingleBpmEvents, StandardBpm, 0));
-            Assert.Catch<ArgumentException>(() => new TimingConverter(SingleBpmEvents, StandardBpm, -500));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(SingleBpmEvents, 0));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(SingleBpmEvents, -500));
         }
 
         [Test]

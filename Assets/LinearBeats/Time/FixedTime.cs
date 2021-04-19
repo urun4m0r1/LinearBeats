@@ -7,7 +7,6 @@ namespace LinearBeats.Time
     public readonly struct FixedTime : IComparable, IFormattable, IComparable<FixedTime>, IEquatable<FixedTime>
     {
         public float Bpm { get; }
-        public float NormalizedPulse { get; }
 
         [NotNull] private readonly ITimingConverter _converter;
         public Pulse Pulse { get; }
@@ -24,7 +23,6 @@ namespace LinearBeats.Time
             var timingIndex = _converter.GetTimingIndex(Sample);
             Pulse = converter.ToPulse(Sample, timingIndex);
             Bpm = _converter.GetBpm(timingIndex);
-            NormalizedPulse = _converter.Normalize(Pulse, timingIndex);
         }
 
         private FixedTime([NotNull] ITimingConverter converter, Pulse value) : this(converter)
@@ -35,7 +33,6 @@ namespace LinearBeats.Time
             Sample = converter.ToSample(Pulse, timingIndex);
             Second = converter.ToSecond(Sample);
             Bpm = _converter.GetBpm(timingIndex);
-            NormalizedPulse = _converter.Normalize(Pulse, timingIndex);
         }
 
         private FixedTime([NotNull] ITimingConverter converter, Sample value) : this(converter)
@@ -46,7 +43,6 @@ namespace LinearBeats.Time
             var timingIndex = _converter.GetTimingIndex(value);
             Pulse = converter.ToPulse(Sample, timingIndex);
             Bpm = _converter.GetBpm(timingIndex);
-            NormalizedPulse = _converter.Normalize(Pulse, timingIndex);
         }
 
         public sealed class Factory

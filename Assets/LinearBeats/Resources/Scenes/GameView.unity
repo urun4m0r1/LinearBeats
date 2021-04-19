@@ -621,8 +621,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _meterPerNormalizedPulse: 2
-  _noteLoadBufferSize: 12
+  _meterPerQuarterNote: 4
+  _noteLoadBufferSize: 64
   _scriptLoader:
     _notesPool: {fileID: 518583840}
     _dividerPool: {fileID: 730012154}

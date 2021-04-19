@@ -12,6 +12,7 @@ namespace LinearBeats.EditorTests.Time
     [TestFixture]
     public class PositionConverterTests
     {
+        //Normalize 전처리, 후처리 채보 스크롤 비교
         [NotNull]
         private static PositionConverter.Builder Builder =>
             new PositionConverter.Builder(TimingConverterTests.Converter);
@@ -86,17 +87,6 @@ namespace LinearBeats.EditorTests.Time
             Assert.AreEqual(V0.Pulse, p0, Delta);
 
             Iterate(converter, (f, p) => Assert.AreEqual(f.Pulse, p, Delta));
-        }
-
-        [Test]
-        public void Should_Return_Same_Position_With_Normalize_Options()
-        {
-            var converter = Builder.Normalize(true).Build();
-
-            var p0 = converter.ToPosition(V0);
-            Assert.AreEqual(V0.NormalizedPulse, p0, Delta);
-
-            Iterate(converter, (f, p) => Assert.AreEqual(f.NormalizedPulse, p, Delta));
         }
 
         [Test]

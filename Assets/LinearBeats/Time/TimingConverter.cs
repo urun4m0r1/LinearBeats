@@ -13,7 +13,9 @@ namespace LinearBeats.Time
         Sample ToSample(Second value);
         Pulse ToPulse(Sample value, int timingIndex);
         Sample ToSample(Pulse value, int timingIndex);
+        Pulse Scale(Pulse value, int timingIndex);
         float Normalize(Pulse value, int timingIndex);
+        float Flatten(Pulse value);
         float GetBpm(int timingIndex);
         int GetTimingIndex(Pulse pulse);
         int GetTimingIndex(Sample sample);
@@ -21,6 +23,8 @@ namespace LinearBeats.Time
 
     public sealed class TimingConverter : ITimingConverter
     {
+        private readonly float _standardPpqn;
+
         private readonly float _samplesPerSecond;
         private readonly float _secondsPerSample;
 
@@ -35,8 +39,9 @@ namespace LinearBeats.Time
         [NotNull] private readonly float[] _pulsesPerSample;
 
         public TimingConverter([NotNull] IReadOnlyCollection<BpmEvent> bpmEvents,
-            float standardBpm,
-            float samplesPerSecond)
+            float samplesPerSecond,
+            [CanBeNull] float? standardBpm = null,
+            [CanBeNull] float? standardPpqn = null)
         {
             if (bpmEvents.Count == 0)
                 throw new ArgumentException("At least one BpmEvent required");
@@ -58,7 +63,9 @@ namespace LinearBeats.Time
             _ppqns = (from v in orderedBpmEvents select v.Ppqn).ToArray();
             _pulses = (from v in orderedBpmEvents select v.Pulse).ToArray();
             _bpms = (from v in orderedBpmEvents select v.Bpm).ToArray();
-            _bpmScales = (from v in orderedBpmEvents select v.Bpm / standardBpm).ToArray();
+            _bpmScales = (from v in orderedBpmEvents select v.Bpm / (standardBpm ?? _bpms.First())).ToArray();
+
+            _standardPpqn = standardPpqn ?? _ppqns.First();
 
             _samplesPerPulse = CalculateSamplesPerPulse().ToArray();
             _pulsesPerSample = CalculatePulsesPerSample().ToArray();
@@ -104,13 +111,16 @@ namespace LinearBeats.Time
             return _samples[timingIndex] + samplesElapsed;
         }
 
-        public float Normalize(Pulse pulse, int timingIndex)
+        public Pulse Scale(Pulse pulse, int timingIndex)
         {
             var pulsesElapsed = pulse - _pulses[timingIndex];
             var scaledPulsesElapsed = _bpmScales[timingIndex] * pulsesElapsed;
             var scaledPulse = _scaledPulses[timingIndex] + scaledPulsesElapsed;
-            return scaledPulse / _ppqns[timingIndex];
+            return scaledPulse;
         }
+
+        public float Normalize(Pulse pulse, int timingIndex) => pulse / _ppqns[timingIndex];
+        public float Flatten(Pulse pulse) => pulse / _standardPpqn;
 
         public float GetBpm(int timingIndex) => _bpms[timingIndex];
 

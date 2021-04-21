@@ -20,24 +20,15 @@ namespace LinearBeats.Game
     public sealed class GameManager : SerializedMonoBehaviour
     {
 #pragma warning disable IDE0044
-        [SerializeField]
-        private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
-        [SerializeField]
-        private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
-        [SerializeField]
-        private UnityEvent _onGameReset = new UnityEvent();
-        [Range(1f, 100f)]
-        [SerializeField]
-        private float _meterPerQuarterNote = 1f;
-        [Range(1, 128)]
-        [SerializeField]
-        private uint _noteLoadBufferSize = 4;
-        [SerializeField]
-        private ScriptLoader _scriptLoader = null;
-        [OdinSerialize]
-        private TimingController _timingController = null;
-        [OdinSerialize]
-        private NoteJudgement _noteJudgement = null;
+        [SerializeField] private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
+        [SerializeField] private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
+        [SerializeField] private UnityEvent _onGameReset = new UnityEvent();
+        [Range(1f, 100f)] [SerializeField] private float _meterPerQuarterNote = 1f;
+        [Range(1f, 1000f)] [SerializeField] private float _standardBpm = 100f;
+        [Range(1, 128)] [SerializeField] private uint _noteLoadBufferSize = 4;
+        [SerializeField] private ScriptLoader _scriptLoader = null;
+        [OdinSerialize] private TimingController _timingController = null;
+        [OdinSerialize] private NoteJudgement _noteJudgement = null;
 #pragma warning restore IDE0044
 
         private readonly Dictionary<uint, RailBehaviour> _dividerBehaviours = new Dictionary<uint, RailBehaviour>();
@@ -78,11 +69,11 @@ namespace LinearBeats.Game
                 _fixedTimeFactory = new FixedTime.Factory(converter);
 
                 _positionConverter = new PositionConverter.Builder(converter)
-                    .StopEvent(_scriptLoader.Script.Timing.StopEvents)
-                    .RewindEvent(_scriptLoader.Script.Timing.RewindEvents)
-                    .JumpEvent(_scriptLoader.Script.Timing.JumpEvents)
-                    .Scale(true)
-                    .Normalize(true)
+                    .SetStopEvent(_scriptLoader.Script.Timing.StopEvents)
+                    .SetRewindEvent(_scriptLoader.Script.Timing.RewindEvents)
+                    .SetJumpEvent(_scriptLoader.Script.Timing.JumpEvents)
+                    .SetPositionScaler(ScalerMode.BpmRelative)
+                    .SetPositionNormalizer(NormalizerMode.Individual)
                     .Build();
 
                 var audioClipSource = new AudioClipSource(_backgroundAudioSource,
@@ -181,7 +172,10 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerQuarterNote);
+                    dividerBehaviour.Value.UpdateRailPosition(_positionConverter,
+                        _timingController.CurrentTime,
+                        _meterPerQuarterNote,
+                        (_standardBpm / _scriptLoader.Script.Timing.StandardBpm) ?? 1f);
                 }
             }
 
@@ -189,7 +183,10 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_positionConverter, _timingController.CurrentTime, _meterPerQuarterNote);
+                    noteBehaviour.Value.UpdateRailPosition(_positionConverter,
+                        _timingController.CurrentTime,
+                        _meterPerQuarterNote,
+                        (_standardBpm / _scriptLoader.Script.Timing.StandardBpm) ?? 1f);
                 }
             }
         }

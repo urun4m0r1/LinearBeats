@@ -77,7 +77,7 @@ namespace LinearBeats.Script
         public Pulse Pulse;
         public Pulse Interval;
         public byte Type;
-        public string IgnoreTimingEvent;
+        public string TimingEventIgnore;
     }
 
     public struct MediaChannel

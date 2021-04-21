@@ -10,95 +10,93 @@ namespace LinearBeats.Time
 {
     public interface IPositionConverter
     {
-        float ToPosition(FixedTime fixedTime);
+        Position Convert(Pulse pulse, TimingEventOptions? options = null);
     }
 
-    public sealed class PositionConverter : IPositionConverter
+    public sealed partial class PositionConverter : IPositionConverter
     {
-        private readonly struct TimingEventData
-        {
-            public float Start { get; }
-            public float End { get; }
-            public float Duration { get; }
-
-            public TimingEventData(float start, float end)
-            {
-                Start = start;
-                End = end;
-                Duration = end - start;
-            }
-        }
-
-        [NotNull] private readonly ITimingConverter _timingConverter;
-        [NotNull] private TimingEventData[] _stopEvents;
-        [NotNull] private TimingEventData[] _rewindEvents;
-        [NotNull] private TimingEventData[] _jumpEvents;
-        private bool _scaled = true;
-        private bool _normalized = true;
+        [NotNull] private readonly ITimingModifier _modifier;
+        [NotNull] private TimingEventPosition[] _stopEvents;
+        [NotNull] private TimingEventPosition[] _rewindEvents;
+        [NotNull] private TimingEventPosition[] _jumpEvents;
+        [NotNull] private PositionScaler _scaler;
+        [NotNull] private PositionNormalizer _normalizer;
 
         [SuppressMessage("ReSharper", "NotNullMemberIsNotInitialized")]
-        private PositionConverter([NotNull] ITimingConverter timingConverter) =>
-            _timingConverter = timingConverter;
+        private PositionConverter([NotNull] ITimingModifier modifier) => _modifier = modifier;
 
         public sealed class Builder
         {
-            [NotNull] private readonly PositionConverter _positionConverter;
+            [NotNull] private readonly PositionConverter _base;
             [CanBeNull] private TimingEvent[] _stopEvents;
             [CanBeNull] private TimingEvent[] _rewindEvents;
             [CanBeNull] private TimingEvent[] _jumpEvents;
 
-            [NotNull]
-            public PositionConverter Build()
-            {
-                _positionConverter._stopEvents = Convert(_stopEvents);
-                _positionConverter._rewindEvents = Convert(_rewindEvents);
-                _positionConverter._jumpEvents = Convert(_jumpEvents);
-
-                return _positionConverter;
-            }
-
-            public Builder([NotNull] ITimingConverter converter) =>
-                _positionConverter = new PositionConverter(converter);
+            public Builder([NotNull] ITimingModifier modifier) => _base = new PositionConverter(modifier);
 
             [NotNull]
-            public Builder StopEvent([CanBeNull] IEnumerable<TimingEvent> events)
+            public Builder SetStopEvent([CanBeNull] IEnumerable<TimingEvent> events)
             {
                 _stopEvents = events?.ToArray();
                 return this;
             }
 
             [NotNull]
-            public Builder RewindEvent([CanBeNull] IEnumerable<TimingEvent> events)
+            public Builder SetRewindEvent([CanBeNull] IEnumerable<TimingEvent> events)
             {
                 _rewindEvents = events?.ToArray();
                 return this;
             }
 
             [NotNull]
-            public Builder JumpEvent([CanBeNull] IEnumerable<TimingEvent> events)
+            public Builder SetJumpEvent([CanBeNull] IEnumerable<TimingEvent> events)
             {
                 _jumpEvents = events?.ToArray();
                 return this;
             }
 
             [NotNull]
-            public Builder Scale(bool scale)
+            public Builder SetPositionScaler(ScalerMode mode)
             {
-                _positionConverter._scaled = scale;
+                _base._scaler = mode switch
+                {
+                    ScalerMode.RegularInterval => new RegularIntervalScaler(_base._modifier),
+                    ScalerMode.BpmRelative => new PositionRelativeScaler(_base._modifier),
+                    ScalerMode.ConstantSpeed => new ConstantSpeedScaler(_base._modifier),
+                    _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+                };
+
                 return this;
             }
 
             [NotNull]
-            public Builder Normalize(bool normalize)
+            public Builder SetPositionNormalizer(NormalizerMode mode)
             {
-                _positionConverter._normalized = normalize;
+                _base._normalizer = mode switch
+                {
+                    NormalizerMode.Individual => new IndividualNormalizer(_base._modifier),
+                    NormalizerMode.Standard => new StandardNormalizer(_base._modifier),
+                    _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+                };
+
                 return this;
             }
 
             [NotNull]
-            private TimingEventData[] Convert([CanBeNull] IReadOnlyCollection<TimingEvent> timingEvents)
+            public PositionConverter Build()
             {
-                if (timingEvents == null) return new TimingEventData[] { };
+                _base._stopEvents = ToTimingEventPosition(_stopEvents);
+                _base._rewindEvents = ToTimingEventPosition(_rewindEvents);
+                _base._jumpEvents = ToTimingEventPosition(_jumpEvents);
+
+                return _base;
+            }
+
+            [NotNull]
+            private TimingEventPosition[] ToTimingEventPosition(
+                [CanBeNull] IReadOnlyCollection<TimingEvent> timingEvents)
+            {
+                if (timingEvents == null) return new TimingEventPosition[] { };
 
                 if (timingEvents.Count == 0)
                     throw new ArgumentException("At least one TimingEvent required");
@@ -107,102 +105,62 @@ namespace LinearBeats.Time
                 if (timingEvents.Any(v => v.Duration <= 0))
                     throw new ArgumentException("All TimingEvent.Duration must be non-zero positive");
 
-                var orderedEvents = timingEvents.OrderBy(v => v.Pulse).ToArray();
-
-                return (from v in orderedEvents
-                    let sp = ApplyScale(v.Pulse, v.Pulse + v.Duration)
-                    let np = ApplyNormalize(sp.Start, sp.End)
-                    select new TimingEventData(np.Start, np.End)).ToArray();
+                return (from v in timingEvents.OrderBy(v => v.Pulse)
+                    let start = _base.ToPosition(v.Pulse)
+                    let end = _base.ToPosition(v.Pulse + v.Duration)
+                    select new TimingEventPosition(start, end)).ToArray();
             }
+        }
 
-            private (Pulse Start, Pulse End) ApplyScale(Pulse start, Pulse end)
-            {
-                if (!_positionConverter._scaled) return (start, end);
-
-                var converter = _positionConverter._timingConverter;
-                var timingIndex = converter.GetTimingIndex(start);
-                start = converter.Scale(start, timingIndex);
-                end = converter.Scale(end, timingIndex);
-
-                return (start, end);
-            }
-
-            private (float Start, float End) ApplyNormalize(Pulse start, Pulse end)
-            {
-                var converter = _positionConverter._timingConverter;
-
-                if (_positionConverter._normalized)
-                {
-                    var timingIndex = converter.GetTimingIndex(start);
-                    start = converter.Normalize(start, timingIndex);
-                    end = converter.Normalize(end, timingIndex);
-                }
-                else
-                {
-                    start = converter.Flatten(start);
-                    end = converter.Flatten(end);
-                }
-
-                return (start, end);
-            }
+        private Position ToPosition(Pulse pulse)
+        {
+            var timingIndex = _modifier.GetTimingIndex(pulse);
+            var scaledPulse = _scaler.Scale(pulse, timingIndex);
+            var position = _normalizer.Normalize(scaledPulse, timingIndex);
+            return position;
         }
 
         //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
         //TODO: SpeedEvent 처리 (구간강제배속)
-        //TODO: Ignore 플래그 처리
         //TODO: 백점프 추가
 
-        // ReSharper restore Unity.ExpensiveCode
+        public Position Convert(Pulse pulse, TimingEventOptions? options = null) =>
+            ApplyTimingEvents(ToPosition(pulse), options ?? default);
 
-        public float ToPosition(FixedTime fixedTime)
+        private Position ApplyTimingEvents(Position origin, TimingEventOptions options)
         {
-            var index = _timingConverter.GetTimingIndex(fixedTime.Pulse);
-            var pulse = _scaled ? _timingConverter.Scale(fixedTime.Pulse, index) : fixedTime.Pulse;
-            var original = _normalized ? _timingConverter.Normalize(pulse, index) : _timingConverter.Flatten(pulse);
-
-            return AddDistance(original);
-        }
-
-        private float AddDistance(float original)
-        {
-            var result = original;
-            result += GetJumpDistance(original);
-            result += GetStopDistance(original);
-            result += GetRewindDistance(original);
+            var result = origin;
+            if (!options.IgnoreJump) ApplyJumpDistance(ref result, origin);
+            if (!options.IgnoreStop) ApplyStopDistance(ref result, origin);
+            if (!options.IgnoreRewind) ApplyRewindDistance(ref result, origin);
             return result;
         }
 
-        private float GetJumpDistance(float point)
+        private void ApplyJumpDistance(ref Position point, Position origin)
         {
-            var pos = _jumpEvents.Where(v => point >= v.Start)
-                .Aggregate(0f, (current, v) => current + v.Duration);
-
-            return pos;
+            foreach (var v in _jumpEvents)
+            {
+                if (origin.IsBetweenIE(v.Start, v.End)) point += v.Duration;
+                if (origin >= v.End) point += v.Duration;
+            }
         }
 
-
-        private float GetRewindDistance(float point)
+        private void ApplyRewindDistance(ref Position point, Position origin)
         {
-            var pos = 0f;
             foreach (var v in _rewindEvents)
             {
-                if (point.IsBetweenIE(v.Start, v.End)) pos -= (point - v.Start) * 2;
-                if (point >= v.End) pos -= v.Duration * 2;
+                if (origin.IsBetweenIE(v.Start, v.End)) point -= (origin - v.Start) * 2;
+                if (origin >= v.End) point -= v.Duration * 2;
             }
-
-            return pos;
         }
 
-        private float GetStopDistance(float point)
+        private void ApplyStopDistance(ref Position point, Position origin)
         {
-            var pos = 0f;
             foreach (var v in _stopEvents)
             {
-                if (point.IsBetweenIE(v.Start, v.End)) pos -= point - v.Start;
-                if (point >= v.Start + v.Duration) pos -= v.Duration;
+                if (origin.IsBetweenIE(v.Start, v.End)) point -= origin - v.Start;
+                if (origin >= v.End) point -= v.Duration;
             }
-
-            return pos;
         }
     }
 }

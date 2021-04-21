@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using LinearBeats.Time;
 using UnityEngine;
 
@@ -14,9 +16,11 @@ namespace LinearBeats.Visuals
 
         public FixedTime StartTime { get; set; }
         public FixedTime Duration { get; set; }
+        public TimingEventOptions TimingEventOptions { get; set; }
 
         public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
-            float meterPerQuarterNote)
+            float meterPerQuarterNote,
+            float bpmMultiplier)
         {
             if (currentTime.Second - _noteDisappearOffset >= StartTime)
             {
@@ -24,17 +28,19 @@ namespace LinearBeats.Visuals
             }
             else
             {
-                var start = positionConverter.ToPosition(StartTime);
-                var current = positionConverter.ToPosition(currentTime);
+                var start = positionConverter.Convert(StartTime, TimingEventOptions);
+                var current = positionConverter.Convert(currentTime, TimingEventOptions);
+
                 //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
                 var positionInMeter = meterPerQuarterNote * (start - current);
-                SetZPosition(positionInMeter);
+                SetZPosition(positionInMeter * bpmMultiplier);
 
 
                 if (Duration.Pulse == 0) return;
 
                 var scale = transform.localScale;
-                var duration = positionConverter.ToPosition(Duration);
+                var duration = positionConverter.Convert(Duration, TimingEventOptions);
+
                 transform.localScale = new Vector3(scale.x, scale.y, meterPerQuarterNote * duration);
             }
         }

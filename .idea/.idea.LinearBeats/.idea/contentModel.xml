@@ -2426,12 +2426,17 @@
           <e p="Time" t="Include">
             <e p="FixedTime.cs" t="Include" />
             <e p="IFloat.cs" t="Include" />
+            <e p="Position.cs" t="Include" />
             <e p="PositionConverter.cs" t="Include" />
+            <e p="PositionNormalizer.cs" t="Include" />
+            <e p="PositionScaler.cs" t="Include" />
             <e p="Pulse.cs" t="Include" />
             <e p="Sample.cs" t="Include" />
             <e p="Second.cs" t="Include" />
             <e p="TimingController.cs" t="Include" />
             <e p="TimingConverter.cs" t="Include" />
+            <e p="TimingEventOptions.cs" t="Include" />
+            <e p="TimingEventPosition.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
             <e p="Extensions" t="Include">

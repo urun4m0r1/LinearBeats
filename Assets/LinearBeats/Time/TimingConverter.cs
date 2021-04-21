@@ -13,15 +13,21 @@ namespace LinearBeats.Time
         Sample ToSample(Second value);
         Pulse ToPulse(Sample value, int timingIndex);
         Sample ToSample(Pulse value, int timingIndex);
-        Pulse Scale(Pulse value, int timingIndex);
-        float Normalize(Pulse value, int timingIndex);
-        float Flatten(Pulse value);
         float GetBpm(int timingIndex);
         int GetTimingIndex(Pulse pulse);
         int GetTimingIndex(Sample sample);
     }
 
-    public sealed class TimingConverter : ITimingConverter
+    public interface ITimingModifier
+    {
+        Pulse ScaleWithBpm(Pulse value, int timingIndex);
+        Pulse ScaleWithBpmInversed(Pulse value, int timingIndex);
+        Position NormalizeWithPpqn(Pulse value, int timingIndex);
+        Position NormalizeWithPpqn(Pulse value);
+        int GetTimingIndex(Pulse pulse);
+    }
+
+    public sealed class TimingConverter : ITimingConverter, ITimingModifier
     {
         private readonly float _standardPpqn;
 
@@ -32,8 +38,10 @@ namespace LinearBeats.Time
         [NotNull] private readonly Pulse[] _pulses;
         [NotNull] private readonly float[] _bpms;
         [NotNull] private readonly float[] _bpmScales;
+        [NotNull] private readonly float[] _bpmScalesInversed;
 
         [NotNull] private readonly Pulse[] _scaledPulses;
+        [NotNull] private readonly Pulse[] _scaledPulsesInversed;
         [NotNull] private readonly Sample[] _samples;
         [NotNull] private readonly float[] _samplesPerPulse;
         [NotNull] private readonly float[] _pulsesPerSample;
@@ -75,6 +83,9 @@ namespace LinearBeats.Time
             _samples = CalculateSamples().ToArray();
             _scaledPulses = CalculateScaledPulses().ToArray();
 
+            _bpmScalesInversed = (from v in _bpmScales select 1f / v).ToArray();
+            _scaledPulsesInversed = (from v in _scaledPulses select 1f / v).ToArray();
+
             IEnumerable<float> CalculateSamplesPerPulse()
             {
                 var samplesPerQuarterNote = from v in _bpms select (60f / v) * _samplesPerSecond;
@@ -111,7 +122,7 @@ namespace LinearBeats.Time
             return _samples[timingIndex] + samplesElapsed;
         }
 
-        public Pulse Scale(Pulse pulse, int timingIndex)
+        public Pulse ScaleWithBpm(Pulse pulse, int timingIndex)
         {
             var pulsesElapsed = pulse - _pulses[timingIndex];
             var scaledPulsesElapsed = _bpmScales[timingIndex] * pulsesElapsed;
@@ -119,8 +130,16 @@ namespace LinearBeats.Time
             return scaledPulse;
         }
 
-        public float Normalize(Pulse pulse, int timingIndex) => pulse / _ppqns[timingIndex];
-        public float Flatten(Pulse pulse) => pulse / _standardPpqn;
+        public Pulse ScaleWithBpmInversed(Pulse pulse, int timingIndex)
+        {
+            var pulsesElapsed = pulse - _pulses[timingIndex];
+            var scaledPulsesElapsed = _bpmScalesInversed[timingIndex] * pulsesElapsed;
+            var scaledPulse = _scaledPulsesInversed[timingIndex] + scaledPulsesElapsed;
+            return scaledPulse;
+        }
+
+        public Position NormalizeWithPpqn(Pulse pulse, int timingIndex) => (float) pulse / _ppqns[timingIndex];
+        public Position NormalizeWithPpqn(Pulse pulse) => (float) pulse / _standardPpqn;
 
         public float GetBpm(int timingIndex) => _bpms[timingIndex];
 

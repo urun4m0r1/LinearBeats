@@ -5,14 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Position.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Position.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionNormalizer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionNormalizer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionScaler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionScaler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventOptions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventPosition.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventPosition.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" afterDir="false" />
@@ -60,18 +68,15 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/08/afbf53be/EqualConstraint.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/3a/c2986129/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/97/0885e04e/Is.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3027F52F-4135-46DA-8E80-FB6EC6AFA7E0/a0/7327a364/StringExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/ae/0860b2b0/Assert.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/8f/235e3540/Boolean.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/c8/50586cde/IEnumerable`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8E2857B7-9BE4-468C-A1C2-8DDA75978191/93/ff6e4224/AudioSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/0e/a937fa1d/Single.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Game/GameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Tests/EditMode/ScriptParserTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/FixedTimeFactory.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Judgement/NoteJudgement.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/TimingController.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Pulse.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Second.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Time/Sample.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scripts/Visuals/Scrolling/PositionConverter.cs" />
@@ -91,7 +96,6 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/IFloat.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTimeFactory.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConvertingTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FloatTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Audio/IAudio.cs" />
@@ -109,12 +113,20 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PositionConverterTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Position.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventPosition.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventIgnoreOptions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventOptions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/BpmScaler.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PpqnFlattener.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionNormalizer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
     </changedPaths>
   </component>
@@ -146,7 +158,8 @@
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="RiderDotCoverFilteringPageId" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="ReSpellerSettingsId" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
@@ -203,7 +216,8 @@
       <workItem from="1618261604854" duration="20804000" />
       <workItem from="1618348970612" duration="22120000" />
       <workItem from="1618486702193" duration="18207000" />
-      <workItem from="1618832394513" duration="12058000" />
+      <workItem from="1618832394513" duration="27629000" />
+      <workItem from="1618996611314" duration="17666000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -380,7 +394,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618532637674</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fix normalization problems">
+      <created>1618847736337</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1618847736337</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,7 +482,8 @@
     <MESSAGE value="Fix errors" />
     <MESSAGE value="Change static variables visibility to share data." />
     <MESSAGE value="Add offset property to IAudioClip" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add offset property to IAudioClip" />
+    <MESSAGE value="Fix normalization problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix normalization problems" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

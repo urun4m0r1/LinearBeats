@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Refactoring">
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/fileColors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/fileColors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Resources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Script.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Script.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,21 +49,11 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/8f/235e3540/Boolean.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/08/afbf53be/EqualConstraint.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/0e/a937fa1d/Single.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/3a/c2986129/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/97/0885e04e/Is.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3027F52F-4135-46DA-8E80-FB6EC6AFA7E0/a0/7327a364/StringExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/ae/0860b2b0/Assert.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/c8/50586cde/IEnumerable`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/24/a90b295a/String.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351E49E2-A5BF-4FD6-BEAB-B458CE2255F3/d4/e055e298/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8E2857B7-9BE4-468C-A1C2-8DDA75978191/93/ff6e4224/AudioSource.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/5406A456-CF73-4443-B3D0-2A7D123287F1/89/b3e31710/02000137.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5406A456-CF73-4443-B3D0-2A7D123287F1/f8/958b72fd/Single.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/AssemblyInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/PositionConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ArrayExtensions.cs" />
@@ -111,11 +104,11 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/ScrollEventConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
     <order>
-      <scope name="Resources" />
       <scope name="Script" />
     </order>
   </component>
@@ -131,7 +124,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3489761" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34879726" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -142,7 +135,7 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="RiderDpaPageId" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
@@ -209,7 +202,12 @@
       <workItem from="1619414763196" duration="13618000" />
       <workItem from="1619430261554" duration="396000" />
       <workItem from="1619431224296" duration="487000" />
-      <workItem from="1619432145236" duration="11595000" />
+      <workItem from="1619432145236" duration="11825000" />
+      <workItem from="1619450084821" duration="299000" />
+      <workItem from="1619476736323" duration="7000" />
+      <workItem from="1619476779475" duration="633000" />
+      <workItem from="1619478719535" duration="907000" />
+      <workItem from="1619479774078" duration="839000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -442,7 +440,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619443835812</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Update IDE">
+      <created>1619449768188</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1619449768188</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,38 +457,47 @@
     <option name="coveragePercentColumnWidth" value="150" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="283" />
+    <option name="symbolColumnWidth" value="622" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 69% 667/2164" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 2% 184525/187932" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 69% 667/2164" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 39% 660/1088" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 2% 184525/187932" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="EditorTests 99% 5/966" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 69% 667/2164" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 39% 660/1088" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 48% 456/870" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 2% 184525/187932" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="EditorTests 99% 5/966" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats.EditorTests 99% 5/806" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 69% 667/2164" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 39% 660/1088" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 48% 456/870" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Judgement 4% 49/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 2% 184525/187932" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="EditorTests 99% 5/966" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats.EditorTests 99% 5/806" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Time 99% 4/796" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 69% 667/2164" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 39% 660/1088" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="LinearBeats 48% 456/870" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Judgement 4% 49/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="NoteJudgement 4% 49/51" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 2% 184525/187932" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="EditorTests 99% 5/966" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats.EditorTests 99% 5/806" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Time 99% 4/796" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="FixedTimeTests 99% 1/217" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 2% 184525/187932" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="EditorTests 99% 5/966" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="LinearBeats.EditorTests 99% 5/806" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Time 99% 4/796" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="FixedTimeTests 99% 1/217" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Implements_IEquatable() 95% 1/19" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
@@ -506,7 +520,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Project updated" />
     <MESSAGE value="File structure changed" />
@@ -525,9 +538,9 @@
     <MESSAGE value="Fix normalization problems" />
     <MESSAGE value="Improved PositionConverter.cs" />
     <MESSAGE value="Abstracted timingEvents." />
-    <MESSAGE value="Update IDE" />
     <MESSAGE value="Refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
+    <MESSAGE value="Update IDE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update IDE" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

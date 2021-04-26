@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/riderModule.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
@@ -213,7 +209,8 @@
       <workItem from="1619412902336" duration="54000" />
       <workItem from="1619413114586" duration="97000" />
       <workItem from="1619414763196" duration="13618000" />
-      <workItem from="1619430261554" duration="135000" />
+      <workItem from="1619430261554" duration="396000" />
+      <workItem from="1619431224296" duration="487000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -411,7 +408,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619429665973</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update IDE">
+      <created>1619430684862</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1619430684863</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Update IDE">
+      <created>1619430807058</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1619430807058</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +506,8 @@
     <MESSAGE value="Fix normalization problems" />
     <MESSAGE value="Improved PositionConverter.cs" />
     <MESSAGE value="Abstracted timingEvents." />
-    <option name="LAST_COMMIT_MESSAGE" value="Abstracted timingEvents." />
+    <MESSAGE value="Update IDE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update IDE" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

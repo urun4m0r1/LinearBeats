@@ -7,7 +7,7 @@
       "dependencies": {}
     },
     "com.unity.addressables": {
-      "version": "1.16.18",
+      "version": "1.16.19",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -42,10 +42,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.5",
+      "version": "3.0.6",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.ext.nunit": "1.0.6"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
@@ -195,7 +197,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.4",
+      "version": "3.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {

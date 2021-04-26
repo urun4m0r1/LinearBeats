@@ -16,7 +16,7 @@ namespace LinearBeats.Visuals
 
         public FixedTime StartTime { get; set; }
         public FixedTime Duration { get; set; }
-        public IDictionary<TimingEventType, bool> IgnoreOptions { get; set; }
+        public IDictionary<ScrollEvent, bool> IgnoreOptions { get; set; }
 
         public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
             float meterPerQuarterNote,
@@ -33,7 +33,6 @@ namespace LinearBeats.Visuals
                 var start = positionConverter.Convert(StartTime, IgnoreOptions);
                 var current = positionConverter.Convert(currentTime, IgnoreOptions);
 
-                //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
                 var positionInMeter = meterPerQuarterNote * (start - current);
                 SetZPosition(positionInMeter * bpmMultiplier);
 

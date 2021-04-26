@@ -17,7 +17,9 @@ namespace LinearBeats.Time
         public static implicit operator Position([NotNull] string right) => new Position(float.Parse(right));
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Position right ? CompareTo(right) : throw new InvalidOperationException();
+            obj is Position right
+                ? CompareTo(right)
+                : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Position right) => _value.CompareTo(right._value);
 

@@ -1,20 +1,22 @@
 using JetBrains.Annotations;
 using LinearBeats.Time;
+// ReSharper disable UnassignedField.Global
 
 namespace LinearBeats.Script
 {
     public struct LinearBeatsScript
     {
         public ushort VersionCode;
-        public string VersionName;
+        [CanBeNull] public string VersionName;
         public Metadata Metadata;
-        public MediaChannel[] VideoChannels;
-        public MediaChannel[] AudioChannels;
+        [CanBeNull] public MediaChannel[] VideoChannels;
+        [CanBeNull] public MediaChannel[] AudioChannels;
         public Timing Timing;
-        public Divider[] Dividers;
-        public Trigger[] Effects;
-        public Trigger[] Videos;
-        public Note[] Notes;
+        public Scrolling Scrolling;
+        [CanBeNull] public Divider[] Dividers;
+        [CanBeNull] public Trigger[] Effects;
+        [CanBeNull] public Trigger[] Videos;
+        [CanBeNull] public Note[] Notes;
     }
 
     public struct Metadata
@@ -25,30 +27,36 @@ namespace LinearBeats.Script
         public byte JudgeLevel;
         public byte LifeLevel;
         public byte Difficulty;
-        public string DifficultyName;
-        public string Genre;
-        public string Title;
-        public string TitleSub;
-        public string Artist;
-        public string[] ArtistsSub;
-        public string FileNameCover;
-        public string FileNameBackground;
-        public string FileNameBanner;
-        public string FileNameSplash;
-        public string FileNamePreview;
+        [CanBeNull] public string DifficultyName;
+        [CanBeNull] public string Genre;
+        [CanBeNull] public string Title;
+        [CanBeNull] public string TitleSub;
+        [CanBeNull] public string Artist;
+        [CanBeNull] public string[] ArtistsSub;
+        [CanBeNull] public string FileNameCover;
+        [CanBeNull] public string FileNameBackground;
+        [CanBeNull] public string FileNameBanner;
+        [CanBeNull] public string FileNameSplash;
+        [CanBeNull] public string FileNamePreview;
         public Second PreviewStart;
         public Second PreviewEnd;
     }
 
     public struct Timing
     {
-        public float? StandardBpm;
-        public float? StandardPpqn;
-        public BpmEvent[] BpmEvents;
-        public TimingEvent[] StopEvents;
-        public TimingEvent[] RewindEvents;
-        public TimingEvent[] JumpEvents;
-        public SpeedEvent[] SpeedEvents;
+        [CanBeNull] public float? StandardBpm;
+        [CanBeNull] public float? StandardPpqn;
+        [CanBeNull] public BpmEvent[] BpmEvents;
+    }
+
+    public struct Scrolling
+    {
+        [CanBeNull] public ScrollingEvent[] StopEvents;
+        [CanBeNull] public ScrollingEvent[] JumpEvents;
+        [CanBeNull] public ScrollingEvent[] BackJumpEvents;
+        [CanBeNull] public ScrollingEvent[] RewindEvents;
+        [CanBeNull] public ScrollingEvent[] SpeedEvents;
+        [CanBeNull] public ScrollingEvent[] SpeedBounceEvents;
     }
 
     public struct BpmEvent
@@ -58,19 +66,12 @@ namespace LinearBeats.Script
         public float Bpm;
     }
 
-    public struct TimingEvent
+    public struct ScrollingEvent
     {
         public Pulse Pulse;
         public Pulse Duration;
-        public string IgnoreLane;
-    }
-
-    public struct SpeedEvent
-    {
-        public Pulse Pulse;
-        public Pulse Duration;
-        public float Multiplier;
-        public string IgnoreLane;
+        public float Amount;
+        [CanBeNull] public string IgnoreLane;
     }
 
     public struct Divider
@@ -78,13 +79,13 @@ namespace LinearBeats.Script
         public Pulse Pulse;
         public Pulse Interval;
         public byte Type;
-        public string TimingEventIgnore;
+        [CanBeNull] public string TimingEventIgnore;
     }
 
     public struct MediaChannel
     {
         public ushort Channel;
-        public string FileName;
+        [CanBeNull] public string FileName;
         public Second Offset;
         public byte Layer;
     }
@@ -101,7 +102,7 @@ namespace LinearBeats.Script
     {
         public Trigger Trigger;
         public Shape Shape;
-        public string IgnoreTimingEvent;
+        [CanBeNull] public string IgnoreTimingEvent;
     }
 
     public struct Shape

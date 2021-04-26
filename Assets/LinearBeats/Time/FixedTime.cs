@@ -61,11 +61,14 @@ namespace LinearBeats.Time
         public static implicit operator Sample(FixedTime right) => right.Sample;
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is FixedTime right ? CompareTo(right) : throw new InvalidOperationException();
+            obj is FixedTime right
+                ? CompareTo(right)
+                : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(FixedTime right)
         {
-            if (!ConverterEquals(this, right)) throw new InvalidOperationException();
+            if (!ConverterEquals(this, right))
+                throw new InvalidOperationException("TimingConverter mismatch");
 
             return Sample.CompareTo(right.Sample);
         }
@@ -87,7 +90,8 @@ namespace LinearBeats.Time
         [NotNull]
         private static ITimingConverter ChooseConverter(FixedTime left, FixedTime right)
         {
-            if (!ConverterEquals(left, right)) throw new InvalidOperationException();
+            if (!ConverterEquals(left, right))
+                throw new InvalidOperationException("TimingConverter mismatch");
 
             return left._converter;
         }

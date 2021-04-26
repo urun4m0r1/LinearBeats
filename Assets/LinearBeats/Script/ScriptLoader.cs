@@ -135,12 +135,15 @@ namespace LinearBeats.Script
         }
 
         [NotNull]
-        private IDictionary<TimingEventType, bool> ParseIgnoreOptions([NotNull] string text) =>
-            new Dictionary<TimingEventType, bool>
+        private IDictionary<ScrollEvent, bool> ParseIgnoreOptions([NotNull] string text) =>
+            new Dictionary<ScrollEvent, bool>
             {
-                {TimingEventType.Jump, text.Contains("Jump")},
-                {TimingEventType.Stop, text.Contains("Stop")},
-                {TimingEventType.Rewind, text.Contains("Rewind")}
+                {ScrollEvent.Stop, text.Contains("Stop")},
+                {ScrollEvent.Jump, text.Contains("Jump")},
+                {ScrollEvent.BackJump, text.Contains("BackJump")},
+                {ScrollEvent.Rewind, text.Contains("Rewind")},
+                {ScrollEvent.Speed, text.Contains("Speed")},
+                {ScrollEvent.SpeedBounce, text.Contains("SpeedBounce")},
             };
     }
 }

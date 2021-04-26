@@ -23,7 +23,7 @@ namespace LinearBeats.Time
         Pulse ScaleWithBpm(Pulse value, int timingIndex);
         Pulse ScaleWithBpmInversed(Pulse value, int timingIndex);
         Position NormalizeWithPpqn(Pulse value, int timingIndex);
-        Position NormalizeWithPpqn(Pulse value);
+        Position NormalizeWithStandardPpqn(Pulse value);
         int GetTimingIndex(Pulse pulse);
     }
 
@@ -139,7 +139,7 @@ namespace LinearBeats.Time
         }
 
         public Position NormalizeWithPpqn(Pulse pulse, int timingIndex) => (float) pulse / _ppqns[timingIndex];
-        public Position NormalizeWithPpqn(Pulse pulse) => (float) pulse / _standardPpqn;
+        public Position NormalizeWithStandardPpqn(Pulse pulse) => (float) pulse / _standardPpqn;
 
         public float GetBpm(int timingIndex) => _bpms[timingIndex];
 

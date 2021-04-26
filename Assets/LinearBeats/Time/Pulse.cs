@@ -17,7 +17,9 @@ namespace LinearBeats.Time
         public static implicit operator Pulse([NotNull] string right) => new Pulse(float.Parse(right));
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Pulse right ? CompareTo(right) : throw new InvalidOperationException();
+            obj is Pulse right
+                ? CompareTo(right)
+                : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Pulse right) => _value.CompareTo(right._value);
 

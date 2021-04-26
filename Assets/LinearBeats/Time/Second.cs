@@ -17,7 +17,9 @@ namespace LinearBeats.Time
         public static implicit operator Second([NotNull] string right) => new Second(float.Parse(right));
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Second right ? CompareTo(right) : throw new InvalidOperationException();
+            obj is Second right
+                ? CompareTo(right)
+                : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Second right) => _value.CompareTo(right._value);
 

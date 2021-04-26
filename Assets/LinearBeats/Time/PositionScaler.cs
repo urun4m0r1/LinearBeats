@@ -6,7 +6,7 @@ namespace LinearBeats.Time
     {
         RegularInterval,
         BpmRelative,
-        ConstantSpeed
+        ConstantSpeed,
     }
 
     public sealed partial class PositionConverter
@@ -18,7 +18,7 @@ namespace LinearBeats.Time
             internal abstract Pulse Scale(Pulse pulse, int? timingIndex = null);
         }
 
-        private sealed class RegularIntervalScaler : PositionConverter.PositionScaler
+        private sealed class RegularIntervalScaler : PositionScaler
         {
             public RegularIntervalScaler([NotNull] ITimingModifier modifier) : base(modifier)
             {
@@ -27,7 +27,7 @@ namespace LinearBeats.Time
             internal override Pulse Scale(Pulse pulse, int? _ = null) => pulse;
         }
 
-        private sealed class PositionRelativeScaler : PositionConverter.PositionScaler
+        private sealed class PositionRelativeScaler : PositionScaler
         {
             public PositionRelativeScaler([NotNull] ITimingModifier modifier) : base(modifier)
             {
@@ -37,7 +37,7 @@ namespace LinearBeats.Time
                 Modifier.ScaleWithBpm(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
 
-        private sealed class ConstantSpeedScaler : PositionConverter.PositionScaler
+        private sealed class ConstantSpeedScaler : PositionScaler
         {
             public ConstantSpeedScaler([NotNull] ITimingModifier modifier) : base(modifier)
             {

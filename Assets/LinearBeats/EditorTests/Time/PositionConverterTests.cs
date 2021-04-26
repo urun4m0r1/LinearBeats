@@ -9,6 +9,7 @@ using static LinearBeats.EditorTests.Time.FixedTimeTests;
 
 namespace LinearBeats.EditorTests.Time
 {
+    /*
     [TestFixture]
     public class PositionConverterTests
     {
@@ -152,4 +153,5 @@ namespace LinearBeats.EditorTests.Time
             });
         }
     }
+    */
 }

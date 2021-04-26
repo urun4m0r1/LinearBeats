@@ -16,20 +16,22 @@ namespace LinearBeats.Visuals
 
         public FixedTime StartTime { get; set; }
         public FixedTime Duration { get; set; }
-        public TimingEventOptions TimingEventOptions { get; set; }
+        public IDictionary<TimingEventType, bool> IgnoreOptions { get; set; }
 
         public void UpdateRailPosition(IPositionConverter positionConverter, FixedTime currentTime,
             float meterPerQuarterNote,
             float bpmMultiplier)
         {
+            //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
+
             if (currentTime.Second - _noteDisappearOffset >= StartTime)
             {
                 SetZPosition(-100f);
             }
             else
             {
-                var start = positionConverter.Convert(StartTime, TimingEventOptions);
-                var current = positionConverter.Convert(currentTime, TimingEventOptions);
+                var start = positionConverter.Convert(StartTime, IgnoreOptions);
+                var current = positionConverter.Convert(currentTime, IgnoreOptions);
 
                 //TODO: bpmBounce timingEvent 추가 if(pulseElapsed.BetweenIE(0, bpmBounce.Duration)) positionInMeter *= (bpmBounce.Amount * (pulseElapsed / bpmBounce.Duration));
                 var positionInMeter = meterPerQuarterNote * (start - current);
@@ -39,9 +41,11 @@ namespace LinearBeats.Visuals
                 if (Duration.Pulse == 0) return;
 
                 var scale = transform.localScale;
-                var duration = positionConverter.Convert(Duration, TimingEventOptions);
+                var end = positionConverter.Convert(StartTime + Duration, IgnoreOptions);
 
-                transform.localScale = new Vector3(scale.x, scale.y, meterPerQuarterNote * duration);
+                var dur = end - start;
+
+                transform.localScale = new Vector3(scale.x, scale.y, meterPerQuarterNote * dur);
             }
         }
 

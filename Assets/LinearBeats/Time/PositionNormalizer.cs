@@ -17,7 +17,7 @@ namespace LinearBeats.Time
             internal abstract Position Normalize(Pulse pulse, int? timingIndex = null);
         }
 
-        private sealed class StandardNormalizer : PositionNormalizer
+        private sealed class StandardNormalizer : PositionConverter.PositionNormalizer
         {
             public StandardNormalizer([NotNull] ITimingModifier modifier) : base(modifier)
             {
@@ -26,7 +26,7 @@ namespace LinearBeats.Time
             internal override Position Normalize(Pulse pulse, int? _ = null) => Modifier.NormalizeWithPpqn(pulse);
         }
 
-        private sealed class IndividualNormalizer : PositionNormalizer
+        private sealed class IndividualNormalizer : PositionConverter.PositionNormalizer
         {
             public IndividualNormalizer([NotNull] ITimingModifier modifier) : base(modifier)
             {

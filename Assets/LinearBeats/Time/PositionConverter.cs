@@ -4,56 +4,38 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using Utils.Extensions;
 
 namespace LinearBeats.Time
 {
     public interface IPositionConverter
     {
-        Position Convert(Pulse pulse, TimingEventOptions? options = null);
+        Position Convert(Pulse pulse, [NotNull] IDictionary<TimingEventType, bool> ignore);
     }
 
     public sealed partial class PositionConverter : IPositionConverter
     {
+        private static readonly IEnumerable<TimingEventType> AllTimingEventTypes =
+            (TimingEventType[]) Enum.GetValues(typeof(TimingEventType));
+
         [NotNull] private readonly ITimingModifier _modifier;
-        [NotNull] private TimingEventPosition[] _stopEvents;
-        [NotNull] private TimingEventPosition[] _rewindEvents;
-        [NotNull] private TimingEventPosition[] _jumpEvents;
         [NotNull] private PositionScaler _scaler;
         [NotNull] private PositionNormalizer _normalizer;
+        [NotNull] private readonly IDictionary<TimingEventType, TimingEventConverter> _converter;
 
-        [SuppressMessage("ReSharper", "NotNullMemberIsNotInitialized")]
-        private PositionConverter([NotNull] ITimingModifier modifier) => _modifier = modifier;
+        private PositionConverter([NotNull] ITimingModifier modifier)
+        {
+            _modifier = modifier;
+            _scaler = new PositionRelativeScaler(modifier);
+            _normalizer = new IndividualNormalizer(modifier);
+            _converter = new Dictionary<TimingEventType, TimingEventConverter>();
+        }
 
         public sealed class Builder
         {
             [NotNull] private readonly PositionConverter _base;
-            [CanBeNull] private TimingEvent[] _stopEvents;
-            [CanBeNull] private TimingEvent[] _rewindEvents;
-            [CanBeNull] private TimingEvent[] _jumpEvents;
+            [CanBeNull] private IDictionary<TimingEventType, TimingEvent[]> _events;
 
             public Builder([NotNull] ITimingModifier modifier) => _base = new PositionConverter(modifier);
-
-            [NotNull]
-            public Builder SetStopEvent([CanBeNull] IEnumerable<TimingEvent> events)
-            {
-                _stopEvents = events?.ToArray();
-                return this;
-            }
-
-            [NotNull]
-            public Builder SetRewindEvent([CanBeNull] IEnumerable<TimingEvent> events)
-            {
-                _rewindEvents = events?.ToArray();
-                return this;
-            }
-
-            [NotNull]
-            public Builder SetJumpEvent([CanBeNull] IEnumerable<TimingEvent> events)
-            {
-                _jumpEvents = events?.ToArray();
-                return this;
-            }
 
             [NotNull]
             public Builder SetPositionScaler(ScalerMode mode)
@@ -83,29 +65,38 @@ namespace LinearBeats.Time
             }
 
             [NotNull]
+            public Builder SetTimingEvents([NotNull] IDictionary<TimingEventType, TimingEvent[]> events)
+            {
+                _events = events;
+                return this;
+            }
+
+            [NotNull]
             public PositionConverter Build()
             {
-                _base._stopEvents = ToTimingEventPosition(_stopEvents);
-                _base._rewindEvents = ToTimingEventPosition(_rewindEvents);
-                _base._jumpEvents = ToTimingEventPosition(_jumpEvents);
+                foreach (var v in AllTimingEventTypes)
+                {
+                    var timingEventConverter = TimingEventConverterFactory.Create(v, EnrichTimingEvents(_events?[v]));
+                    _base._converter.Add(v, timingEventConverter);
+                }
 
                 return _base;
             }
 
             [NotNull]
-            private TimingEventPosition[] ToTimingEventPosition(
-                [CanBeNull] IReadOnlyCollection<TimingEvent> timingEvents)
+            private TimingEventPosition[] EnrichTimingEvents(
+                [CanBeNull] IReadOnlyCollection<TimingEvent> timingEvent)
             {
-                if (timingEvents == null) return new TimingEventPosition[] { };
+                if (timingEvent == null) return new TimingEventPosition[] { };
 
-                if (timingEvents.Count == 0)
+                if (timingEvent.Count == 0)
                     throw new ArgumentException("At least one TimingEvent required");
-                if (timingEvents.Any(v => v.Pulse < 0))
+                if (timingEvent.Any(v => v.Pulse < 0))
                     throw new ArgumentException("All TimingEvent.Pulse must be positive");
-                if (timingEvents.Any(v => v.Duration <= 0))
+                if (timingEvent.Any(v => v.Duration <= 0))
                     throw new ArgumentException("All TimingEvent.Duration must be non-zero positive");
 
-                return (from v in timingEvents.OrderBy(v => v.Pulse)
+                return (from v in timingEvent.OrderBy(v => v.Pulse)
                     let start = _base.ToPosition(v.Pulse)
                     let end = _base.ToPosition(v.Pulse + v.Duration)
                     select new TimingEventPosition(start, end)).ToArray();
@@ -120,47 +111,19 @@ namespace LinearBeats.Time
             return position;
         }
 
-        //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
-        //TODO: SpeedEvent 처리 (구간강제배속)
-        //TODO: 백점프 추가
+        public Position Convert(Pulse pulse, IDictionary<TimingEventType, bool> ignore) =>
+            ApplyTimingEvents(ToPosition(pulse), ignore);
 
-        public Position Convert(Pulse pulse, TimingEventOptions? options = null) =>
-            ApplyTimingEvents(ToPosition(pulse), options ?? default);
-
-        private Position ApplyTimingEvents(Position origin, TimingEventOptions options)
+        [SuppressMessage("ReSharper", "LoopCanBePartlyConvertedToQuery")]
+        private Position ApplyTimingEvents(Position origin, [NotNull] IDictionary<TimingEventType, bool> ignore)
         {
             var result = origin;
-            if (!options.IgnoreJump) ApplyJumpDistance(ref result, origin);
-            if (!options.IgnoreStop) ApplyStopDistance(ref result, origin);
-            if (!options.IgnoreRewind) ApplyRewindDistance(ref result, origin);
+
+            foreach (var v in AllTimingEventTypes)
+                if (!ignore[v])
+                    _converter[v].ApplyDistance(ref result, origin);
+
             return result;
-        }
-
-        private void ApplyJumpDistance(ref Position point, Position origin)
-        {
-            foreach (var v in _jumpEvents)
-            {
-                if (origin.IsBetweenIE(v.Start, v.End)) point += v.Duration;
-                if (origin >= v.End) point += v.Duration;
-            }
-        }
-
-        private void ApplyRewindDistance(ref Position point, Position origin)
-        {
-            foreach (var v in _rewindEvents)
-            {
-                if (origin.IsBetweenIE(v.Start, v.End)) point -= (origin - v.Start) * 2;
-                if (origin >= v.End) point -= v.Duration * 2;
-            }
-        }
-
-        private void ApplyStopDistance(ref Position point, Position origin)
-        {
-            foreach (var v in _stopEvents)
-            {
-                if (origin.IsBetweenIE(v.Start, v.End)) point -= origin - v.Start;
-                if (origin >= v.End) point -= v.Duration;
-            }
         }
     }
 }

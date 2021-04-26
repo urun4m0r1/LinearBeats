@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
-using Ludiq.OdinSerializer.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -82,7 +81,7 @@ namespace LinearBeats.Script
                 noteBehaviour.StartTime = fixedTimeFactory.Create(note.Trigger.Pulse);
                 noteBehaviour.Duration = fixedTimeFactory.Create(note.Trigger.Duration);
                 noteBehaviour.Note = note;
-                noteBehaviour.TimingEventOptions = ParseTimingEventIgnoreOptions(note.IgnoreTimingEvent);
+                noteBehaviour.IgnoreOptions = ParseIgnoreOptions(note.IgnoreTimingEvent ?? "");
             }
             return noteBehaviour != null;
 
@@ -130,17 +129,18 @@ namespace LinearBeats.Script
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
                 dividerBehaviour.StartTime = fixedTimeFactory.Create(divider.Pulse);
-                dividerBehaviour.TimingEventOptions = ParseTimingEventIgnoreOptions(divider.TimingEventIgnore);
+                dividerBehaviour.IgnoreOptions = ParseIgnoreOptions(divider.TimingEventIgnore ?? "");
             }
             return dividerBehaviour != null;
         }
 
-        private TimingEventOptions ParseTimingEventIgnoreOptions([CanBeNull] string text) =>
-            string.IsNullOrWhiteSpace(text)
-                ? default
-                : new TimingEventOptions(
-                    text.Contains("Jump"),
-                    text.Contains("Stop"),
-                    text.Contains("Rewind"));
+        [NotNull]
+        private IDictionary<TimingEventType, bool> ParseIgnoreOptions([NotNull] string text) =>
+            new Dictionary<TimingEventType, bool>
+            {
+                {TimingEventType.Jump, text.Contains("Jump")},
+                {TimingEventType.Stop, text.Contains("Stop")},
+                {TimingEventType.Rewind, text.Contains("Rewind")}
+            };
     }
 }

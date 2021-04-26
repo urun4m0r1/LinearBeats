@@ -68,10 +68,15 @@ namespace LinearBeats.Game
 
                 _fixedTimeFactory = new FixedTime.Factory(converter);
 
+                var timingEvents = new Dictionary<TimingEventType, TimingEvent[]>
+                {
+                    {TimingEventType.Jump, _scriptLoader.Script.Timing.JumpEvents},
+                    {TimingEventType.Stop, _scriptLoader.Script.Timing.StopEvents},
+                    {TimingEventType.Rewind, _scriptLoader.Script.Timing.RewindEvents}
+                };
+
                 _positionConverter = new PositionConverter.Builder(converter)
-                    .SetStopEvent(_scriptLoader.Script.Timing.StopEvents)
-                    .SetRewindEvent(_scriptLoader.Script.Timing.RewindEvents)
-                    .SetJumpEvent(_scriptLoader.Script.Timing.JumpEvents)
+                    .SetTimingEvents(timingEvents)
                     .SetPositionScaler(ScalerMode.BpmRelative)
                     .SetPositionNormalizer(NormalizerMode.Individual)
                     .Build();

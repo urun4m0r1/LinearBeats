@@ -2372,6 +2372,7 @@
             <e p="AudioClipSource.cs" t="Include" />
           </e>
           <e p="EditorTests" t="Include">
+            <e p="CSharpTests.cs" t="Include" />
             <e p="EditorTests.asmdef" t="Include" />
             <e p="FloatTests.cs" t="Include" />
             <e p="InputListenerTests.cs" t="Include" />
@@ -2435,8 +2436,9 @@
             <e p="Second.cs" t="Include" />
             <e p="TimingController.cs" t="Include" />
             <e p="TimingConverter.cs" t="Include" />
-            <e p="TimingEventOptions.cs" t="Include" />
+            <e p="TimingEventConverter.cs" t="Include" />
             <e p="TimingEventPosition.cs" t="Include" />
+            <e p="TimingEventType.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
             <e p="Extensions" t="Include">

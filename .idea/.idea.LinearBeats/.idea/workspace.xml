@@ -4,28 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Update IDE">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/ScrollEventConverter.cs" afterDir="false" />
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Position.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Position.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionNormalizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionNormalizer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionScaler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventConverter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventConverter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/ScrollEventConverter.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/ScrollEventPosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventPosition.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/ScrollEventPosition.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventType.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventType.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +209,7 @@
       <workItem from="1619414763196" duration="13618000" />
       <workItem from="1619430261554" duration="396000" />
       <workItem from="1619431224296" duration="487000" />
-      <workItem from="1619432145236" duration="10155000" />
+      <workItem from="1619432145236" duration="11595000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -455,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619433604347</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Refactoring">
+      <created>1619443835812</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1619443835812</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -531,7 +518,6 @@
     <MESSAGE value="Applying long note implementation" />
     <MESSAGE value="Add unit tests" />
     <MESSAGE value="Wrote some test cases." />
-    <MESSAGE value="Refactoring" />
     <MESSAGE value="Linearbeats.Time namespace test completed" />
     <MESSAGE value="Fix errors" />
     <MESSAGE value="Change static variables visibility to share data." />
@@ -540,7 +526,8 @@
     <MESSAGE value="Improved PositionConverter.cs" />
     <MESSAGE value="Abstracted timingEvents." />
     <MESSAGE value="Update IDE" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update IDE" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

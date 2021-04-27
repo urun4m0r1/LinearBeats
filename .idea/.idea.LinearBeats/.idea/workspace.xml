@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/fileColors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/fileColors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Resources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Script.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/scopes/Script.xml" afterDir="false" />
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="IDE settings changed">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +204,7 @@
       <workItem from="1619476736323" duration="7000" />
       <workItem from="1619476779475" duration="633000" />
       <workItem from="1619478719535" duration="907000" />
-      <workItem from="1619479774078" duration="839000" />
+      <workItem from="1619479774078" duration="1525000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -447,7 +444,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619449768188</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="IDE settings changed">
+      <created>1619480981031</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1619480981031</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -520,6 +524,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Project updated" />
     <MESSAGE value="File structure changed" />
@@ -540,7 +545,8 @@
     <MESSAGE value="Abstracted timingEvents." />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Update IDE" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update IDE" />
+    <MESSAGE value="IDE settings changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="IDE settings changed" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

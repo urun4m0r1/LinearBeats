@@ -12,6 +12,15 @@ using UnityEngine.Assertions;
 
 namespace LinearBeats.Judgement
 {
+    public enum Judge : byte
+    {
+        Perfect,
+        Great,
+        Good,
+        Bad,
+        Miss
+    }
+
     [HideReferenceObjectPicker]
     public sealed class NoteJudgement
     {

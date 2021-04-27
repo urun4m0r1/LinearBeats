@@ -146,6 +146,7 @@ namespace LinearBeats.Time
         public int GetTimingIndex(Pulse pulse) => GetTimingIndex(pulse, _pulses);
         public int GetTimingIndex(Sample sample) => GetTimingIndex(sample, _samples);
 
+        //TODO: 이진 탐색 또는 해시 탐색을 이용해 시간복잡도 줄이기
         private static int GetTimingIndex<T>(T timing, [NotNull] IReadOnlyList<T> orderedTiming)
             where T : struct, IComparable<T>
         {

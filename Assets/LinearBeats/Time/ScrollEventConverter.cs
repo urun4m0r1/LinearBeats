@@ -5,21 +5,24 @@ using Utils.Extensions;
 
 namespace LinearBeats.Time
 {
-    public enum ScrollEvent : byte
+    [Flags]
+    public enum ScrollEvent
     {
-        Stop,
-        Jump,
-        BackJump,
-        Rewind,
-        Speed,
-        SpeedBounce,
+        None = 0,
+        Stop = 1 << 0,
+        Jump = 1 << 1,
+        BackJump = 1 << 2,
+        Rewind = 1 << 3,
+        Speed = 1 << 4,
+        SpeedBounce = 1 << 5,
+        All = int.MaxValue,
     }
 
     public sealed partial class PositionConverter
     {
         private static class ScrollEventConverterFactory
         {
-            [NotNull]
+            [CanBeNull]
             public static ScrollEventConverter Create(ScrollEvent type, [NotNull] ScrollEventPosition[] eventPositions)
             {
                 return type switch
@@ -30,7 +33,9 @@ namespace LinearBeats.Time
                     ScrollEvent.Rewind => new RewindEventConverter(eventPositions),
                     ScrollEvent.Speed => new SpeedEventConverter(eventPositions),
                     ScrollEvent.SpeedBounce => new SpeedBounceEventConverter(eventPositions),
-                    _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+                    ScrollEvent.None => null,
+                    ScrollEvent.All => null,
+                    _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
                 };
             }
         }

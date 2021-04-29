@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Time;
@@ -81,7 +82,7 @@ namespace LinearBeats.Script
                 noteBehaviour.StartTime = fixedTimeFactory.Create(note.Trigger.Pulse);
                 noteBehaviour.Duration = fixedTimeFactory.Create(note.Trigger.Duration);
                 noteBehaviour.Note = note;
-                noteBehaviour.IgnoreOptions = ParseIgnoreOptions(note.IgnoreTimingEvent ?? "");
+                noteBehaviour.IgnoreFlags = ParseIgnoreOptions(note.IgnoreTimingEvent ?? "");
             }
             return noteBehaviour != null;
 
@@ -129,21 +130,24 @@ namespace LinearBeats.Script
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
                 dividerBehaviour.StartTime = fixedTimeFactory.Create(divider.Pulse);
-                dividerBehaviour.IgnoreOptions = ParseIgnoreOptions(divider.TimingEventIgnore ?? "");
+                dividerBehaviour.IgnoreFlags = ParseIgnoreOptions(divider.TimingEventIgnore ?? "");
             }
             return dividerBehaviour != null;
         }
 
         [NotNull]
-        private IDictionary<ScrollEvent, bool> ParseIgnoreOptions([NotNull] string text) =>
-            new Dictionary<ScrollEvent, bool>
-            {
-                {ScrollEvent.Stop, text.Contains("Stop")},
-                {ScrollEvent.Jump, text.Contains("Jump")},
-                {ScrollEvent.BackJump, text.Contains("BackJump")},
-                {ScrollEvent.Rewind, text.Contains("Rewind")},
-                {ScrollEvent.Speed, text.Contains("Speed")},
-                {ScrollEvent.SpeedBounce, text.Contains("SpeedBounce")},
-            };
+        private ScrollEvent ParseIgnoreOptions([NotNull] string options)
+        {
+            var result = ScrollEvent.None;
+
+            var allOptions = (ScrollEvent[]) Enum.GetValues(typeof(ScrollEvent));
+            foreach (var option in allOptions) ParseFlag(ref result, option);
+
+            return result;
+
+            //TODO: Remove boxing
+            void ParseFlag(ref ScrollEvent target, ScrollEvent option) =>
+                target = options.Contains(option.ToString()) ? target | option : target;
+        }
     }
 }

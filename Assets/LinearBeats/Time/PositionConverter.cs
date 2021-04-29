@@ -9,7 +9,7 @@ namespace LinearBeats.Time
 {
     public interface IPositionConverter
     {
-        Position Convert(Pulse pulse, [NotNull] IDictionary<ScrollEvent, bool> ignore);
+        Position Convert(Pulse pulse, ScrollEvent ignoreFlags);
     }
 
     public sealed partial class PositionConverter : IPositionConverter
@@ -69,10 +69,23 @@ namespace LinearBeats.Time
             }
 
             [NotNull]
-            public Builder SetScrollEvent(ScrollEvent type, [CanBeNull] ScrollingEvent[] timingEvents)
+            public Builder SetScrollEvent(Scrolling scrolling, ScrollEvent ignoreFlags = ScrollEvent.None)
             {
-                if (timingEvents != null) _timingEvents.Add(type, timingEvents);
+                //TODO: Remove Duplicated code
+                AddEvent(ScrollEvent.Stop, scrolling.StopEvents);
+                AddEvent(ScrollEvent.Jump, scrolling.JumpEvents);
+                AddEvent(ScrollEvent.BackJump, scrolling.BackJumpEvents);
+                AddEvent(ScrollEvent.Rewind, scrolling.RewindEvents);
+                AddEvent(ScrollEvent.Speed, scrolling.SpeedEvents);
+                AddEvent(ScrollEvent.SpeedBounce, scrolling.SpeedBounceEvents);
+
                 return this;
+
+                void AddEvent(ScrollEvent type, ScrollingEvent[] scrollingEvents)
+                {
+                    if (scrollingEvents != null && (ignoreFlags & type) == 0)
+                        _timingEvents.Add(type, scrollingEvents);
+                }
             }
 
             [NotNull]
@@ -84,7 +97,7 @@ namespace LinearBeats.Time
 
                     var scrollEventPositions = ToScrollEventPositions(timingEvents);
                     var scrollEventConverter = ScrollEventConverterFactory.Create(type, scrollEventPositions);
-                    _base._converters.Add(type, scrollEventConverter);
+                    if (scrollEventConverter != null) _base._converters.Add(type, scrollEventConverter);
                 }
 
                 return _base;
@@ -110,8 +123,7 @@ namespace LinearBeats.Time
             }
         }
 
-        public Position Convert(Pulse pulse, IDictionary<ScrollEvent, bool> ignore) =>
-            ApplyTimingEvents(ToPosition(pulse), ignore);
+        public Position Convert(Pulse pulse, ScrollEvent ignoreFlags) => ApplyTimingEvents(ToPosition(pulse), ignoreFlags);
 
         private Position ToPosition(Pulse pulse)
         {
@@ -122,20 +134,19 @@ namespace LinearBeats.Time
         }
 
         [SuppressMessage("ReSharper", "LoopCanBePartlyConvertedToQuery")]
-        private Position ApplyTimingEvents(Position origin, [NotNull] IDictionary<ScrollEvent, bool> ignoreEvents)
+        private Position ApplyTimingEvents(Position origin, ScrollEvent ignoreFlags)
         {
             var result = origin;
 
             foreach (var type in EveryScrollEvents)
             {
-                if (IgnoreEvent(type) || !_converters.TryGetValue(type, out var converter)) continue;
+                var ignoreEvent = (ignoreFlags & type) != 0;
+                if (ignoreEvent || !_converters.TryGetValue(type, out var converter)) continue;
 
                 converter.ApplyDistance(ref result, origin);
             }
 
             return result;
-
-            bool IgnoreEvent(ScrollEvent type) => ignoreEvents.TryGetValue(type, out var ignore) && ignore;
         }
     }
 }

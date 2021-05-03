@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Input;
 using LinearBeats.Judgement;
+using LinearBeats.Scrolling;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -48,16 +49,16 @@ namespace LinearBeats.Visuals
             }
         }
 
-        public void OnJudge(NoteBehaviour noteBehaviour, Judge judge)
+        public void OnJudge(Transform effectTransform, Judge judge)
         {
             var judgeEffectPosition = new Vector3(
-                noteBehaviour.JudgeEffectAnchor.position.x,
-                noteBehaviour.JudgeEffectAnchor.position.y,
+                effectTransform.position.x,
+                effectTransform.position.y,
                 0f);
 
             _judgeEffects[judge].Spawn(
                 judgeEffectPosition,
-                noteBehaviour.JudgeEffectAnchor.rotation,
+                effectTransform.rotation,
                 _judgeEffects[judge].transform);
         }
     }

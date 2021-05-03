@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Lean.Pool;
+using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
@@ -66,71 +67,48 @@ namespace LinearBeats.Script
             }
         }
 
-        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour, FixedTime.Factory fixedTimeFactory)
+        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour,
+            FixedTime.Factory fixedTimeFactory,
+            DistanceConverter converter)
         {
             noteBehaviour = null;
             if (index < Script.Notes.Length)
             {
                 Note note = Script.Notes[index];
-                GameObject noteObject = _notesPool.Spawn(
-                    GetNotePosition(note.Shape),
-                    Quaternion.identity,
-                    _notesPool.transform);
-                noteObject.transform.localScale = GetNoteSize(note.Shape);
+                GameObject noteObject = _notesPool.Spawn(_notesPool.transform);
 
                 noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-                noteBehaviour.StartTime = fixedTimeFactory.Create(note.Trigger.Pulse);
-                noteBehaviour.Duration = fixedTimeFactory.Create(note.Trigger.Duration);
+
+                var rail = new RailObject(converter,
+                    fixedTimeFactory.Create(note.Trigger.Pulse),
+                    fixedTimeFactory.Create(note.Trigger.Duration),
+                    ParseIgnoreOptions(note.IgnoreTimingEvent ?? ""));
+
+                noteBehaviour.RailObject = rail;
                 noteBehaviour.Note = note;
-                noteBehaviour.IgnoreFlags = ParseIgnoreOptions(note.IgnoreTimingEvent ?? "");
             }
             return noteBehaviour != null;
 
-            Vector3 GetNotePosition(Shape noteShape)
-            {
-                return new Vector3(GetNoteCol(), GetNoteRow(), 0f);
-
-                float GetNoteCol()
-                {
-                    return noteShape.PosCol - 6f;
-                }
-
-                float GetNoteRow()
-                {
-                    return noteShape.PosRow * 2f;
-                }
-            }
-
-            Vector3 GetNoteSize(Shape noteShape)
-            {
-                return new Vector3(GetNoteWidth(), GetNoteHeight(), 1f);
-
-                float GetNoteWidth()
-                {
-                    return noteShape.SizeCol;
-                }
-
-                float GetNoteHeight()
-                {
-                    return noteShape.SizeRow == 1 ? 1 : 20;
-                }
-            }
         }
 
-        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour, FixedTime.Factory fixedTimeFactory)
+        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour,
+            FixedTime.Factory fixedTimeFactory,
+            DistanceConverter converter)
         {
             dividerBehaviour = null;
             if (index < Script.Dividers.Length)
             {
                 Divider divider = Script.Dividers[index];
-                GameObject dividerObject = _dividerPool.Spawn(
-                    Vector3.zero,
-                    Quaternion.identity,
-                    _dividerPool.transform);
+                GameObject dividerObject = _notesPool.Spawn(_dividerPool.transform);
 
                 dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
-                dividerBehaviour.StartTime = fixedTimeFactory.Create(divider.Pulse);
-                dividerBehaviour.IgnoreFlags = ParseIgnoreOptions(divider.TimingEventIgnore ?? "");
+
+                var rail = new RailObject(converter,
+                    fixedTimeFactory.Create(divider.Pulse),
+                    fixedTimeFactory.Create(new Pulse(0f)),
+                    ParseIgnoreOptions(divider.TimingEventIgnore ?? ""));
+
+                dividerBehaviour.RailObject = rail;
             }
             return dividerBehaviour != null;
         }

@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using LinearBeats.Input;
 using LinearBeats.Script;
+using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
@@ -40,14 +41,17 @@ namespace LinearBeats.Judgement
         public bool JudgeNote(NoteBehaviour noteBehaviour, FixedTime currentTime)
         {
             //TODO: 늦게치면 무조건 miss인 현상 해결
-            FixedTime noteTime = noteBehaviour.StartTime;
+
+            return false;
+
             Shape noteShape = noteBehaviour.Note.Shape;
-            Judge? noteJudgement = GetJudge(noteTime, noteShape, currentTime);
+            Judge? noteJudgement = GetJudge(currentTime, noteShape, currentTime);
             if (noteJudgement != null)
             {
-                _laneEffect.OnJudge(noteBehaviour, (Judge)noteJudgement);
+                _laneEffect.OnJudge(noteBehaviour.transform, (Judge)noteJudgement);
                 return true;
             }
+
             return false;
         }
 

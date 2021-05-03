@@ -69,7 +69,7 @@ namespace LinearBeats.Time
             }
 
             [NotNull]
-            public Builder SetScrollEvent(Scrolling scrolling, ScrollEvent ignoreFlags = ScrollEvent.None)
+            public Builder SetScrollEvent(Script.Scrolling scrolling, ScrollEvent ignoreFlags = ScrollEvent.None)
             {
                 //TODO: Remove Duplicated code
                 AddEvent(ScrollEvent.Stop, scrolling.StopEvents);

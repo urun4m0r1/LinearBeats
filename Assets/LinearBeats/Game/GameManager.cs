@@ -7,6 +7,7 @@ using Lean.Pool;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
+using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
@@ -38,6 +39,7 @@ namespace LinearBeats.Game
         private FixedTime.Factory _fixedTimeFactory;
         private uint nextNoteLoadIndex = 0;
         private IPositionConverter _positionConverter;
+        private DistanceConverter _distanceConverter;
 
         void Start()
         {
@@ -75,6 +77,8 @@ namespace LinearBeats.Game
                     .SetPositionScaler(ScalerMode.BpmRelative)
                     .SetPositionNormalizer(NormalizerMode.Individual)
                     .Build();
+
+                _distanceConverter = new DistanceConverter(_positionConverter, _meterPerQuarterNote);
 
                 var audioClipSource = new AudioClipSource(_backgroundAudioSource,
                     _scriptLoader.Script.AudioChannels[0].Offset);
@@ -150,6 +154,8 @@ namespace LinearBeats.Game
         }
         private void Update()
         {
+            _distanceConverter.DistancePerQuarterNote = _meterPerQuarterNote;
+
             _onProgressChanged.Invoke(_timingController.CurrentProgress);
             _onBpmChanged.Invoke(_timingController.CurrentTime.Bpm.ToString(CultureInfo.InvariantCulture));
 
@@ -172,10 +178,7 @@ namespace LinearBeats.Game
             {
                 foreach (var dividerBehaviour in _dividerBehaviours)
                 {
-                    dividerBehaviour.Value.UpdateRailPosition(_positionConverter,
-                        _timingController.CurrentTime,
-                        _meterPerQuarterNote,
-                        (_standardBpm / _scriptLoader.Script.Timing.StandardBpm) ?? 1f);
+                    dividerBehaviour.Value.CurrentTime = _timingController.CurrentTime;
                 }
             }
 
@@ -183,10 +186,7 @@ namespace LinearBeats.Game
             {
                 foreach (var noteBehaviour in _noteBehaviours)
                 {
-                    noteBehaviour.Value.UpdateRailPosition(_positionConverter,
-                        _timingController.CurrentTime,
-                        _meterPerQuarterNote,
-                        (_standardBpm / _scriptLoader.Script.Timing.StandardBpm) ?? 1f);
+                    noteBehaviour.Value.CurrentTime = _timingController.CurrentTime;
                 }
             }
         }
@@ -211,7 +211,9 @@ namespace LinearBeats.Game
 
             void TryAddNoteBehaviour(uint i)
             {
-                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour, _fixedTimeFactory))
+                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour,
+                    _fixedTimeFactory,
+                    _distanceConverter))
                 {
                     _noteBehaviours.Add(i, noteBehaviour);
                 }
@@ -219,7 +221,9 @@ namespace LinearBeats.Game
 
             void TryAddDividerBehaviour(uint i)
             {
-                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour, _fixedTimeFactory))
+                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour,
+                    _fixedTimeFactory,
+                    _distanceConverter))
                 {
                     _dividerBehaviours.Add(i, dividerBehaviour);
                 }

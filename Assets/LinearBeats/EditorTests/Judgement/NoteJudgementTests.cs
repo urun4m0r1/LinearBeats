@@ -1,5 +1,6 @@
 ﻿using LinearBeats.EditorTests.Time;
 using LinearBeats.Judgement;
+using LinearBeats.Scrolling;
 using LinearBeats.Visuals;
 using NUnit.Framework;
 

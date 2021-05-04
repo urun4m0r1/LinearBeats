@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using LinearBeats.Time;
+using Lean.Pool;
 using UnityEngine;
 
 namespace LinearBeats.Scrolling
@@ -7,8 +7,7 @@ namespace LinearBeats.Scrolling
     [RequireComponent(typeof(Rigidbody))]
     public class RailBehaviour : MonoBehaviour
     {
-        [CanBeNull] public RailObject? RailObject { private get; set; }
-        [CanBeNull] public FixedTime? CurrentTime { private get; set; }
+        [CanBeNull] public RailObject RailObject { get; set; }
 
         private Rigidbody _rigidbody;
 
@@ -23,28 +22,37 @@ namespace LinearBeats.Scrolling
             UpdateRailScale();
         }
 
+        private void FixedUpdate()
+        {
+            UpdateLifecycle();
+        }
+
         private void UpdateRailPosition()
         {
-            if (RailObject == null || CurrentTime == null) return;
+            if (RailObject == null) return;
 
-            var position = GetPosition((RailObject) RailObject, (FixedTime) CurrentTime);
+            var position = GetPosition(RailObject);
             _rigidbody.MovePosition(position);
         }
 
         private void UpdateRailScale()
         {
-            if (RailObject == null || CurrentTime == null) return;
+            if (RailObject == null) return;
 
-            var scale = GetScale((RailObject) RailObject, (FixedTime) CurrentTime);
+            var scale = GetScale(RailObject);
             transform.localScale = scale;
         }
 
-        protected virtual Vector3 GetPosition(RailObject railObject, FixedTime currentTime)
+        protected virtual void UpdateLifecycle()
         {
-            var startPosition = railObject.GetStartPosition(currentTime);
-            return new Vector3(0f, 0f, startPosition);
+            if (RailObject == null) return;
+
+            if (RailObject.CurrentTime >= RailObject.StartTime) LeanPool.Despawn(this);
         }
 
-        protected virtual Vector3 GetScale(RailObject railObject, FixedTime currentTime) => Vector3.one;
+        protected virtual Vector3 GetPosition([NotNull] RailObject railObject) =>
+            new Vector3(0f, 0f, railObject.StartPosition);
+
+        protected virtual Vector3 GetScale([NotNull] RailObject railObject) => Vector3.one;
     }
 }

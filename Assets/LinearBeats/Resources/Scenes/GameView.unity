@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &66996391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7644754193584260206, guid: 3b564b7f14d95844887eacb740886997, type: 3}
-  m_PrefabInstance: {fileID: 7644754193524903113}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &123142944 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5822758043027271650, guid: b9077f43c7ffedb479adb2624038b7e8, type: 3}
@@ -487,22 +476,16 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _timingController
-      Entry: 7
-      Data: 0|LinearBeats.Time.TimingController, LinearBeats
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: _noteJudgement
       Entry: 7
-      Data: 1|LinearBeats.Judgement.NoteJudgement, LinearBeats
+      Data: 0|LinearBeats.Judgement.NoteJudgement, LinearBeats
     - Name: _judgeRangeInSeconds
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
+      Data: 1|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
         LinearBeats],[System.Single, mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
+      Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
         LinearBeats]], mscorlib
     - Name: 
       Entry: 12
@@ -576,7 +559,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _onBpmChanged:
+  onBpmChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 856728560}
@@ -591,7 +574,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onProgressChanged:
+  onProgressChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 940719380}
@@ -606,12 +589,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onGameReset:
+  onGameReset:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 66996391}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
-        m_MethodName: set_isOn
+      - m_Target: {fileID: 1452633785}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -621,15 +604,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _meterPerQuarterNote: 4
-  _noteLoadBufferSize: 64
-  _scriptLoader:
-    _notesPool: {fileID: 518583840}
-    _dividerPool: {fileID: 730012154}
-    _audioListener: {fileID: 1667118062}
-    _audioMixerGroups:
+  meterPerQuarterNote: 1
+  noteLoadBufferSize: 128
+  scriptLoader:
+    notesPool: {fileID: 518583840}
+    dividerPool: {fileID: 730012154}
+    audioListener: {fileID: 1667118062}
+    audioMixerGroups:
     - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
     - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+    - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
 --- !u!1 &730012152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1028,17 @@ MonoBehaviour:
   despawnedClones: []
   delays: []
   deactivatedChild: {fileID: 0}
+--- !u!114 &1452633785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7644754193584260202, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+  m_PrefabInstance: {fileID: 7644754193524903113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033273b6ffafa814cbd95d1b39b157d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1454639010 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5822758041940859849, guid: b9077f43c7ffedb479adb2624038b7e8, type: 3}

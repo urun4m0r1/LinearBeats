@@ -20,12 +20,12 @@ namespace LinearBeats.EditorTests.Time
             public Second Offset => _y;
         }
 
-        private static void Iterate([NotNull] Action<MockAudioClip, TimingController> action)
+        private static void Iterate([NotNull] Action<MockAudioClip, AudioTimingInfo> action)
         {
             for (var i = 0; i < Iteration; ++i)
             {
                 var audio = new MockAudioClip();
-                action(audio, new TimingController(audio, Factory));
+                action(audio, new AudioTimingInfo(audio, Factory));
             }
         }
 
@@ -35,7 +35,7 @@ namespace LinearBeats.EditorTests.Time
             Iterate((a, c) =>
             {
                 var currentTime = Factory.Create(a.Current);
-                Assert.AreEqual(currentTime + a.Offset, c.CurrentTime.Second);
+                Assert.AreEqual(currentTime + a.Offset, c.Now.Second);
             });
         }
 
@@ -45,9 +45,9 @@ namespace LinearBeats.EditorTests.Time
             Iterate((a, c) =>
             {
                 var progress = Factory.Create(a.Current) / a.Length;
-                Assert.AreEqual(progress, c.CurrentProgress, Delta);
-                Assert.GreaterOrEqual(c.CurrentProgress, 0f);
-                Assert.LessOrEqual(c.CurrentProgress, 1f);
+                Assert.AreEqual(progress, c.Progress, Delta);
+                Assert.GreaterOrEqual(c.Progress, 0f);
+                Assert.LessOrEqual(c.Progress, 1f);
             });
         }
     }

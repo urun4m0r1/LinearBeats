@@ -79,7 +79,7 @@ namespace LinearBeats.Script
         public Pulse Pulse;
         public Pulse Interval;
         public byte Type;
-        [CanBeNull] public string TimingEventIgnore;
+        [CanBeNull] public string IgnoreScrollEvent;
     }
 
     public struct MediaChannel
@@ -102,7 +102,7 @@ namespace LinearBeats.Script
     {
         public Trigger Trigger;
         public Shape Shape;
-        [CanBeNull] public string IgnoreTimingEvent;
+        [CanBeNull] public string IgnoreScrollEvent;
     }
 
     public struct Shape

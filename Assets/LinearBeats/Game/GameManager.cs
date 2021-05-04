@@ -1,15 +1,9 @@
-#pragma warning disable IDE0051
-#pragma warning disable IDE0090
-
-using System.Collections.Generic;
+using System;
 using System.Globalization;
-using Lean.Pool;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
-using LinearBeats.Scrolling;
 using LinearBeats.Time;
-using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -20,71 +14,52 @@ namespace LinearBeats.Game
 {
     public sealed class GameManager : SerializedMonoBehaviour
     {
-#pragma warning disable IDE0044
-        [SerializeField] private UnityEvent<string> _onBpmChanged = new UnityEvent<string>();
-        [SerializeField] private UnityEvent<float> _onProgressChanged = new UnityEvent<float>();
-        [SerializeField] private UnityEvent _onGameReset = new UnityEvent();
-        [Range(1f, 100f)] [SerializeField] private float _meterPerQuarterNote = 1f;
-        [Range(1f, 1000f)] [SerializeField] private float _standardBpm = 100f;
-        [Range(1, 128)] [SerializeField] private uint _noteLoadBufferSize = 4;
-        [SerializeField] private ScriptLoader _scriptLoader = null;
-        [OdinSerialize] private TimingController _timingController = null;
-        [OdinSerialize] private NoteJudgement _noteJudgement = null;
-#pragma warning restore IDE0044
+        [SerializeField] private UnityEvent<string> onBpmChanged = new UnityEvent<string>();
+        [SerializeField] private UnityEvent<float> onProgressChanged = new UnityEvent<float>();
+        [SerializeField] private UnityEvent onGameReset = new UnityEvent();
+        [Range(1f, 100f)] [SerializeField] private float meterPerQuarterNote = 1f;
+        [SerializeField] private ScriptLoader scriptLoader;
+        [OdinSerialize] private NoteJudgement _noteJudgement;
 
-        private readonly Dictionary<uint, RailBehaviour> _dividerBehaviours = new Dictionary<uint, RailBehaviour>();
-        private readonly Dictionary<uint, NoteBehaviour> _noteBehaviours = new Dictionary<uint, NoteBehaviour>();
-        private AudioSource[] _audioSources = null;
+        private AudioSource[] _audioSources;
         private AudioSource _backgroundAudioSource;
-        private FixedTime.Factory _fixedTimeFactory;
-        private uint nextNoteLoadIndex = 0;
-        private IPositionConverter _positionConverter;
-        private DistanceConverter _distanceConverter;
+        private uint _nextNoteLoadIndex;
+        private IDistanceConverter _distanceConverter;
+        private AudioTimingInfo _audioTimingInfo;
+        private TimingObject _timingObject;
 
-        void Start()
+        private void Awake()
         {
-            InitScriptLoader();
-            InitAudioSources();
-            InitTimingController();
+            scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
+
+            _audioSources = scriptLoader.InstantiateAudioSource();
+            _backgroundAudioSource = _audioSources[0];
+
+            if (scriptLoader.Script.AudioChannels == null) throw new InvalidOperationException();
+            if (scriptLoader.Script.Timing.BpmEvents == null) throw new InvalidOperationException();
+
+            var timingConverter = new TimingConverter(
+                scriptLoader.Script.Timing.BpmEvents,
+                _backgroundAudioSource.clip.frequency,
+                scriptLoader.Script.Timing.StandardBpm,
+                scriptLoader.Script.Timing.StandardPpqn);
+
+            var fixedTimeFactory = new FixedTime.Factory(timingConverter);
+
+            var positionConverter = new PositionConverter.Builder(timingConverter)
+                .SetScrollEvent(scriptLoader.Script.Scrolling)
+                .SetPositionScaler(ScalerMode.BpmRelative)
+                .SetPositionNormalizer(NormalizerMode.Individual)
+                .Build();
+
+            var audioClipSource = new AudioClipSource(_backgroundAudioSource,
+                scriptLoader.Script.AudioChannels[0].Offset);
+
+            _distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
+            _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter);
+            _audioTimingInfo = new AudioTimingInfo(audioClipSource, fixedTimeFactory);
 
             ResetGame();
-
-            void InitScriptLoader()
-            {
-                _scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
-            }
-
-            void InitAudioSources()
-            {
-                _audioSources = _scriptLoader.InstantiateAudioSource();
-                _backgroundAudioSource = _audioSources[0];
-            }
-
-            void InitTimingController()
-            {
-                var converter = new TimingConverter(
-                    _scriptLoader.Script.Timing.BpmEvents,
-                    _audioSources[0].clip.frequency,
-                    _scriptLoader.Script.Timing.StandardBpm,
-                    _scriptLoader.Script.Timing.StandardPpqn);
-
-                _fixedTimeFactory = new FixedTime.Factory(converter);
-
-                var ignoreFlags = ScrollEvent.None;
-
-                _positionConverter = new PositionConverter.Builder(converter)
-                    .SetScrollEvent(_scriptLoader.Script.Scrolling, ignoreFlags)
-                    .SetPositionScaler(ScalerMode.BpmRelative)
-                    .SetPositionNormalizer(NormalizerMode.Individual)
-                    .Build();
-
-                _distanceConverter = new DistanceConverter(_positionConverter, _meterPerQuarterNote);
-
-                var audioClipSource = new AudioClipSource(_backgroundAudioSource,
-                    _scriptLoader.Script.AudioChannels[0].Offset);
-
-                _timingController = new TimingController(audioClipSource, _fixedTimeFactory);
-            }
         }
 
         public void PlayPauseGame(bool play)
@@ -93,141 +68,38 @@ namespace LinearBeats.Game
             else PauseGame();
         }
 
-        public void StartGame()
+        private void StartGame()
         {
-            foreach (var audioSource in _audioSources)
-            {
-                audioSource.UnPause();
-            }
+            foreach (var audioSource in _audioSources) audioSource.UnPause();
         }
 
-        public void PauseGame()
+        private void PauseGame()
         {
-            foreach (var audioSource in _audioSources)
-            {
-                audioSource.Pause();
-            }
+            foreach (var audioSource in _audioSources) audioSource.Pause();
         }
 
         public void ResetGame()
         {
-            foreach (var audioSource in _audioSources)
-            {
-                audioSource.Reset();
-            }
+            foreach (var audioSource in _audioSources) audioSource.Reset();
 
-            nextNoteLoadIndex = 0;
-            //FIXME: 기존 버퍼 초기화
-            BufferNotes(_noteLoadBufferSize);
+            scriptLoader.InstantiateAllNotes(_timingObject, _noteJudgement);
+            scriptLoader.InstantiateAllDividers(_timingObject);
 
-            _onGameReset.Invoke();
+            onGameReset.Invoke();
         }
 
-        private void FixedUpdate()
-        {
-            if (_backgroundAudioSource.isPlaying)
-            {
-                UpdateNoteJudge();
-            }
-
-            void UpdateNoteJudge()
-            {
-                var judgedNoteIndexes = new List<uint>();
-                foreach (var noteBehaviour in _noteBehaviours)
-                {
-                    bool noteJudged = _noteJudgement.JudgeNote(
-                        noteBehaviour.Value,
-                        _timingController.CurrentTime);
-
-                    if (noteJudged)
-                    {
-                        judgedNoteIndexes.Add(noteBehaviour.Key);
-                    }
-                }
-
-                foreach (var judgedNoteIndex in judgedNoteIndexes)
-                {
-                    LeanPool.Despawn(_noteBehaviours[judgedNoteIndex]);
-                    _noteBehaviours.Remove(judgedNoteIndex);
-                }
-            }
-        }
         private void Update()
         {
-            _distanceConverter.DistancePerQuarterNote = _meterPerQuarterNote;
+            _timingObject.Current = _audioTimingInfo.Now;
+            _distanceConverter.DistancePerQuarterNote = meterPerQuarterNote;
 
-            _onProgressChanged.Invoke(_timingController.CurrentProgress);
-            _onBpmChanged.Invoke(_timingController.CurrentTime.Bpm.ToString(CultureInfo.InvariantCulture));
+            onProgressChanged.Invoke(_audioTimingInfo.Progress);
+            onBpmChanged.Invoke(_timingObject.Current.Bpm.ToString(CultureInfo.InvariantCulture));
 
-            if (_backgroundAudioSource.isPlaying)
-            {
-                if (_noteBehaviours.Count < _noteLoadBufferSize)
-                {
-                    BufferNotes(_noteLoadBufferSize - (uint)_noteBehaviours.Count);
-                }
-            }
-            else if (_backgroundAudioSource.timeSamples >= _backgroundAudioSource.clip.samples)
-            {
-                ResetGame();
-            }
+            if (_backgroundAudioSource.isPlaying) return;
+            if (_backgroundAudioSource.timeSamples < _backgroundAudioSource.clip.samples) return;
 
-            UpdateDividerPosition();
-            UpdateNotePosition();
-
-            void UpdateDividerPosition()
-            {
-                foreach (var dividerBehaviour in _dividerBehaviours)
-                {
-                    dividerBehaviour.Value.CurrentTime = _timingController.CurrentTime;
-                }
-            }
-
-            void UpdateNotePosition()
-            {
-                foreach (var noteBehaviour in _noteBehaviours)
-                {
-                    noteBehaviour.Value.CurrentTime = _timingController.CurrentTime;
-                }
-            }
-        }
-
-        private void BufferNotes(uint bufferSize)
-        {
-            if (nextNoteLoadIndex < _scriptLoader.Script.Notes.Length)
-            {
-                for (var i = nextNoteLoadIndex; i < nextNoteLoadIndex + bufferSize; ++i)
-                {
-                    if (!_noteBehaviours.ContainsKey(i))
-                    {
-                        TryAddNoteBehaviour(i);
-                    }
-                    if (!_dividerBehaviours.ContainsKey(i))
-                    {
-                        TryAddDividerBehaviour(i);
-                    }
-                }
-            }
-            nextNoteLoadIndex += bufferSize;
-
-            void TryAddNoteBehaviour(uint i)
-            {
-                if (_scriptLoader.TryInstantiateNote(i, out NoteBehaviour noteBehaviour,
-                    _fixedTimeFactory,
-                    _distanceConverter))
-                {
-                    _noteBehaviours.Add(i, noteBehaviour);
-                }
-            }
-
-            void TryAddDividerBehaviour(uint i)
-            {
-                if (_scriptLoader.TryInstantiateDivider(i, out RailBehaviour dividerBehaviour,
-                    _fixedTimeFactory,
-                    _distanceConverter))
-                {
-                    _dividerBehaviours.Add(i, dividerBehaviour);
-                }
-            }
+            ResetGame();
         }
     }
 }

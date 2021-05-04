@@ -1,6 +1,5 @@
-#pragma warning disable IDE0090
-#pragma warning disable IDE0051
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LinearBeats.Input;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
@@ -19,7 +18,7 @@ namespace LinearBeats.Judgement
         Great,
         Good,
         Bad,
-        Miss
+        Miss,
     }
 
     [HideReferenceObjectPicker]
@@ -35,59 +34,48 @@ namespace LinearBeats.Judgement
             [Judge.Bad] = 0.150f,
         };
 
-        [SerializeField]
-        private LaneEffect _laneEffect = null;
+        [SerializeField] private LaneEffect _laneEffect = null;
 
-        public bool JudgeNote(NoteBehaviour noteBehaviour, FixedTime currentTime)
+        //TODO: 늦게치면 무조건 miss인 현상 해결
+        public bool JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
         {
-            //TODO: 늦게치면 무조건 miss인 현상 해결
+            var noteJudgement = GetJudge(railObject.CurrentTime, railObject.StartTime, noteShape);
+            if (noteJudgement == null) return false;
 
-            return false;
-
-            Shape noteShape = noteBehaviour.Note.Shape;
-            Judge? noteJudgement = GetJudge(currentTime, noteShape, currentTime);
-            if (noteJudgement != null)
-            {
-                _laneEffect.OnJudge(noteBehaviour.transform, (Judge)noteJudgement);
-                return true;
-            }
-
-            return false;
+            _laneEffect.OnJudge(effectPosition, (Judge) noteJudgement);
+            return true;
         }
 
-        public Judge? GetJudge(FixedTime noteTime, Shape noteShape, FixedTime currentTime)
+        private Judge? GetJudge(FixedTime currentTime, FixedTime targetTime, Shape noteShape)
         {
             Second elapsedTime;
             Second remainingTime;
-            if (currentTime >= noteTime)
+            if (currentTime >= targetTime)
             {
-                elapsedTime = currentTime - noteTime;
+                elapsedTime = currentTime - targetTime;
                 remainingTime = float.MaxValue;
             }
             else
             {
                 elapsedTime = 0f;
-                remainingTime = noteTime - currentTime;
+                remainingTime = targetTime - currentTime;
             }
 
             if (InputHandler.IsNotePressed(noteShape))
             {
                 if (WithinJudge(_judgeRangeInSeconds[Judge.Perfect])) return Judge.Perfect;
-                else if (WithinJudge(_judgeRangeInSeconds[Judge.Great])) return Judge.Great;
-                else if (WithinJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Good;
-                else if (WithinJudgeRange(_judgeRangeInSeconds[Judge.Bad], _judgeRangeInSeconds[Judge.Good])) return Judge.Bad;
-                else return null;
-            }
-            else
-            {
-                if (MissedJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Miss;
-                else return null;
+                if (WithinJudge(_judgeRangeInSeconds[Judge.Great])) return Judge.Great;
+                if (WithinJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Good;
+                if (WithinJudgeRange(_judgeRangeInSeconds[Judge.Bad], _judgeRangeInSeconds[Judge.Good])) return Judge.Bad;
+
+                return null;
             }
 
-            bool WithinJudge(Second judgeOffset)
-            {
-                return !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
-            }
+            if (MissedJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Miss;
+
+            return null;
+
+            bool WithinJudge(Second judgeOffset) => !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
 
             bool WithinJudgeRange(Second judgeOffsetStart, Second judgeOffsetEnd)
             {
@@ -96,15 +84,9 @@ namespace LinearBeats.Judgement
                 return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
             }
 
-            bool PreJudge(Second judgeOffset)
-            {
-                return remainingTime >= judgeOffset;
-            }
+            bool PreJudge(Second judgeOffset) => remainingTime >= judgeOffset;
 
-            bool MissedJudge(Second judgeOffset)
-            {
-                return elapsedTime >= judgeOffset;
-            }
+            bool MissedJudge(Second judgeOffset) => elapsedTime >= judgeOffset;
         }
     }
 }

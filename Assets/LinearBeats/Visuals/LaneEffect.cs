@@ -1,6 +1,3 @@
-#pragma warning disable IDE0090
-#pragma warning disable IDE0051
-
 using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Input;
@@ -30,7 +27,6 @@ namespace LinearBeats.Visuals
             [Judge.Bad] = null,
             [Judge.Miss] = null,
         };
-#pragma warning restore IDE0044
 
         private void Update()
         {
@@ -49,16 +45,11 @@ namespace LinearBeats.Visuals
             }
         }
 
-        public void OnJudge(Transform effectTransform, Judge judge)
+        public void OnJudge(Vector3 effectPosition, Judge judge)
         {
-            var judgeEffectPosition = new Vector3(
-                effectTransform.position.x,
-                effectTransform.position.y,
-                0f);
-
             _judgeEffects[judge].Spawn(
-                judgeEffectPosition,
-                effectTransform.rotation,
+                effectPosition,
+                Quaternion.identity,
                 _judgeEffects[judge].transform);
         }
     }

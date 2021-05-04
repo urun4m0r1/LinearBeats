@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using Lean.Pool;
+using LinearBeats.Judgement;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
-using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -15,24 +13,14 @@ namespace LinearBeats.Script
     [Serializable]
     public sealed class ScriptLoader
     {
-#pragma warning disable IDE0044
-        [Required]
-        [SerializeField]
-        private LeanGameObjectPool _notesPool = null;
-        [Required]
-        [SerializeField]
-        private LeanGameObjectPool _dividerPool = null;
-        [Required]
-        [SerializeField]
-        private AudioListener _audioListener = null;
-        [Required]
-        [SerializeField]
-        private AudioMixerGroup[] _audioMixerGroups = null;
-#pragma warning restore IDE0044
+        [Required] [SerializeField] private LeanGameObjectPool notesPool;
+        [Required] [SerializeField] private LeanGameObjectPool dividerPool;
+        [Required] [SerializeField] private AudioListener audioListener;
+        [Required] [SerializeField] private AudioMixerGroup[] audioMixerGroups;
 
         public LinearBeatsScript Script { get; private set; }
 
-        private string _resourcesPath = null;
+        private string _resourcesPath;
 
         public void LoadScript(string resourcesPath, string scriptName)
         {
@@ -40,20 +28,24 @@ namespace LinearBeats.Script
             Script = ScriptParser.ParseFromResources(_resourcesPath + scriptName);
         }
 
+        [NotNull]
         public AudioSource[] InstantiateAudioSource()
         {
+            if (Script.AudioChannels == null) throw new InvalidOperationException();
+
             var audioSources = new AudioSource[Script.AudioChannels.Length];
             for (var i = 0; i < audioSources.Length; ++i)
             {
-                GameObject audioGameObject = CreateAudioGameObject(Script.AudioChannels[i].FileName);
+                var audioGameObject = CreateAudioGameObject(Script.AudioChannels[i].FileName);
                 audioSources[i] = AddAudioSourcesToGameObject(audioGameObject, Script.AudioChannels[i]);
             }
+
             return audioSources;
 
             GameObject CreateAudioGameObject(string name)
             {
                 var audioObject = new GameObject(name);
-                audioObject.transform.parent = _audioListener.transform;
+                audioObject.transform.parent = audioListener.transform;
                 return audioObject;
             }
 
@@ -62,59 +54,42 @@ namespace LinearBeats.Script
                 var audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
                 audioSource.playOnAwake = false;
-                audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer];
+                audioSource.outputAudioMixerGroup = audioMixerGroups[audioChannel.Layer];
                 return audioSource;
             }
         }
 
-        public bool TryInstantiateNote(uint index, out NoteBehaviour noteBehaviour,
-            FixedTime.Factory fixedTimeFactory,
-            DistanceConverter converter)
+        public void InstantiateAllNotes(TimingObject timingObject, NoteJudgement noteJudgement)
         {
-            noteBehaviour = null;
-            if (index < Script.Notes.Length)
+            if (Script.Notes == null) return;
+
+            foreach (var note in Script.Notes)
             {
-                Note note = Script.Notes[index];
-                GameObject noteObject = _notesPool.Spawn(_notesPool.transform);
+                var noteObject = notesPool.Spawn(notesPool.transform);
+                var noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
 
-                noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
-
-                var rail = new RailObject(converter,
-                    fixedTimeFactory.Create(note.Trigger.Pulse),
-                    fixedTimeFactory.Create(note.Trigger.Duration),
-                    ParseIgnoreOptions(note.IgnoreTimingEvent ?? ""));
-
-                noteBehaviour.RailObject = rail;
-                noteBehaviour.Note = note;
+                var ignoreOptions = ParseIgnoreOptions(note.IgnoreScrollEvent);
+                noteBehaviour.RailObject = new NoteRail(timingObject, ignoreOptions, note.Trigger);
+                noteBehaviour.NoteShape = note.Shape;
+                noteBehaviour.Judgement = noteJudgement;
             }
-            return noteBehaviour != null;
-
         }
 
-        public bool TryInstantiateDivider(uint index, out RailBehaviour dividerBehaviour,
-            FixedTime.Factory fixedTimeFactory,
-            DistanceConverter converter)
+        public void InstantiateAllDividers(TimingObject timingObject)
         {
-            dividerBehaviour = null;
-            if (index < Script.Dividers.Length)
+            if (Script.Dividers == null) return;
+
+            foreach (var divider in Script.Dividers)
             {
-                Divider divider = Script.Dividers[index];
-                GameObject dividerObject = _notesPool.Spawn(_dividerPool.transform);
+                var dividerObject = dividerPool.Spawn(dividerPool.transform);
+                var dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
 
-                dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
-
-                var rail = new RailObject(converter,
-                    fixedTimeFactory.Create(divider.Pulse),
-                    fixedTimeFactory.Create(new Pulse(0f)),
-                    ParseIgnoreOptions(divider.TimingEventIgnore ?? ""));
-
-                dividerBehaviour.RailObject = rail;
+                var ignoreOptions = ParseIgnoreOptions(divider.IgnoreScrollEvent);
+                dividerBehaviour.RailObject = new DividerRail(timingObject, ignoreOptions, divider.Pulse);
             }
-            return dividerBehaviour != null;
         }
 
-        [NotNull]
-        private ScrollEvent ParseIgnoreOptions([NotNull] string options)
+        private ScrollEvent ParseIgnoreOptions([CanBeNull] string options)
         {
             var result = ScrollEvent.None;
 
@@ -124,8 +99,10 @@ namespace LinearBeats.Script
             return result;
 
             //TODO: Remove boxing
-            void ParseFlag(ref ScrollEvent target, ScrollEvent option) =>
-                target = options.Contains(option.ToString()) ? target | option : target;
+            void ParseFlag(ref ScrollEvent target, ScrollEvent option)
+            {
+                if (options?.Contains(option.ToString()) ?? false) target |= option;
+            }
         }
     }
 }

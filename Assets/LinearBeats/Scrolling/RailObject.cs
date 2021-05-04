@@ -1,35 +1,55 @@
 using JetBrains.Annotations;
+using LinearBeats.Script;
 using LinearBeats.Time;
 
 namespace LinearBeats.Scrolling
 {
-    public readonly struct RailObject
+    public class RailObject
     {
-        [NotNull] private readonly IDistanceConverter _converter;
-        public FixedTime StartTime { get; }
-        public FixedTime EndTime => _duration == null ? StartTime : StartTime + (FixedTime) _duration;
+        public virtual FixedTime StartTime { get; }
+        public virtual FixedTime EndTime { get; }
+        public FixedTime CurrentTime => _timingObject.Current;
+
+        [NotNull] private readonly TimingObject _timingObject;
+        [NotNull] protected FixedTime.Factory Factory => _timingObject.Factory;
+        [NotNull] private IDistanceConverter Converter => _timingObject.Converter;
 
         private readonly ScrollEvent _ignoreFlags;
-        private readonly FixedTime? _duration;
 
-        public RailObject([NotNull] IDistanceConverter converter,
-            FixedTime startTime,
-            FixedTime? duration = null,
-            ScrollEvent ignoreFlags = ScrollEvent.None)
+        public float StartPosition => Converter.GetRailPosition(_timingObject.Current, StartTime, _ignoreFlags);
+        public float EndPosition => Converter.GetRailPosition(_timingObject.Current, EndTime, _ignoreFlags);
+
+        protected RailObject([NotNull] TimingObject timingObject, ScrollEvent ignoreFlags)
         {
-            _converter = converter;
-            StartTime = startTime;
-            _duration = duration;
+            _timingObject = timingObject;
             _ignoreFlags = ignoreFlags;
+
+            StartTime = Factory.Create(new Pulse(0f));
+            EndTime = Factory.Create(new Pulse(0f));
         }
+    }
 
-        public float GetStartPosition(FixedTime currentTime) =>
-            _converter.GetRailPosition(currentTime, StartTime, _ignoreFlags);
 
-        public float GetEndPosition(FixedTime currentTime) =>
-            _converter.GetRailPosition(currentTime, EndTime, _ignoreFlags);
+    public sealed class DividerRail : RailObject
+    {
+        public override FixedTime StartTime { get; }
+        public override FixedTime EndTime => StartTime;
 
-        public float ScaleLength(float length) =>
-            length * _converter.DistancePerQuarterNote;
+        public DividerRail([NotNull] TimingObject timingObject, ScrollEvent ignoreFlags, Pulse startTime)
+            : base(timingObject, ignoreFlags) => StartTime = Factory.Create(startTime);
+    }
+
+
+    public sealed class NoteRail : RailObject
+    {
+        public override FixedTime StartTime { get; }
+        public override FixedTime EndTime { get; }
+
+        public NoteRail([NotNull] TimingObject timingObject, ScrollEvent ignoreFlags, Trigger trigger)
+            : base(timingObject, ignoreFlags)
+        {
+            StartTime = Factory.Create(trigger.Pulse);
+            EndTime = StartTime + Factory.Create(trigger.Duration);
+        }
     }
 }

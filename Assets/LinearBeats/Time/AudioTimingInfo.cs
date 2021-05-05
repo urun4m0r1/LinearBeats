@@ -7,6 +7,7 @@ namespace LinearBeats.Time
     {
         public FixedTime Now => _fixedTimeFactory.Create(Current + _audioClip.Offset);
         public float Progress => Current / _audioClip.Length;
+        public bool IsPlaying => _audioClip.IsPlaying;
 
         private FixedTime Current => _fixedTimeFactory.Create(_audioClip.Current);
         [NotNull] private readonly IAudioClip _audioClip;

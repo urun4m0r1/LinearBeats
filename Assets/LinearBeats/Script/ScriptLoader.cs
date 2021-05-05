@@ -75,6 +75,7 @@ namespace LinearBeats.Script
             }
         }
 
+        //TODO: 조금씩 생성시켜 사용하기
         public void InstantiateAllDividers(TimingObject timingObject)
         {
             if (Script.Dividers == null) return;
@@ -82,7 +83,7 @@ namespace LinearBeats.Script
             foreach (var divider in Script.Dividers)
             {
                 var dividerObject = dividerPool.Spawn(dividerPool.transform);
-                var dividerBehaviour = dividerObject.GetComponent<RailBehaviour>();
+                var dividerBehaviour = dividerObject.GetComponent<DividerBehaviour>();
 
                 var ignoreOptions = ParseIgnoreOptions(divider.IgnoreScrollEvent);
                 dividerBehaviour.RailObject = new DividerRail(timingObject, ignoreOptions, divider.Pulse);

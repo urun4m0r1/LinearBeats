@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using Lean.Pool;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace LinearBeats.Scrolling
     public class RailBehaviour : MonoBehaviour
     {
         [CanBeNull] public RailObject RailObject { get; set; }
+        protected virtual Vector3 Position => throw new InvalidOperationException();
+        protected virtual Vector3 Scale => throw new InvalidOperationException();
 
         private Rigidbody _rigidbody;
 
@@ -18,41 +21,10 @@ namespace LinearBeats.Scrolling
 
         private void Update()
         {
-            UpdateRailPosition();
-            UpdateRailScale();
+            _rigidbody.MovePosition(Position);
+            transform.localScale = Scale;
+
+            if (RailObject?.Disabled ?? false) LeanPool.Despawn(this);
         }
-
-        private void FixedUpdate()
-        {
-            UpdateLifecycle();
-        }
-
-        private void UpdateRailPosition()
-        {
-            if (RailObject == null) return;
-
-            var position = GetPosition(RailObject);
-            _rigidbody.MovePosition(position);
-        }
-
-        private void UpdateRailScale()
-        {
-            if (RailObject == null) return;
-
-            var scale = GetScale(RailObject);
-            transform.localScale = scale;
-        }
-
-        protected virtual void UpdateLifecycle()
-        {
-            if (RailObject == null) return;
-
-            if (RailObject.CurrentTime >= RailObject.StartTime) LeanPool.Despawn(this);
-        }
-
-        protected virtual Vector3 GetPosition([NotNull] RailObject railObject) =>
-            new Vector3(0f, 0f, railObject.StartPosition);
-
-        protected virtual Vector3 GetScale([NotNull] RailObject railObject) => Vector3.one;
     }
 }

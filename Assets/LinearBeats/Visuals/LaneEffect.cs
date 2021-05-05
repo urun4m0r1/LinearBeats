@@ -2,24 +2,18 @@ using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Input;
 using LinearBeats.Judgement;
-using LinearBeats.Scrolling;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
 namespace LinearBeats.Visuals
 {
-
     public sealed class LaneEffect : SerializedMonoBehaviour
     {
-#pragma warning disable IDE0044
-        [Required]
-        [ListDrawerSettings(IsReadOnly = true)]
-        [SerializeField]
+        [Required] [ListDrawerSettings(IsReadOnly = true)] [SerializeField]
         private LaneBeam[] _laneBeams = new LaneBeam[Keyboard.Cols];
 
-        [OdinSerialize]
-        private Dictionary<Judge, LeanGameObjectPool> _judgeEffects = new Dictionary<Judge, LeanGameObjectPool>
+        [OdinSerialize] private Dictionary<Judge, LeanGameObjectPool> _judgeEffects = new Dictionary<Judge, LeanGameObjectPool>
         {
             [Judge.Perfect] = null,
             [Judge.Great] = null,

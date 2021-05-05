@@ -37,6 +37,7 @@ namespace LinearBeats.Judgement
         [SerializeField] private LaneEffect _laneEffect = null;
 
         //TODO: 늦게치면 무조건 miss인 현상 해결
+        //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
         public bool JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
         {
             var noteJudgement = GetJudge(railObject.CurrentTime, railObject.StartTime, noteShape);

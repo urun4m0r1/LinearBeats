@@ -10,28 +10,20 @@ namespace LinearBeats.Scrolling
     {
         [CanBeNull] public NoteJudgement Judgement { get; set; }
         public Shape NoteShape { get; set; }
-
+        protected override Vector3 Position => new Vector3(PosX, PosY, RailObject?.StartPosition ?? 0f);
+        protected override Vector3 Scale => new Vector3(Width, Height, 1f);
         private float PosX => NoteShape.PosCol - 6f;
         private float PosY => NoteShape.PosRow * 2f;
         private float Width => NoteShape.SizeCol;
         private float Height => NoteShape.SizeRow == 1 ? 1f : 20f;
 
-        //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
-        protected override Vector3 GetPosition(RailObject railObject) =>
-            new Vector3(PosX, PosY, railObject.StartPosition);
-
-        protected override Vector3 GetScale(RailObject railObject) =>
-            new Vector3(Width, Height, 1f);
-
-        protected override void UpdateLifecycle()
+        private void FixedUpdate()
         {
-            base.UpdateLifecycle();
+            if (RailObject == null) return;
 
-            if (RailObject == null || Judgement == null) return;
+            var noteJudged = Judgement?.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
 
-            var noteJudged = Judgement.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
-
-            if (noteJudged) LeanPool.Despawn(this);
+            if (noteJudged ?? false) LeanPool.Despawn(this);
         }
     }
 }

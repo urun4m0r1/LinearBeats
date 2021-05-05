@@ -1,10 +1,13 @@
 using Lean.Pool;
 using UnityEngine;
 
-public class JudgeEffect : MonoBehaviour
+namespace LinearBeats.Visuals
 {
-    public void OnParticleSystemStopped()
+    public sealed class JudgeEffect : MonoBehaviour
     {
-        LeanPool.Despawn(gameObject);
+        public void OnParticleSystemStopped()
+        {
+            LeanPool.Despawn(gameObject);
+        }
     }
 }

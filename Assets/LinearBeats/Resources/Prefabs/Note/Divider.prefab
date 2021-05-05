@@ -51,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -90,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9158792792082401970}
-  - component: {fileID: -3375851666436545551}
+  - component: {fileID: 1384279658577374228}
   - component: {fileID: 3482720531911218085}
   m_Layer: 7
   m_Name: Divider
@@ -114,7 +115,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3375851666436545551
+--- !u!114 &1384279658577374228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +124,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9158792792082401969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a19d2a946fd1b540b0606849078fd63, type: 3}
+  m_Script: {fileID: 11500000, guid: bec13b95640d4f1386b48a1ce6b43668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 3482720531911218085}
 --- !u!54 &3482720531911218085
 Rigidbody:
   m_ObjectHideFlags: 0

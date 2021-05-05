@@ -18,6 +18,7 @@ namespace LinearBeats.EditorTests.Time
             public Sample Current => _x + 5_000f; // [0 ~ 10_000]
             public Second Length => 10_000f / TimingConverterTests.SamplesPerSecond;
             public Second Offset => _y;
+            public bool IsPlaying { get; }
         }
 
         private static void Iterate([NotNull] Action<MockAudioClip, AudioTimingInfo> action)

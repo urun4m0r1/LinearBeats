@@ -9,6 +9,7 @@ namespace LinearBeats.Scrolling
         public virtual FixedTime StartTime { get; }
         public virtual FixedTime EndTime { get; }
         public FixedTime CurrentTime => _timingObject.Current;
+        public bool Disabled => CurrentTime > EndTime;
 
         [NotNull] private readonly TimingObject _timingObject;
         [NotNull] protected FixedTime.Factory Factory => _timingObject.Factory;

@@ -22,8 +22,6 @@ namespace LinearBeats.Game
         [OdinSerialize] private NoteJudgement _noteJudgement;
 
         private AudioSource[] _audioSources;
-        private AudioSource _backgroundAudioSource;
-        private uint _nextNoteLoadIndex;
         private IDistanceConverter _distanceConverter;
         private AudioTimingInfo _audioTimingInfo;
         private TimingObject _timingObject;
@@ -33,27 +31,26 @@ namespace LinearBeats.Game
             scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
 
             _audioSources = scriptLoader.InstantiateAudioSource();
-            _backgroundAudioSource = _audioSources[0];
+            var backgroundAudioSource = _audioSources[0];
 
             if (scriptLoader.Script.AudioChannels == null) throw new InvalidOperationException();
             if (scriptLoader.Script.Timing.BpmEvents == null) throw new InvalidOperationException();
 
             var timingConverter = new TimingConverter(
                 scriptLoader.Script.Timing.BpmEvents,
-                _backgroundAudioSource.clip.frequency,
+                backgroundAudioSource.clip.frequency,
                 scriptLoader.Script.Timing.StandardBpm,
                 scriptLoader.Script.Timing.StandardPpqn);
 
             var fixedTimeFactory = new FixedTime.Factory(timingConverter);
 
             var positionConverter = new PositionConverter.Builder(timingConverter)
-                .SetScrollEvent(scriptLoader.Script.Scrolling)
+                .SetScrollEvent(scriptLoader.Script.Scrolling, ScrollEvent.SpeedBounce)
                 .SetPositionScaler(ScalerMode.BpmRelative)
                 .SetPositionNormalizer(NormalizerMode.Individual)
                 .Build();
 
-            var audioClipSource = new AudioClipSource(_backgroundAudioSource,
-                scriptLoader.Script.AudioChannels[0].Offset);
+            var audioClipSource = new AudioClipSource(backgroundAudioSource, scriptLoader.Script.AudioChannels[0].Offset);
 
             _distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
             _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter);
@@ -90,16 +87,13 @@ namespace LinearBeats.Game
 
         private void Update()
         {
+            if (_audioTimingInfo.Progress >= 1f) ResetGame();
+
             _timingObject.Current = _audioTimingInfo.Now;
             _distanceConverter.DistancePerQuarterNote = meterPerQuarterNote;
 
             onProgressChanged.Invoke(_audioTimingInfo.Progress);
             onBpmChanged.Invoke(_timingObject.Current.Bpm.ToString(CultureInfo.InvariantCulture));
-
-            if (_backgroundAudioSource.isPlaying) return;
-            if (_backgroundAudioSource.timeSamples < _backgroundAudioSource.clip.samples) return;
-
-            ResetGame();
         }
     }
 }

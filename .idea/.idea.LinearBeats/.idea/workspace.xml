@@ -5,20 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingObject.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingObject.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/DividerBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/DividerBehaviour.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Divider.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/Note/Divider.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/UI/UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Prefabs/UI/UI.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/AudioTimingInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/AudioTimingInfo.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/AudioTimingInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/AudioTimingInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,11 +75,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/Judge.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingController.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingEventIgnoreOptions.cs" />
@@ -111,18 +109,23 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/DistanceConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingInfo.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/AudioTimingInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/CurrentTime.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/DividerRail.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/AudioTimingInfo.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/DividerBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -234,7 +237,9 @@
       <workItem from="1619994972312" duration="673000" />
       <workItem from="1619996522070" duration="17845000" />
       <workItem from="1620082153123" duration="115000" />
-      <workItem from="1620096281146" duration="14368000" />
+      <workItem from="1620096281146" duration="15777000" />
+      <workItem from="1620171766018" duration="7135000" />
+      <workItem from="1620216501869" duration="4425000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -509,7 +514,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620050121216</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Make note judged their own">
+      <created>1620133938166</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1620133938167</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -607,7 +619,8 @@
     <MESSAGE value="Before refactoring" />
     <MESSAGE value="Changed scroll event options to bit flags" />
     <MESSAGE value="Separate RailBehaviour" />
-    <option name="LAST_COMMIT_MESSAGE" value="Separate RailBehaviour" />
+    <MESSAGE value="Make note judged their own" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make note judged their own" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

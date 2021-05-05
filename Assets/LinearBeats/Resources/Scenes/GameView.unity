@@ -408,6 +408,17 @@ MonoBehaviour:
   despawnedClones: []
   delays: []
   deactivatedChild: {fileID: 0}
+--- !u!114 &575959484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7195716656946415262, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+  m_PrefabInstance: {fileID: 7644754193524903113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &620848928 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5822758042064932206, guid: b9077f43c7ffedb479adb2624038b7e8, type: 3}
@@ -592,9 +603,9 @@ MonoBehaviour:
   onGameReset:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1452633785}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 575959484}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+        m_MethodName: set_isOn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -604,8 +615,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  meterPerQuarterNote: 1
-  noteLoadBufferSize: 128
+  meterPerQuarterNote: 4
   scriptLoader:
     notesPool: {fileID: 518583840}
     dividerPool: {fileID: 730012154}
@@ -1028,17 +1038,6 @@ MonoBehaviour:
   despawnedClones: []
   delays: []
   deactivatedChild: {fileID: 0}
---- !u!114 &1452633785 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7644754193584260202, guid: 3b564b7f14d95844887eacb740886997, type: 3}
-  m_PrefabInstance: {fileID: 7644754193524903113}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033273b6ffafa814cbd95d1b39b157d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1454639010 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5822758041940859849, guid: b9077f43c7ffedb479adb2624038b7e8, type: 3}
@@ -1625,6 +1624,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7195716656946415262, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195716656946415262, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 666495303}
+    - target: {fileID: 7195716656946415262, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayPauseGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195716656946415262, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LinearBeats.Game.GameManager, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195716656946415262, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1756,6 +1775,26 @@ PrefabInstance:
     - target: {fileID: 7644754193191276719, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754193584260200, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754193584260202, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754193584260204, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754193584260205, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754193584260206, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7644754193584260206, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target

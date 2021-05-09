@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Time;
+using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -19,7 +21,17 @@ namespace LinearBeats.Game
         [SerializeField] private UnityEvent onGameReset = new UnityEvent();
         [Range(1f, 100f)] [SerializeField] private float meterPerQuarterNote = 1f;
         [SerializeField] private ScriptLoader scriptLoader;
-        [OdinSerialize] private NoteJudgement _noteJudgement;
+
+        [SerializeField] private LaneEffect laneEffect;
+        [DictionaryDrawerSettings(IsReadOnly = true)] [OdinSerialize]
+        private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
+        {
+            [Judge.Perfect] = 0.033f,
+            [Judge.Great] = 0.066f,
+            [Judge.Good] = 0.133f,
+            [Judge.Bad] = 0.150f,
+        };
+
 
         private AudioSource[] _audioSources;
         private IDistanceConverter _distanceConverter;
@@ -52,8 +64,10 @@ namespace LinearBeats.Game
 
             var audioClipSource = new AudioClipSource(backgroundAudioSource, scriptLoader.Script.AudioChannels[0].Offset);
 
+            var noteJudgement = new NoteJudgement(_judgeRangeInSeconds, laneEffect);
+
             _distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
-            _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter);
+            _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter, noteJudgement);
             _audioTimingInfo = new AudioTimingInfo(audioClipSource, fixedTimeFactory);
 
             ResetGame();
@@ -79,7 +93,7 @@ namespace LinearBeats.Game
         {
             foreach (var audioSource in _audioSources) audioSource.Reset();
 
-            scriptLoader.InstantiateAllNotes(_timingObject, _noteJudgement);
+            scriptLoader.InstantiateAllNotes(_timingObject);
             scriptLoader.InstantiateAllDividers(_timingObject);
 
             onGameReset.Invoke();

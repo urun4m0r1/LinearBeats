@@ -9,7 +9,7 @@ namespace LinearBeats.EditorTests.Judgement
     [TestFixture]
     public class NoteJudgementTests
     {
-        private static readonly NoteJudgement Judgement = new NoteJudgement();
+        private static readonly NoteJudgement Judgement = new NoteJudgement(null!, null!);
 
         [Test]
         public void Should_Judge()

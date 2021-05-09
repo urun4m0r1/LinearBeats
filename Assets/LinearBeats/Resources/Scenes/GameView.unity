@@ -480,23 +480,19 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 1498269937}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _noteJudgement
-      Entry: 7
-      Data: 0|LinearBeats.Judgement.NoteJudgement, LinearBeats
     - Name: _judgeRangeInSeconds
       Entry: 7
-      Data: 1|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
+      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
         LinearBeats],[System.Single, mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 2|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
         LinearBeats]], mscorlib
     - Name: 
       Entry: 12
@@ -564,12 +560,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: _laneEffect
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
   onBpmChanged:
     m_PersistentCalls:
       m_Calls:
@@ -624,6 +614,7 @@ MonoBehaviour:
     - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
     - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
     - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+  laneEffect: {fileID: 1498269937}
 --- !u!1 &730012152
 GameObject:
   m_ObjectHideFlags: 0

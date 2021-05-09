@@ -21,20 +21,16 @@ namespace LinearBeats.Judgement
         Miss,
     }
 
-    [HideReferenceObjectPicker]
     public sealed class NoteJudgement
     {
-        [DictionaryDrawerSettings(IsReadOnly = true)]
-        [OdinSerialize]
-        private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
-        {
-            [Judge.Perfect] = 0.033f,
-            [Judge.Great] = 0.066f,
-            [Judge.Good] = 0.133f,
-            [Judge.Bad] = 0.150f,
-        };
+        [NotNull] private readonly Dictionary<Judge, float> _judgeRangeInSeconds;
+        [NotNull] private readonly LaneEffect _laneEffect;
 
-        [SerializeField] private LaneEffect _laneEffect = null;
+        public NoteJudgement([NotNull] Dictionary<Judge, float> judgeRangeInSeconds, [NotNull] LaneEffect laneEffect)
+        {
+            _judgeRangeInSeconds = judgeRangeInSeconds;
+            _laneEffect = laneEffect;
+        }
 
         //TODO: 늦게치면 무조건 miss인 현상 해결
         //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)

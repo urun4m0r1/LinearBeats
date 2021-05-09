@@ -59,7 +59,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public void InstantiateAllNotes(TimingObject timingObject, NoteJudgement noteJudgement)
+        public void InstantiateAllNotes(TimingObject timingObject)
         {
             if (Script.Notes == null) return;
 
@@ -71,7 +71,7 @@ namespace LinearBeats.Script
                 var ignoreOptions = ParseIgnoreOptions(note.IgnoreScrollEvent);
                 noteBehaviour.RailObject = new NoteRail(timingObject, ignoreOptions, note.Trigger);
                 noteBehaviour.NoteShape = note.Shape;
-                noteBehaviour.Judgement = noteJudgement;
+                noteBehaviour.Judgement = timingObject.Judgement;
             }
         }
 

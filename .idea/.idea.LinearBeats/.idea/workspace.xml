@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +221,8 @@
       <workItem from="1620626195381" duration="435000" />
       <workItem from="1620626655117" duration="555000" />
       <workItem from="1620627236190" duration="267000" />
-      <workItem from="1620627522114" duration="14000" />
+      <workItem from="1620627522114" duration="59000" />
+      <workItem from="1620627787907" duration="258000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -512,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620249595534</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Update IDE">
+      <created>1620627560412</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1620627560412</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,14 +611,14 @@
     <MESSAGE value="Improved PositionConverter.cs" />
     <MESSAGE value="Abstracted timingEvents." />
     <MESSAGE value="Refactoring" />
-    <MESSAGE value="Update IDE" />
     <MESSAGE value="IDE settings changed" />
     <MESSAGE value="Before refactoring" />
     <MESSAGE value="Changed scroll event options to bit flags" />
     <MESSAGE value="Separate RailBehaviour" />
     <MESSAGE value="Make note judged their own" />
     <MESSAGE value="Organized codes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Organized codes" />
+    <MESSAGE value="Update IDE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update IDE" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

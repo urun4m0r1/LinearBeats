@@ -1,34 +1,22 @@
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using LinearBeats.Input;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace LinearBeats.Judgement
 {
-    public enum Judge : byte
-    {
-        Perfect,
-        Great,
-        Good,
-        Bad,
-        Miss,
-    }
-
     public sealed class NoteJudgement
     {
-        [NotNull] private readonly Dictionary<Judge, float> _judgeRangeInSeconds;
+        [NotNull] private readonly JudgeRange _judgeRange;
         [NotNull] private readonly LaneEffect _laneEffect;
 
-        public NoteJudgement([NotNull] Dictionary<Judge, float> judgeRangeInSeconds, [NotNull] LaneEffect laneEffect)
+        public NoteJudgement([NotNull] JudgeRange judgeRange, [NotNull] LaneEffect laneEffect)
         {
-            _judgeRangeInSeconds = judgeRangeInSeconds;
+            _judgeRange = judgeRange;
             _laneEffect = laneEffect;
         }
 
@@ -60,15 +48,15 @@ namespace LinearBeats.Judgement
 
             if (InputHandler.IsNotePressed(noteShape))
             {
-                if (WithinJudge(_judgeRangeInSeconds[Judge.Perfect])) return Judge.Perfect;
-                if (WithinJudge(_judgeRangeInSeconds[Judge.Great])) return Judge.Great;
-                if (WithinJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Good;
-                if (WithinJudgeRange(_judgeRangeInSeconds[Judge.Bad], _judgeRangeInSeconds[Judge.Good])) return Judge.Bad;
+                if (WithinJudge(_judgeRange.Range(Judge.Perfect))) return Judge.Perfect;
+                if (WithinJudge(_judgeRange.Range(Judge.Great))) return Judge.Great;
+                if (WithinJudge(_judgeRange.Range(Judge.Good))) return Judge.Good;
+                if (WithinJudgeRange(_judgeRange.Range(Judge.Bad), _judgeRange.Range(Judge.Good))) return Judge.Bad;
 
                 return null;
             }
 
-            if (MissedJudge(_judgeRangeInSeconds[Judge.Good])) return Judge.Miss;
+            if (MissedJudge(_judgeRange.Range(Judge.Good))) return Judge.Miss;
 
             return null;
 

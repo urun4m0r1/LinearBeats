@@ -1,13 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
+using JetBrains.Annotations;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 using Utils.Extensions;
@@ -20,23 +19,17 @@ namespace LinearBeats.Game
         [SerializeField] private UnityEvent<float> onProgressChanged = new UnityEvent<float>();
         [SerializeField] private UnityEvent onGameReset = new UnityEvent();
         [Range(1f, 100f)] [SerializeField] private float meterPerQuarterNote = 1f;
-        [SerializeField] private ScriptLoader scriptLoader;
 
-        [SerializeField] private LaneEffect laneEffect;
-        [DictionaryDrawerSettings(IsReadOnly = true)] [OdinSerialize]
-        private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
-        {
-            [Judge.Perfect] = 0.033f,
-            [Judge.Great] = 0.066f,
-            [Judge.Good] = 0.133f,
-            [Judge.Bad] = 0.150f,
-        };
+        [SerializeField] [CanBeNull] private ScriptLoader scriptLoader;
+        [SerializeField] [CanBeNull] private JudgeRange judgeRange;
+        [SerializeField] [CanBeNull] private LaneEffect laneEffect;
 
-
-        private AudioSource[] _audioSources;
-        private IDistanceConverter _distanceConverter;
-        private AudioTimingInfo _audioTimingInfo;
-        private TimingObject _timingObject;
+        // ReSharper disable NotNullMemberIsNotInitialized
+        [NotNull] private AudioSource[] _audioSources;
+        [NotNull] private IDistanceConverter _distanceConverter;
+        [NotNull] private AudioTimingInfo _audioTimingInfo;
+        [NotNull] private TimingObject _timingObject;
+        // ReSharper restore NotNullMemberIsNotInitialized
 
         private void Awake()
         {
@@ -64,7 +57,7 @@ namespace LinearBeats.Game
 
             var audioClipSource = new AudioClipSource(backgroundAudioSource, scriptLoader.Script.AudioChannels[0].Offset);
 
-            var noteJudgement = new NoteJudgement(_judgeRangeInSeconds, laneEffect);
+            var noteJudgement = new NoteJudgement(judgeRange, laneEffect);
 
             _distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
             _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter, noteJudgement);

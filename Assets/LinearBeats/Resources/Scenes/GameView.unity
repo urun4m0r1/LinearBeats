@@ -485,81 +485,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: _judgeRangeInSeconds
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
-        LinearBeats],[System.Single, mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
-        LinearBeats]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 4
-      Data: 0.033
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 4
-      Data: 0.066
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 4
-      Data: 0.133
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 4
-      Data: 0.15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   onBpmChanged:
     m_PersistentCalls:
       m_Calls:
@@ -614,6 +540,7 @@ MonoBehaviour:
     - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
     - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
     - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+  judgeRange: {fileID: 11400000, guid: 95662e1148eb5e544874c12e2fc9ee96, type: 2}
   laneEffect: {fileID: 1498269937}
 --- !u!1 &730012152
 GameObject:

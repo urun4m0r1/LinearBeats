@@ -223,6 +223,9 @@
       <workItem from="1620627236190" duration="267000" />
       <workItem from="1620627522114" duration="59000" />
       <workItem from="1620627787907" duration="258000" />
+      <workItem from="1620628064529" duration="40000" />
+      <workItem from="1620819247072" duration="88000" />
+      <workItem from="1620819594332" duration="593000" />
     </task>
     <task id="LOCAL-00001" summary="Project updated">
       <created>1617245609076</created>
@@ -518,7 +521,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620627560412</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="IDE Update">
+      <created>1620628082427</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1620628082427</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -593,7 +603,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Project updated" />
     <MESSAGE value="File structure changed" />
     <MESSAGE value="Git settings changed" />
     <MESSAGE value="Organize codes" />
@@ -618,7 +627,8 @@
     <MESSAGE value="Make note judged their own" />
     <MESSAGE value="Organized codes" />
     <MESSAGE value="Update IDE" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update IDE" />
+    <MESSAGE value="IDE Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="IDE Update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

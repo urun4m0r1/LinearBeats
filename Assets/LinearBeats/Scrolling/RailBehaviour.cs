@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using Lean.Pool;
 using UnityEngine;
@@ -6,11 +5,12 @@ using UnityEngine;
 namespace LinearBeats.Scrolling
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class RailBehaviour : MonoBehaviour
+    public abstract class RailBehaviour : MonoBehaviour
     {
         [CanBeNull] public RailObject RailObject { get; set; }
-        protected virtual Vector3 Position => throw new InvalidOperationException();
-        protected virtual Vector3 Scale => throw new InvalidOperationException();
+        protected abstract bool RailDisabled { get; }
+        protected abstract Vector3 Position { get; }
+        protected abstract Vector3 Scale { get; }
 
         private Rigidbody _rigidbody;
 
@@ -23,8 +23,7 @@ namespace LinearBeats.Scrolling
         {
             _rigidbody.MovePosition(Position);
             transform.localScale = Scale;
-
-            if (RailObject?.Disabled ?? false) LeanPool.Despawn(this);
+            if (RailDisabled) LeanPool.Despawn(this);
         }
     }
 }

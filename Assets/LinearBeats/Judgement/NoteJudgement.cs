@@ -24,26 +24,26 @@ namespace LinearBeats.Judgement
         //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
         public bool JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
         {
-            var noteJudgement = GetJudge(railObject.CurrentTime, railObject.StartTime, noteShape);
-            if (noteJudgement == null) return false;
+            var judge = GetJudge(railObject.CurrentTime, railObject.StartTime, noteShape);
+            if (judge == null) return false;
 
-            _laneEffect.OnJudge(effectPosition, (Judge) noteJudgement);
+            _laneEffect.OnJudge(effectPosition, (Judge) judge);
             return true;
         }
 
-        private Judge? GetJudge(FixedTime currentTime, FixedTime targetTime, Shape noteShape)
+        private Judge? GetJudge(FixedTime currentTime, FixedTime startTime, Shape noteShape)
         {
             Second elapsedTime;
             Second remainingTime;
-            if (currentTime >= targetTime)
+            if (currentTime >= startTime)
             {
-                elapsedTime = currentTime - targetTime;
+                elapsedTime = currentTime - startTime;
                 remainingTime = float.MaxValue;
             }
             else
             {
                 elapsedTime = 0f;
-                remainingTime = targetTime - currentTime;
+                remainingTime = startTime - currentTime;
             }
 
             if (InputHandler.IsNotePressed(noteShape))

@@ -17,13 +17,14 @@ namespace LinearBeats.Scrolling
         private float Width => NoteShape.SizeCol;
         private float Height => NoteShape.SizeRow == 1 ? 1f : 20f;
 
-        private void FixedUpdate()
+        protected override bool RailDisabled
         {
-            if (RailObject == null) return;
+            get
+            {
+                if (RailObject == null || Judgement == null) return false;
 
-            var noteJudged = Judgement?.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
-
-            if (noteJudged ?? false) LeanPool.Despawn(this);
+                return Judgement.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
+            }
         }
     }
 }

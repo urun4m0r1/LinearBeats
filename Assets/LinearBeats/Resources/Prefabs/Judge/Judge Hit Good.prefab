@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 492618582686349162, guid: ca22c2b839388cf4cae8f745f1fa7b03, type: 3}
+      propertyPath: UVModule.startFrame.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2125118327479935433, guid: ca22c2b839388cf4cae8f745f1fa7b03, type: 3}
       propertyPath: m_Name
       value: Judge Hit Good

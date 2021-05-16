@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: -4036732441330590139
     second: JudgeEffect_3
+  - first:
+      213: -1324144790205490333
+    second: JudgeEffect_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,8 +150,8 @@ TextureImporter:
         width: 1024
         height: 254
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 50, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -164,12 +167,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 512
+        y: 562
         width: 1024
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 36, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -185,12 +188,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 345
         width: 1024
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 71, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -206,9 +209,30 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 162
         width: 1024
         height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 69, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ed13d6b35aaf7c0800000000000000
+      internalID: -4036732441330590139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JudgeEffect_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1024
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54ed13d6b35aaf7c0800000000000000
-      internalID: -4036732441330590139
+      spriteID: 36b1e943451bf9de0800000000000000
+      internalID: -1324144790205490333
       vertices: []
       indices: 
       edges: []

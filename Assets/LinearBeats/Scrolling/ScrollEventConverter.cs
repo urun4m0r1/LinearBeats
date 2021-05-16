@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Utils.Extensions;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Scrolling
 {
     [Flags]
     public enum ScrollEvent

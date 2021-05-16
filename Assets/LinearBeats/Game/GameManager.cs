@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
+using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;

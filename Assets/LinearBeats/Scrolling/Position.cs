@@ -1,8 +1,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using LinearBeats.Utils;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Scrolling
 {
     public readonly struct Position : IComparable, IFormattable, IComparable<Position>, IEquatable<Position>, IFloat
     {

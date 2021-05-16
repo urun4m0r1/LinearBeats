@@ -1,4 +1,4 @@
-﻿namespace LinearBeats.Time
+﻿namespace LinearBeats.Scrolling
 {
     public sealed partial class PositionConverter
     {

@@ -56,6 +56,10 @@ PrefabInstance:
       value: Judge Bad
       objectReference: {fileID: 0}
     - target: {fileID: 5958063508544883336, guid: 92157882fabac914a98369c6c38e3429, type: 3}
+      propertyPath: UVModule.startFrame.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958063508544883336, guid: 92157882fabac914a98369c6c38e3429, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.b
       value: 0.908308
       objectReference: {fileID: 0}

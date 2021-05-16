@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using LinearBeats.Scrolling;
+using LinearBeats.Utils;
 using Utils.Extensions;
 
 namespace LinearBeats.Time

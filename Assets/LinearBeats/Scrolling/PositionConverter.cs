@@ -4,8 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using LinearBeats.Time;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Scrolling
 {
     public interface IPositionConverter
     {

@@ -5,7 +5,6 @@ using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace LinearBeats.Judgement
 {
@@ -20,8 +19,7 @@ namespace LinearBeats.Judgement
             _laneEffect = laneEffect;
         }
 
-        //TODO: 늦게치면 무조건 miss인 현상 해결
-        //TODO: 롱노트, 슬라이드노트 처리 방법 생각하기 (시작점 끝점에 노트생성해 중간은 쉐이더로 처리 or 노트길이를 잘 조절해보기)
+        //TODO: 롱노트, 슬라이드노트 판정추가
         public bool JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
         {
             var judge = GetJudge(railObject.CurrentTime, railObject.StartTime, noteShape);
@@ -31,47 +29,22 @@ namespace LinearBeats.Judgement
             return true;
         }
 
-        private Judge? GetJudge(FixedTime currentTime, FixedTime startTime, Shape noteShape)
+        private Judge? GetJudge(Second currentTime, Second startTime, Shape noteShape)
         {
-            Second elapsedTime;
-            Second remainingTime;
-            if (currentTime >= startTime)
-            {
-                elapsedTime = currentTime - startTime;
-                remainingTime = float.MaxValue;
-            }
-            else
-            {
-                elapsedTime = 0f;
-                remainingTime = startTime - currentTime;
-            }
+            var elapsedTime = currentTime - startTime;
+            var offsetTime = Mathf.Abs(elapsedTime);
 
             if (InputHandler.IsNotePressed(noteShape))
             {
-                if (WithinJudge(_judgeRange.Range(Judge.Perfect))) return Judge.Perfect;
-                if (WithinJudge(_judgeRange.Range(Judge.Great))) return Judge.Great;
-                if (WithinJudge(_judgeRange.Range(Judge.Good))) return Judge.Good;
-                if (WithinJudgeRange(_judgeRange.Range(Judge.Bad), _judgeRange.Range(Judge.Good))) return Judge.Bad;
-
-                return null;
+                if (offsetTime <= _judgeRange.Range(Judge.Perfect)) return Judge.Perfect;
+                if (offsetTime <= _judgeRange.Range(Judge.Great)) return Judge.Great;
+                if (offsetTime <= _judgeRange.Range(Judge.Good)) return Judge.Good;
+                if (offsetTime <= _judgeRange.Range(Judge.Bad)) return Judge.Bad;
             }
 
-            if (MissedJudge(_judgeRange.Range(Judge.Good))) return Judge.Miss;
+            if (elapsedTime > _judgeRange.Range(Judge.Bad)) return Judge.Miss;
 
             return null;
-
-            bool WithinJudge(Second judgeOffset) => !(MissedJudge(judgeOffset) || PreJudge(judgeOffset));
-
-            bool WithinJudgeRange(Second judgeOffsetStart, Second judgeOffsetEnd)
-            {
-                Assert.IsTrue(judgeOffsetStart >= judgeOffsetEnd);
-
-                return MissedJudge(judgeOffsetStart) && PreJudge(judgeOffsetEnd);
-            }
-
-            bool PreJudge(Second judgeOffset) => remainingTime >= judgeOffset;
-
-            bool MissedJudge(Second judgeOffset) => elapsedTime >= judgeOffset;
         }
     }
 }

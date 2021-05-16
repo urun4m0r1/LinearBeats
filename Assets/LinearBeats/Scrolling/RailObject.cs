@@ -29,7 +29,6 @@ namespace LinearBeats.Scrolling
         }
     }
 
-
     public sealed class DividerRail : RailObject
     {
         public override FixedTime StartTime { get; }
@@ -38,7 +37,6 @@ namespace LinearBeats.Scrolling
         public DividerRail([NotNull] TimingObject timingObject, ScrollEvent ignoreFlags, Pulse startTime)
             : base(timingObject, ignoreFlags) => StartTime = Factory.Create(startTime);
     }
-
 
     public sealed class NoteRail : RailObject
     {

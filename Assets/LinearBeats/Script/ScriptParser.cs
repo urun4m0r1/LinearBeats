@@ -17,7 +17,8 @@ namespace LinearBeats.Script
                 _scriptText = value;
             }
         }
-        private string _scriptText = null;
+
+        private string _scriptText;
 
         public ScriptParser(string scriptText) => ScriptText = scriptText;
 
@@ -42,6 +43,7 @@ namespace LinearBeats.Script
             if (script.VersionCode == 0
                 || script.VersionName.IsNullOrWhitespace()
             ) throw new InvalidDataException();
+
             return script;
         }
     }

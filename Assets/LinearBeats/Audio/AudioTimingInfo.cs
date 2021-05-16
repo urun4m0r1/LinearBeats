@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
-using LinearBeats.Audio;
+using LinearBeats.Time;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Audio
 {
     public sealed class AudioTimingInfo
     {

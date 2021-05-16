@@ -1,7 +1,8 @@
 ﻿using JetBrains.Annotations;
 using LinearBeats.Judgement;
+using LinearBeats.Time;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Scrolling
 {
     public sealed class TimingObject
     {

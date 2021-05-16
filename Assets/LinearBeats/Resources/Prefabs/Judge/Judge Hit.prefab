@@ -234,7 +234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5958063508544883336, guid: 92157882fabac914a98369c6c38e3429, type: 3}
       propertyPath: UVModule.startFrame.scalar
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5958063508544883336, guid: 92157882fabac914a98369c6c38e3429, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.b

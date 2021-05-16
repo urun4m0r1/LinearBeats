@@ -1,4 +1,4 @@
-﻿namespace LinearBeats.Time
+﻿namespace LinearBeats.Utils
 {
     public interface IFloat
     {

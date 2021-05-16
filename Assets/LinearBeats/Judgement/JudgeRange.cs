@@ -21,9 +21,9 @@ namespace LinearBeats.Judgement
         [OdinSerialize] private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
         {
             [Judge.Perfect] = 0.033f,
-            [Judge.Great] = 0.066f,
+            [Judge.Great] = 0.067f,
             [Judge.Good] = 0.133f,
-            [Judge.Bad] = 0.150f,
+            [Judge.Bad] = 0.267f,
         };
 
         public Second Range(Judge judge) => _judgeRangeInSeconds[judge];

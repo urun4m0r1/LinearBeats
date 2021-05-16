@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
+using LinearBeats.Time;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Scrolling
 {
     public enum NormalizerMode
     {

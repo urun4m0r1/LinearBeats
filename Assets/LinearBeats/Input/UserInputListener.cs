@@ -1,5 +1,3 @@
-#pragma warning disable IDE0090
-
 using System;
 using UnityEngine;
 
@@ -7,9 +5,9 @@ namespace LinearBeats.Input
 {
     public sealed class UserInputListener : InputListener
     {
-        public static IBindingProvider BindingProvider { get; set; } = null;
+        public static IBindingProvider BindingProvider { get; set; }
 
-        private readonly IInputReceiver _inputReceiver = null;
+        private readonly IInputReceiver _inputReceiver;
 
         public UserInputListener(IInputReceiver inputReceiver)
         {

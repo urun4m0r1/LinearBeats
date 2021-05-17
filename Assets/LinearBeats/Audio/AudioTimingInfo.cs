@@ -5,7 +5,8 @@ namespace LinearBeats.Audio
 {
     public sealed class AudioTimingInfo
     {
-        public FixedTime Now => _fixedTimeFactory.Create(Current + _audioClip.Offset);
+        //TODO: 오프셋이 양수일시 노래만 늦게 나오고 스크롤이 멈춰있음
+        public FixedTime Now => _fixedTimeFactory.Create(Current - _audioClip.Offset);
         public float Progress => Current / _audioClip.Length;
         public bool IsPlaying => _audioClip.IsPlaying;
 

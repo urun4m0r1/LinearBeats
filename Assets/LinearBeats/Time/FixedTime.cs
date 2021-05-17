@@ -8,31 +8,31 @@ namespace LinearBeats.Time
     {
         public float Bpm { get; }
 
-        [NotNull] private readonly ITimingConverter _converter;
+        [NotNull] public ITimingConverter Converter { get; }
         public Pulse Pulse { get; }
         public Sample Sample { get; }
         public Second Second { get; }
 
-        private FixedTime([NotNull] ITimingConverter converter) : this() => _converter = converter;
+        private FixedTime([NotNull] ITimingConverter converter) : this() => Converter = converter;
 
         private FixedTime([NotNull] ITimingConverter converter, Second value) : this(converter)
         {
             Second = value;
 
             Sample = converter.ToSample(value);
-            var timingIndex = _converter.GetTimingIndex(Sample);
+            var timingIndex = Converter.GetTimingIndex(Sample);
             Pulse = converter.ToPulse(Sample, timingIndex);
-            Bpm = _converter.GetBpm(timingIndex);
+            Bpm = Converter.GetBpm(timingIndex);
         }
 
         private FixedTime([NotNull] ITimingConverter converter, Pulse value) : this(converter)
         {
             Pulse = value;
 
-            var timingIndex = _converter.GetTimingIndex(value);
+            var timingIndex = Converter.GetTimingIndex(value);
             Sample = converter.ToSample(Pulse, timingIndex);
             Second = converter.ToSecond(Sample);
-            Bpm = _converter.GetBpm(timingIndex);
+            Bpm = Converter.GetBpm(timingIndex);
         }
 
         private FixedTime([NotNull] ITimingConverter converter, Sample value) : this(converter)
@@ -40,9 +40,9 @@ namespace LinearBeats.Time
             Sample = value;
 
             Second = converter.ToSecond(Sample);
-            var timingIndex = _converter.GetTimingIndex(value);
+            var timingIndex = Converter.GetTimingIndex(value);
             Pulse = converter.ToPulse(Sample, timingIndex);
-            Bpm = _converter.GetBpm(timingIndex);
+            Bpm = Converter.GetBpm(timingIndex);
         }
 
         public sealed class Factory
@@ -79,8 +79,8 @@ namespace LinearBeats.Time
 
         public static bool ConverterEquals(FixedTime left, FixedTime right)
         {
-            var a = left._converter;
-            var b = right._converter;
+            var a = left.Converter;
+            var b = right.Converter;
 
             if (ReferenceEquals(a, b)) return true;
 
@@ -93,7 +93,7 @@ namespace LinearBeats.Time
             if (!ConverterEquals(left, right))
                 throw new InvalidOperationException("TimingConverter mismatch");
 
-            return left._converter;
+            return left.Converter;
         }
 
         [NotNull]
@@ -116,7 +116,7 @@ namespace LinearBeats.Time
         public static FixedTime operator +(FixedTime right) => right;
 
         public static FixedTime operator -(FixedTime right) =>
-            new FixedTime(right._converter, -right.Sample);
+            new FixedTime(right.Converter, -right.Sample);
 
         public static FixedTime operator +(FixedTime left, FixedTime right) =>
             new FixedTime(ChooseConverter(left, right), left.Sample + right.Sample);

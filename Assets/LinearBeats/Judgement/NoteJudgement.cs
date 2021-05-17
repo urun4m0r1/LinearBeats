@@ -13,25 +13,27 @@ namespace LinearBeats.Judgement
         [NotNull] private readonly JudgeRange _judgeRange;
         [NotNull] private readonly LaneEffect _laneEffect;
 
-        public NoteJudgement([NotNull] JudgeRange judgeRange, [NotNull] LaneEffect laneEffect)
+        public NoteJudgement(
+            [NotNull] JudgeRange judgeRange,
+            [NotNull] LaneEffect laneEffect)
         {
             _judgeRange = judgeRange;
             _laneEffect = laneEffect;
         }
 
         //TODO: 롱노트, 슬라이드노트 판정추가
-        public bool JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
+        public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
         {
-            var judge = GetJudge(railObject.CurrentTime, railObject.StartTime, noteShape);
-            if (judge == null) return false;
+            var elapsedTime = railObject.CurrentTime - railObject.StartTime;
+            var judge = GetJudge(elapsedTime, noteShape);
 
-            _laneEffect.OnJudge(effectPosition, (Judge) judge);
-            return true;
+            _laneEffect.OnJudge(effectPosition, judge);
+
+            return (judge, elapsedTime);
         }
 
-        private Judge? GetJudge(Second currentTime, Second startTime, Shape noteShape)
+        private Judge GetJudge(Second elapsedTime, Shape noteShape)
         {
-            var elapsedTime = currentTime - startTime;
             var offsetTime = Mathf.Abs(elapsedTime);
 
             if (InputHandler.IsNotePressed(noteShape))
@@ -42,9 +44,7 @@ namespace LinearBeats.Judgement
                 if (offsetTime <= _judgeRange.Range(Judge.Bad)) return Judge.Bad;
             }
 
-            if (elapsedTime > _judgeRange.Range(Judge.Bad)) return Judge.Miss;
-
-            return null;
+            return elapsedTime > _judgeRange.Range(Judge.Bad) ? Judge.Miss : Judge.Null;
         }
     }
 }

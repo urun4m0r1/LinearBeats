@@ -10,7 +10,6 @@ using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using Utils.Extensions;
 
 namespace LinearBeats.Game
 {
@@ -26,7 +25,8 @@ namespace LinearBeats.Game
         [SerializeField] [CanBeNull] private LaneEffect laneEffect;
 
         // ReSharper disable NotNullMemberIsNotInitialized
-        [NotNull] private AudioSource[] _audioSources;
+        [NotNull] private AudioPlayer[] _audioPlayers;
+        [NotNull] private AudioPlayer _backgroundAudioPlayer;
         [NotNull] private IDistanceConverter _distanceConverter;
         [NotNull] private AudioTimingInfo _audioTimingInfo;
         [NotNull] private TimingObject _timingObject;
@@ -36,15 +36,19 @@ namespace LinearBeats.Game
         {
             scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
 
-            _audioSources = scriptLoader.InstantiateAudioSource();
-            var backgroundAudioSource = _audioSources[0];
+            _audioPlayers = scriptLoader.InstantiateAudioSource();
+            _backgroundAudioPlayer = _audioPlayers[0];
 
             if (scriptLoader.Script.AudioChannels == null) throw new InvalidOperationException();
             if (scriptLoader.Script.Timing.BpmEvents == null) throw new InvalidOperationException();
 
+            var audioClipSource = new AudioClipSource(
+                _backgroundAudioPlayer.AudioSource,
+                scriptLoader.Script.AudioChannels[0].Offset);
+
             var timingConverter = new TimingConverter(
                 scriptLoader.Script.Timing.BpmEvents,
-                backgroundAudioSource.clip.frequency,
+                audioClipSource.SamplesPerSecond,
                 scriptLoader.Script.Timing.StandardBpm,
                 scriptLoader.Script.Timing.StandardPpqn);
 
@@ -55,8 +59,6 @@ namespace LinearBeats.Game
                 .SetPositionScaler(ScalerMode.BpmRelative)
                 .SetPositionNormalizer(NormalizerMode.Individual)
                 .Build();
-
-            var audioClipSource = new AudioClipSource(backgroundAudioSource, scriptLoader.Script.AudioChannels[0].Offset);
 
             var noteJudgement = new NoteJudgement(judgeRange, laneEffect);
 
@@ -75,19 +77,19 @@ namespace LinearBeats.Game
 
         private void StartGame()
         {
-            foreach (var audioSource in _audioSources) audioSource.UnPause();
+            _backgroundAudioPlayer.Play();
         }
 
         private void PauseGame()
         {
-            foreach (var audioSource in _audioSources) audioSource.Pause();
+            foreach (var audioPlayer in _audioPlayers) audioPlayer.Pause();
         }
 
         public void ResetGame()
         {
-            foreach (var audioSource in _audioSources) audioSource.Reset();
+            foreach (var audioPlayer in _audioPlayers) audioPlayer.Stop();
 
-            scriptLoader.InstantiateAllNotes(_timingObject);
+            scriptLoader.InstantiateAllNotes(_timingObject, _audioPlayers);
             scriptLoader.InstantiateAllDividers(_timingObject);
 
             onGameReset.Invoke();

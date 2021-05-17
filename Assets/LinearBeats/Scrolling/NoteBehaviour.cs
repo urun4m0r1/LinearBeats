@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace LinearBeats.Scrolling
 {
     public sealed class NoteBehaviour : RailBehaviour
     {
+        [CanBeNull] public AudioPlayer AudioPlayer { get; set; }
         [CanBeNull] public NoteJudgement Judgement { get; set; }
         public Shape NoteShape { get; set; }
         protected override Vector3 Position => new Vector3(PosX, PosY, RailObject?.StartPosition ?? 0f);
@@ -25,13 +27,21 @@ namespace LinearBeats.Scrolling
             }
         }
 
-        protected override bool RailDisabled
+        protected override bool UpdateRailDisabled
         {
             get
             {
-                if (RailObject == null || Judgement == null) return false;
+                if (RailObject == null || Judgement == null || AudioPlayer == null) return false;
 
-                return Judgement.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
+                var (judge, elapsed) = Judgement.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
+
+                if (judge == Judge.Miss)
+                    AudioPlayer.Pause();
+                else if (judge != Judge.Null)
+                    AudioPlayer.Play(RailObject.StartTime, RailObject.Length);
+                else return false;
+
+                return true;
             }
         }
     }

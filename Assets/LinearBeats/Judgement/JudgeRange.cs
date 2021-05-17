@@ -13,6 +13,7 @@ namespace LinearBeats.Judgement
         Good,
         Bad,
         Miss,
+        Null,
     }
 
     [CreateAssetMenu(menuName = "LinearBeats/JudgeRange")]

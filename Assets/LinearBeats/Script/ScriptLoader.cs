@@ -1,6 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using Lean.Pool;
+using LinearBeats.Audio;
 using LinearBeats.Scrolling;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -27,18 +28,19 @@ namespace LinearBeats.Script
         }
 
         [NotNull]
-        public AudioSource[] InstantiateAudioSource()
+        public AudioPlayer[] InstantiateAudioSource()
         {
             if (Script.AudioChannels == null) throw new InvalidOperationException();
 
-            var audioSources = new AudioSource[Script.AudioChannels.Length];
-            for (var i = 0; i < audioSources.Length; ++i)
+            var audioPlayers = new AudioPlayer[Script.AudioChannels.Length];
+            for (var i = 0; i < audioPlayers.Length; ++i)
             {
                 var audioGameObject = CreateAudioGameObject(Script.AudioChannels[i].FileName);
-                audioSources[i] = AddAudioSourcesToGameObject(audioGameObject, Script.AudioChannels[i]);
+                var audioSource = AddAudioSourcesToGameObject(audioGameObject, Script.AudioChannels[i]);
+                audioPlayers[i] = new AudioPlayer(audioSource, Script.AudioChannels[i].Offset);
             }
 
-            return audioSources;
+            return audioPlayers;
 
             GameObject CreateAudioGameObject(string name)
             {
@@ -57,7 +59,7 @@ namespace LinearBeats.Script
             }
         }
 
-        public void InstantiateAllNotes(TimingObject timingObject)
+        public void InstantiateAllNotes([NotNull] TimingObject timingObject, [NotNull] AudioPlayer[] audioPlayers)
         {
             if (Script.Notes == null) return;
 
@@ -70,11 +72,12 @@ namespace LinearBeats.Script
                 noteBehaviour.RailObject = new NoteRail(timingObject, ignoreOptions, note.Trigger);
                 noteBehaviour.NoteShape = note.Shape;
                 noteBehaviour.Judgement = timingObject.Judgement;
+                noteBehaviour.AudioPlayer = audioPlayers[note.Trigger.Channel];
             }
         }
 
         //TODO: 조금씩 생성시켜 사용하기
-        public void InstantiateAllDividers(TimingObject timingObject)
+        public void InstantiateAllDividers([NotNull] TimingObject timingObject)
         {
             if (Script.Dividers == null) return;
 

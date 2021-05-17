@@ -41,10 +41,8 @@ namespace LinearBeats.Visuals
 
         public void OnJudge(Vector3 effectPosition, Judge judge)
         {
-            _judgeEffects[judge].Spawn(
-                effectPosition,
-                Quaternion.identity,
-                _judgeEffects[judge].transform);
+            if (judge != Judge.Null)
+                _judgeEffects[judge].Spawn(effectPosition, Quaternion.identity, _judgeEffects[judge].transform);
         }
     }
 }

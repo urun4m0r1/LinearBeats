@@ -8,7 +8,7 @@ namespace LinearBeats.Scrolling
     public abstract class RailBehaviour : MonoBehaviour
     {
         [CanBeNull] public RailObject RailObject { get; set; }
-        protected abstract bool RailDisabled { get; }
+        protected abstract bool UpdateRailDisabled { get; }
         protected abstract Vector3 Position { get; }
         protected abstract Vector3 Scale { get; }
 
@@ -23,7 +23,7 @@ namespace LinearBeats.Scrolling
         {
             _rigidbody.MovePosition(Position);
             transform.localScale = Scale;
-            if (RailDisabled) LeanPool.Despawn(this);
+            if (UpdateRailDisabled) LeanPool.Despawn(this);
         }
     }
 }

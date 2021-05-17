@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using JetBrains.Annotations;
 using LinearBeats.Audio;
@@ -25,7 +26,7 @@ namespace LinearBeats.Game
         [SerializeField] [CanBeNull] private LaneEffect laneEffect;
 
         // ReSharper disable NotNullMemberIsNotInitialized
-        [NotNull] private AudioPlayer[] _audioPlayers;
+        [NotNull] private Dictionary<ushort, AudioPlayer> _audioPlayers;
         [NotNull] private AudioPlayer _backgroundAudioPlayer;
         [NotNull] private IDistanceConverter _distanceConverter;
         [NotNull] private AudioTimingInfo _audioTimingInfo;
@@ -55,7 +56,7 @@ namespace LinearBeats.Game
             var fixedTimeFactory = new FixedTime.Factory(timingConverter);
 
             var positionConverter = new PositionConverter.Builder(timingConverter)
-                .SetScrollEvent(scriptLoader.Script.Scrolling, ScrollEvent.SpeedBounce)
+                .SetScrollEvent(scriptLoader.Script.Scrolling, ScrollEvent.All)
                 .SetPositionScaler(ScalerMode.BpmRelative)
                 .SetPositionNormalizer(NormalizerMode.Individual)
                 .Build();
@@ -82,12 +83,12 @@ namespace LinearBeats.Game
 
         private void PauseGame()
         {
-            foreach (var audioPlayer in _audioPlayers) audioPlayer.Pause();
+            foreach (var audioPlayer in _audioPlayers) audioPlayer.Value.Pause();
         }
 
         public void ResetGame()
         {
-            foreach (var audioPlayer in _audioPlayers) audioPlayer.Stop();
+            foreach (var audioPlayer in _audioPlayers) audioPlayer.Value.Stop();
 
             scriptLoader.InstantiateAllNotes(_timingObject, _audioPlayers);
             scriptLoader.InstantiateAllDividers(_timingObject);

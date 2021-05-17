@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
+using LinearBeats.Time;
 using UnityEngine;
 
 namespace LinearBeats.Scrolling
@@ -10,6 +11,7 @@ namespace LinearBeats.Scrolling
     {
         [CanBeNull] public AudioPlayer AudioPlayer { get; set; }
         [CanBeNull] public NoteJudgement Judgement { get; set; }
+        public FixedTime AudioLength { get; set; }
         public Shape NoteShape { get; set; }
         protected override Vector3 Position => new Vector3(PosX, PosY, RailObject?.StartPosition ?? 0f);
         protected override Vector3 Scale => new Vector3(Width, Height, Length);
@@ -38,7 +40,7 @@ namespace LinearBeats.Scrolling
                 if (judge == Judge.Miss)
                     AudioPlayer.Pause();
                 else if (judge != Judge.Null)
-                    AudioPlayer.Play(RailObject.StartTime, RailObject.Length);
+                    AudioPlayer.Play(RailObject.StartTime, AudioLength);
                 else return false;
 
                 return true;

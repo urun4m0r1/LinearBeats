@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Audio;
@@ -28,43 +29,43 @@ namespace LinearBeats.Script
         }
 
         [NotNull]
-        public AudioPlayer[] InstantiateAudioSource()
+        public Dictionary<ushort, AudioPlayer> InstantiateAudioSource()
         {
-            if (Script.AudioChannels == null) throw new InvalidOperationException();
-
-            var audioPlayers = new AudioPlayer[Script.AudioChannels.Length];
-            for (var i = 0; i < audioPlayers.Length; ++i)
+            var dict = new Dictionary<ushort, AudioPlayer>();
+            foreach (var audioChannel in Script.AudioChannels ?? throw new ArgumentNullException())
             {
-                var audioGameObject = CreateAudioGameObject(Script.AudioChannels[i].FileName);
-                var audioSource = AddAudioSourcesToGameObject(audioGameObject, Script.AudioChannels[i]);
-                audioPlayers[i] = new AudioPlayer(audioSource, Script.AudioChannels[i].Offset);
+                var audioSource = CreateAudioSource(audioChannel);
+                var audioPlayer = new AudioPlayer(audioSource, audioChannel.Offset);
+                dict.Add(audioChannel.Channel, audioPlayer);
             }
 
-            return audioPlayers;
+            return dict;
 
-            GameObject CreateAudioGameObject(string name)
+            AudioSource CreateAudioSource(MediaChannel audioChannel)
             {
-                var audioObject = new GameObject(name);
+                var audioObject = new GameObject(audioChannel.FileName);
                 audioObject.transform.parent = audioListener.transform;
-                return audioObject;
-            }
 
-            AudioSource AddAudioSourcesToGameObject(GameObject audioObject, MediaChannel audioChannel)
-            {
                 var audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = Resources.Load<AudioClip>(_resourcesPath + audioChannel.FileName);
                 audioSource.playOnAwake = false;
+                audioSource.bypassEffects = true;
+                audioSource.bypassListenerEffects = true;
+                audioSource.bypassReverbZones = true;
                 audioSource.outputAudioMixerGroup = audioMixerGroups[audioChannel.Layer];
                 return audioSource;
             }
         }
 
-        public void InstantiateAllNotes([NotNull] TimingObject timingObject, [NotNull] AudioPlayer[] audioPlayers)
+        public void InstantiateAllNotes(
+            [NotNull] TimingObject timingObject,
+            [NotNull] Dictionary<ushort, AudioPlayer> audioPlayers)
         {
             if (Script.Notes == null) return;
 
-            foreach (var note in Script.Notes)
+            for (var i = 0; i < Script.Notes.Length; ++i)
             {
+                var note = Script.Notes[i];
                 var noteObject = notesPool.Spawn(notesPool.transform);
                 var noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
 
@@ -73,6 +74,11 @@ namespace LinearBeats.Script
                 noteBehaviour.NoteShape = note.Shape;
                 noteBehaviour.Judgement = timingObject.Judgement;
                 noteBehaviour.AudioPlayer = audioPlayers[note.Trigger.Channel];
+
+                if (i + 1 == Script.Notes.Length) continue;
+
+                var intervalPulse = Script.Notes[i + 1].Trigger.Pulse - note.Trigger.Pulse;
+                noteBehaviour.AudioLength = timingObject.Factory.Create(intervalPulse);
             }
         }
 

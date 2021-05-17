@@ -15,13 +15,7 @@ namespace LinearBeats.Audio
             _offset = offset;
         }
 
-        public void Play(Second start, Second length)
-        {
-            Play(start);
-            AudioSource.SetScheduledEndTime(AudioSettings.dspTime + length);
-        }
-
-        public void Play(Second start = default)
+        public void Play(Second start = default, Second length = default)
         {
             var startSecond = start - _offset;
             AudioSource.Stop();
@@ -34,6 +28,8 @@ namespace LinearBeats.Audio
                 AudioSource.time = startSecond;
                 AudioSource.Play();
             }
+
+            if (length != default) AudioSource.SetScheduledEndTime(AudioSettings.dspTime + length);
         }
 
         public void Resume()

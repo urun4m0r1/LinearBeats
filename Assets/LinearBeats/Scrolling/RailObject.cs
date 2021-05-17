@@ -8,7 +8,6 @@ namespace LinearBeats.Scrolling
     {
         public virtual FixedTime StartTime { get; }
         public virtual FixedTime EndTime { get; }
-        public FixedTime Length => EndTime - StartTime;
         public FixedTime CurrentTime => _timingObject.Current;
         public float StartPosition => Converter.GetRailPosition(_timingObject.Current, StartTime, _ignoreFlags);
         public float EndPosition => Converter.GetRailPosition(_timingObject.Current, EndTime, _ignoreFlags);

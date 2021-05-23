@@ -50,21 +50,21 @@ namespace LinearBeats.Time
 
         public TimingConverter([NotNull] IReadOnlyCollection<BpmEvent> bpmEvents,
             float samplesPerSecond,
-            [CanBeNull] float? standardBpm = null,
-            [CanBeNull] float? standardPpqn = null)
+            float? standardBpm = null,
+            float? standardPpqn = null)
         {
             if (bpmEvents.Count == 0)
-                throw new ArgumentException("At least one BpmEvent required");
+                throw new InvalidScriptException("At least one BpmEvent required");
             if (bpmEvents.Any(v => v.Ppqn <= 0f))
-                throw new ArgumentException("All BpmEvent.Ppqn must be non-zero positive");
+                throw new InvalidScriptException("All BpmEvent.Ppqn must be non-zero positive");
             if (bpmEvents.All(v => v.Pulse != new Pulse(0f)))
-                throw new ArgumentException("At least one BpmEvent.Pulse must be zero");
+                throw new InvalidScriptException("At least one BpmEvent.Pulse must be zero");
             if (bpmEvents.Any(v => v.Pulse < new Pulse(0f)))
-                throw new ArgumentException("All BpmEvent.Bpm must be positive");
+                throw new InvalidScriptException("All BpmEvent.Bpm must be positive");
             if (bpmEvents.Any(v => v.Bpm <= 0f))
-                throw new ArgumentException("All BpmEvent.Bpm must be non-zero positive");
+                throw new InvalidScriptException("All BpmEvent.Bpm must be non-zero positive");
             if (samplesPerSecond <= 0f)
-                throw new ArgumentException("samplesPerSecond must be non-zero positive");
+                throw new InvalidScriptException("samplesPerSecond must be non-zero positive");
 
             _samplesPerSecond = samplesPerSecond;
             _secondsPerSample = 1f / samplesPerSecond;

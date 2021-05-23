@@ -15,8 +15,6 @@ namespace LinearBeats.Scrolling
         public static implicit operator float(Position right) => right._value;
         public static implicit operator Position(float right) => new Position(right);
 
-        public static implicit operator Position([NotNull] string right) => new Position(float.Parse(right));
-
         int IComparable.CompareTo([CanBeNull] object obj) =>
             obj is Position right
                 ? CompareTo(right)

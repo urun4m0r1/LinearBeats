@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using LinearBeats.Script;
 using LinearBeats.Utils;
 
 namespace LinearBeats.Time
@@ -15,7 +16,12 @@ namespace LinearBeats.Time
         public static implicit operator float(Sample right) => right._value;
         public static implicit operator Sample(float right) => new Sample(right);
 
-        public static implicit operator Sample([NotNull] string right) => new Sample(float.Parse(right));
+        public static implicit operator Sample([NotNull] string right)
+        {
+            if (float.TryParse(right, out var value)) return value;
+
+            throw new InvalidScriptException($"Unable to parse float from \"{right}\"");
+        }
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
             obj is Sample right

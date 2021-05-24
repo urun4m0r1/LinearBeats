@@ -49,18 +49,14 @@ namespace LinearBeats.EditorTests.Time
             new TimingConverter(SingleBpmEvents, SamplesPerSecond);
 
         [Test]
-        public void Init_BpmEvents_Cannot_Be_Null() =>
-            Assert.Catch<NullReferenceException>(() => new TimingConverter(null!, SamplesPerSecond));
-
-        [Test]
         public void Init_BpmEvents_Cannot_Be_Empty() =>
-            Assert.Catch<ArgumentException>(() => new TimingConverter(new BpmEvent[] { }, SamplesPerSecond));
+            Assert.Catch<InvalidScriptException>(() => new TimingConverter(new BpmEvent[] { }, SamplesPerSecond));
 
         [Test]
         public void Init_Any_BpmEvents_Bpm_Must_Be_Non_Zero_Positive()
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = 0}};
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
@@ -68,7 +64,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = 400, Bpm = FirstBpm}};
 
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
@@ -76,7 +72,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = -400, Bpm = FirstBpm}};
 
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
@@ -84,7 +80,7 @@ namespace LinearBeats.EditorTests.Time
         {
             BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = 0, Pulse = FirstPulse, Bpm = FirstBpm}};
 
-            Assert.Catch<ArgumentException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]

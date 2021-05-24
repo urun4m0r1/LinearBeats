@@ -45,7 +45,7 @@ namespace LinearBeats.Scrolling
             }
 
             internal override Pulse Scale(Pulse pulse, int? timingIndex = null) =>
-                Modifier.ScaleWithBpmInversed(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
+                Modifier.NormalizeWithBpm(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
     }
 }

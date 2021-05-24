@@ -25,7 +25,7 @@ namespace LinearBeats.Scrolling
             }
 
             internal override Position Normalize(Pulse pulse, int? _ = null) =>
-                Modifier.ToPosition(pulse);
+                Modifier.Normalize(pulse);
         }
 
         private sealed class IndividualNormalizer : PositionNormalizer
@@ -35,7 +35,7 @@ namespace LinearBeats.Scrolling
             }
 
             internal override Position Normalize(Pulse pulse, int? timingIndex = null) =>
-                Modifier.ToNormalizedPosition(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
+                Modifier.Flatten(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
     }
 }

@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs.meta" afterDir="false" />
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Add binary search">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionNormalizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionNormalizer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionScaler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,9 +111,9 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/ListExtensions.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -242,14 +240,7 @@
       <workItem from="1620819247072" duration="88000" />
       <workItem from="1620819594332" duration="17205000" />
       <workItem from="1621254475484" duration="31630000" />
-      <workItem from="1621856348444" duration="8246000" />
-    </task>
-    <task id="LOCAL-00002" summary="File structure changed">
-      <created>1617515785560</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1617515785560</updated>
+      <workItem from="1621856348444" duration="9714000" />
     </task>
     <task id="LOCAL-00003" summary="File structure changed">
       <created>1617515947998</created>
@@ -587,7 +578,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621777248983</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Add binary search">
+      <created>1621865847052</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1621865847052</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -662,7 +660,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Applying long note implementation" />
     <MESSAGE value="Add unit tests" />
     <MESSAGE value="Wrote some test cases." />
     <MESSAGE value="Linearbeats.Time namespace test completed" />
@@ -687,7 +684,8 @@
     <MESSAGE value="Implement key sound" />
     <MESSAGE value="Fix key sound problem" />
     <MESSAGE value="Add Exception type InvalidScriptException" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Exception type InvalidScriptException" />
+    <MESSAGE value="Add binary search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add binary search" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

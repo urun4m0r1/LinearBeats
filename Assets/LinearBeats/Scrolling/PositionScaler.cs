@@ -35,7 +35,7 @@ namespace LinearBeats.Scrolling
             }
 
             internal override Pulse Scale(Pulse pulse, int? timingIndex = null) =>
-                Modifier.ScaleWithBpm(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
+                Modifier.BpmScale(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
 
         private sealed class ConstantSpeedScaler : PositionScaler
@@ -45,7 +45,7 @@ namespace LinearBeats.Scrolling
             }
 
             internal override Pulse Scale(Pulse pulse, int? timingIndex = null) =>
-                Modifier.NormalizeWithBpm(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
+                Modifier.BpmNormalize(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
     }
 }

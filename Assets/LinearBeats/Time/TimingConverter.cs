@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using LinearBeats.Scrolling;
 using Utils.Extensions;
 
 namespace LinearBeats.Time
@@ -22,10 +21,10 @@ namespace LinearBeats.Time
     public interface ITimingModifier
     {
         int GetTimingIndex(Pulse pulse);
-        Pulse ScaleWithBpm(Pulse value, int timingIndex);
-        Pulse NormalizeWithBpm(Pulse value, int timingIndex);
-        Position ToNormalizedPosition(Pulse value, int timingIndex);
-        Position ToPosition(Pulse value);
+        Pulse BpmScale(Pulse value, int timingIndex);
+        Pulse BpmNormalize(Pulse value, int timingIndex);
+        float Flatten(Pulse value, int timingIndex);
+        float Normalize(Pulse value);
     }
 
     public sealed class TimingConverter : ITimingConverter, ITimingModifier
@@ -34,7 +33,7 @@ namespace LinearBeats.Time
         {
             private readonly BpmEvent _bpmEvent;
             public float PulsesPerQuarterNote => _bpmEvent.Ppqn;
-            public float PulseNormalizer { get; set; }
+            public float PulseFlattener { get; set; }
             public float Bpm => _bpmEvent.Bpm;
             public float BpmScaler { get; set; }
             public float BpmNormalizer { get; set; }
@@ -89,7 +88,7 @@ namespace LinearBeats.Time
                 var v = _timingEvents[i];
                 var prev = i == 0 ? _timingEvents[0] : _timingEvents[i - 1];
 
-                v.PulseNormalizer = 1f / v.PulsesPerQuarterNote;
+                v.PulseFlattener = 1f / v.PulsesPerQuarterNote;
 
                 v.BpmScaler = v.Bpm * beatNormalizer;
                 v.BpmNormalizer = 1f / v.BpmScaler;
@@ -125,22 +124,21 @@ namespace LinearBeats.Time
             return MultiplyElapsed(pulse - v.Pulse, v.SamplesPerPulse, v.Sample);
         }
 
-        public Pulse ScaleWithBpm(Pulse pulse, int timingIndex)
+        public Pulse BpmScale(Pulse pulse, int timingIndex)
         {
             var v = _timingEvents[timingIndex];
             return MultiplyElapsed(pulse - v.Pulse, v.BpmScaler, v.BpmScaledPulse);
         }
 
-        public Pulse NormalizeWithBpm(Pulse pulse, int timingIndex)
+        public Pulse BpmNormalize(Pulse pulse, int timingIndex)
         {
             var v = _timingEvents[timingIndex];
             return MultiplyElapsed(pulse - v.Pulse, v.BpmNormalizer, v.BpmNormalizedPulse);
         }
 
-        public Position ToNormalizedPosition(Pulse pulse, int timingIndex) =>
-            Multiply(pulse, _timingEvents[timingIndex].PulseNormalizer);
+        public float Flatten(Pulse pulse, int timingIndex) => Multiply(pulse, _timingEvents[timingIndex].PulseFlattener);
 
-        public Position ToPosition(Pulse pulse) => Multiply(pulse, _pulseNormalizer);
+        public float Normalize(Pulse pulse) => Multiply(pulse, _pulseNormalizer);
 
         private static float MultiplyElapsed(float elapsed, float multiplier, float standard) =>
             standard + Multiply(elapsed, multiplier);

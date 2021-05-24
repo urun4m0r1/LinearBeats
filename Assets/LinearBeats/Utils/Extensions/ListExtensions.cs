@@ -11,10 +11,7 @@ namespace Utils.Extensions
         {
             var i = list.BinarySearch(target, selector);
 
-            if (i < -1) i = ~i;
-            if (i == list.Count) i = list.Count - 1;
-
-            return i;
+            return ClampArrayIndex(i >= 0 ? i : ~i, 0, list.Count);
         }
 
         public static int FindNearestSmallerIndex<T1, T2>(
@@ -22,10 +19,13 @@ namespace Utils.Extensions
         {
             var i = list.BinarySearch(target, selector);
 
-            if (i < -1) i = ~i - 1;
-            if (i == -1) i = 0;
-            if (i == list.Count) i = list.Count - 1;
+            return ClampArrayIndex(i >= 0 ? i : ~i - 1, 0, list.Count);
+        }
 
+        private static int ClampArrayIndex(int i, int from, int to)
+        {
+            if (i < from) i = from;
+            if (i >= to) i = to - 1;
             return i;
         }
 

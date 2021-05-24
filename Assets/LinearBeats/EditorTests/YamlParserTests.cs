@@ -1,6 +1,8 @@
 #pragma warning disable IDE0090
 
 using System.IO;
+using LinearBeats;
+using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 using YamlDotNet.Serialization;
@@ -32,9 +34,3 @@ public class YamlParserTests
         public Pulse Pulse;
     }
 }
-
-
-
-
-
-

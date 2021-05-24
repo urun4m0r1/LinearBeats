@@ -27,8 +27,10 @@ namespace LinearBeats.Time
         float Normalize(Pulse value);
     }
 
+    [Serializable]
     public sealed class TimingConverter : ITimingConverter, ITimingModifier
     {
+        [Serializable]
         private sealed class TimingEvent
         {
             private readonly BpmEvent _bpmEvent;

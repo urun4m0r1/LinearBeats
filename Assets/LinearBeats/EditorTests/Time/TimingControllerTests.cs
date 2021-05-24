@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using LinearBeats.Audio;
+using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 using static LinearBeats.EditorTests.FloatTests;

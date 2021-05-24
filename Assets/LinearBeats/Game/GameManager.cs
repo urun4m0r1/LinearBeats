@@ -8,14 +8,18 @@ using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
-using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
+using SerializedMonoBehaviour = Sirenix.OdinInspector.SerializedMonoBehaviour;
 
 namespace LinearBeats.Game
 {
     public sealed class GameManager : SerializedMonoBehaviour
     {
+        [OdinSerialize] private Pulse p;
+        [SerializeField] private FixedTime ft;
+        [SerializeField] private TimingConverter tc;
         [SerializeField] private UnityEvent<string> onBpmChanged = new UnityEvent<string>();
         [SerializeField] private UnityEvent<float> onProgressChanged = new UnityEvent<float>();
         [SerializeField] private UnityEvent onGameReset = new UnityEvent();

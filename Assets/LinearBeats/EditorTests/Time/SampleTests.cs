@@ -50,21 +50,6 @@ namespace LinearBeats.EditorTests.Time
         }
 
         [Test]
-        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public void Should_Cast_From_String()
-        {
-            Assert.AreEqual(V0, (Sample) F0.ToString());
-
-            Iterate((rf, _) =>
-            {
-                var f = (float) Math.Round(rf, Digits);
-                var v = new Sample(f);
-
-                Assert.AreEqual(v, (Sample) f.ToString());
-            });
-        }
-
-        [Test]
         public void Have_Unique_HashCode()
         {
             var hashList = new List<int>();

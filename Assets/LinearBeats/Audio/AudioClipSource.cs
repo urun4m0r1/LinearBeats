@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using LinearBeats.Script;
 using LinearBeats.Time;
 using UnityEngine;
 

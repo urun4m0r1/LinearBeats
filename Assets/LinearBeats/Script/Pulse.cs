@@ -1,14 +1,15 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Script;
 using LinearBeats.Utils;
+using Sirenix.OdinInspector;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Script
 {
+    [Serializable]
     public readonly struct Pulse : IComparable, IFormattable, IComparable<Pulse>, IEquatable<Pulse>, IFloat
     {
-        private readonly float _value;
+        [ShowInInspector] private readonly float _value;
 
         public Pulse(float value) => _value = value;
 

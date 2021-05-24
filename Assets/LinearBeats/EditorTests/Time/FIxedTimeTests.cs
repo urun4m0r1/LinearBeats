@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
+using LinearBeats.Script;
 using LinearBeats.Time;
 using NUnit.Framework;
 using UnityEngine;

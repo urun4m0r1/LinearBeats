@@ -4,12 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Add binary search">
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Remove TimingConverter.cs Scrolling dependency">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/YamlParserTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/YamlParserTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionNormalizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionNormalizer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionScaler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/Pulse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/Pulse.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/Second.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/Second.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,11 +80,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/ScrollEventConverter.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/RailConverter.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/Rail.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/NoteBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/Scrolling/RailObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/PositionConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/DistanceConverter.cs" />
@@ -103,17 +115,22 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/ListExtensions.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/YamlParserTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/Second.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/Pulse.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -144,7 +161,7 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="Inspections-C#" />
   </component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
@@ -240,14 +257,7 @@
       <workItem from="1620819247072" duration="88000" />
       <workItem from="1620819594332" duration="17205000" />
       <workItem from="1621254475484" duration="31630000" />
-      <workItem from="1621856348444" duration="9714000" />
-    </task>
-    <task id="LOCAL-00003" summary="File structure changed">
-      <created>1617515947998</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1617515947998</updated>
+      <workItem from="1621856348444" duration="13026000" />
     </task>
     <task id="LOCAL-00004" summary="File structure changed">
       <created>1617516006816</created>
@@ -585,7 +595,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621865847052</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Remove TimingConverter.cs Scrolling dependency">
+      <created>1621867172035</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1621867172035</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -660,7 +677,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add unit tests" />
     <MESSAGE value="Wrote some test cases." />
     <MESSAGE value="Linearbeats.Time namespace test completed" />
     <MESSAGE value="Fix errors" />
@@ -685,7 +701,8 @@
     <MESSAGE value="Fix key sound problem" />
     <MESSAGE value="Add Exception type InvalidScriptException" />
     <MESSAGE value="Add binary search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add binary search" />
+    <MESSAGE value="Remove TimingConverter.cs Scrolling dependency" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove TimingConverter.cs Scrolling dependency" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

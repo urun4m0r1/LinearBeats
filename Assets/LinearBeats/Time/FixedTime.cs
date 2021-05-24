@@ -1,9 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using LinearBeats.Script;
 
 namespace LinearBeats.Time
 {
+    [Serializable]
     public readonly struct FixedTime : IComparable, IFormattable, IComparable<FixedTime>, IEquatable<FixedTime>
     {
         [NotNull] private readonly ITimingConverter _converter;
@@ -44,6 +46,7 @@ namespace LinearBeats.Time
             Bpm = _converter.GetBpm(timingIndex);
         }
 
+        [Serializable]
         public sealed class Factory
         {
             [NotNull] private readonly ITimingConverter _converter;

@@ -1,11 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Script;
 using LinearBeats.Utils;
 
-namespace LinearBeats.Time
+namespace LinearBeats.Script
 {
+    [Serializable]
     public readonly struct Second : IComparable, IFormattable, IComparable<Second>, IEquatable<Second>, IFloat
     {
         private readonly float _value;

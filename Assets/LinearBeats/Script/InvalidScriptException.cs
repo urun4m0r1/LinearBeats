@@ -1,9 +1,9 @@
 ﻿using System;
+using YamlDotNet.Core;
 
 namespace LinearBeats.Script
 {
-    [Serializable]
-    public sealed class InvalidScriptException : Exception
+    public sealed class InvalidScriptException : YamlException
     {
         public InvalidScriptException() { }
 

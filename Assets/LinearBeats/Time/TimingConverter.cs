@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using Sirenix.OdinInspector;
 using Utils.Extensions;
 
 namespace LinearBeats.Time
@@ -27,32 +28,30 @@ namespace LinearBeats.Time
         float Normalize(Pulse value);
     }
 
-    [Serializable]
     public sealed class TimingConverter : ITimingConverter, ITimingModifier
     {
-        [Serializable]
         private sealed class TimingEvent
         {
             private readonly BpmEvent _bpmEvent;
-            public float PulsesPerQuarterNote => _bpmEvent.Ppqn;
-            public float PulseFlattener { get; set; }
-            public float Bpm => _bpmEvent.Bpm;
-            public float BpmScaler { get; set; }
-            public float BpmNormalizer { get; set; }
-            public Pulse Pulse => _bpmEvent.Pulse;
-            public Pulse BpmScaledPulse { get; set; }
-            public Pulse BpmNormalizedPulse { get; set; }
-            public Sample Sample { get; set; }
-            public float SamplesPerPulse { get; set; }
-            public float PulsesPerSample { get; set; }
+            [ShowInInspector, ReadOnly, HorizontalGroup(LabelWidth = 30)] public float Ppqn => _bpmEvent.Ppqn;
+            [ShowInInspector, ReadOnly, HorizontalGroup] public float Bpm => _bpmEvent.Bpm;
+            [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Tick")] public Pulse Pulse => _bpmEvent.Pulse;
+            [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Hz")] public Sample Sample { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public float SamplesPerPulse { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public float PulsesPerSample { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public float PulseFlattener { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public float BpmScaler { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public float BpmNormalizer { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public Pulse BpmScaledPulse { get; set; }
+            [ShowInInspector, ReadOnly, LabelWidth(150)] public Pulse BpmNormalizedPulse { get; set; }
 
             public TimingEvent(BpmEvent bpmEvent) => _bpmEvent = bpmEvent;
         }
 
-        [NotNull] private readonly IReadOnlyList<TimingEvent> _timingEvents;
-        private readonly float _samplesPerSecond;
-        private readonly float _secondsPerSample;
-        private readonly float _pulseNormalizer;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly IReadOnlyList<TimingEvent> _timingEvents;
+        [ShowInInspector, ReadOnly] private readonly float _samplesPerSecond;
+        [ShowInInspector, ReadOnly] private readonly float _secondsPerSample;
+        [ShowInInspector, ReadOnly] private readonly float _pulseNormalizer;
 
         public TimingConverter([NotNull] IReadOnlyCollection<BpmEvent> bpmEvents,
             float samplesPerSecond,
@@ -83,21 +82,21 @@ namespace LinearBeats.Time
             _secondsPerSample = 1f / samplesPerSecond;
 
             var beatNormalizer = 1f / (standardBpm ?? _timingEvents[0].Bpm);
-            _pulseNormalizer = 1f / (standardPpqn ?? _timingEvents[0].PulsesPerQuarterNote);
+            _pulseNormalizer = 1f / (standardPpqn ?? _timingEvents[0].Ppqn);
 
             for (var i = 0; i < _timingEvents.Count; ++i)
             {
                 var v = _timingEvents[i];
                 var prev = i == 0 ? _timingEvents[0] : _timingEvents[i - 1];
 
-                v.PulseFlattener = 1f / v.PulsesPerQuarterNote;
+                v.PulseFlattener = 1f / v.Ppqn;
 
                 v.BpmScaler = v.Bpm * beatNormalizer;
                 v.BpmNormalizer = 1f / v.BpmScaler;
 
                 var secondsPerQuarterNote = 60f / v.Bpm;
                 var samplesPerQuarterNote = secondsPerQuarterNote * samplesPerSecond;
-                v.SamplesPerPulse = samplesPerQuarterNote / v.PulsesPerQuarterNote;
+                v.SamplesPerPulse = samplesPerQuarterNote / v.Ppqn;
                 v.PulsesPerSample = 1f / v.SamplesPerPulse;
 
                 var intervalPulses = v.Pulse - prev.Pulse;

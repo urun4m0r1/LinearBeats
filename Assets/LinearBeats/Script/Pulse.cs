@@ -6,10 +6,10 @@ using Sirenix.OdinInspector;
 
 namespace LinearBeats.Script
 {
-    [Serializable]
+    [InlineProperty]
     public readonly struct Pulse : IComparable, IFormattable, IComparable<Pulse>, IEquatable<Pulse>, IFloat
     {
-        [ShowInInspector] private readonly float _value;
+        [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
 
         public Pulse(float value) => _value = value;
 

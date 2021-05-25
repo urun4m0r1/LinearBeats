@@ -18,14 +18,23 @@ namespace LinearBeats.Script
         [Required] [SerializeField] private AudioListener audioListener;
         [Required] [SerializeField] private AudioMixerGroup[] audioMixerGroups;
 
-        public LinearBeatsScript Script { get; private set; }
+        [ShowInInspector, ReadOnly] private ScriptParser _parser;
+        [ShowInInspector, ReadOnly] public LinearBeatsScript Script { get; private set; }
 
         private string _resourcesPath;
 
         public void LoadScript(string resourcesPath, string scriptName)
         {
             _resourcesPath = resourcesPath;
-            Script = ScriptParser.ParseFromResources(_resourcesPath + scriptName);
+
+            var scriptAsset = Resources.Load(_resourcesPath + scriptName) as TextAsset;
+
+            _parser = new ScriptParser.Builder(scriptAsset.text)
+                .SetNamingConvention(NamingConventionStyle.PascalCase)
+                .SetScriptValidator(ScriptValidatorMode.Standard)
+                .Build();
+
+            if (_parser.TryParse(out var script)) Script = script;
         }
 
         [NotNull]

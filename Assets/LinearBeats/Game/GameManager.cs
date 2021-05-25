@@ -8,18 +8,14 @@ using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
-using Sirenix.Serialization;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using SerializedMonoBehaviour = Sirenix.OdinInspector.SerializedMonoBehaviour;
 
 namespace LinearBeats.Game
 {
     public sealed class GameManager : SerializedMonoBehaviour
     {
-        [OdinSerialize] private Pulse p;
-        [SerializeField] private FixedTime ft;
-        [SerializeField] private TimingConverter tc;
         [SerializeField] private UnityEvent<string> onBpmChanged = new UnityEvent<string>();
         [SerializeField] private UnityEvent<float> onProgressChanged = new UnityEvent<float>();
         [SerializeField] private UnityEvent onGameReset = new UnityEvent();
@@ -33,7 +29,8 @@ namespace LinearBeats.Game
         [NotNull] private Dictionary<ushort, AudioPlayer> _audioPlayers;
         [NotNull] private AudioPlayer _backgroundAudioPlayer;
         [NotNull] private IDistanceConverter _distanceConverter;
-        [NotNull] private AudioTimingInfo _audioTimingInfo;
+
+        [ShowInInspector, ReadOnly] [NotNull] private AudioTimingInfo _audioTimingInfo;
         [NotNull] private TimingObject _timingObject;
         // ReSharper restore NotNullMemberIsNotInitialized
 

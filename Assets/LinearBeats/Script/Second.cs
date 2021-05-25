@@ -2,13 +2,14 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using LinearBeats.Utils;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Script
 {
-    [Serializable]
+    [InlineProperty]
     public readonly struct Second : IComparable, IFormattable, IComparable<Second>, IEquatable<Second>, IFloat
     {
-        private readonly float _value;
+        [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
 
         public Second(float value) => _value = value;
 

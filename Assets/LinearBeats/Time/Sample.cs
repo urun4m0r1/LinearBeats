@@ -2,13 +2,14 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using LinearBeats.Utils;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Time
 {
-    [Serializable]
+    [InlineProperty]
     public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>, IFloat
     {
-        private readonly float _value;
+        [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
 
         public Sample(float value) => _value = value;
 

@@ -1,48 +1,85 @@
+using System;
 using System.IO;
-using Sirenix.Utilities;
+using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace LinearBeats.Script
 {
+    [InlineProperty]
     public sealed class ScriptParser
     {
-        public string ScriptText
+        [ShowInInspector, ReadOnly, HideLabel, MultiLineProperty(10)] [NotNull] private readonly string _rawScript;
+        [NotNull] private INamingConvention _namingConvention;
+        [NotNull] private IScriptValidator _validator;
+
+        private ScriptParser([NotNull] string rawScript)
         {
-            private get => _scriptText;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value)) throw new System.ArgumentNullException();
-                _scriptText = value;
-            }
+            _rawScript = rawScript;
+            _namingConvention = new NullNamingConvention();
+            _validator = new NullScriptValidator();
         }
 
-        private string _scriptText;
-
-        public ScriptParser(string scriptText) => ScriptText = scriptText;
-
-        public static LinearBeatsScript ParseFromResources(string scriptPath)
+        public sealed class Builder
         {
-            var scriptAsset = Resources.Load(scriptPath) as TextAsset;
-            return new ScriptParser(scriptAsset.text).Parse();
+            [NotNull] private readonly ScriptParser _base;
+
+            public Builder([NotNull] string rawScript) => _base = new ScriptParser(rawScript);
+
+            [NotNull] public Builder SetNamingConvention(NamingConventionStyle mode)
+            {
+                _base._namingConvention = mode switch
+                {
+                    NamingConventionStyle.None => new NullNamingConvention(),
+                    NamingConventionStyle.CamelCase => new CamelCaseNamingConvention(),
+                    NamingConventionStyle.PascalCase => new PascalCaseNamingConvention(),
+                    NamingConventionStyle.Underscored => new UnderscoredNamingConvention(),
+                    NamingConventionStyle.Hyphenated => new HyphenatedNamingConvention(),
+                    _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+                };
+
+                return this;
+            }
+
+            [NotNull] public Builder SetScriptValidator(ScriptValidatorMode mode)
+            {
+                _base._validator = mode switch
+                {
+                    ScriptValidatorMode.None => new NullScriptValidator(),
+                    ScriptValidatorMode.Standard => new ScriptValidator(),
+                    _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null),
+                };
+
+                return this;
+            }
+
+            [NotNull] public ScriptParser Build() => _base;
+        }
+
+        public bool TryParse(out LinearBeatsScript script)
+        {
+            try
+            {
+                script = Parse();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                script = default;
+                return false;
+            }
         }
 
         public LinearBeatsScript Parse()
         {
-            var scriptTextReader = new StringReader(ScriptText);
-            var deserializerBuilder = new DeserializerBuilder().WithNamingConvention(new PascalCaseNamingConvention());
-            IDeserializer deserializer = deserializerBuilder.Build();
-            var deserializedScript = deserializer.Deserialize<LinearBeatsScript>(scriptTextReader);
-            return Validate(deserializedScript);
-        }
+            var stringReader = new StringReader(_rawScript);
+            var deserializer = new DeserializerBuilder().WithNamingConvention(_namingConvention).Build();
 
-        //TODO: Implement Validation
-        private LinearBeatsScript Validate(LinearBeatsScript script)
-        {
-            if (script.VersionCode == 0
-                || script.VersionName.IsNullOrWhitespace()
-            ) throw new InvalidDataException();
+            var script = deserializer.Deserialize<LinearBeatsScript>(stringReader);
+            _validator.Validate(script);
 
             return script;
         }

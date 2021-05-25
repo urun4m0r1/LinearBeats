@@ -2,17 +2,17 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Time
 {
-    [Serializable]
     public readonly struct FixedTime : IComparable, IFormattable, IComparable<FixedTime>, IEquatable<FixedTime>
     {
-        [NotNull] private readonly ITimingConverter _converter;
-        public float Bpm { get; }
-        public Pulse Pulse { get; }
-        public Sample Sample { get; }
-        public Second Second { get; }
+        [ShowInInspector, ReadOnly] [NotNull] private readonly ITimingConverter _converter;
+        [ShowInInspector, ReadOnly, HorizontalGroup(LabelWidth = 30)] public float Bpm { get; }
+        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Tick")] public Pulse Pulse { get; }
+        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Sec")] public Second Second { get; }
+        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Hz")] public Sample Sample { get; }
 
         private FixedTime([NotNull] ITimingConverter converter) : this() => _converter = converter;
 
@@ -46,10 +46,10 @@ namespace LinearBeats.Time
             Bpm = _converter.GetBpm(timingIndex);
         }
 
-        [Serializable]
+        [InlineProperty]
         public sealed class Factory
         {
-            [NotNull] private readonly ITimingConverter _converter;
+            [ShowInInspector, ReadOnly] [NotNull] private readonly ITimingConverter _converter;
 
             public Factory([NotNull] ITimingConverter converter) => _converter = converter;
 

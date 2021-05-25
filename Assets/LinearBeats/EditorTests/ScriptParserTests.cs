@@ -16,7 +16,7 @@ public class ScriptParserTests
         #endregion
 
         #region Then
-        Assert.Catch(() => new ScriptParser(emptyScript));
+        Assert.Catch(() => new ScriptParser.Builder(emptyScript));
         #endregion
     }
 
@@ -58,7 +58,7 @@ Timings:
         #endregion
 
         #region When
-        var scriptParser = new ScriptParser(validScript);
+        var scriptParser = new ScriptParser.Builder(validScript);
         #endregion
 
         #region Then
@@ -104,7 +104,7 @@ Timings:
         #endregion
 
         #region When
-        var scriptParser = new ScriptParser(invalidScript);
+        var scriptParser = new ScriptParser.Builder(invalidScript);
         #endregion
 
         #region Then

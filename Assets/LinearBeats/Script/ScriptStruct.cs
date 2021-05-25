@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
-using LinearBeats.Time;
+using Sirenix.OdinInspector;
+
 // ReSharper disable UnassignedField.Global
 
 namespace LinearBeats.Script
@@ -59,11 +60,12 @@ namespace LinearBeats.Script
         [CanBeNull] public ScrollingEvent[] SpeedBounceEvents;
     }
 
+    [InlineProperty]
     public struct BpmEvent
     {
-        public float Ppqn;
-        public Pulse Pulse;
-        public float Bpm;
+        [ShowInInspector, ReadOnly, HorizontalGroup(LabelWidth = 30)] public float Ppqn;
+        [ShowInInspector, ReadOnly, HorizontalGroup] public float Bpm;
+        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Tick")] public Pulse Pulse;
     }
 
     public struct ScrollingEvent

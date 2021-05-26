@@ -16,7 +16,7 @@ namespace LinearBeats.Scrolling
             [NotNull] IDistanceConverter converter,
             [NotNull] NoteJudgement judgement)
         {
-            Current = factory.Create(new Pulse(0f));
+            Current = factory.Create(new Pulse(0));
             Factory = factory;
             Converter = converter;
             Judgement = judgement;

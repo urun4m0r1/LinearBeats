@@ -38,19 +38,19 @@ namespace LinearBeats.EditorTests.Time
             return Converter.ToPulse(sample, Converter.GetTimingIndex(sample));
         }
 
-        private static void Iterate([NotNull] Action<float, FixedTime> action)
+        private static void Iterate([NotNull] Action<int, FixedTime> action)
         {
             for (var i = 0; i < Iteration; ++i)
             {
-                var randomFloat = RandomFloat;
-                action(randomFloat, Factory.Create(new Pulse(randomFloat)));
+                var randomInt = RandomInt;
+                action(randomInt, Factory.Create(new Pulse(randomInt)));
             }
         }
 
         private static void Iterate([NotNull] Action<Pulse, Sample, Second> action)
         {
             for (var i = 0; i < Iteration; ++i)
-                action(new Pulse(RandomFloat), new Sample(RandomFloat), new Second(RandomFloat));
+                action(new Pulse(RandomInt), new Sample(RandomInt), new Second(RandomFloat));
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace LinearBeats.EditorTests.Time
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         public void Implements_IFormattable()
         {
-            var v = Factory.Create(new Pulse(RandomFloat));
+            var v = Factory.Create(new Pulse(RandomInt));
 
             const string format = "F";
             var culture = CultureInfo.CurrentCulture;
@@ -138,9 +138,9 @@ namespace LinearBeats.EditorTests.Time
             var v0 = Factory.Create(PulseTests.V0);
             AssertEquatable(v0, V0);
 
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
-                var w = Factory.Create(new Pulse(f));
+                var w = Factory.Create(new Pulse(i));
                 AssertEquatable(v, w);
 
                 if (v == V0) return;
@@ -164,13 +164,13 @@ namespace LinearBeats.EditorTests.Time
             var v0 = Factory.Create(PulseTests.V0);
             AssertEquatable(v0, V0);
 
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
-                var vx = Factory.Create(new Pulse(f)); // [-5_000 ~ 5_000]
+                var vx = Factory.Create(new Pulse(i)); // [-5_000 ~ 5_000]
                 AssertEquatable(v, vx);
 
-                var vn = Factory.Create(new Pulse(f - 5_000f)); // [-10_000, 0]
-                var vp = Factory.Create(new Pulse(f + 5_000f)); // [0, 10_000]
+                var vn = Factory.Create(new Pulse(i - 5_000)); // [-10_000, 0]
+                var vp = Factory.Create(new Pulse(i + 5_000)); // [0, 10_000]
                 AssertRightIsBigger(vn, vp);
                 AssertRightIsBigger(v, vp);
                 AssertRightIsBigger(vn, v);
@@ -192,7 +192,7 @@ namespace LinearBeats.EditorTests.Time
 
             static void AssertRightIsBigger(FixedTime l, FixedTime r)
             {
-                var delta = Factory.Create(new Pulse(Delta));
+                var delta = Factory.Create(new Pulse(1));
 
                 Assert.IsTrue(r.CompareTo(l) >= 0);
                 Assert.IsTrue(r.CompareTo(l - delta) > 0);
@@ -213,7 +213,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Calculable()
         {
-            var v1 = Factory.Create(new Pulse(1f));
+            var v1 = Factory.Create(new Pulse(1));
             AssertCalculation(V0);
             AssertCalculation(v1);
 
@@ -221,7 +221,7 @@ namespace LinearBeats.EditorTests.Time
 
             static void AssertCalculation(FixedTime v)
             {
-                var v1 = Factory.Create(new Pulse(1f));
+                var v1 = Factory.Create(new Pulse(1));
 
                 Assert.IsTrue(+v == V0 + v); // 양수
                 Assert.IsTrue(-v == V0 - v); // 음수
@@ -243,9 +243,9 @@ namespace LinearBeats.EditorTests.Time
 
             Assert.IsTrue(FixedTime.ConverterEquals(v0, V0));
 
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
-                var vx = Factory.Create(new Pulse(f));
+                var vx = Factory.Create(new Pulse(i));
 
                 Assert.IsTrue(FixedTime.ConverterEquals(v, vx));
                 Assert.IsTrue(FixedTime.ConverterEquals(v, V0));
@@ -259,9 +259,9 @@ namespace LinearBeats.EditorTests.Time
             var v0 = Factory.Create(PulseTests.V0);
             Assert.AreEqual(v0.Bpm, V0.Bpm);
 
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
-                var vx = Factory.Create(new Pulse(f));
+                var vx = Factory.Create(new Pulse(i));
 
                 Assert.AreEqual(v.Bpm, vx.Bpm);
             });

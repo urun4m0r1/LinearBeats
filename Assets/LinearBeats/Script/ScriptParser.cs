@@ -12,21 +12,18 @@ namespace LinearBeats.Script
     public sealed class ScriptParser
     {
         [ShowInInspector, ReadOnly, HideLabel, MultiLineProperty(10)] [NotNull] private readonly string _rawScript;
-        [NotNull] private INamingConvention _namingConvention;
-        [NotNull] private IScriptValidator _validator;
+        [NotNull] private INamingConvention _namingConvention = new NullNamingConvention();
+        [NotNull] private IScriptValidator _validator = new NullScriptValidator();
 
-        private ScriptParser([NotNull] string rawScript)
-        {
-            _rawScript = rawScript;
-            _namingConvention = new NullNamingConvention();
-            _validator = new NullScriptValidator();
-        }
+        private ScriptParser([NotNull] string rawScript) => _rawScript = rawScript;
 
         public sealed class Builder
         {
             [NotNull] private readonly ScriptParser _base;
 
             public Builder([NotNull] string rawScript) => _base = new ScriptParser(rawScript);
+
+            [NotNull] public ScriptParser Build() => _base;
 
             [NotNull] public Builder SetNamingConvention(NamingConventionStyle mode)
             {
@@ -54,8 +51,6 @@ namespace LinearBeats.Script
 
                 return this;
             }
-
-            [NotNull] public ScriptParser Build() => _base;
         }
 
         public bool TryParse(out LinearBeatsScript script)

@@ -1,27 +1,25 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Utils;
 using Sirenix.OdinInspector;
 
 namespace LinearBeats.Script
 {
     [InlineProperty]
-    public readonly struct Pulse : IComparable, IFormattable, IComparable<Pulse>, IEquatable<Pulse>, IFloat
+    public readonly struct Pulse : IComparable, IFormattable, IComparable<Pulse>, IEquatable<Pulse>
     {
-        [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
+        [ShowInInspector, ReadOnly, HideLabel] private readonly int _value;
 
-        public Pulse(float value) => _value = value;
+        public Pulse(int value) => _value = value;
 
-        public float ToFloat() => _value;
-        public static implicit operator float(Pulse right) => right._value;
-        public static implicit operator Pulse(float right) => new Pulse(right);
+        public static implicit operator int(Pulse right) => right._value;
+        public static implicit operator Pulse(int right) => new Pulse(right);
 
         public static implicit operator Pulse([NotNull] string right)
         {
-            if (float.TryParse(right, out var value)) return value;
+            if (int.TryParse(right, out var value)) return value;
 
-            throw new InvalidScriptException($"Unable to parse float from \"{right}\"");
+            throw new InvalidScriptException($"Unable to parse int from \"{right}\"");
         }
 
         int IComparable.CompareTo([CanBeNull] object obj) =>

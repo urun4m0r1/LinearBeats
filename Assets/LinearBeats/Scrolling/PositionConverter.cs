@@ -4,10 +4,18 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using LinearBeats.Time;
 
 namespace LinearBeats.Scrolling
 {
+    public interface ITimingModifier
+    {
+        int GetTimingIndex(Pulse pulse);
+        float BpmScale(Pulse value, int timingIndex);
+        float BpmNormalize(Pulse value, int timingIndex);
+        Position Flatten(float value, int timingIndex);
+        Position Normalize(float value);
+    }
+
     public interface IPositionConverter
     {
         Position Convert(Pulse pulse, ScrollEvent ignoreFlags);

@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using LinearBeats.Script;
 using LinearBeats.Time;
 
 namespace LinearBeats.Scrolling
@@ -16,7 +15,7 @@ namespace LinearBeats.Scrolling
         {
             [NotNull] protected readonly ITimingModifier Modifier;
             protected PositionNormalizer([NotNull] ITimingModifier modifier) => Modifier = modifier;
-            internal abstract Position Normalize(Pulse pulse, int? timingIndex = null);
+            internal abstract Position Normalize(float scaledPulse, int timingIndex);
         }
 
         private sealed class StandardNormalizer : PositionNormalizer
@@ -25,8 +24,8 @@ namespace LinearBeats.Scrolling
             {
             }
 
-            internal override Position Normalize(Pulse pulse, int? _ = null) =>
-                Modifier.Normalize(pulse);
+            internal override Position Normalize(float scaledPulse, int _) =>
+                Modifier.Normalize(scaledPulse);
         }
 
         private sealed class IndividualNormalizer : PositionNormalizer
@@ -35,8 +34,8 @@ namespace LinearBeats.Scrolling
             {
             }
 
-            internal override Position Normalize(Pulse pulse, int? timingIndex = null) =>
-                Modifier.Flatten(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
+            internal override Position Normalize(float scaledPulse, int timingIndex) =>
+                Modifier.Flatten(scaledPulse, timingIndex);
         }
     }
 }

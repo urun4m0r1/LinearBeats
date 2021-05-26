@@ -7,13 +7,12 @@ using Sirenix.OdinInspector;
 namespace LinearBeats.Script
 {
     [InlineProperty]
-    public readonly struct Second : IComparable, IFormattable, IComparable<Second>, IEquatable<Second>, IFloat
+    public readonly struct Second : IComparable, IFormattable, IComparable<Second>, IEquatable<Second>
     {
         [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
 
         public Second(float value) => _value = value;
 
-        public float ToFloat() => _value;
         public static implicit operator float(Second right) => right._value;
         public static implicit operator Second(float right) => new Second(right);
 

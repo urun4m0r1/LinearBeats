@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using JetBrains.Annotations;
+using Lean.Pool;
 using LinearBeats.Audio;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
@@ -10,6 +11,7 @@ using LinearBeats.Time;
 using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 namespace LinearBeats.Game
@@ -19,57 +21,101 @@ namespace LinearBeats.Game
         [SerializeField] private UnityEvent<string> onBpmChanged = new UnityEvent<string>();
         [SerializeField] private UnityEvent<float> onProgressChanged = new UnityEvent<float>();
         [SerializeField] private UnityEvent onGameReset = new UnityEvent();
-        [Range(1f, 100f)] [SerializeField] private float meterPerQuarterNote = 1f;
 
-        [SerializeField] [CanBeNull] private ScriptLoader scriptLoader;
+        [SerializeField, Range(1f, 100f)] private float meterPerQuarterNote = 1f;
+
         [SerializeField] [CanBeNull] private JudgeRange judgeRange;
         [SerializeField] [CanBeNull] private LaneEffect laneEffect;
 
-        // ReSharper disable NotNullMemberIsNotInitialized
-        [NotNull] private Dictionary<ushort, AudioPlayer> _audioPlayers;
-        [NotNull] private AudioPlayer _backgroundAudioPlayer;
-        [NotNull] private IDistanceConverter _distanceConverter;
+        [SerializeField] [CanBeNull] private LeanGameObjectPool notesPool;
+        [SerializeField] [CanBeNull] private LeanGameObjectPool dividerPool;
+        [SerializeField] [CanBeNull] private AudioListener audioListener;
+        [SerializeField] [CanBeNull] private AudioMixerGroup[] audioMixerGroups;
 
-        [ShowInInspector, ReadOnly] [NotNull] private AudioTimingInfo _audioTimingInfo;
-        [NotNull] private TimingObject _timingObject;
-        // ReSharper restore NotNullMemberIsNotInitialized
+        [SerializeField] [CanBeNull] private string resourcesPath = "Songs/Tutorial/";
+        [SerializeField] [CanBeNull] private string scriptName = "Tutorial";
+
+        [ShowInInspector, ReadOnly] private LinearBeatsScript _script;
+        [ShowInInspector, ReadOnly] [CanBeNull] private ScriptLoader _scriptLoader;
+        [ShowInInspector, ReadOnly] [CanBeNull] private Dictionary<ushort, AudioPlayer> _audioPlayers;
+        [ShowInInspector, ReadOnly] [CanBeNull] private AudioPlayer _backgroundAudioPlayer;
+        [ShowInInspector, ReadOnly] [CanBeNull] private AudioTimingInfo _audioTimingInfo;
+        [ShowInInspector, ReadOnly] [CanBeNull] private IDistanceConverter _distanceConverter;
+        [ShowInInspector, ReadOnly] [CanBeNull] private TimingObject _timingObject;
 
         private void Awake()
         {
-            scriptLoader.LoadScript("Songs/Tutorial/", "Tutorial");
+            InitScript();
+            InitAudioPlayers();
+            InitTimingObjects();
 
-            _audioPlayers = scriptLoader.InstantiateAudioSource();
+            ResetGame();
+        }
+
+        private void InitScript()
+        {
+            if (string.IsNullOrWhiteSpace(resourcesPath) || string.IsNullOrWhiteSpace(scriptName))
+                throw new ArgumentNullException();
+
+            var scriptAsset = Resources.Load(resourcesPath + scriptName) as TextAsset;
+
+            if (!scriptAsset || string.IsNullOrWhiteSpace(scriptAsset.text))
+                throw new ArgumentNullException();
+
+            var parser = new ScriptParser.Builder(scriptAsset.text)
+                .SetNamingConvention(NamingConventionStyle.PascalCase)
+                .SetScriptValidator(ScriptValidatorMode.Standard)
+                .Build();
+
+            if (!parser.TryParse(out _script)) throw new InvalidScriptException();
+        }
+
+        private void InitAudioPlayers()
+        {
+            if (!notesPool || !dividerPool || !audioListener ||
+                audioMixerGroups == null ||
+                string.IsNullOrWhiteSpace(resourcesPath))
+                throw new ArgumentNullException();
+
+            _scriptLoader = new ScriptLoader(notesPool, dividerPool, audioListener, audioMixerGroups);
+
+            _audioPlayers = _scriptLoader.InstantiateAudioSource(ref _script, resourcesPath);
+
             _backgroundAudioPlayer = _audioPlayers[0];
+        }
 
-            if (scriptLoader.Script.AudioChannels == null) throw new InvalidOperationException();
-            if (scriptLoader.Script.Timing.BpmEvents == null) throw new InvalidOperationException();
+        private void InitTimingObjects()
+        {
+            if (_backgroundAudioPlayer == null || _script.AudioChannels == null || _script.Timing.BpmEvents == null)
+                throw new ArgumentNullException();
 
             var audioClipSource = new AudioClipSource(
                 _backgroundAudioPlayer.AudioSource,
-                scriptLoader.Script.AudioChannels[0].Offset);
+                _script.AudioChannels[0].Offset);
 
             var timingConverter = new TimingConverter(
-                scriptLoader.Script.Timing.BpmEvents,
+                _script.Timing.BpmEvents,
                 audioClipSource.SamplesPerSecond,
-                scriptLoader.Script.Timing.StandardBpm,
-                scriptLoader.Script.Timing.StandardPpqn);
+                _script.Timing.StandardBpm,
+                _script.Timing.StandardPpqn);
 
             var fixedTimeFactory = new FixedTime.Factory(timingConverter);
-
             var positionConverter = new PositionConverter.Builder(timingConverter)
-                .SetScrollEvent(scriptLoader.Script.Scrolling, ScrollEvent.All)
+                .SetScrollEvent(_script.Scrolling, ScrollEvent.All)
                 .SetPositionScaler(ScalerMode.BpmRelative)
                 .SetPositionNormalizer(NormalizerMode.Individual)
                 .Build();
 
+            _audioTimingInfo = new AudioTimingInfo(audioClipSource, fixedTimeFactory);
+            _distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
+
+            if (!judgeRange || !laneEffect) throw new ArgumentNullException();
+
             var noteJudgement = new NoteJudgement(judgeRange, laneEffect);
 
-            _distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
             _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter, noteJudgement);
-            _audioTimingInfo = new AudioTimingInfo(audioClipSource, fixedTimeFactory);
-
-            ResetGame();
         }
+
 
         public void PlayPauseGame(bool play)
         {
@@ -79,33 +125,40 @@ namespace LinearBeats.Game
 
         private void StartGame()
         {
-            _backgroundAudioPlayer.Play();
+            _backgroundAudioPlayer?.Play();
         }
 
         private void PauseGame()
         {
+            if (_audioPlayers == null) return;
+
             foreach (var audioPlayer in _audioPlayers) audioPlayer.Value.Pause();
         }
 
         public void ResetGame()
         {
+            if (_audioPlayers == null) return;
+
             foreach (var audioPlayer in _audioPlayers) audioPlayer.Value.Stop();
 
-            scriptLoader.InstantiateAllNotes(_timingObject, _audioPlayers);
-            scriptLoader.InstantiateAllDividers(_timingObject);
+            if (_scriptLoader == null || _timingObject == null || _audioPlayers == null)
+                throw new InvalidOperationException();
+
+            _scriptLoader.InstantiateAllNotes(ref _script, _timingObject, _audioPlayers);
+            _scriptLoader.InstantiateAllDividers(ref _script, _timingObject);
 
             onGameReset.Invoke();
         }
 
         private void Update()
         {
-            if (_audioTimingInfo.Progress >= 1f) ResetGame();
+            if (_audioTimingInfo?.Progress >= 1f) ResetGame();
 
-            _timingObject.Current = _audioTimingInfo.Now;
-            _distanceConverter.DistancePerQuarterNote = meterPerQuarterNote;
+            if (_timingObject != null) _timingObject.Current = _audioTimingInfo?.Now ?? default;
+            if (_distanceConverter != null) _distanceConverter.DistancePerQuarterNote = meterPerQuarterNote;
 
-            onProgressChanged.Invoke(_audioTimingInfo.Progress);
-            onBpmChanged.Invoke(_timingObject.Current.Bpm.ToString(CultureInfo.InvariantCulture));
+            onProgressChanged.Invoke(_audioTimingInfo?.Progress ?? 0f);
+            onBpmChanged.Invoke(_timingObject?.Current.Bpm.ToString(CultureInfo.InvariantCulture) ?? "000");
         }
     }
 }

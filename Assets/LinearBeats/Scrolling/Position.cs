@@ -5,13 +5,12 @@ using LinearBeats.Utils;
 
 namespace LinearBeats.Scrolling
 {
-    public readonly struct Position : IComparable, IFormattable, IComparable<Position>, IEquatable<Position>, IFloat
+    public readonly struct Position : IComparable, IFormattable, IComparable<Position>, IEquatable<Position>
     {
         private readonly float _value;
 
         public Position(float value) => _value = value;
 
-        public float ToFloat() => _value;
         public static implicit operator float(Position right) => right._value;
         public static implicit operator Position(float right) => new Position(right);
 

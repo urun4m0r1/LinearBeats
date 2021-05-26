@@ -1,21 +1,19 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Utils;
 using Sirenix.OdinInspector;
 
 namespace LinearBeats.Time
 {
     [InlineProperty]
-    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>, IFloat
+    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>
     {
-        [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
+        [ShowInInspector, ReadOnly, HideLabel] private readonly int _value;
 
-        public Sample(float value) => _value = value;
+        public Sample(int value) => _value = value;
 
-        public float ToFloat() => _value;
-        public static implicit operator float(Sample right) => right._value;
-        public static implicit operator Sample(float right) => new Sample(right);
+        public static implicit operator int(Sample right) => right._value;
+        public static implicit operator Sample(int right) => new Sample(right);
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
             obj is Sample right

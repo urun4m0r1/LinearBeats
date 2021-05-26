@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using LinearBeats.Time;
 using NUnit.Framework;
 using static LinearBeats.EditorTests.FloatTests;
 
@@ -17,52 +16,29 @@ namespace LinearBeats.EditorTests.Time
     {
         public static readonly Pulse V0 = new Pulse(default);
 
-        private static void Iterate([NotNull] Action<float, Pulse> action)
+        private static void Iterate([NotNull] Action<int, Pulse> action)
         {
             for (var i = 0; i < Iteration; ++i)
             {
-                var randomFloat = RandomFloat;
-                action(randomFloat, new Pulse(randomFloat));
+                var randomInt = RandomInt;
+                action(randomInt, new Pulse(randomInt));
             }
         }
 
         [Test]
-        public void Implements_IFloat()
+        public void Should_Cast_To_Int()
         {
-            Assert.AreEqual(F0, V0.ToFloat());
+            Assert.AreEqual(F0, (int) V0);
 
-            Iterate((f, v) => Assert.AreEqual(f, v.ToFloat()));
+            Iterate((i, v) => Assert.AreEqual(i, (int) v));
         }
 
         [Test]
-        public void Should_Cast_To_Float()
-        {
-            Assert.AreEqual(F0, (float) V0);
-
-            Iterate((f, v) => Assert.AreEqual(f, (float) v));
-        }
-
-        [Test]
-        public void Should_Cast_From_Float()
+        public void Should_Cast_From_Int()
         {
             Assert.AreEqual(V0, (Pulse) F0);
 
-            Iterate((f, v) => Assert.AreEqual(v, (Pulse) f));
-        }
-
-        [Test]
-        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public void Should_Cast_From_String()
-        {
-            Assert.AreEqual(V0, (Pulse) F0.ToString());
-
-            Iterate((rf, _) =>
-            {
-                var f = (float) Math.Round(rf, Digits);
-                var v = new Pulse(f);
-
-                Assert.AreEqual(v, (Pulse) f.ToString());
-            });
+            Iterate((i, v) => Assert.AreEqual(v, (Pulse) i));
         }
 
         [Test]
@@ -88,15 +64,15 @@ namespace LinearBeats.EditorTests.Time
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         public void Implements_IFormattable()
         {
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
                 const string format = "F";
                 var culture = CultureInfo.CurrentCulture;
 
-                Assert.AreEqual(f.ToString(), v.ToString());
-                Assert.AreEqual(f.ToString(culture), v.ToString(culture));
-                Assert.AreEqual(f.ToString(format), v.ToString(format));
-                Assert.AreEqual(f.ToString(format, culture), v.ToString(format, culture));
+                Assert.AreEqual(i.ToString(), v.ToString());
+                Assert.AreEqual(i.ToString(culture), v.ToString(culture));
+                Assert.AreEqual(i.ToString(format), v.ToString(format));
+                Assert.AreEqual(i.ToString(format, culture), v.ToString(format, culture));
             });
         }
 
@@ -106,9 +82,9 @@ namespace LinearBeats.EditorTests.Time
             var v0 = new Pulse(default);
             AssertEquatable(v0, V0);
 
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
-                var w = new Pulse(f);
+                var w = new Pulse(i);
                 AssertEquatable(v, w);
 
                 if (v == V0) return;
@@ -132,13 +108,13 @@ namespace LinearBeats.EditorTests.Time
             var v0 = new Pulse(default);
             AssertEquatable(v0, V0);
 
-            Iterate((f, v) =>
+            Iterate((i, v) =>
             {
-                var vx = new Pulse(f); // [-5_000 ~ 5_000]
+                var vx = new Pulse(i); // [-5_000 ~ 5_000]
                 AssertEquatable(v, vx);
 
-                var vn = new Pulse(f - 5_000f); // [-10_000, 0]
-                var vp = new Pulse(f + 5_000f); // [0, 10_000]
+                var vn = new Pulse(i - 5_000); // [-10_000, 0]
+                var vp = new Pulse(i + 5_000); // [0, 10_000]
                 AssertRightIsBigger(vn, vp);
                 AssertRightIsBigger(v, vp);
                 AssertRightIsBigger(vn, v);
@@ -161,25 +137,25 @@ namespace LinearBeats.EditorTests.Time
             static void AssertRightIsBigger(Pulse l, Pulse r)
             {
                 Assert.IsTrue(r.CompareTo(l) >= 0);
-                Assert.IsTrue(r.CompareTo(l - Delta) > 0);
+                Assert.IsTrue(r.CompareTo(l - 1) > 0);
                 Assert.IsTrue((r as IComparable).CompareTo(l) >= 0);
-                Assert.IsTrue((r as IComparable).CompareTo(l - Delta) > 0);
+                Assert.IsTrue((r as IComparable).CompareTo(l - 1) > 0);
                 Assert.IsTrue(r >= l);
-                Assert.IsTrue(r > l - Delta);
+                Assert.IsTrue(r > l - 1);
 
                 Assert.IsTrue(l.CompareTo(r) <= 0);
-                Assert.IsTrue(l.CompareTo(r + Delta) < 0);
+                Assert.IsTrue(l.CompareTo(r + 1) < 0);
                 Assert.IsTrue((l as IComparable).CompareTo(r) <= 0);
-                Assert.IsTrue((l as IComparable).CompareTo(r + Delta) < 0);
+                Assert.IsTrue((l as IComparable).CompareTo(r + 1) < 0);
                 Assert.IsTrue(l <= r);
-                Assert.IsTrue(l < r + Delta);
+                Assert.IsTrue(l < r + 1);
             }
         }
 
         [Test]
         public void Calculable()
         {
-            var v1 = new Pulse(1f);
+            var v1 = new Pulse(1);
             AssertCalculation(V0);
             AssertCalculation(v1);
 
@@ -192,7 +168,7 @@ namespace LinearBeats.EditorTests.Time
 
             static void AssertCalculation(Pulse v)
             {
-                var v1 = new Pulse(1f);
+                var v1 = new Pulse(1);
 
                 Assert.IsTrue(+v == V0 + v); // 양수
                 Assert.IsTrue(-v == V0 - v); // 음수
@@ -206,17 +182,12 @@ namespace LinearBeats.EditorTests.Time
                 if (v != v1) Assert.IsTrue(v - v1 != v1 - v); // 교환법칙
 
                 Assert.IsTrue(v * V0 == V0); // 영원
-                if (v != V0) Assert.IsTrue(Similar(v * (v1 / v), v1)); // 역원
                 Assert.IsTrue(v * v1 == v); // 항등원
                 Assert.IsTrue(v * v1 == v1 * v); // 교환법칙
 
                 if (v != V0) Assert.IsTrue(V0 / v == V0); // 영원
-                if (v != V0) Assert.IsTrue(Similar(v / (v / v1), v1)); // 역원
                 Assert.IsTrue(v / v1 == v); // 항등원
-                if (v != V0 && v != v1) Assert.IsTrue(v / v1 != v1 / v); // 교환법칙
             }
-
-            static bool Similar(Pulse left, Pulse right) => Math.Abs(left - right) < Delta;
         }
     }
 }

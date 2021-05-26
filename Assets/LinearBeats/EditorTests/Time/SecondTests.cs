@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using LinearBeats.Time;
 using NUnit.Framework;
 using static LinearBeats.EditorTests.FloatTests;
 
@@ -24,14 +23,6 @@ namespace LinearBeats.EditorTests.Time
                 var randomFloat = RandomFloat;
                 action(randomFloat, new Second(randomFloat));
             }
-        }
-
-        [Test]
-        public void Implements_IFloat()
-        {
-            Assert.AreEqual(F0, V0.ToFloat());
-
-            Iterate((f, v) => Assert.AreEqual(f, v.ToFloat()));
         }
 
         [Test]

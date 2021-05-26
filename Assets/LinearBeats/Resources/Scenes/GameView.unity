@@ -532,16 +532,17 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   meterPerQuarterNote: 4
-  scriptLoader:
-    notesPool: {fileID: 518583840}
-    dividerPool: {fileID: 730012154}
-    audioListener: {fileID: 1667118062}
-    audioMixerGroups:
-    - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
-    - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
-    - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
   judgeRange: {fileID: 11400000, guid: 95662e1148eb5e544874c12e2fc9ee96, type: 2}
   laneEffect: {fileID: 1498269937}
+  notesPool: {fileID: 518583840}
+  dividerPool: {fileID: 730012154}
+  audioListener: {fileID: 1667118062}
+  audioMixerGroups:
+  - {fileID: 966122902735812699, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+  - {fileID: 1550423875802380935, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+  - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
+  resourcesPath: Songs/Tutorial/
+  scriptName: Tutorial
 --- !u!1 &730012152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,7 +1689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7644754193191276719, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -181
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7644754193191276719, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -8,17 +8,17 @@ namespace LinearBeats.Script
 {
     public struct LinearBeatsScript
     {
-        public ushort VersionCode { get; private set; }
-        [CanBeNull] public string VersionName { get; private set; }
-        public Metadata Metadata { get; private set; }
-        [CanBeNull] public MediaChannel[] VideoChannels { get; private set; }
-        [CanBeNull] public MediaChannel[] AudioChannels { get; private set; }
-        public Timing Timing { get; private set; }
-        public Scrolling Scrolling { get; private set; }
-        [CanBeNull] public Divider[] Dividers { get; private set; }
-        [CanBeNull] public Trigger[] Effects { get; private set; }
-        [CanBeNull] public Trigger[] Videos { get; private set; }
-        [CanBeNull] public Note[] Notes { get; private set; }
+        [ShowInInspector, ReadOnly] public ushort VersionCode { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public string VersionName { get; private set; }
+        [ShowInInspector, ReadOnly] public Metadata Metadata { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public MediaChannel[] VideoChannels { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public MediaChannel[] AudioChannels { get; private set; }
+        [ShowInInspector, ReadOnly] public Timing Timing { get; private set; }
+        [ShowInInspector, ReadOnly] public Scrolling Scrolling { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public Divider[] Dividers { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public Trigger[] Effects { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public Trigger[] Videos { get; private set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public Note[] Notes { get; private set; }
     }
 
     public struct Metadata
@@ -64,21 +64,16 @@ namespace LinearBeats.Script
     [InlineProperty]
     public struct BpmEvent
     {
+        [ShowInInspector, ReadOnly, HorizontalGroup(LabelWidth = 30)] public float Ppqn { get; private set; }
+        [ShowInInspector, ReadOnly, HorizontalGroup] public float Bpm { get; private set; }
+        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Tick")] public Pulse Pulse { get; private set; }
+
         public BpmEvent(float ppqn, float bpm, Pulse pulse)
         {
             Ppqn = ppqn;
             Bpm = bpm;
             Pulse = pulse;
         }
-
-        [ShowInInspector, ReadOnly, HorizontalGroup(LabelWidth = 30)]
-        public float Ppqn { get; private set; }
-
-        [ShowInInspector, ReadOnly, HorizontalGroup]
-        public float Bpm { get; private set; }
-
-        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Tick")]
-        public Pulse Pulse { get; private set; }
     }
 
     public struct ScrollingEvent
@@ -122,6 +117,14 @@ namespace LinearBeats.Script
 
     public struct Shape
     {
+        public byte PosRow { get; private set; }
+        public byte PosCol { get; private set; }
+        public byte SizeRow { get; private set; }
+        public byte SizeCol { get; private set; }
+        public byte DstRow { get; private set; }
+        public byte DstCol { get; private set; }
+        public byte Type { get; private set; }
+
         public Shape(
             byte posRow,
             byte posCol,
@@ -139,13 +142,5 @@ namespace LinearBeats.Script
             DstCol = dstCol;
             Type = type;
         }
-
-        public byte PosRow { get; private set; }
-        public byte PosCol { get; private set; }
-        public byte SizeRow { get; private set; }
-        public byte SizeCol { get; private set; }
-        public byte DstRow { get; private set; }
-        public byte DstCol { get; private set; }
-        public byte Type { get; private set; }
     }
 }

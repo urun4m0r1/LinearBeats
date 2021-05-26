@@ -24,8 +24,8 @@ namespace LinearBeats.Scrolling
             _timingObject = timingObject;
             _ignoreFlags = ignoreFlags;
 
-            StartTime = Factory.Create(new Pulse(0f));
-            EndTime = Factory.Create(new Pulse(0f));
+            StartTime = Factory.Create(new Pulse(0));
+            EndTime = Factory.Create(new Pulse(0));
         }
     }
 

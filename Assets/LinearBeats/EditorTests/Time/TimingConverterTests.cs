@@ -34,16 +34,15 @@ namespace LinearBeats.EditorTests.Time
 
         private static readonly BpmEvent[] BpmEvents =
         {
-            new BpmEvent {Ppqn = Ppqn, Pulse = ThirdPulse, Bpm = ThirdBpm},
-            new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm},
-            new BpmEvent {Ppqn = Ppqn, Pulse = SecondPulse, Bpm = SecondBpm},
+            new BpmEvent(Ppqn, ThirdBpm, ThirdPulse),
+            new BpmEvent(Ppqn, FirstBpm, FirstPulse),
+            new BpmEvent(Ppqn, SecondBpm, SecondPulse),
         };
 
         public static readonly TimingConverter Converter =
             new TimingConverter(BpmEvents, SamplesPerSecond);
 
-        private static readonly BpmEvent[] SingleBpmEvents =
-            {new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = FirstBpm}};
+        private static readonly BpmEvent[] SingleBpmEvents = {new BpmEvent(Ppqn, FirstBpm, FirstPulse)};
 
         private readonly TimingConverter _converterSingle =
             new TimingConverter(SingleBpmEvents, SamplesPerSecond);
@@ -55,14 +54,14 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Init_Any_BpmEvents_Bpm_Must_Be_Non_Zero_Positive()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = FirstPulse, Bpm = 0}};
+            BpmEvent[] bpmEvents = {new BpmEvent(Ppqn, 0, FirstPulse)};
             Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
 
         [Test]
         public void Init_At_Least_One_BpmEvent_Pulse_Must_Be_Zero()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = 400, Bpm = FirstBpm}};
+            BpmEvent[] bpmEvents = {new BpmEvent(Ppqn, FirstBpm, 400)};
 
             Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
@@ -70,7 +69,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Init_All_BpmEvent_Pulse_Must_Be_Positive()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = Ppqn, Pulse = -400, Bpm = FirstBpm}};
+            BpmEvent[] bpmEvents = {new BpmEvent(Ppqn, FirstBpm, -400)};
 
             Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }
@@ -78,7 +77,7 @@ namespace LinearBeats.EditorTests.Time
         [Test]
         public void Init_Ppqn_Must_Be_Non_Zero_Positive()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent {Ppqn = 0, Pulse = FirstPulse, Bpm = FirstBpm}};
+            BpmEvent[] bpmEvents = {new BpmEvent(0, FirstBpm, FirstPulse)};
 
             Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
         }

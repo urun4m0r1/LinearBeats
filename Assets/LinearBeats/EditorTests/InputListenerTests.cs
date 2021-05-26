@@ -121,13 +121,10 @@ public class InputListenerTests
             }
         }
 
-        var noteShape = new Shape
-        {
-            PosRow = RowIn.Row,
-            PosCol = ColMinRight.Col,
-            SizeRow = (byte)(RowOut.Row - RowIn.Row),
-            SizeCol = (byte)(ColMaxRight.Col - ColMinRight.Col),
-        };
+        var noteShape = new Shape(RowIn.Row, ColMinRight.Col,
+            (byte) (RowOut.Row - RowIn.Row),
+            (byte) (ColMaxRight.Col - ColMinRight.Col)
+        );
 
         var receiver = new TestReceiver();
         var listener = new UserInputListener(receiver);

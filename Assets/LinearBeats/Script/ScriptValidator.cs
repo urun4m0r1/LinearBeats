@@ -19,18 +19,18 @@ namespace LinearBeats.Script
 
     public interface IScriptValidator
     {
-        void Validate(LinearBeatsScript script);
+        void Validate(ref LinearBeatsScript script);
     }
 
     public sealed class NullScriptValidator : IScriptValidator
     {
-        public void Validate(LinearBeatsScript _) { }
+        public void Validate(ref LinearBeatsScript _) { }
     }
 
     public sealed class ScriptValidator : IScriptValidator
     {
         //TODO: Implement ScriptValidator
-        public void Validate(LinearBeatsScript script)
+        public void Validate(ref LinearBeatsScript script)
         {
             if (script.VersionCode == 0 || script.VersionName.IsNullOrWhitespace()) throw new InvalidScriptException();
         }

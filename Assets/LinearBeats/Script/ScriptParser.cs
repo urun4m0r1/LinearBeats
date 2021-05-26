@@ -79,7 +79,7 @@ namespace LinearBeats.Script
             var deserializer = new DeserializerBuilder().WithNamingConvention(_namingConvention).Build();
 
             var script = deserializer.Deserialize<LinearBeatsScript>(stringReader);
-            _validator.Validate(script);
+            _validator.Validate(ref script);
 
             return script;
         }

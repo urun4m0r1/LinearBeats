@@ -105,7 +105,7 @@ namespace LinearBeats.Time
 
             var intervalPulses = current.Pulse - previous.Pulse;
 
-            current.Sample = Mathf.RoundToInt(previous.Sample + intervalPulses * previous.SamplesPerPulse);
+            current.Sample = previous.Sample + Mathf.RoundToInt(intervalPulses * previous.SamplesPerPulse);
             current.BpmScaledPulse = previous.BpmScaledPulse + intervalPulses * previous.BpmScaler;
             current.BpmNormalizedPulse = previous.BpmNormalizedPulse + intervalPulses * previous.BpmNormalizer;
         }
@@ -113,8 +113,8 @@ namespace LinearBeats.Time
         public int GetTimingIndex(Pulse pulse) => _timingEvents.FindNearestSmallerIndex(pulse, v => v.Pulse);
         public int GetTimingIndex(Sample sample) => _timingEvents.FindNearestSmallerIndex(sample, v => v.Sample);
         public float GetBpm(int timingIndex) => _timingEvents[timingIndex].Bpm;
-        public Second ToSecond(Sample value) => Multiply(value, _secondsPerSample);
-        public Sample ToSample(Second value) => Mathf.RoundToInt(Multiply(value, _samplesPerSecond));
+        public Second ToSecond(Sample value) => value * _secondsPerSample;
+        public Sample ToSample(Second value) => Mathf.RoundToInt(value * _samplesPerSecond);
 
         public Pulse ToPulse(Sample sample, int timingIndex)
         {
@@ -140,16 +140,14 @@ namespace LinearBeats.Time
             return MultiplyElapsed(pulse - v.Pulse, v.BpmNormalizer, v.BpmNormalizedPulse);
         }
 
-        public Position Flatten(float pulse, int timingIndex) => Multiply(pulse, _timingEvents[timingIndex].PulseFlattener);
+        public Position Flatten(float scaledPulse, int timingIndex) => scaledPulse * _timingEvents[timingIndex].PulseFlattener;
 
-        public Position Normalize(float pulse) => Multiply(pulse, _pulseNormalizer);
+        public Position Normalize(float scaledPulse) => scaledPulse * _pulseNormalizer;
 
         private static float MultiplyElapsed(int elapsed, float multiplier, float standard) =>
-            standard + Multiply(elapsed, multiplier);
+            standard + elapsed * multiplier;
 
         private static int MultiplyElapsed(int elapsed, float multiplier, int standard) =>
-            Mathf.RoundToInt(standard + Multiply(elapsed, multiplier));
-
-        private static float Multiply(float value, float multiplier) => multiplier * value;
+            standard + Mathf.RoundToInt(elapsed * multiplier);
     }
 }

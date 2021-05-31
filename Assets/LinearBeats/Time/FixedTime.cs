@@ -46,8 +46,7 @@ namespace LinearBeats.Time
             Bpm = _converter.GetBpm(timingIndex);
         }
 
-        [InlineProperty]
-        public sealed class Factory
+        [InlineProperty] public sealed class Factory
         {
             [ShowInInspector, ReadOnly] [NotNull] private readonly ITimingConverter _converter;
 
@@ -62,15 +61,12 @@ namespace LinearBeats.Time
         public static implicit operator Second(FixedTime right) => right.Second;
         public static implicit operator Sample(FixedTime right) => right.Sample;
 
-        int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is FixedTime right
-                ? CompareTo(right)
-                : throw new InvalidOperationException("Cannot compare different types");
+        int IComparable.CompareTo([NotNull] object obj) =>
+            obj is FixedTime right ? CompareTo(right) : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(FixedTime right)
         {
-            if (!ConverterEquals(this, right))
-                throw new InvalidOperationException("TimingConverter mismatch");
+            if (!ConverterEquals(this, right)) throw new InvalidOperationException("TimingConverter mismatch");
 
             return Sample.CompareTo(right.Sample);
         }
@@ -89,8 +85,7 @@ namespace LinearBeats.Time
             return a.GetType() == b.GetType() && a.Equals(b);
         }
 
-        [NotNull]
-        private static ITimingConverter ChooseConverter(FixedTime left, FixedTime right)
+        [NotNull] private static ITimingConverter ChooseConverter(FixedTime left, FixedTime right)
         {
             if (!ConverterEquals(left, right))
                 throw new InvalidOperationException("TimingConverter mismatch");
@@ -98,27 +93,17 @@ namespace LinearBeats.Time
             return left._converter;
         }
 
-        [NotNull]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public override string ToString() => GetString(v => v.ToString());
+        [NotNull] public override string ToString() => GetString(v => v.ToString());
+        [NotNull] public string ToString(string format) => GetString(v => v.ToString(format));
+        [NotNull] public string ToString(IFormatProvider formatProvider) => GetString(v => v.ToString(formatProvider));
+        public string ToString(string format, IFormatProvider formatProvider) => GetString(v => v.ToString(format, formatProvider));
 
-        [NotNull]
-        public string ToString(string format) => GetString(v => v.ToString(format));
-
-        [NotNull]
-        public string ToString(IFormatProvider formatProvider) => GetString(v => v.ToString(formatProvider));
-
-        public string ToString(string format, IFormatProvider formatProvider) =>
-            GetString(v => v.ToString(format, formatProvider));
-
-        [NotNull]
-        private string GetString([NotNull] Func<float, string> format) =>
+        [NotNull] private string GetString([NotNull] Func<float, string> format) =>
             $"Pulse: {format(Pulse)} / Second: {format(Second)} / Sample: {format(Sample)} / Bpm: {format(Bpm)}";
 
         public static FixedTime operator +(FixedTime right) => right;
-
-        public static FixedTime operator -(FixedTime right) =>
-            new FixedTime(right._converter, -right.Sample);
+        public static FixedTime operator -(FixedTime right) => new FixedTime(right._converter, -right.Sample);
 
         public static FixedTime operator +(FixedTime left, FixedTime right) =>
             new FixedTime(ChooseConverter(left, right), left.Sample + right.Sample);

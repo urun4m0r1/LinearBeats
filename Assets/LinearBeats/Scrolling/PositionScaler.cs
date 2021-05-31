@@ -17,7 +17,7 @@ namespace LinearBeats.Scrolling
         {
             [NotNull] protected readonly ITimingModifier Modifier;
             protected PositionScaler([NotNull] ITimingModifier modifier) => Modifier = modifier;
-            internal abstract float Scale(Pulse pulse, int? timingIndex = null);
+            internal abstract Pulse Scale(Pulse pulse, int? timingIndex = null);
         }
 
         private sealed class RegularIntervalScaler : PositionScaler
@@ -26,7 +26,7 @@ namespace LinearBeats.Scrolling
             {
             }
 
-            internal override float Scale(Pulse pulse, int? _ = null) => pulse;
+            internal override Pulse Scale(Pulse pulse, int? _ = null) => pulse;
         }
 
         private sealed class PositionRelativeScaler : PositionScaler
@@ -35,7 +35,7 @@ namespace LinearBeats.Scrolling
             {
             }
 
-            internal override float Scale(Pulse pulse, int? timingIndex = null) =>
+            internal override Pulse Scale(Pulse pulse, int? timingIndex = null) =>
                 Modifier.BpmScale(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
 
@@ -45,7 +45,7 @@ namespace LinearBeats.Scrolling
             {
             }
 
-            internal override float Scale(Pulse pulse, int? timingIndex = null) =>
+            internal override Pulse Scale(Pulse pulse, int? timingIndex = null) =>
                 Modifier.BpmNormalize(pulse, timingIndex ?? Modifier.GetTimingIndex(pulse));
         }
     }

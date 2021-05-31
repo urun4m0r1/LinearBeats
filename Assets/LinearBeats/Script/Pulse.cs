@@ -5,8 +5,7 @@ using Sirenix.OdinInspector;
 
 namespace LinearBeats.Script
 {
-    [InlineProperty]
-    public readonly struct Pulse : IComparable, IFormattable, IComparable<Pulse>, IEquatable<Pulse>
+    [InlineProperty] public readonly struct Pulse : IComparable, IFormattable, IComparable<Pulse>, IEquatable<Pulse>
     {
         [ShowInInspector, ReadOnly, HideLabel] private readonly int _value;
 
@@ -22,10 +21,8 @@ namespace LinearBeats.Script
             throw new InvalidScriptException($"Unable to parse int from \"{right}\"");
         }
 
-        int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Pulse right
-                ? CompareTo(right)
-                : throw new InvalidOperationException("Cannot compare different types");
+        int IComparable.CompareTo([NotNull] object obj) =>
+            obj is Pulse right ? CompareTo(right) : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Pulse right) => _value.CompareTo(right._value);
 
@@ -34,16 +31,10 @@ namespace LinearBeats.Script
 
         public override int GetHashCode() => _value.GetHashCode();
 
-        [NotNull]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public override string ToString() => _value.ToString();
-
-        [NotNull]
-        public string ToString(string format) => _value.ToString(format);
-
-        [NotNull]
-        public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
-
+        [NotNull] public override string ToString() => _value.ToString();
+        [NotNull] public string ToString(string format) => _value.ToString(format);
+        [NotNull] public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
         public string ToString(string format, IFormatProvider formatProvider) => _value.ToString(format, formatProvider);
 
         public static Pulse operator +(Pulse right) => right;

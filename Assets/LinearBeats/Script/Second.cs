@@ -1,13 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Utils;
 using Sirenix.OdinInspector;
 
 namespace LinearBeats.Script
 {
-    [InlineProperty]
-    public readonly struct Second : IComparable, IFormattable, IComparable<Second>, IEquatable<Second>
+    [InlineProperty] public readonly struct Second : IComparable, IFormattable, IComparable<Second>, IEquatable<Second>
     {
         [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
 
@@ -23,10 +21,8 @@ namespace LinearBeats.Script
             throw new InvalidScriptException($"Unable to parse float from \"{right}\"");
         }
 
-        int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Second right
-                ? CompareTo(right)
-                : throw new InvalidOperationException("Cannot compare different types");
+        int IComparable.CompareTo([NotNull] object obj) =>
+            obj is Second right ? CompareTo(right) : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Second right) => _value.CompareTo(right._value);
 
@@ -35,16 +31,10 @@ namespace LinearBeats.Script
 
         public override int GetHashCode() => _value.GetHashCode();
 
-        [NotNull]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public override string ToString() => _value.ToString();
-
-        [NotNull]
-        public string ToString(string format) => _value.ToString(format);
-
-        [NotNull]
-        public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
-
+        [NotNull] public override string ToString() => _value.ToString();
+        [NotNull] public string ToString(string format) => _value.ToString(format);
+        [NotNull] public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
         public string ToString(string format, IFormatProvider formatProvider) => _value.ToString(format, formatProvider);
 
         public static Second operator +(Second right) => right;

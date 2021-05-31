@@ -2,14 +2,12 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
-using UnityEngine;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace LinearBeats.Script
 {
-    [InlineProperty]
-    public sealed class ScriptParser
+    [InlineProperty] public sealed class ScriptParser
     {
         [ShowInInspector, ReadOnly, HideLabel, MultiLineProperty(10)] [NotNull] private readonly string _rawScript;
         [NotNull] private INamingConvention _namingConvention = new NullNamingConvention();
@@ -36,7 +34,6 @@ namespace LinearBeats.Script
                     NamingConventionStyle.Hyphenated => new HyphenatedNamingConvention(),
                     _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
                 };
-
                 return this;
             }
 
@@ -48,23 +45,7 @@ namespace LinearBeats.Script
                     ScriptValidatorMode.Standard => new ScriptValidator(),
                     _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null),
                 };
-
                 return this;
-            }
-        }
-
-        public bool TryParse(out LinearBeatsScript script)
-        {
-            try
-            {
-                script = Parse();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-                script = default;
-                return false;
             }
         }
 

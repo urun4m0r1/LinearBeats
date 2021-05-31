@@ -1,6 +1,5 @@
 using JetBrains.Annotations;
 using LinearBeats.Script;
-using LinearBeats.Time;
 using UnityEngine;
 
 namespace LinearBeats.Audio
@@ -10,10 +9,10 @@ namespace LinearBeats.Audio
         [NotNull] public AudioSource AudioSource { get; }
         private readonly Second _offset;
 
-        public AudioPlayer([NotNull] AudioSource audioSource, Second offset)
+        public AudioPlayer([NotNull] AudioSource audioSource, Second? offset = null)
         {
             AudioSource = audioSource;
-            _offset = offset;
+            _offset = offset ?? default;
         }
 
         public void Play(Second start = default, Second length = default)

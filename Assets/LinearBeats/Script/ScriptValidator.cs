@@ -1,6 +1,4 @@
-﻿using Sirenix.Utilities;
-
-namespace LinearBeats.Script
+﻿namespace LinearBeats.Script
 {
     public enum NamingConventionStyle
     {
@@ -32,7 +30,7 @@ namespace LinearBeats.Script
         //TODO: Implement ScriptValidator
         public void Validate(ref LinearBeatsScript script)
         {
-            if (script.VersionCode == 0 || script.VersionName.IsNullOrWhitespace()) throw new InvalidScriptException();
+            if (script.VersionCode == 0) throw new InvalidScriptException();
         }
     }
 }

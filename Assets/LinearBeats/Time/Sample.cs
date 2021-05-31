@@ -5,8 +5,7 @@ using Sirenix.OdinInspector;
 
 namespace LinearBeats.Time
 {
-    [InlineProperty]
-    public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>
+    [InlineProperty] public readonly struct Sample : IComparable, IFormattable, IComparable<Sample>, IEquatable<Sample>
     {
         [ShowInInspector, ReadOnly, HideLabel] private readonly int _value;
 
@@ -15,10 +14,8 @@ namespace LinearBeats.Time
         public static implicit operator int(Sample right) => right._value;
         public static implicit operator Sample(int right) => new Sample(right);
 
-        int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Sample right
-                ? CompareTo(right)
-                : throw new InvalidOperationException("Cannot compare different types");
+        int IComparable.CompareTo([NotNull] object obj) =>
+            obj is Sample right ? CompareTo(right) : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Sample right) => _value.CompareTo(right._value);
 
@@ -27,16 +24,10 @@ namespace LinearBeats.Time
 
         public override int GetHashCode() => _value.GetHashCode();
 
-        [NotNull]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public override string ToString() => _value.ToString();
-
-        [NotNull]
-        public string ToString(string format) => _value.ToString(format);
-
-        [NotNull]
-        public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
-
+        [NotNull] public override string ToString() => _value.ToString();
+        [NotNull] public string ToString(string format) => _value.ToString(format);
+        [NotNull] public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
         public string ToString(string format, IFormatProvider formatProvider) => _value.ToString(format, formatProvider);
 
         public static Sample operator +(Sample right) => right;

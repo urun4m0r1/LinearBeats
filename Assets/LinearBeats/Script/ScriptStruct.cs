@@ -1,5 +1,8 @@
+using System;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+using UnityEngine;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -9,7 +12,6 @@ namespace LinearBeats.Script
     public struct LinearBeatsScript
     {
         [ShowInInspector, ReadOnly] public ushort VersionCode { get; private set; }
-        [ShowInInspector, ReadOnly] [CanBeNull] public string VersionName { get; private set; }
         [ShowInInspector, ReadOnly] public Metadata Metadata { get; private set; }
         [ShowInInspector, ReadOnly] [CanBeNull] public MediaChannel[] VideoChannels { get; private set; }
         [ShowInInspector, ReadOnly] [CanBeNull] public MediaChannel[] AudioChannels { get; private set; }
@@ -47,7 +49,7 @@ namespace LinearBeats.Script
     public struct Timing
     {
         [CanBeNull] public float? StandardBpm { get; private set; }
-        [CanBeNull] public float? StandardPpqn { get; private set; }
+        [CanBeNull] public int? StandardPpqn { get; private set; }
         [CanBeNull] public BpmEvent[] BpmEvents { get; private set; }
     }
 
@@ -61,18 +63,17 @@ namespace LinearBeats.Script
         [CanBeNull] public ScrollingEvent[] SpeedBounceEvents { get; private set; }
     }
 
-    [InlineProperty]
     public struct BpmEvent
     {
-        [ShowInInspector, ReadOnly, HorizontalGroup(LabelWidth = 30)] public float Ppqn { get; private set; }
-        [ShowInInspector, ReadOnly, HorizontalGroup] public float Bpm { get; private set; }
-        [ShowInInspector, ReadOnly, HorizontalGroup, LabelText("Tick")] public Pulse Pulse { get; private set; }
+        [OdinSerialize] public Pulse Pulse { get; private set; }
+        [OdinSerialize] public float? Bpm { get; private set; }
+        [OdinSerialize] public int? Ppqn { get; private set; }
 
-        public BpmEvent(float ppqn, float bpm, Pulse pulse)
+        public BpmEvent(Pulse pulse, float? bpm = null, int? ppqn = null)
         {
-            Ppqn = ppqn;
-            Bpm = bpm;
             Pulse = pulse;
+            Bpm = bpm;
+            Ppqn = ppqn;
         }
     }
 
@@ -87,17 +88,25 @@ namespace LinearBeats.Script
     public struct Divider
     {
         public Pulse Pulse { get; private set; }
-        public Pulse Interval { get; private set; }
-        public byte Type { get; private set; }
+        public Pulse? Interval { get; private set; }
+        public byte? Type { get; private set; }
         [CanBeNull] public string IgnoreScrollEvent { get; private set; }
     }
 
     public struct MediaChannel
     {
-        public ushort Channel { get; private set; }
-        [CanBeNull] public string FileName { get; private set; }
-        public Second Offset { get; private set; }
-        public byte Layer { get; private set; }
+        [OdinSerialize] public ushort Channel { get; private set; }
+        [OdinSerialize] [CanBeNull] public string FileName { get; private set; }
+        [OdinSerialize] public Second? Offset { get; private set; }
+        [OdinSerialize] public byte? Layer { get; private set; }
+
+        public MediaChannel(ushort channel, [NotNull] string fileName, Second? offset = null, byte? layer = null)
+        {
+            Channel = channel;
+            FileName = fileName;
+            Offset = offset;
+            Layer = layer;
+        }
     }
 
     public struct Trigger

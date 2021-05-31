@@ -36,12 +36,12 @@ namespace LinearBeats.Game
         [SerializeField] [CanBeNull] private string scriptName = "Tutorial";
 
         [ShowInInspector, ReadOnly] private LinearBeatsScript _script;
-        [ShowInInspector, ReadOnly] [CanBeNull] private ScriptLoader _scriptLoader;
+        [ShowInInspector, ReadOnly] [CanBeNull] private TimingObject _timingObject;
+        [ShowInInspector, ReadOnly] [CanBeNull] private TimingObjectLoader _timingObjectLoader;
         [ShowInInspector, ReadOnly] [CanBeNull] private Dictionary<ushort, AudioPlayer> _audioPlayers;
         [ShowInInspector, ReadOnly] [CanBeNull] private AudioPlayer _backgroundAudioPlayer;
         [ShowInInspector, ReadOnly] [CanBeNull] private AudioTimingInfo _audioTimingInfo;
         [ShowInInspector, ReadOnly] [CanBeNull] private IDistanceConverter _distanceConverter;
-        [ShowInInspector, ReadOnly] [CanBeNull] private TimingObject _timingObject;
 
         private void Awake()
         {
@@ -67,7 +67,15 @@ namespace LinearBeats.Game
                 .SetScriptValidator(ScriptValidatorMode.Standard)
                 .Build();
 
-            if (!parser.TryParse(out _script)) throw new InvalidScriptException();
+            try
+            {
+                _script = parser.Parse();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                Application.Quit();
+            }
         }
 
         private void InitAudioPlayers()
@@ -77,9 +85,9 @@ namespace LinearBeats.Game
                 string.IsNullOrWhiteSpace(resourcesPath))
                 throw new ArgumentNullException();
 
-            _scriptLoader = new ScriptLoader(notesPool, dividerPool, audioListener, audioMixerGroups);
+            var audioLoader = new AudioLoader(audioListener, audioMixerGroups);
 
-            _audioPlayers = _scriptLoader.InstantiateAudioSource(ref _script, resourcesPath);
+            _audioPlayers = audioLoader.InstantiateAudioSources(_script.AudioChannels, resourcesPath);
 
             _backgroundAudioPlayer = _audioPlayers[0];
         }
@@ -114,6 +122,8 @@ namespace LinearBeats.Game
             var noteJudgement = new NoteJudgement(judgeRange, laneEffect);
 
             _timingObject = new TimingObject(fixedTimeFactory, _distanceConverter, noteJudgement);
+
+            _timingObjectLoader = new TimingObjectLoader(_timingObject, notesPool, dividerPool);
         }
 
 
@@ -141,11 +151,18 @@ namespace LinearBeats.Game
 
             foreach (var audioPlayer in _audioPlayers) audioPlayer.Value.Stop();
 
-            if (_scriptLoader == null || _timingObject == null || _audioPlayers == null)
+            if (_timingObjectLoader == null || _audioPlayers == null)
                 throw new InvalidOperationException();
 
-            _scriptLoader.InstantiateAllNotes(ref _script, _timingObject, _audioPlayers);
-            _scriptLoader.InstantiateAllDividers(ref _script, _timingObject);
+            foreach (var divider in _script.Dividers) _timingObjectLoader.InstantiateDivider(divider);
+
+            for (var i = 0; i < _script.Notes.Length; ++i)
+            {
+                var current = _script.Notes[i];
+                var next = _script.Notes[i == _script.Notes.Length - 1 ? i : i + 1];
+
+                _timingObjectLoader.InstantiateNote(current, next, _audioPlayers);
+            }
 
             onGameReset.Invoke();
         }

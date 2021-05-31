@@ -10,10 +10,10 @@ namespace LinearBeats.Scrolling
     public interface ITimingModifier
     {
         int GetTimingIndex(Pulse pulse);
-        float BpmScale(Pulse value, int timingIndex);
-        float BpmNormalize(Pulse value, int timingIndex);
-        Position Flatten(float value, int timingIndex);
-        Position Normalize(float value);
+        Pulse BpmScale(Pulse value, int timingIndex);
+        Pulse BpmNormalize(Pulse value, int timingIndex);
+        Position Flatten(Pulse value, int timingIndex);
+        Position Normalize(Pulse value);
     }
 
     public interface IPositionConverter

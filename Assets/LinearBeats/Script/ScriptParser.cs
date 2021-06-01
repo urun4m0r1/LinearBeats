@@ -52,7 +52,10 @@ namespace LinearBeats.Script
         public LinearBeatsScript Parse()
         {
             var stringReader = new StringReader(_rawScript);
-            var deserializer = new DeserializerBuilder().WithNamingConvention(_namingConvention).Build();
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(_namingConvention)
+                .WithRequiredPropertyValidation()
+                .Build();
 
             var script = deserializer.Deserialize<LinearBeatsScript>(stringReader);
             _validator.Validate(ref script);

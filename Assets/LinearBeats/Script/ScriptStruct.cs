@@ -1,8 +1,7 @@
-using System;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using UnityEngine;
+using YamlDotNet.Serialization;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -96,11 +95,23 @@ namespace LinearBeats.Script
     public struct MediaChannel
     {
         [OdinSerialize] public ushort Channel { get; private set; }
-        [OdinSerialize] [CanBeNull] public string FileName { get; private set; }
+
+        [YamlIgnore] private string _fileName;
+        [OdinSerialize, YamlRequired] [NotNull] public string FileName
+        {
+            get => _fileName;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value)) throw new InvalidScriptException();
+
+                _fileName = value;
+            }
+        }
+
         [OdinSerialize] public Second? Offset { get; private set; }
         [OdinSerialize] public byte? Layer { get; private set; }
 
-        public MediaChannel(ushort channel, [NotNull] string fileName, Second? offset = null, byte? layer = null)
+        public MediaChannel(ushort channel, [NotNull] string fileName, Second? offset = null, byte? layer = null) : this()
         {
             Channel = channel;
             FileName = fileName;

@@ -4,29 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Refactoring many things">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs.meta" afterDir="false" />
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/link.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/link.xml.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/CSharpTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/CSharpTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/ScriptParserTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/ScriptParserTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/YamlParserTests.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/YamlParserTests.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-HighQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-HighQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-LowQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-LowQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-UltraQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-UltraQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +23,13 @@
   <component name="ChangesViewManager">
     <option name="groupingKeys">
       <option value="directory" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="XML File" />
+      </list>
     </option>
   </component>
   <component name="Git.Settings">
@@ -69,22 +62,34 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10B6135E-6343-4FDB-A4FC-6C109928AB3B/19/85be26ac/Assert.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/74/65c08b1e/EncodingTable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0F14CB8E-8E80-499E-937D-4C9AB31D2B8D/2a/b7f83f7a/RequiredAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DA9C85EA-EA6B-42F9-95F8-5BECF3B7F1A7/d1/75c4a469/FileStream.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/21/23767537/ArraySubsetEnumerator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5406A456-CF73-4443-B3D0-2A7D123287F1/2f/e73a2f43/Enum.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0F14CB8E-8E80-499E-937D-4C9AB31D2B8D/0a/ce6be19f/ShowInInspectorAttribute.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7405FBB4-F3A7-4446-BB62-7CA48EC87466/28/af0627d3/TypeExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/a0/0b9dc815/RuntimeType.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DA9C85EA-EA6B-42F9-95F8-5BECF3B7F1A7/da/148ecd7a/EncodingTable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5406A456-CF73-4443-B3D0-2A7D123287F1/36/fc5fc219/PropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9CD55CD8-3768-49FF-850D-346E3318E1D4/6b/7e81ee3b/ClassLibraryInitializer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9CD55CD8-3768-49FF-850D-346E3318E1D4/82/4c124916/UnityLogWriter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Commands/UnityTestMethodCommand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/a1/55f9d7f1/AddingNewEventArgs.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/98/468c323d/Console.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/da/5bc0dd27/ArrayConverter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/28/5762ef06/FileStream.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7405FBB4-F3A7-4446-BB62-7CA48EC87466/28/af0627d3/TypeExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB92929-0C47-4F75-B3AA-A986297B806D/f3/594d2352/AudioSource.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/8c/c69ab7bb/Encoding.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB92929-0C47-4F75-B3AA-A986297B806D/11/7acccaa9/AudioBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0F14CB8E-8E80-499E-937D-4C9AB31D2B8D/1f/672a3c49/ReadOnlyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/cc/d9a061ef/BaseNumberConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Runner/UnityLogCheckDelegatingCommand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Commands/UnityTestMethodCommand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/de/0202d8d1/EncodingHelper.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/IFloat.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventPosition.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/UserInputListener.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" />
@@ -121,20 +126,21 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/TimingObjectLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/ScriptParserTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
       <option value="$PROJECT_DIR$/Assets/Plugins/YamlDotNet/Serialization/TypeInspectors/TypeInspectorSkeleton.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/link.xml" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -171,11 +177,11 @@
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
   </component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+  <component name="RunManager" selected="Standalone Player.Standalone Player">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds\LinearBeats.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Builds/LinearBeats.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\PTJ\OneDrive\Documents\Projects\Unity\LinearBeats\Builds" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
@@ -190,16 +196,21 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="2028">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="2028" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
       </option>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Attach to Unity Editor.Attach to Unity Editor" />
+      <item itemvalue="Attach to Unity Editor.Attach to Unity Editor &amp; Play" />
+      <item itemvalue="Standalone Player.Standalone Player" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -269,14 +280,9 @@
       <workItem from="1622356431665" duration="2402000" />
       <workItem from="1622362835345" duration="1203000" />
       <workItem from="1622460190895" duration="587000" />
-      <workItem from="1622460864708" duration="33999000" />
-    </task>
-    <task id="LOCAL-00010" summary=" Refactoring">
-      <created>1617905102909</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1617905102909</updated>
+      <workItem from="1622460864708" duration="35552000" />
+      <workItem from="1622549984754" duration="6933000" />
+      <workItem from="1622558711168" duration="4051000" />
     </task>
     <task id="LOCAL-00011" summary="Rollback Rider">
       <created>1618051524078</created>
@@ -614,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622480766434</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Update scriptValidator">
+      <created>1622545871783</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1622545871783</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,7 +702,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Improved PositionConverter.cs" />
     <MESSAGE value="Abstracted timingEvents." />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="IDE settings changed" />
@@ -714,7 +726,30 @@
     <MESSAGE value="Change Pulse, Sample type to int" />
     <MESSAGE value="Fix float precision problem" />
     <MESSAGE value="Refactoring many things" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring many things" />
+    <MESSAGE value="Update scriptValidator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update scriptValidator" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Plugins/YamlDotNet/Serialization/ValueDeserializers/NodeValueDeserializer.cs</url>
+          <line>74</line>
+          <properties documentPath="C:\Users\PTJ\OneDrive\Documents\Projects\Unity\LinearBeats\Assets\Plugins\YamlDotNet\Serialization\ValueDeserializers\NodeValueDeserializer.cs" initialLine="74" containingFunctionPresentation="method 'DeserializeValue'">
+            <startOffsets>
+              <option value="3037" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3133" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="DotNet Exception Breakpoints" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

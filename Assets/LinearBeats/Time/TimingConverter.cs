@@ -73,7 +73,7 @@ namespace LinearBeats.Time
 
             _samplesPerSecond = samplesPerSecond;
             _secondsPerSample = 1f / samplesPerSecond;
-            _timingEvents = (from v in bpmEvents.AsParallel() orderby v.Pulse select new TimingEvent(v)).ToArray();
+            _timingEvents = (from v in bpmEvents orderby v.Pulse select new TimingEvent(v)).ToArray();
 
             var firstBpmEvent = _timingEvents[0].BpmEvent;
 

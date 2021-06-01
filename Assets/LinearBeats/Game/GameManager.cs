@@ -74,7 +74,6 @@ namespace LinearBeats.Game
             catch (Exception e)
             {
                 Debug.LogException(e);
-                Application.Quit();
             }
         }
 

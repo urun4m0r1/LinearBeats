@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
 namespace LinearBeats.Script

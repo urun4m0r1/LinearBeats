@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -12,17 +13,21 @@ namespace LinearBeats.Script
     {
         [ShowInInspector, ReadOnly] [NotNull] private readonly AudioListener _audioListener;
         [ShowInInspector, ReadOnly] [NotNull] private readonly IReadOnlyList<AudioMixerGroup> _audioMixerGroups;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly Func<string, AudioClip> _getAudioClipFromFileName;
 
-        public AudioLoader([NotNull] AudioListener audioListener, [NotNull] IReadOnlyList<AudioMixerGroup> audioMixerGroups)
+        public AudioLoader(
+            [NotNull] AudioListener audioListener,
+            [NotNull] IReadOnlyList<AudioMixerGroup> audioMixerGroups,
+            [NotNull] Func<string, AudioClip> getAudioClipFromFileName)
         {
             _audioListener = audioListener;
             _audioMixerGroups = audioMixerGroups;
+            _getAudioClipFromFileName = getAudioClipFromFileName;
         }
 
         [NotNull]
         public Dictionary<ushort, AudioPlayer> InstantiateAudioSources(
-            [NotNull] IReadOnlyCollection<MediaChannel> audioChannels,
-            [NotNull] string resourcesPath)
+            [NotNull] IReadOnlyCollection<MediaChannel> audioChannels)
         {
             if (audioChannels.Any(v => string.IsNullOrWhiteSpace(v.FileName)))
                 throw new InvalidScriptException("All audioChannels must have proper filename");
@@ -30,7 +35,7 @@ namespace LinearBeats.Script
             var dict = new Dictionary<ushort, AudioPlayer>();
             foreach (var audioChannel in audioChannels)
             {
-                var audioSource = CreateAudioSource(audioChannel, resourcesPath);
+                var audioSource = CreateAudioSource(audioChannel);
                 var audioPlayer = new AudioPlayer(audioSource, audioChannel.Offset);
                 dict.Add(audioChannel.Channel, audioPlayer);
             }
@@ -38,13 +43,13 @@ namespace LinearBeats.Script
             return dict;
         }
 
-        [NotNull] private AudioSource CreateAudioSource(MediaChannel audioChannel, [NotNull] string resourcesPath)
+        [NotNull] private AudioSource CreateAudioSource(MediaChannel audioChannel)
         {
             var audioObject = new GameObject(audioChannel.FileName);
             audioObject.transform.parent = _audioListener.transform;
 
             var audioSource = audioObject.AddComponent<AudioSource>();
-            audioSource.clip = Resources.Load<AudioClip>(resourcesPath + audioChannel.FileName);
+            audioSource.clip = _getAudioClipFromFileName(audioChannel.FileName);
             audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer ?? 0];
 
             audioSource.bypassEffects = true;

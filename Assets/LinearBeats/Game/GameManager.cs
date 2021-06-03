@@ -57,7 +57,7 @@ namespace LinearBeats.Game
             if (string.IsNullOrWhiteSpace(resourcesPath) || string.IsNullOrWhiteSpace(scriptName))
                 throw new ArgumentNullException();
 
-            var scriptAsset = Resources.Load(resourcesPath + scriptName) as TextAsset;
+            var scriptAsset = GetResourceFromFileName<TextAsset>(scriptName);
 
             if (!scriptAsset || string.IsNullOrWhiteSpace(scriptAsset.text))
                 throw new ArgumentNullException();
@@ -84,12 +84,15 @@ namespace LinearBeats.Game
                 string.IsNullOrWhiteSpace(resourcesPath))
                 throw new ArgumentNullException();
 
-            var audioLoader = new AudioLoader(audioListener, audioMixerGroups);
+            var audioLoader = new AudioLoader(audioListener, audioMixerGroups, GetResourceFromFileName<AudioClip>);
 
-            _audioPlayers = audioLoader.InstantiateAudioSources(_script.AudioChannels, resourcesPath);
+            _audioPlayers = audioLoader.InstantiateAudioSources(_script.AudioChannels);
 
             _backgroundAudioPlayer = _audioPlayers[0];
         }
+
+        private T GetResourceFromFileName<T>([NotNull] string filename) where T : UnityEngine.Object =>
+            Resources.Load<T>(resourcesPath + filename);
 
         private void InitTimingObjects()
         {

@@ -17,8 +17,8 @@ namespace LinearBeats.Scrolling
         protected override Vector3 Scale => new Vector3(Width, Height, Length);
         private float PosX => NoteShape.PosCol - 6f;
         private float PosY => NoteShape.PosRow * 2f;
-        private float Width => NoteShape.SizeCol;
-        private float Height => NoteShape.SizeRow == 1 ? 1f : 20f;
+        private float Width => NoteShape.SizeCol ?? 1;
+        private float Height => (NoteShape.SizeRow ?? 1) == 1 ? 1f : 20f;
 
         private float Length
         {

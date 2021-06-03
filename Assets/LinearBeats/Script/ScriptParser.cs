@@ -42,7 +42,7 @@ namespace LinearBeats.Script
                 _base._validator = mode switch
                 {
                     ScriptValidatorMode.None => new NullScriptValidator(),
-                    ScriptValidatorMode.Standard => new ScriptValidator(),
+                    ScriptValidatorMode.VersionValidator => new ScriptVersionValidator(),
                     _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null),
                 };
                 return this;

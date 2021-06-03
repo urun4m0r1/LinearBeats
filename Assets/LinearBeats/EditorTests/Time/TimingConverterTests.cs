@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using LinearBeats.Script;
 using LinearBeats.Time;
@@ -34,59 +35,60 @@ namespace LinearBeats.EditorTests.Time
 
         private static readonly BpmEvent[] BpmEvents =
         {
-            new BpmEvent(ThirdPulse, bpm: ThirdBpm, ppqn: Ppqn),
-            new BpmEvent(FirstPulse, bpm: FirstBpm, ppqn: Ppqn),
-            new BpmEvent(SecondPulse, bpm: SecondBpm, ppqn: Ppqn),
+            new BpmEvent(ThirdPulse, ThirdBpm, Ppqn),
+            new BpmEvent(FirstPulse, FirstBpm, Ppqn),
+            new BpmEvent(SecondPulse, SecondBpm, Ppqn),
         };
 
         public static readonly TimingConverter Converter =
-            new TimingConverter(BpmEvents, SamplesPerSecond);
+            new TimingConverter(FirstBpm, Ppqn, SamplesPerSecond, BpmEvents);
 
-        private static readonly BpmEvent[] SingleBpmEvents = {new BpmEvent(FirstPulse, bpm: FirstBpm, ppqn: Ppqn)};
+        private static readonly BpmEvent[] SingleBpmEvents = {new BpmEvent(FirstPulse, FirstBpm, Ppqn)};
 
         private readonly TimingConverter _converterSingle =
-            new TimingConverter(SingleBpmEvents, SamplesPerSecond);
+            new TimingConverter(FirstBpm, Ppqn, SamplesPerSecond, SingleBpmEvents);
 
         [Test]
         public void Init_BpmEvents_Cannot_Be_Empty() =>
-            Assert.Catch<InvalidScriptException>(() => new TimingConverter(new BpmEvent[] { }, SamplesPerSecond));
+            Assert.Catch<InvalidScriptException>(() =>
+                new TimingConverter(FirstBpm, Ppqn, SamplesPerSecond, new BpmEvent[] { }));
 
         [Test]
         public void Init_Any_BpmEvents_Bpm_Must_Be_Non_Zero_Positive()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent(FirstPulse, bpm: 0, ppqn: Ppqn)};
-            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            BpmEvent[] bpmEvents = {new BpmEvent(FirstPulse, 0, Ppqn)};
+            Assert.Catch<InvalidScriptException>(() => InitTimingConverter(bpmEvents));
         }
+
+        private static void InitTimingConverter(IReadOnlyCollection<BpmEvent> bpmEvents) =>
+            new TimingConverter(FirstBpm, Ppqn, SamplesPerSecond, bpmEvents);
 
         [Test]
         public void Init_At_Least_One_BpmEvent_Pulse_Must_Be_Zero()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent(400, bpm: FirstBpm, ppqn: Ppqn)};
-
-            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            BpmEvent[] bpmEvents = {new BpmEvent(400, FirstBpm, Ppqn)};
+            Assert.Catch<InvalidScriptException>(() => InitTimingConverter(bpmEvents));
         }
 
         [Test]
         public void Init_All_BpmEvent_Pulse_Must_Be_Positive()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent(-400, bpm: FirstBpm, ppqn: Ppqn)};
-
-            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            BpmEvent[] bpmEvents = {new BpmEvent(-400, FirstBpm, Ppqn)};
+            Assert.Catch<InvalidScriptException>(() => InitTimingConverter(bpmEvents));
         }
 
         [Test]
         public void Init_Ppqn_Must_Be_Non_Zero_Positive()
         {
-            BpmEvent[] bpmEvents = {new BpmEvent(FirstPulse, bpm: FirstBpm, ppqn: 0)};
-
-            Assert.Catch<InvalidScriptException>(() => new TimingConverter(bpmEvents, SamplesPerSecond));
+            BpmEvent[] bpmEvents = {new BpmEvent(FirstPulse, FirstBpm, 0)};
+            Assert.Catch<InvalidScriptException>(() => InitTimingConverter(bpmEvents));
         }
 
         [Test]
         public void Init_SamplesPerSecond_Must_Be_Non_Zero_Positive()
         {
-            Assert.Catch<ArgumentException>(() => new TimingConverter(SingleBpmEvents, 0));
-            Assert.Catch<ArgumentException>(() => new TimingConverter(SingleBpmEvents, -500));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(FirstBpm, Ppqn, 0, SingleBpmEvents));
+            Assert.Catch<ArgumentException>(() => new TimingConverter(FirstBpm, Ppqn, -500, SingleBpmEvents));
         }
 
         [Test]

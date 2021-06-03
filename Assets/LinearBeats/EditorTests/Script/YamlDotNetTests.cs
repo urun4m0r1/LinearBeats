@@ -11,8 +11,9 @@ namespace LinearBeats.EditorTests.Script
         public void Throw_Exception_With_Invalid_Script()
         {
             const string invalidScript = @"
-AudioChannels:
-- { Channel: 1, FileName: dd, Offset: 0, Layer: 1 }
+AudioChannels: []
+VideoChannels:
+- { Channel: 1, FileName: '', Offset: 0, Layer: 1 }
 ";
 
             var scriptParser = new ScriptParser.Builder(invalidScript).Build();

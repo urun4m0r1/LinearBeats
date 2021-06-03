@@ -50,37 +50,30 @@ namespace LinearBeats.Time
         [ShowInInspector, ReadOnly] private readonly float _pulseNormalizer;
         [ShowInInspector, ReadOnly] private readonly float _beatNormalizer;
 
-        public TimingConverter([NotNull] IReadOnlyCollection<BpmEvent> bpmEvents,
-            int samplesPerSecond, float? standardBpm = null, int? standardPpqn = null)
+        public TimingConverter(float standardBpm, int standardPpqn, int samplesPerSecond,
+            [CanBeNull] IReadOnlyCollection<BpmEvent> bpmEvents = null)
         {
+            if (standardBpm <= 0f)
+                throw new InvalidScriptException("standardBpm must be non-zero positive");
+            if (standardPpqn <= 0)
+                throw new InvalidScriptException("standardPpqn must be non-zero positive");
             if (samplesPerSecond <= 0)
                 throw new ArgumentException("samplesPerSecond must be non-zero positive");
 
-            if (bpmEvents.Count == 0)
-                throw new InvalidScriptException("At least one BpmEvent required");
-            if (bpmEvents.All(v => v.Pulse != new Pulse(0)))
-                throw new InvalidScriptException("At least one BpmEvent.Pulse must be zero");
-            if (bpmEvents.Any(v => v.Pulse < new Pulse(0)))
-                throw new InvalidScriptException("All BpmEvent.Bpm must be positive");
-            if (bpmEvents.Any(v => v.Ppqn <= 0))
-                throw new InvalidScriptException("All BpmEvent.Ppqn must be non-zero positive");
-            if (bpmEvents.Any(v => v.Bpm <= 0f))
-                throw new InvalidScriptException("All BpmEvent.Bpm must be non-zero positive");
-            if (standardPpqn <= 0)
-                throw new InvalidScriptException("standardPpqn must be non-zero positive");
-            if (standardBpm <= 0f)
-                throw new InvalidScriptException("standardBpm must be non-zero positive");
-
+            _beatNormalizer = 1f / standardBpm;
+            _pulseNormalizer = 1f / standardPpqn;
             _samplesPerSecond = samplesPerSecond;
+
             _secondsPerSample = 1f / samplesPerSecond;
-            _timingEvents = (from v in bpmEvents orderby v.Pulse select new TimingEvent(v)).ToArray();
 
-            var firstBpmEvent = _timingEvents[0].BpmEvent;
+            var standardBpmEvent = new BpmEvent(0, standardBpm, standardPpqn);
+            var standardTimingEvent = new TimingEvent(standardBpmEvent);
 
-            _beatNormalizer = 1f / (standardBpm ?? firstBpmEvent.Bpm ??
-                throw new InvalidScriptException("First BpmEvent must have Bpm"));
-            _pulseNormalizer = 1f / (standardPpqn ?? firstBpmEvent.Ppqn ??
-                throw new InvalidScriptException("First BpmEvent must have Ppqn"));
+            _timingEvents = bpmEvents?.Count > 0
+                ? (from v in bpmEvents orderby v.Pulse select new TimingEvent(v)).ToArray()
+                : new[] {standardTimingEvent};
+
+            if (_timingEvents[0].Pulse != 0) _timingEvents = _timingEvents.Prepend(standardTimingEvent).ToArray();
 
             for (var i = 0; i < _timingEvents.Count; ++i)
             {
@@ -88,6 +81,10 @@ namespace LinearBeats.Time
                 var previous = _timingEvents[i == 0 ? i : i - 1];
 
                 SetTimingEvent(ref current, previous);
+
+                if (current.Pulse < 0) throw new InvalidScriptException("All BpmEvent.Pulse must be positive");
+                if (current.Bpm <= 0f) throw new InvalidScriptException("All BpmEvent.Bpm must be non-zero positive");
+                if (current.Ppqn <= 0) throw new InvalidScriptException("All BpmEvent.Ppqn must be non-zero positive");
             }
         }
 

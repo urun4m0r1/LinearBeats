@@ -64,7 +64,7 @@ namespace LinearBeats.Game
 
             var parser = new ScriptParser.Builder(scriptAsset.text)
                 .SetNamingConvention(NamingConventionStyle.PascalCase)
-                .SetScriptValidator(ScriptValidatorMode.Standard)
+                .SetScriptValidator(ScriptValidatorMode.VersionValidator)
                 .Build();
 
             try
@@ -101,10 +101,10 @@ namespace LinearBeats.Game
                 _script.AudioChannels[0].Offset);
 
             var timingConverter = new TimingConverter(
-                _script.Timing.BpmEvents,
-                audioClipSource.SamplesPerSecond,
                 _script.Timing.StandardBpm,
-                _script.Timing.StandardPpqn);
+                _script.Timing.StandardPpqn,
+                audioClipSource.SamplesPerSecond,
+                _script.Timing.BpmEvents);
 
             var fixedTimeFactory = new FixedTime.Factory(timingConverter);
             var positionConverter = new PositionConverter.Builder(timingConverter)

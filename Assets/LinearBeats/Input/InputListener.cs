@@ -11,8 +11,8 @@ namespace LinearBeats.Input
             return GetAnyInputInvokedIn(
              noteShape.PosRow,
              noteShape.PosCol,
-             noteShape.SizeRow,
-             noteShape.SizeCol);
+             noteShape.SizeRow ?? 1,
+             noteShape.SizeCol ?? 1);
         }
 
         public InputPosition GetAnyInputInvokedIn(

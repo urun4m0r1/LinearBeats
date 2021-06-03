@@ -47,7 +47,7 @@ namespace LinearBeats.Scrolling
             : base(timingObject, ignoreFlags)
         {
             StartTime = Factory.Create(trigger.Pulse);
-            EndTime = StartTime + Factory.Create(trigger.Duration);
+            EndTime = StartTime + Factory.Create(trigger.Duration ?? 0);
         }
     }
 }

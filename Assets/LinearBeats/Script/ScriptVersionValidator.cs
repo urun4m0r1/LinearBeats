@@ -12,7 +12,7 @@
     public enum ScriptValidatorMode
     {
         None,
-        Standard,
+        VersionValidator,
     }
 
     public interface IScriptValidator
@@ -25,7 +25,7 @@
         public void Validate(ref LinearBeatsScript _) { }
     }
 
-    public sealed class ScriptValidator : IScriptValidator
+    public sealed class ScriptVersionValidator : IScriptValidator
     {
         //TODO: Implement ScriptValidator
         public void Validate(ref LinearBeatsScript script)

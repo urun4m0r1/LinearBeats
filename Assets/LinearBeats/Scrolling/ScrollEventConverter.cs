@@ -127,8 +127,9 @@ namespace LinearBeats.Scrolling
             {
                 foreach (var v in TimingEvents)
                 {
-                    if (origin.IsBetweenIE(v.Start, v.End)) point += (v.Amount - 1f) * (origin - v.Start);
-                    if (origin >= v.End) point += (v.Amount - 1f) * v.Duration;
+                    var amount = v.Amount ?? 1f;
+                    if (origin.IsBetweenIE(v.Start, v.End)) point += (amount - 1f) * (origin - v.Start);
+                    if (origin >= v.End) point += (amount - 1f) * v.Duration;
                 }
             }
         }
@@ -144,8 +145,9 @@ namespace LinearBeats.Scrolling
             {
                 foreach (var v in TimingEvents)
                 {
-                    if (origin.IsBetweenIE(v.Start, v.End)) point += Mathf.Pow((v.Amount - 1f) * (origin - v.Start), 2);
-                    if (origin >= v.End) point += Mathf.Pow((v.Amount - 1f) * v.Duration, 2);
+                    var amount = v.Amount ?? 1f;
+                    if (origin.IsBetweenIE(v.Start, v.End)) point += Mathf.Pow((amount - 1f) * (origin - v.Start), 2);
+                    if (origin >= v.End) point += Mathf.Pow((amount - 1f) * v.Duration, 2);
                 }
             }
         }

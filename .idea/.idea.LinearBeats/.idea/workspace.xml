@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Fixed script nullability">
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/BGAPlayer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/BgaPlayer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/TimingObjectLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/TimingObjectLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,15 +96,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Second.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/ListExtensions.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Pulse.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/YamlParserTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioTimingInfo.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" />
@@ -117,13 +119,10 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/ScriptParserTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" />
       <option value="$PROJECT_DIR$/Assets/Plugins/YamlDotNet/Serialization/TypeInspectors/TypeInspectorSkeleton.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/link.xml" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventPosition.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" />
@@ -132,10 +131,22 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/IMediaPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/VideoPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/BGAPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -279,14 +290,7 @@
       <workItem from="1622549984754" duration="6933000" />
       <workItem from="1622558711168" duration="4184000" />
       <workItem from="1622582257273" duration="724000" />
-      <workItem from="1622587350253" duration="18572000" />
-    </task>
-    <task id="LOCAL-00013" summary="Clean project">
-      <created>1618051731359</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1618051731359</updated>
+      <workItem from="1622587350253" duration="22922000" />
     </task>
     <task id="LOCAL-00014" summary="Applying long note implementation">
       <created>1618123311845</created>
@@ -624,7 +628,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622739930545</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Make resource parser as parameter">
+      <created>1622742381357</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1622742381357</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -699,7 +710,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="IDE settings changed" />
     <MESSAGE value="Before refactoring" />
     <MESSAGE value="Changed scroll event options to bit flags" />
     <MESSAGE value="Separate RailBehaviour" />
@@ -724,7 +734,8 @@
     <MESSAGE value="Update scriptValidator" />
     <MESSAGE value="IL2CPP compatibility patch" />
     <MESSAGE value="Fixed script nullability" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed script nullability" />
+    <MESSAGE value="Make resource parser as parameter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make resource parser as parameter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

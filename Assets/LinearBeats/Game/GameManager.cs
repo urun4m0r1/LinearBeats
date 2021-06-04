@@ -84,9 +84,9 @@ namespace LinearBeats.Game
                 string.IsNullOrWhiteSpace(resourcesPath))
                 throw new ArgumentNullException();
 
-            var audioLoader = new AudioLoader(audioListener, audioMixerGroups, GetResourceFromFileName<AudioClip>);
+            var audioLoader = new AudioPlayerLoader(audioListener, audioMixerGroups, GetResourceFromFileName<AudioClip>);
 
-            _audioPlayers = audioLoader.InstantiateAudioSources(_script.AudioChannels);
+            _audioPlayers = audioLoader.LoadMediaPlayer(_script.AudioChannels);
 
             _backgroundAudioPlayer = _audioPlayers[0];
         }

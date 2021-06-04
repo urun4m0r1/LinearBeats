@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Audio;
-using LinearBeats.Scrolling;
+using LinearBeats.Script;
 using Sirenix.OdinInspector;
 
-namespace LinearBeats.Script
+namespace LinearBeats.Scrolling
 {
     public sealed class TimingObjectLoader
     {

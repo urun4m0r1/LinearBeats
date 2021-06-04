@@ -2,20 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using LinearBeats.Audio;
+using LinearBeats.Script;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace LinearBeats.Script
+namespace LinearBeats.Audio
 {
-    public sealed class AudioLoader
+    public sealed class AudioPlayerLoader : IMediaPlayerLoader<AudioPlayer>
     {
         [ShowInInspector, ReadOnly] [NotNull] private readonly AudioListener _audioListener;
         [ShowInInspector, ReadOnly] [NotNull] private readonly IReadOnlyList<AudioMixerGroup> _audioMixerGroups;
         [ShowInInspector, ReadOnly] [NotNull] private readonly Func<string, AudioClip> _getAudioClipFromFileName;
 
-        public AudioLoader(
+        public AudioPlayerLoader(
             [NotNull] AudioListener audioListener,
             [NotNull] IReadOnlyList<AudioMixerGroup> audioMixerGroups,
             [NotNull] Func<string, AudioClip> getAudioClipFromFileName)
@@ -25,9 +25,7 @@ namespace LinearBeats.Script
             _getAudioClipFromFileName = getAudioClipFromFileName;
         }
 
-        [NotNull]
-        public Dictionary<ushort, AudioPlayer> InstantiateAudioSources(
-            [NotNull] IReadOnlyCollection<MediaChannel> audioChannels)
+        [NotNull] public Dictionary<ushort, AudioPlayer> LoadMediaPlayer(IReadOnlyCollection<MediaChannel> audioChannels)
         {
             if (audioChannels.Any(v => string.IsNullOrWhiteSpace(v.FileName)))
                 throw new InvalidScriptException("All audioChannels must have proper filename");
@@ -50,7 +48,7 @@ namespace LinearBeats.Script
 
             var audioSource = audioObject.AddComponent<AudioSource>();
             audioSource.clip = _getAudioClipFromFileName(audioChannel.FileName);
-            audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer ?? 0];
+            audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer ?? default];
 
             audioSource.bypassEffects = true;
             audioSource.bypassListenerEffects = true;

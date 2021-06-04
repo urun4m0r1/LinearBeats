@@ -30,7 +30,7 @@
         //TODO: Implement ScriptValidator
         public void Validate(ref LinearBeatsScript script)
         {
-            if (script.VersionCode == 0) throw new InvalidScriptException();
+            if (script.VersionCode == 0) throw new InvalidScriptException("VersionCode must be non-zero positive");
         }
     }
 }

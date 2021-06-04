@@ -7,9 +7,8 @@ namespace LinearBeats.Script
     {
         public static DeserializerBuilder WithRequiredPropertyValidation(this DeserializerBuilder builder)
         {
-            return builder
-                .WithNodeDeserializer(inner => new ValidatingDeserializer(inner),
-                    s => s.InsteadOf<ObjectNodeDeserializer>());
+            return builder.WithNodeDeserializer(inner => new ValidatingDeserializer(inner),
+                s => s.InsteadOf<ObjectNodeDeserializer>());
         }
     }
 }

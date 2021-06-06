@@ -7,35 +7,39 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace LinearBeats.Audio
+namespace LinearBeats.Media
 {
-    public sealed class AudioPlayerLoader : IMediaPlayerLoader<AudioPlayer>
+    public sealed class AudioPlayerLoader : IMediaPlayerLoader
     {
         [ShowInInspector, ReadOnly] [NotNull] private readonly AudioListener _audioListener;
         [ShowInInspector, ReadOnly] [NotNull] private readonly IReadOnlyList<AudioMixerGroup> _audioMixerGroups;
-        [ShowInInspector, ReadOnly] [NotNull] private readonly Func<string, AudioClip> _getAudioClipFromFileName;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly Func<string, AudioClip> _getClipFromFileName;
 
         public AudioPlayerLoader(
             [NotNull] AudioListener audioListener,
             [NotNull] IReadOnlyList<AudioMixerGroup> audioMixerGroups,
-            [NotNull] Func<string, AudioClip> getAudioClipFromFileName)
+            [NotNull] Func<string, AudioClip> getClipFromFileName)
         {
             _audioListener = audioListener;
             _audioMixerGroups = audioMixerGroups;
-            _getAudioClipFromFileName = getAudioClipFromFileName;
+            _getClipFromFileName = getClipFromFileName;
         }
 
-        [NotNull] public Dictionary<ushort, AudioPlayer> LoadMediaPlayer(IReadOnlyCollection<MediaChannel> audioChannels)
+        public Dictionary<ushort, IMediaPlayer> Load(IReadOnlyCollection<MediaChannel> mediaChannels)
         {
-            if (audioChannels.Any(v => string.IsNullOrWhiteSpace(v.FileName)))
+            var dict = new Dictionary<ushort, IMediaPlayer>();
+
+            if (mediaChannels == null)
+                return dict;
+
+            if (mediaChannels.Any(v => string.IsNullOrWhiteSpace(v.FileName)))
                 throw new InvalidScriptException("All audioChannels must have proper filename");
 
-            var dict = new Dictionary<ushort, AudioPlayer>();
-            foreach (var audioChannel in audioChannels)
+            foreach (var mediaChannel in mediaChannels)
             {
-                var audioSource = CreateAudioSource(audioChannel);
-                var audioPlayer = new AudioPlayer(audioSource, audioChannel.Offset);
-                dict.Add(audioChannel.Channel, audioPlayer);
+                var audioSource = CreateAudioSource(mediaChannel);
+                var mediaPlayer = new AudioPlayer(audioSource, mediaChannel.Offset);
+                dict.Add(mediaChannel.Channel, mediaPlayer);
             }
 
             return dict;
@@ -47,7 +51,7 @@ namespace LinearBeats.Audio
             audioObject.transform.parent = _audioListener.transform;
 
             var audioSource = audioObject.AddComponent<AudioSource>();
-            audioSource.clip = _getAudioClipFromFileName(audioChannel.FileName);
+            audioSource.clip = _getClipFromFileName(audioChannel.FileName);
             audioSource.outputAudioMixerGroup = _audioMixerGroups[audioChannel.Layer ?? default];
 
             audioSource.bypassEffects = true;

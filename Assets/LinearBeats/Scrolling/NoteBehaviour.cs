@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using LinearBeats.Audio;
+using LinearBeats.Media;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Time;
@@ -9,7 +9,7 @@ namespace LinearBeats.Scrolling
 {
     public sealed class NoteBehaviour : RailBehaviour
     {
-        [CanBeNull] public AudioPlayer AudioPlayer { get; set; }
+        [CanBeNull] public IMediaPlayer MediaPlayer { get; set; }
         [CanBeNull] public NoteJudgement Judgement { get; set; }
         public FixedTime AudioLength { get; set; }
         public Shape NoteShape { get; set; }
@@ -33,14 +33,14 @@ namespace LinearBeats.Scrolling
         {
             get
             {
-                if (RailObject == null || Judgement == null || AudioPlayer == null) return false;
+                if (RailObject == null || Judgement == null || MediaPlayer == null) return false;
 
                 var (judge, elapsed) = Judgement.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
 
                 if (judge == Judge.Miss)
-                    AudioPlayer.Pause();
+                    MediaPlayer.Pause();
                 else if (judge != Judge.Null)
-                    AudioPlayer.Play(RailObject.StartTime, AudioLength);
+                    MediaPlayer.Play(RailObject.StartTime, AudioLength);
                 else return false;
 
                 return true;

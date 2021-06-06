@@ -4,9 +4,9 @@ using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
+using LinearBeats.Utils.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Utils.Extensions;
 
 namespace LinearBeats.Time
 {

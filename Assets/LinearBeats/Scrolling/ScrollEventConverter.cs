@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
+using LinearBeats.Utils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
 namespace LinearBeats.Scrolling
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Lean.Pool;
-using LinearBeats.Audio;
+using LinearBeats.Media;
 using LinearBeats.Script;
 using Sirenix.OdinInspector;
 
@@ -10,16 +10,16 @@ namespace LinearBeats.Scrolling
 {
     public sealed class TimingObjectLoader
     {
-        [ShowInInspector, ReadOnly] [NotNull] private readonly TimingObject _timingObject;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly TimingInfo _timingInfo;
         [ShowInInspector, ReadOnly] [NotNull] private readonly LeanGameObjectPool _notesPool;
         [ShowInInspector, ReadOnly] [NotNull] private readonly LeanGameObjectPool _dividerPool;
 
         public TimingObjectLoader(
-            [NotNull] TimingObject timingObject,
+            [NotNull] TimingInfo timingInfo,
             [NotNull] LeanGameObjectPool notesPool,
             [NotNull] LeanGameObjectPool dividerPool)
         {
-            _timingObject = timingObject;
+            _timingInfo = timingInfo;
             _notesPool = notesPool;
             _dividerPool = dividerPool;
         }
@@ -30,24 +30,24 @@ namespace LinearBeats.Scrolling
             var dividerBehaviour = dividerObject.GetComponent<DividerBehaviour>();
 
             var ignoreOptions = ParseIgnoreOptions(divider.IgnoreScrollEvent);
-            dividerBehaviour.RailObject = new DividerRail(_timingObject, ignoreOptions, divider.Pulse);
+            dividerBehaviour.RailObject = new DividerRail(_timingInfo, ignoreOptions, divider.Pulse);
             return dividerBehaviour;
         }
 
         [CanBeNull] public NoteBehaviour InstantiateNote(Note note, Note nextNote,
-            [NotNull] Dictionary<ushort, AudioPlayer> audioPlayers)
+            [NotNull] Dictionary<ushort, IMediaPlayer> mediaPlayers)
         {
             var noteObject = _notesPool.Spawn(_notesPool.transform);
             var noteBehaviour = noteObject.GetComponent<NoteBehaviour>();
 
             var ignoreOptions = ParseIgnoreOptions(note.IgnoreScrollEvent);
-            noteBehaviour.RailObject = new NoteRail(_timingObject, ignoreOptions, note.Trigger);
+            noteBehaviour.RailObject = new NoteRail(_timingInfo, ignoreOptions, note.Trigger);
             noteBehaviour.NoteShape = note.Shape;
-            noteBehaviour.Judgement = _timingObject.Judgement;
-            noteBehaviour.AudioPlayer = audioPlayers[note.Trigger.Channel];
+            noteBehaviour.Judgement = _timingInfo.Judgement;
+            noteBehaviour.MediaPlayer = mediaPlayers[note.Trigger.Channel];
 
             var intervalPulse = nextNote.Trigger.Pulse - note.Trigger.Pulse;
-            noteBehaviour.AudioLength = _timingObject.Factory.Create(intervalPulse);
+            noteBehaviour.AudioLength = _timingInfo.Factory.Create(intervalPulse);
 
             return noteBehaviour;
         }

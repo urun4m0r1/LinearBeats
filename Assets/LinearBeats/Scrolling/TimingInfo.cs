@@ -1,22 +1,24 @@
 ﻿using JetBrains.Annotations;
 using LinearBeats.Judgement;
-using LinearBeats.Script;
+using LinearBeats.Media;
 using LinearBeats.Time;
 
 namespace LinearBeats.Scrolling
 {
-    public sealed class TimingObject
+    public sealed class TimingInfo
     {
-        public FixedTime Current { get; set; }
+        [NotNull] public AudioTimingInfo AudioTimingInfo { get; }
         [NotNull] public FixedTime.Factory Factory { get; }
         [NotNull] public IDistanceConverter Converter { get; }
         [NotNull] public NoteJudgement Judgement { get; }
 
-        public TimingObject([NotNull] FixedTime.Factory factory,
+        public TimingInfo(
+            [NotNull] AudioTimingInfo audioTimingInfo,
+            [NotNull] FixedTime.Factory factory,
             [NotNull] IDistanceConverter converter,
             [NotNull] NoteJudgement judgement)
         {
-            Current = factory.Create(new Pulse(0));
+            AudioTimingInfo = audioTimingInfo;
             Factory = factory;
             Converter = converter;
             Judgement = judgement;

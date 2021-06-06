@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Utils.Extensions
+namespace LinearBeats.Utils.Extensions
 {
     public static class ListExtensions
     {
@@ -29,7 +29,7 @@ namespace Utils.Extensions
             return i;
         }
 
-        public static int BinarySearch<T1, T2>([NotNull] this IReadOnlyList<T1> list, T2 target, Func<T1, T2> selector)
+        private static int BinarySearch<T1, T2>([NotNull] this IReadOnlyList<T1> list, T2 target, Func<T1, T2> selector)
         {
             var min = 0;
             var max = list.Count - 1;

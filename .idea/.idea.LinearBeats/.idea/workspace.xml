@@ -4,22 +4,59 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/BGAPlayer.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/BgaPlayer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs.meta" afterDir="false" />
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Refactoring">
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Singleton.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioTimingInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioTimingInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/BGAPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/BgaPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayerLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayerLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/TimingObjectLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/TimingObjectLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ArrayExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ArrayExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/BetweenExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/BetweenExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/FloatExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/FloatExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/Vector3Extensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/Vector3Extensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/IFloat.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/IFloat.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates/Singleton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates/Singleton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Singleton.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/AudioListenerValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/AudioListenerValidator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/ComponentInitializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/ComponentInitializer.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +114,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/a0/0b9dc815/RuntimeType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DA9C85EA-EA6B-42F9-95F8-5BECF3B7F1A7/da/148ecd7a/EncodingTable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5406A456-CF73-4443-B3D0-2A7D123287F1/36/fc5fc219/PropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9CD55CD8-3768-49FF-850D-346E3318E1D4/6b/7e81ee3b/ClassLibraryInitializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9CD55CD8-3768-49FF-850D-346E3318E1D4/82/4c124916/UnityLogWriter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Commands/UnityTestMethodCommand.cs" root0="SKIP_HIGHLIGHTING" />
@@ -84,6 +122,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/98/468c323d/Console.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/da/5bc0dd27/ArrayConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92188830-3E13-4B91-B84B-9749BF77F467/28/5762ef06/FileStream.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB92929-0C47-4F75-B3AA-A986297B806D/cd/f9b42243/AudioClip.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7405FBB4-F3A7-4446-BB62-7CA48EC87466/28/af0627d3/TypeExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB92929-0C47-4F75-B3AA-A986297B806D/f3/594d2352/AudioSource.cs" root0="SKIP_HIGHLIGHTING" />
@@ -96,41 +135,8 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/FloatTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SecondTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/FIxedTimeTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/PulseTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/SampleTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptValidator.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionConverter.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionNormalizer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionScaler.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/Pulse.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/Second.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/TimingObjectLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/ScriptParserTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" />
-      <option value="$PROJECT_DIR$/Assets/Plugins/YamlDotNet/Serialization/TypeInspectors/TypeInspectorSkeleton.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/link.xml" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventPosition.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/IMediaPlayerLoader.cs" />
@@ -141,12 +147,45 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/BGAPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/VideoPlayerLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioPlayerLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlRequiredAttribute.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/BetweenExtensions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/CSharpExtensions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/AudioListenerValidator.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Extensions/ListExtensions.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Templates/Singleton.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Unity/ComponentInitializer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Time/TimingConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Utils/Singleton.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioClipSource.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoClipSource.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/BgaPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioClipSource.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoSourcePlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/BackgroundAudioSource.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioSourcePlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaClip.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioClipInfo.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/MediaClipTimingInfo.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayerLoader.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -202,10 +241,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="2248">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="2248" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -291,13 +330,7 @@
       <workItem from="1622558711168" duration="4184000" />
       <workItem from="1622582257273" duration="724000" />
       <workItem from="1622587350253" duration="22922000" />
-    </task>
-    <task id="LOCAL-00014" summary="Applying long note implementation">
-      <created>1618123311845</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1618123311845</updated>
+      <workItem from="1622794256846" duration="13906000" />
     </task>
     <task id="LOCAL-00015" summary="Add unit tests">
       <created>1618160624660</created>
@@ -635,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622742381357</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Refactoring">
+      <created>1622794424283</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1622794424283</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -710,7 +750,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Before refactoring" />
     <MESSAGE value="Changed scroll event options to bit flags" />
     <MESSAGE value="Separate RailBehaviour" />
     <MESSAGE value="Make note judged their own" />
@@ -735,7 +774,8 @@
     <MESSAGE value="IL2CPP compatibility patch" />
     <MESSAGE value="Fixed script nullability" />
     <MESSAGE value="Make resource parser as parameter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make resource parser as parameter" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -166,14 +166,14 @@ namespace LinearBeats.Game
 
         private void Update()
         {
-            if (_timingInfo == null) return;
+            if (_timingInfo == null || _backgroundAudioPlayer == null) return;
 
             _timingInfo.Converter.DistancePerQuarterNote = meterPerQuarterNote;
 
-            onProgressChanged.Invoke(_timingInfo.AudioTimingInfo.Progress);
-            onBpmChanged.Invoke(_timingInfo.AudioTimingInfo.Now.Bpm.ToString(CultureInfo.InvariantCulture));
+            onProgressChanged.Invoke(_backgroundAudioPlayer.Progress);
+            onBpmChanged.Invoke(_timingInfo.AudioTimingInfo.Current.Bpm.ToString(CultureInfo.InvariantCulture));
 
-            if (_timingInfo.AudioTimingInfo.Progress >= 1f) ResetGame();
+            if (_backgroundAudioPlayer.Progress >= 1f) ResetGame();
         }
     }
 }

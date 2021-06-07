@@ -1,42 +1,34 @@
-/// In general keyboards (ANSI, ISO, JIS, etc.), there are up to 14 keys per bottom and middle line.
-/// However, there are at least 12 keys in the lower row (Z, X, C, V, ...), which is the standard for gameplay.
-/// Therefore, there are 12 lanes for receiving keyboard input during gameplay.
-/// As a result, up to 14 inputs must be processed in one lane considering duplicate key input.
-/// This can be done by checking the alternate input on the keystroke.
-
+using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace LinearBeats.Input
+namespace LinearBeats.Input.Keyboard
 {
+    /// <summary>
+    /// In general keyboards (ANSI, ISO, JIS, etc.), there are up to 14 keys per bottom and middle line.
+    /// However, there are at least 12 keys in the lower row (Z, X, C, V, ...), which is the standard for gameplay.
+    /// Therefore, there are 12 lanes for receiving keyboard input during gameplay.
+    /// As a result, up to 14 inputs must be processed in one lane considering duplicate key input.
+    /// This can be done by checking the alternate input on the keystroke.
+    /// </summary>
     [CreateAssetMenu(menuName = "LinearBeats/Keyboard")]
     public class Keyboard : SerializedScriptableObject, IBindingProvider
     {
-        [ShowInInspector, ReadOnly]
-        public const byte Rows = 2;
+        [ShowInInspector, ReadOnly] public const byte Rows = 2;
+        [ShowInInspector, ReadOnly] public const byte Cols = 12;
 
-        [ShowInInspector, ReadOnly]
-        public const byte Cols = 12;
+        [OdinSerialize, DisableContextMenu] [NotNull]
+        public virtual string Name { get; protected set; } = "";
 
-        [Title("Keyboard Information")]
-        [Required]
-        [OdinSerialize]
-        public string Name { get; set; } = "ANSI";
+        [OdinSerialize, DisableContextMenu] [NotNull]
+        public virtual string Description { get; protected set; } = "";
 
-        [MultiLineProperty]
-        [Required]
-        [OdinSerialize]
-        public string Description { get; set; } = "Standard US Keyboard Layout 101/104";
+        [OdinSerialize] protected KeyCode BindingSpecial = KeyCode.Space;
 
-        [PropertyOrder(1)]
-        [Title("Bindings")]
-        [SerializeField]
-        protected KeyCode _bindingSpecial = KeyCode.Space;
-
-        [PropertyOrder(2)]
-        [OdinSerialize]
-        protected KeyCode[,] _bindingsLayout = new KeyCode[Rows, Cols]
+        //TODO: 오딘 선택창 나오게 하기
+        [OdinSerialize, DisableContextMenu, TableMatrix(IsReadOnly = true), Title("Bindings"), PropertyOrder(1)]
+        protected KeyCode[,] BindingsLayout =
         {
             {
                 KeyCode.LeftShift,
@@ -68,10 +60,8 @@ namespace LinearBeats.Input
             },
         };
 
-        [PropertyOrder(3)]
-        [Title("Bindings Alternative")]
-        [OdinSerialize]
-        protected KeyCode[,] _bindingsLayoutAlternative = new KeyCode[Rows, Cols]
+        [OdinSerialize, DisableContextMenu, TableMatrix(IsReadOnly = true), Title("Bindings Alternative"), PropertyOrder(2)]
+        protected KeyCode[,] BindingsLayoutAlternative =
         {
             {
                 KeyCode.None,
@@ -103,8 +93,8 @@ namespace LinearBeats.Input
             },
         };
 
-        KeyCode IBindingProvider.GetBindingSpecial() => _bindingSpecial;
-        KeyCode IBindingProvider.GetBinding(byte row, byte col) => _bindingsLayout[row, col];
-        KeyCode IBindingProvider.GetBindingAlternative(byte row, byte col) => _bindingsLayoutAlternative[row, col];
+        public KeyCode GetBindingSpecial() => BindingSpecial;
+        public KeyCode GetBinding(byte row, byte col) => BindingsLayout[row, col];
+        public KeyCode GetBindingAlternative(byte row, byte col) => BindingsLayoutAlternative[row, col];
     }
 }

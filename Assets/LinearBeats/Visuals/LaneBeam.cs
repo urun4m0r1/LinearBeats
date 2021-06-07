@@ -1,4 +1,5 @@
 using LinearBeats.Input;
+using LinearBeats.Input.Keyboard;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

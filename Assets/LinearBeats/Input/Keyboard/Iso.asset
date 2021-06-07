@@ -27,7 +27,10 @@ MonoBehaviour:
     - Name: Description
       Entry: 1
       Data: Standard UK Keyboard Layout 102/105
-    - Name: _bindingsLayout
+    - Name: BindingSpecial
+      Entry: 3
+      Data: 32
+    - Name: BindingsLayout
       Entry: 7
       Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule
     - Name: 
@@ -114,7 +117,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: _bindingsLayoutAlternative
+    - Name: BindingsLayoutAlternative
       Entry: 7
       Data: 1|UnityEngine.KeyCode[,], UnityEngine.CoreModule
     - Name: 
@@ -125,7 +128,7 @@ MonoBehaviour:
       Data: 2|12
     - Name: 
       Entry: 3
-      Data: 92
+      Data: 0
     - Name: 
       Entry: 3
       Data: 0
@@ -194,11 +197,10 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 35
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _bindingSpecial: 32

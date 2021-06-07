@@ -1,30 +1,10 @@
 using LinearBeats.Input;
+using LinearBeats.Input.Keyboard;
 using NUnit.Framework;
 using UnityEngine;
 
 public class KeyboardTests
 {
-    [Test]
-    public void Name_And_Description_Can_Be_Modified()
-    {
-        #region Given
-        Keyboard keyboard = ScriptableObject.CreateInstance<Keyboard>();
-
-        var name = "Hello";
-        var description = "World";
-        #endregion
-
-        #region When
-        keyboard.Name = name;
-        keyboard.Description = description;
-        #endregion
-
-        #region Then
-        Assert.AreEqual(name, keyboard.Name);
-        Assert.AreEqual(description, keyboard.Description);
-        #endregion
-    }
-
     [Test]
     public void Can_Set_And_Get_Binding()
     {

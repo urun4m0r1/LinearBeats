@@ -26,8 +26,11 @@ MonoBehaviour:
       Data: Custom
     - Name: Description
       Entry: 1
-      Data: Modified Helix Keyboard Layout 32+32
-    - Name: _bindingsLayout
+      Data: Custom keyboard bindings
+    - Name: BindingSpecial
+      Entry: 3
+      Data: 32
+    - Name: BindingsLayout
       Entry: 7
       Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule
     - Name: 
@@ -38,7 +41,7 @@ MonoBehaviour:
       Data: 2|12
     - Name: 
       Entry: 3
-      Data: 92
+      Data: 304
     - Name: 
       Entry: 3
       Data: 122
@@ -114,7 +117,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: _bindingsLayoutAlternative
+    - Name: BindingsLayoutAlternative
       Entry: 7
       Data: 1|UnityEngine.KeyCode[,], UnityEngine.CoreModule
     - Name: 
@@ -201,4 +204,3 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _bindingSpecial: 32

@@ -6,11 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Change file structure">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/KeyboardTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/KeyboardTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputMapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputMapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Ansi.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Ansi.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Iso.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Iso.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,11 +98,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingConverterTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/IMediaPlayerLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/AudioLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/VideoPlayerLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/AudioLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Audio/IMediaPlayerLoader.cs" />
@@ -140,6 +144,11 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/KeyboardTests.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -284,14 +293,7 @@
       <workItem from="1622558711168" duration="4184000" />
       <workItem from="1622582257273" duration="724000" />
       <workItem from="1622587350253" duration="22922000" />
-      <workItem from="1622794256846" duration="17447000" />
-    </task>
-    <task id="LOCAL-00016" summary="Wrote some test cases.">
-      <created>1618325908153</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1618325908153</updated>
+      <workItem from="1622794256846" duration="24396000" />
     </task>
     <task id="LOCAL-00017" summary="Wrote some test cases.">
       <created>1618329341181</created>
@@ -629,7 +631,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622987146273</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Change file structure">
+      <created>1622990571400</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1622990571400</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

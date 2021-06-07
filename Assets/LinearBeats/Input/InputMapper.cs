@@ -13,9 +13,9 @@ namespace LinearBeats.Input
 #pragma warning disable IDE0044
         [Required]
         [OdinSerialize]
-        public Keyboard CurrentKeyboard
+        public Keyboard.Keyboard CurrentKeyboard
         {
-            get => UserInputListener.BindingProvider as Keyboard;
+            get => UserInputListener.BindingProvider as Keyboard.Keyboard;
             set => UserInputListener.BindingProvider = value;
         }
 #pragma warning restore IDE0044

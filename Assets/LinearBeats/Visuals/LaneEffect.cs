@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Input;
+using LinearBeats.Input.Keyboard;
 using LinearBeats.Judgement;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;

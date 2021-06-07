@@ -268,8 +268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfdd1dc2877204b95f9c07e9662bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _migratingObjects:
-  - {fileID: 286406906}
+  targetFps: 60
+  dstScenePath: 
+  loadSceneMode: 1
+  migratingObjects: []
 --- !u!4 &286406908
 Transform:
   m_ObjectHideFlags: 0
@@ -1564,6 +1566,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[3].itemName
+      value: Custom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 892743778}
@@ -1579,6 +1585,14 @@ PrefabInstance:
       propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 892743778}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 339333558f2d39d49bab1b91db2bcd7d, type: 2}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LinearBeats.Input.Keyboard.Keyboard, LinearBeats
+      objectReference: {fileID: 0}
     - target: {fileID: 7644754191665278999, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: m_Name
       value: UI

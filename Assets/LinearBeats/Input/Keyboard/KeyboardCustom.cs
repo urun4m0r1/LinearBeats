@@ -1,13 +1,20 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Input
+namespace LinearBeats.Input.Keyboard
 {
     [CreateAssetMenu(menuName = "LinearBeats/KeyboardCustom")]
     public sealed class KeyboardCustom : Keyboard, IBindingReceiver
     {
-        void IBindingReceiver.SetBindingSpecial(KeyCode keyCode) => _bindingSpecial = keyCode;
-        void IBindingReceiver.SetBinding(byte row, byte col, KeyCode keyCode) => _bindingsLayout[row, col] = keyCode;
-        void IBindingReceiver.SetBindingAlternative(byte row, byte col, KeyCode keyCode)
-            => _bindingsLayoutAlternative[row, col] = keyCode;
+        [ShowInInspector, ReadOnly]
+        public override string Name { get; protected set; } = "Custom";
+
+        [ShowInInspector, ReadOnly]
+        public override string Description { get; protected set; } = "Custom keyboard bindings";
+
+        public void SetBindingSpecial(KeyCode keyCode) => BindingSpecial = keyCode;
+        public void SetBinding(byte row, byte col, KeyCode keyCode) => BindingsLayout[row, col] = keyCode;
+        public void SetBindingAlternative(byte row, byte col, KeyCode keyCode)
+            => BindingsLayoutAlternative[row, col] = keyCode;
     }
 }

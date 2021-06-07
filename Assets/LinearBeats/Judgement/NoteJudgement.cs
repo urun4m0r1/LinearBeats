@@ -4,14 +4,15 @@ using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using LinearBeats.Visuals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LinearBeats.Judgement
 {
     public sealed class NoteJudgement
     {
-        [NotNull] private readonly JudgeRange _judgeRange;
-        [NotNull] private readonly LaneEffect _laneEffect;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly JudgeRange _judgeRange;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly LaneEffect _laneEffect;
 
         public NoteJudgement(
             [NotNull] JudgeRange judgeRange,
@@ -36,6 +37,8 @@ namespace LinearBeats.Judgement
         {
             var offsetTime = Mathf.Abs(elapsedTime);
 
+            if (elapsedTime > _judgeRange.Range(Judge.Bad)) return Judge.Miss;
+
             if (InputHandler.IsNotePressed(noteShape))
             {
                 if (offsetTime <= _judgeRange.Range(Judge.Perfect)) return Judge.Perfect;
@@ -44,7 +47,7 @@ namespace LinearBeats.Judgement
                 if (offsetTime <= _judgeRange.Range(Judge.Bad)) return Judge.Bad;
             }
 
-            return elapsedTime > _judgeRange.Range(Judge.Bad) ? Judge.Miss : Judge.Null;
+            return Judge.Null;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using LinearBeats.Script;
-using LinearBeats.Time;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -20,7 +20,8 @@ namespace LinearBeats.Judgement
     [CreateAssetMenu(menuName = "LinearBeats/JudgeRange")]
     public sealed class JudgeRange : SerializedScriptableObject
     {
-        [OdinSerialize] private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
+        [OdinSerialize, DictionaryDrawerSettings(IsReadOnly = true), DisableContextMenu] [NotNull]
+        private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
         {
             [Judge.Perfect] = 0.033f,
             [Judge.Great] = 0.067f,

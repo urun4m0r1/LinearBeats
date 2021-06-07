@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LinearBeats.Input
+namespace LinearBeats.Input.Keyboard
 {
     public interface IBindingReceiver
     {

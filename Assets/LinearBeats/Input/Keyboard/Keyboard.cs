@@ -15,20 +15,19 @@ namespace LinearBeats.Input.Keyboard
     [CreateAssetMenu(menuName = "LinearBeats/Keyboard")]
     public class Keyboard : SerializedScriptableObject, IBindingProvider
     {
-        [ShowInInspector, ReadOnly] public const byte Rows = 2;
-        [ShowInInspector, ReadOnly] public const byte Cols = 12;
+        [ShowInInspector, ReadOnly] public static readonly byte Rows = 2;
+        [ShowInInspector, ReadOnly] public static readonly byte Cols = 12;
 
-        [OdinSerialize, DisableContextMenu] [NotNull]
-        public virtual string Name { get; protected set; } = "";
+        [OdinSerialize, DisableContextMenu]
+        [NotNull] public virtual string Name { get; protected set; } = "";
 
-        [OdinSerialize, DisableContextMenu] [NotNull]
-        public virtual string Description { get; protected set; } = "";
+        [OdinSerialize, DisableContextMenu]
+        [NotNull] public virtual string Description { get; protected set; } = "";
 
         [OdinSerialize] protected KeyCode BindingSpecial = KeyCode.Space;
 
-        //TODO: 오딘 선택창 나오게 하기
         [OdinSerialize, DisableContextMenu, TableMatrix(IsReadOnly = true), Title("Bindings"), PropertyOrder(1)]
-        protected KeyCode[,] BindingsLayout =
+        [NotNull] protected KeyCode[,] BindingsLayout =
         {
             {
                 KeyCode.LeftShift,
@@ -61,7 +60,7 @@ namespace LinearBeats.Input.Keyboard
         };
 
         [OdinSerialize, DisableContextMenu, TableMatrix(IsReadOnly = true), Title("Bindings Alternative"), PropertyOrder(2)]
-        protected KeyCode[,] BindingsLayoutAlternative =
+        [NotNull] protected KeyCode[,] BindingsLayoutAlternative =
         {
             {
                 KeyCode.None,

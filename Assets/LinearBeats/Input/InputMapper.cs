@@ -2,6 +2,7 @@
 
 #pragma warning disable IDE0051
 
+using LinearBeats.Input.Keyboard;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;

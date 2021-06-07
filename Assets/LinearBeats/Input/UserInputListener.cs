@@ -1,4 +1,5 @@
 using System;
+using LinearBeats.Input.Keyboard;
 using UnityEngine;
 
 namespace LinearBeats.Input

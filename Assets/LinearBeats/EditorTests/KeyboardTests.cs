@@ -2,7 +2,7 @@ using LinearBeats.Input;
 using LinearBeats.Input.Keyboard;
 using NUnit.Framework;
 using UnityEngine;
-
+/*
 public class KeyboardTests
 {
     [Test]
@@ -34,3 +34,4 @@ public class KeyboardTests
         #endregion
     }
 }
+*/

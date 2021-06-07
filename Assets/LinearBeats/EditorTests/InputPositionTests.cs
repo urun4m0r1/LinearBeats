@@ -1,6 +1,6 @@
 using LinearBeats.Input;
 using NUnit.Framework;
-
+/*
 public class InputPositionTests
 {
     [Test]
@@ -36,3 +36,4 @@ public class InputPositionTests
         #endregion
     }
 }
+*/

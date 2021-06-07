@@ -3,7 +3,7 @@ using LinearBeats.Input.Keyboard;
 using LinearBeats.Script;
 using NUnit.Framework;
 using UnityEngine;
-
+/*
 public class InputListenerTests
 {
     private static IBindingReceiver GetBindingReceiver()
@@ -151,3 +151,4 @@ public class InputListenerTests
         UserInputListener.BindingProvider = null;
     }
 }
+*/

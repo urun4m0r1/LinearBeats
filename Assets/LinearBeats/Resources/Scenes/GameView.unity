@@ -659,7 +659,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 96fa8c5ac75998d468686fdba7cf1f55, type: 2}
+    - {fileID: 11400000, guid: 339333558f2d39d49bab1b91db2bcd7d, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1113,7 +1113,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _laneBeams:
+  laneBeams:
   - {fileID: 620848928}
   - {fileID: 1871763184}
   - {fileID: 2079085864}
@@ -1588,7 +1588,7 @@ PrefabInstance:
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: 339333558f2d39d49bab1b91db2bcd7d, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: LinearBeats.Input.Keyboard.Keyboard, LinearBeats

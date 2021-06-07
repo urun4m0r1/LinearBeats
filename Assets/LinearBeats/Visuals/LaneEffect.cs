@@ -12,7 +12,7 @@ namespace LinearBeats.Visuals
     public sealed class LaneEffect : SerializedMonoBehaviour
     {
         [Required] [ListDrawerSettings(IsReadOnly = true)] [SerializeField]
-        private LaneBeam[] _laneBeams = new LaneBeam[Keyboard.Cols];
+        private LaneBeam[] laneBeams = new LaneBeam[Keyboard.Length];
 
         [OdinSerialize] private Dictionary<Judge, LeanGameObjectPool> _judgeEffects = new Dictionary<Judge, LeanGameObjectPool>
         {
@@ -30,13 +30,11 @@ namespace LinearBeats.Visuals
 
         private void UpdateLaneEffects()
         {
-            for (byte layer = 0; layer < Keyboard.Rows; ++layer)
+            for (KeyType lane = 0; lane < (KeyType) Keyboard.Length; ++lane)
             {
-                for (byte lane = 0; lane < Keyboard.Cols; ++lane)
-                {
-                    bool isHoldingLayer = InputHandler.IsHolding(row: layer, col: lane);
-                    _laneBeams[lane].ToggleLayerEffectWhenHolding(layer, isHoldingLayer);
-                }
+                var isHoldingLayer = InputHandler.IsHolding(lane);
+
+                laneBeams[(int) lane].ToggleLayerEffectWhenHolding(lane, isHoldingLayer);
             }
         }
 

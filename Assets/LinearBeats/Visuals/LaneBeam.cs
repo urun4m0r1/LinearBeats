@@ -1,4 +1,3 @@
-using LinearBeats.Input;
 using LinearBeats.Input.Keyboard;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,12 +6,12 @@ namespace LinearBeats.Visuals
 {
     public sealed class LaneBeam : MonoBehaviour
     {
-        [Required] [ListDrawerSettings(IsReadOnly = true)] [SerializeField]
-        private GameObject[] _lanePressedEffects = new GameObject[Keyboard.Rows];
+        [Required] [SerializeField]
+        private GameObject lanePressedEffect;
 
-        public void ToggleLayerEffectWhenHolding(byte layer, bool isHolding)
+        public void ToggleLayerEffectWhenHolding(KeyType key, bool isHolding)
         {
-            _lanePressedEffects[layer].SetActive(isHolding);
+            lanePressedEffect.SetActive(isHolding);
         }
     }
 }

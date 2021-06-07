@@ -13,12 +13,9 @@ namespace LinearBeats.Scrolling
         [CanBeNull] public NoteJudgement Judgement { get; set; }
         public FixedTime AudioLength { get; set; }
         public Shape NoteShape { get; set; }
-        protected override Vector3 Position => new Vector3(PosX, PosY, RailObject?.StartPosition ?? 0f);
-        protected override Vector3 Scale => new Vector3(Width, Height, Length);
-        private float PosX => NoteShape.PosCol - 6f;
-        private float PosY => NoteShape.PosRow * 2f;
-        private float Width => NoteShape.SizeCol ?? 1;
-        private float Height => (NoteShape.SizeRow ?? 1) == 1 ? 1f : 20f;
+        protected override Vector3 Position => new Vector3(Pos, 0f, RailObject?.StartPosition ?? 0f);
+        protected override Vector3 Scale => new Vector3(NoteShape.Size ?? 1f, 1f, Length);
+        private float Pos => (float) NoteShape.Pos - 6f;
 
         private float Length
         {
@@ -35,7 +32,7 @@ namespace LinearBeats.Scrolling
             {
                 if (RailObject == null || Judgement == null || MediaPlayer == null) return false;
 
-                var (judge, elapsed) = Judgement.JudgeNote(RailObject, NoteShape, new Vector3(PosX, PosY, 0f));
+                var (judge, elapsed) = Judgement.JudgeNote(RailObject, NoteShape, new Vector3(Pos, 0f, 0f));
 
                 if (judge == Judge.Miss)
                     MediaPlayer.Pause();

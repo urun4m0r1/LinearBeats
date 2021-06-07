@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using Sirenix.OdinInspector;
+using LinearBeats.Input.Keyboard;
 using Sirenix.Serialization;
 
 namespace LinearBeats.Script
@@ -282,29 +282,20 @@ namespace LinearBeats.Script
 
     public struct Shape
     {
-        [OdinSerialize] public byte PosRow { get; private set; }
-        [OdinSerialize] public byte PosCol { get; private set; }
-        [OdinSerialize] [CanBeNull] public byte? SizeRow { get; private set; }
-        [OdinSerialize] [CanBeNull] public byte? SizeCol { get; private set; }
-        [OdinSerialize] [CanBeNull] public byte? DstRow { get; private set; }
-        [OdinSerialize] [CanBeNull] public byte? DstCol { get; private set; }
+        [OdinSerialize] public KeyType Pos { get; private set; }
+        [OdinSerialize] [CanBeNull] public KeyType? Dst { get; private set; }
+        [OdinSerialize] [CanBeNull] public byte? Size { get; private set; }
         [OdinSerialize] [CanBeNull] public byte? Type { get; private set; }
 
         public Shape(
-            byte posRow,
-            byte posCol,
-            byte? sizeRow = null,
-            byte? sizeCol = null,
-            byte? dstRow = null,
-            byte? dstCol = null,
+            KeyType pos,
+            KeyType? dst = null,
+            byte? size = null,
             byte? type = null)
         {
-            PosRow = posRow;
-            PosCol = posCol;
-            SizeRow = sizeRow;
-            SizeCol = sizeCol;
-            DstRow = dstRow;
-            DstCol = dstCol;
+            Pos = pos;
+            Dst = dst;
+            Size = size;
             Type = type;
         }
     }

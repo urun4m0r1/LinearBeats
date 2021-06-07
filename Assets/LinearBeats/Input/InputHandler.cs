@@ -1,16 +1,14 @@
-#pragma warning disable IDE0090
-#pragma warning disable IDE0051
-
+using LinearBeats.Input.Keyboard;
 using LinearBeats.Script;
 
 namespace LinearBeats.Input
 {
     public static class InputHandler
     {
-        private static readonly UserInputListener s_pressedListener = new UserInputListener(new PressedReceiver());
-        private static readonly UserInputListener s_holdingListener = new UserInputListener(new HoldingReceiver());
+        private static readonly UserInputListener PressedListener = new UserInputListener(new PressedReceiver());
+        private static readonly UserInputListener HoldingListener = new UserInputListener(new HoldingReceiver());
 
-        public static bool IsHolding(byte row, byte col) => s_holdingListener.IsInputInvoked(row, col);
-        public static bool IsNotePressed(Shape noteShape) => s_pressedListener.GetNoteInvoked(noteShape).Exist;
+        public static bool IsHolding(KeyType key) => HoldingListener.IsInputInvoked(key);
+        public static bool IsNotePressed(Shape noteShape) => PressedListener.GetNoteInvoked(noteShape) != KeyType.None;
     }
 }

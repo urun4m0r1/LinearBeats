@@ -15,17 +15,11 @@ namespace LinearBeats.Input
             _inputReceiver = inputReceiver ?? throw new ArgumentNullException();
         }
 
-        public override bool IsInputInvoked(byte row, byte col)
+        public override bool IsInputInvoked(KeyType key)
         {
-            var keyCode = BindingProvider?.GetBinding(row, col) ?? KeyCode.None;
-            var keyCodeAlternative = BindingProvider?.GetBindingAlternative(row, col) ?? KeyCode.None;
+            var keyCode = BindingProvider?.GetBinding(key) ?? KeyCode.None;
+            var keyCodeAlternative = BindingProvider?.GetBindingAlternative(key) ?? KeyCode.None;
             return IsInvokedBy(keyCode) || IsInvokedBy(keyCodeAlternative);
-        }
-
-        public override bool IsSpecialInputInvoked()
-        {
-            var keyCode = BindingProvider?.GetBindingSpecial() ?? KeyCode.None;
-            return IsInvokedBy(keyCode);
         }
 
         private bool IsInvokedBy(KeyCode keyCode) => _inputReceiver.GetInput(keyCode);

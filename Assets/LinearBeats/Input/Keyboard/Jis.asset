@@ -27,15 +27,15 @@ MonoBehaviour:
     - Name: Description
       Entry: 1
       Data: Standad JP Keyboard Layout 103/109
-    - Name: _bindingsLayout
+    - Name: BindingsLayout
       Entry: 7
-      Data: 0|UnityEngine.KeyCode[,], UnityEngine.CoreModule
+      Data: 0|UnityEngine.KeyCode[], UnityEngine.CoreModule
     - Name: 
       Entry: 12
-      Data: 24
-    - Name: ranks
-      Entry: 1
-      Data: 2|12
+      Data: 15
+    - Name: 
+      Entry: 3
+      Data: 32
     - Name: 
       Entry: 3
       Data: 304
@@ -74,55 +74,22 @@ MonoBehaviour:
       Data: 303
     - Name: 
       Entry: 3
-      Data: 97
+      Data: 308
     - Name: 
       Entry: 3
-      Data: 115
-    - Name: 
-      Entry: 3
-      Data: 100
-    - Name: 
-      Entry: 3
-      Data: 102
-    - Name: 
-      Entry: 3
-      Data: 103
-    - Name: 
-      Entry: 3
-      Data: 104
-    - Name: 
-      Entry: 3
-      Data: 106
-    - Name: 
-      Entry: 3
-      Data: 107
-    - Name: 
-      Entry: 3
-      Data: 108
-    - Name: 
-      Entry: 3
-      Data: 59
-    - Name: 
-      Entry: 3
-      Data: 58
-    - Name: 
-      Entry: 3
-      Data: 13
+      Data: 307
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: _bindingsLayoutAlternative
+    - Name: BindingsLayoutAlternative
       Entry: 7
-      Data: 1|UnityEngine.KeyCode[,], UnityEngine.CoreModule
+      Data: 1|UnityEngine.KeyCode[], UnityEngine.CoreModule
     - Name: 
       Entry: 12
-      Data: 24
-    - Name: ranks
-      Entry: 1
-      Data: 2|12
+      Data: 15
     - Name: 
       Entry: 3
       Data: 0
@@ -158,12 +125,6 @@ MonoBehaviour:
       Data: 0
     - Name: 
       Entry: 3
-      Data: 92
-    - Name: 
-      Entry: 3
-      Data: 301
-    - Name: 
-      Entry: 3
       Data: 0
     - Name: 
       Entry: 3
@@ -174,31 +135,9 @@ MonoBehaviour:
     - Name: 
       Entry: 3
       Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 3
-      Data: 93
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _bindingSpecial: 32

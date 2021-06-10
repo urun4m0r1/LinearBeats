@@ -12,7 +12,7 @@ namespace LinearBeats.Input.Keyboard
         [ShowInInspector, ReadOnly]
         public override string Description { get; protected set; } = "Custom keyboard bindings";
 
-        public void SetBinding(KeyType key, KeyCode keyCode) => BindingsLayout[(int) key] = keyCode;
-        public void SetBindingAlternative(KeyType key, KeyCode keyCode) => BindingsLayoutAlternative[(int) key] = keyCode;
+        public void SetBinding(KeyType key, KeyCode keyCode) => BindingsLayout[key] = keyCode;
+        public void SetBindingAlternative(KeyType key, KeyCode keyCode) => BindingsLayoutAlternative[key] = keyCode;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -23,47 +24,47 @@ namespace LinearBeats.Input.Keyboard
         [OdinSerialize, DisableContextMenu]
         [NotNull] public virtual string Description { get; protected set; } = "";
 
-        [OdinSerialize, DisableContextMenu, ListDrawerSettings(IsReadOnly = true), Title("Bindings"), PropertyOrder(1)]
-        [NotNull] protected KeyCode[] BindingsLayout =
+        [OdinSerialize, DisableContextMenu, DictionaryDrawerSettings(IsReadOnly = true)]
+        [NotNull] protected Dictionary<KeyType, KeyCode> BindingsLayout = new Dictionary<KeyType, KeyCode>
         {
-            KeyCode.Space,
-            KeyCode.LeftShift,
-            KeyCode.Z,
-            KeyCode.X,
-            KeyCode.C,
-            KeyCode.V,
-            KeyCode.B,
-            KeyCode.N,
-            KeyCode.M,
-            KeyCode.Comma,
-            KeyCode.Period,
-            KeyCode.Slash,
-            KeyCode.RightShift,
-            KeyCode.LeftAlt,
-            KeyCode.RightAlt,
+            [KeyType.LShift] = KeyCode.LeftShift,
+            [KeyType.Z] = KeyCode.Z,
+            [KeyType.X] = KeyCode.X,
+            [KeyType.C] = KeyCode.C,
+            [KeyType.V] = KeyCode.V,
+            [KeyType.B] = KeyCode.B,
+            [KeyType.N] = KeyCode.N,
+            [KeyType.M] = KeyCode.M,
+            [KeyType.Comma] = KeyCode.Comma,
+            [KeyType.Period] = KeyCode.Period,
+            [KeyType.Slash] = KeyCode.Slash,
+            [KeyType.RShift] = KeyCode.RightShift,
+            [KeyType.Space] = KeyCode.Space,
+            [KeyType.LAlt] = KeyCode.LeftAlt,
+            [KeyType.RAlt] = KeyCode.RightAlt,
         };
 
-        [OdinSerialize, DisableContextMenu, ListDrawerSettings(IsReadOnly = true), Title("Bindings Alternative"), PropertyOrder(2)]
-        [NotNull] protected KeyCode[] BindingsLayoutAlternative =
+        [OdinSerialize, DisableContextMenu, DictionaryDrawerSettings(IsReadOnly = true)]
+        [NotNull] protected Dictionary<KeyType, KeyCode> BindingsLayoutAlternative = new Dictionary<KeyType, KeyCode>
         {
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
-            KeyCode.None,
+            [KeyType.LShift] = KeyCode.None,
+            [KeyType.Z] = KeyCode.None,
+            [KeyType.X] = KeyCode.None,
+            [KeyType.C] = KeyCode.None,
+            [KeyType.V] = KeyCode.None,
+            [KeyType.B] = KeyCode.None,
+            [KeyType.N] = KeyCode.None,
+            [KeyType.M] = KeyCode.None,
+            [KeyType.Comma] = KeyCode.None,
+            [KeyType.Period] = KeyCode.None,
+            [KeyType.Slash] = KeyCode.None,
+            [KeyType.RShift] = KeyCode.None,
+            [KeyType.Space] = KeyCode.None,
+            [KeyType.LAlt] = KeyCode.None,
+            [KeyType.RAlt] = KeyCode.None,
         };
 
-        public KeyCode GetBinding(KeyType key) => BindingsLayout[(int) key];
-        public KeyCode GetBindingAlternative(KeyType key) => BindingsLayoutAlternative[(int) key];
+        public KeyCode GetBinding(KeyType key) => BindingsLayout[key];
+        public KeyCode GetBindingAlternative(KeyType key) => BindingsLayoutAlternative[key];
     }
 }

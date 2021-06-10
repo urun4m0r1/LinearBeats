@@ -23,23 +23,23 @@ namespace LinearBeats.Judgement
         }
 
         //TODO: 롱노트, 슬라이드노트 판정추가
-        public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Shape noteShape, Vector3 effectPosition)
+        public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Note note, Vector3 effectPosition)
         {
             var elapsedTime = railObject.CurrentTime - railObject.StartTime;
-            var judge = GetJudge(elapsedTime, noteShape);
+            var judge = GetJudge(elapsedTime, note);
 
             _laneEffect.OnJudge(effectPosition, judge);
 
             return (judge, elapsedTime);
         }
 
-        private Judge GetJudge(Second elapsedTime, Shape noteShape)
+        private Judge GetJudge(Second elapsedTime, Note note)
         {
             var offsetTime = Mathf.Abs(elapsedTime);
 
             if (elapsedTime > _judgeRange.Range(Judge.Bad)) return Judge.Miss;
 
-            if (InputHandler.IsNotePressed(noteShape))
+            if (InputHandler.IsNotePressed(note.Shape, elapsedTime / note.Trigger.Duration ?? 0f))
             {
                 if (offsetTime <= _judgeRange.Range(Judge.Perfect)) return Judge.Perfect;
                 if (offsetTime <= _judgeRange.Range(Judge.Great)) return Judge.Great;

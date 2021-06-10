@@ -10,16 +10,16 @@ namespace LinearBeats.Input
 
     public sealed class PressedReceiver : IInputReceiver
     {
-        bool IInputReceiver.GetInput(KeyCode keyCode) => GetKeyDown(keyCode);
+        public bool GetInput(KeyCode keyCode) => GetKeyDown(keyCode);
     }
 
     public sealed class ReleasedReceiver : IInputReceiver
     {
-        bool IInputReceiver.GetInput(KeyCode keyCode) => GetKeyUp(keyCode);
+        public bool GetInput(KeyCode keyCode) => GetKeyUp(keyCode);
     }
 
     public sealed class HoldingReceiver : IInputReceiver
     {
-        bool IInputReceiver.GetInput(KeyCode keyCode) => GetKey(keyCode);
+        public bool GetInput(KeyCode keyCode) => GetKey(keyCode);
     }
 }

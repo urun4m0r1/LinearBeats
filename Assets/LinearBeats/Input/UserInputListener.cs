@@ -1,4 +1,4 @@
-using System;
+using JetBrains.Annotations;
 using LinearBeats.Input.Keyboard;
 using UnityEngine;
 
@@ -6,14 +6,11 @@ namespace LinearBeats.Input
 {
     public sealed class UserInputListener : InputListener
     {
-        public static IBindingProvider BindingProvider { get; set; }
+        [CanBeNull] public static IBindingProvider BindingProvider { get; set; }
 
-        private readonly IInputReceiver _inputReceiver;
+        [NotNull] private readonly IInputReceiver _inputReceiver;
 
-        public UserInputListener(IInputReceiver inputReceiver)
-        {
-            _inputReceiver = inputReceiver ?? throw new ArgumentNullException();
-        }
+        public UserInputListener([NotNull] IInputReceiver inputReceiver) => _inputReceiver = inputReceiver;
 
         public override bool IsInputInvoked(KeyType key)
         {

@@ -42,7 +42,7 @@ namespace LinearBeats.Scrolling
 
             var ignoreOptions = ParseIgnoreOptions(note.IgnoreScrollEvent);
             noteBehaviour.RailObject = new NoteRail(_timingInfo, ignoreOptions, note.Trigger);
-            noteBehaviour.NoteShape = note.Shape;
+            noteBehaviour.Note = note;
             noteBehaviour.Judgement = _timingInfo.Judgement;
             noteBehaviour.MediaPlayer = mediaPlayers[note.Trigger.Channel];
 

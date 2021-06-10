@@ -9,6 +9,7 @@ namespace LinearBeats.Input
         private static readonly UserInputListener HoldingListener = new UserInputListener(new HoldingReceiver());
 
         public static bool IsHolding(KeyType key) => HoldingListener.IsInputInvoked(key);
-        public static bool IsNotePressed(Shape noteShape) => PressedListener.GetNoteInvoked(noteShape) != KeyType.None;
+        public static bool IsNotePressed(Shape noteShape, float progress) =>
+            PressedListener.GetNoteInvoked(noteShape, progress) != KeyType.None;
     }
 }

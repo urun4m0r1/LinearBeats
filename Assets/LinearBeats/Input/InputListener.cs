@@ -5,14 +5,23 @@ namespace LinearBeats.Input
 {
     public abstract class InputListener
     {
-        public KeyType GetNoteInvoked(Shape noteShape) => GetAnyInputInvokedIn(noteShape.Pos, noteShape.Size ?? 1);
+        public KeyType GetNoteInvoked(Shape noteShape, float progress) =>
+            GetAnyInputInvokedIn(noteShape.Pos, noteShape.Dst, noteShape.Size ?? 1, progress);
 
-        private KeyType GetAnyInputInvokedIn(KeyType key, byte keySize)
+        private KeyType GetAnyInputInvokedIn(KeyType pos, KeyType? dst, byte keySize, float progress)
         {
-            var keyEnd = key + keySize;
+            var keyDist = (dst - pos) * progress;
+            var keyStart = pos + (byte) (keyDist ?? 0);
+            var keyEnd = keyStart + keySize;
 
-            for (var i = key; i < keyEnd; ++i)
-                if (IsInputInvoked(i)) return i;
+            return AnyInputInvokedIn(keyStart, keyEnd);
+        }
+
+        private KeyType AnyInputInvokedIn(KeyType keyStart, KeyType keyEnd)
+        {
+            for (var i = keyStart; i < keyEnd; ++i)
+                if (IsInputInvoked(i))
+                    return i;
 
             return KeyType.None;
         }

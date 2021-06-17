@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using Lean.Pool;
 using LinearBeats.Input;
 using LinearBeats.Input.Keyboard;
-using LinearBeats.Judgement;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace LinearBeats.Visuals
+namespace LinearBeats.Judgement
 {
     public sealed class LaneEffect : SerializedMonoBehaviour
     {
@@ -38,10 +37,12 @@ namespace LinearBeats.Visuals
             }
         }
 
-        public void OnJudge(Vector3 effectPosition, Judge judge)
+        public void OnJudge(Transform effectAnchor, Judge judge)
         {
-            if (judge != Judge.Null)
-                _judgeEffects[judge].Spawn(effectPosition, Quaternion.identity, _judgeEffects[judge].transform);
+            if (judge == Judge.Null) return;
+
+            var effectPosition = new Vector3(effectAnchor.position.x, 0f, 0f);
+            _judgeEffects[judge].Spawn(effectPosition, Quaternion.identity, _judgeEffects[judge].transform);
         }
     }
 }

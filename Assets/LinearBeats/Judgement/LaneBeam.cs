@@ -2,7 +2,7 @@ using LinearBeats.Input.Keyboard;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Visuals
+namespace LinearBeats.Judgement
 {
     public sealed class LaneBeam : MonoBehaviour
     {

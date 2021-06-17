@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Linq;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
@@ -25,7 +26,7 @@ namespace LinearBeats.Script
                 var attribute = property.GetCustomAttributes(attrType, false).FirstOrDefault();
                 if (attribute is YamlRequiredAttribute && property.GetValue(value) == null)
                     throw new YamlException(parser.Current.Start, parser.Current.End,
-                        $"YamlRequiredAttribute {property.Name} doesn't exists");
+                        $"YamlRequiredAttribute {property.Name} is null");
             }
 
             return true;

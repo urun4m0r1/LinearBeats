@@ -3,7 +3,6 @@ using LinearBeats.Input;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
-using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -23,12 +22,12 @@ namespace LinearBeats.Judgement
         }
 
         //TODO: 롱노트, 슬라이드노트 판정추가
-        public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Note note, Vector3 effectPosition)
+        public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Note note, Transform effectAnchor)
         {
             var elapsedTime = railObject.CurrentTime - railObject.StartTime;
             var judge = GetJudge(note, elapsedTime);
 
-            _laneEffect.OnJudge(effectPosition, judge);
+            _laneEffect.OnJudge(effectAnchor, judge);
 
             return (judge, elapsedTime);
         }

@@ -5,6 +5,7 @@ namespace LinearBeats.Input
 {
     public static class InputHandler
     {
+        //TODO: make everything non-static
         private static readonly UserInputListener PressedListener = new UserInputListener(new PressedReceiver());
         private static readonly UserInputListener HoldingListener = new UserInputListener(new HoldingReceiver());
 

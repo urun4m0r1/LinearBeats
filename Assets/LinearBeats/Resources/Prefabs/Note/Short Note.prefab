@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e2e033807de2644a18e51ef9ca6168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 5928322746140679982}
-  JudgeEffectAnchor: {fileID: 923548216778674766}
+  effectAnchor: {fileID: 923548216778674766}
 --- !u!54 &5928322746140679982
 Rigidbody:
   m_ObjectHideFlags: 0

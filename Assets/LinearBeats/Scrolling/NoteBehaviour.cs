@@ -9,6 +9,7 @@ namespace LinearBeats.Scrolling
 {
     public sealed class NoteBehaviour : RailBehaviour
     {
+        [SerializeField] [CanBeNull] private Transform effectAnchor;
         [CanBeNull] public IMediaPlayer MediaPlayer { get; set; }
         [CanBeNull] public NoteJudgement Judgement { get; set; }
         public FixedTime AudioLength { get; set; }
@@ -32,7 +33,7 @@ namespace LinearBeats.Scrolling
             {
                 if (RailObject == null || Judgement == null || MediaPlayer == null) return false;
 
-                var (judge, elapsed) = Judgement.JudgeNote(RailObject, Note, new Vector3(Pos, 0f, 0f));
+                var (judge, elapsed) = Judgement.JudgeNote(RailObject, Note, effectAnchor);
 
                 if (judge == Judge.Miss)
                     MediaPlayer.Pause();

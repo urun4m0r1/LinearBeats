@@ -8,7 +8,6 @@ using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
-using LinearBeats.Visuals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Audio;

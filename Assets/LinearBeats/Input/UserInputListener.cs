@@ -12,7 +12,7 @@ namespace LinearBeats.Input
 
         public UserInputListener([NotNull] IInputReceiver inputReceiver) => _inputReceiver = inputReceiver;
 
-        public override bool IsInputInvoked(KeyType key)
+        public override bool IsKeyInvoked(KeyType key)
         {
             var keyCode = BindingProvider?.GetBinding(key) ?? KeyCode.None;
             var keyCodeAlternative = BindingProvider?.GetBindingAlternative(key) ?? KeyCode.None;

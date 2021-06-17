@@ -1,31 +1,29 @@
 using LinearBeats.Input.Keyboard;
 using LinearBeats.Script;
+using UnityEngine;
 
 namespace LinearBeats.Input
 {
     public abstract class InputListener
     {
-        public KeyType GetNoteInvoked(Shape noteShape, float progress) =>
-            GetAnyInputInvokedIn(noteShape.Pos, noteShape.Dst, noteShape.Size ?? 1, progress);
-
-        private KeyType GetAnyInputInvokedIn(KeyType pos, KeyType? dst, byte keySize, float progress)
+        public KeyType GetFirstKeyInvokedInNote(Shape noteShape, float? noteProgress)
         {
-            var keyDist = (dst - pos) * progress;
-            var keyStart = pos + (byte) (keyDist ?? 0);
-            var keyEnd = keyStart + keySize;
+            var keyOffset = Mathf.RoundToInt((noteShape.Dst - noteShape.Pos) * noteProgress ?? 0);
+            var keyStart = noteShape.Pos + (byte) keyOffset;
+            var keyEnd = keyStart + (noteShape.Size ?? 1);
 
-            return AnyInputInvokedIn(keyStart, keyEnd);
+            return GetFirstKeyInvokedIn(keyStart, keyEnd);
         }
 
-        private KeyType AnyInputInvokedIn(KeyType keyStart, KeyType keyEnd)
+        private KeyType GetFirstKeyInvokedIn(KeyType keyStart, KeyType keyEnd)
         {
             for (var i = keyStart; i < keyEnd; ++i)
-                if (IsInputInvoked(i))
+                if (IsKeyInvoked(i))
                     return i;
 
             return KeyType.None;
         }
 
-        public abstract bool IsInputInvoked(KeyType key);
+        public abstract bool IsKeyInvoked(KeyType key);
     }
 }

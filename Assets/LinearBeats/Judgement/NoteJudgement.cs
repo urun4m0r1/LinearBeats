@@ -26,20 +26,21 @@ namespace LinearBeats.Judgement
         public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Note note, Vector3 effectPosition)
         {
             var elapsedTime = railObject.CurrentTime - railObject.StartTime;
-            var judge = GetJudge(elapsedTime, note);
+            var judge = GetJudge(note, elapsedTime);
 
             _laneEffect.OnJudge(effectPosition, judge);
 
             return (judge, elapsedTime);
         }
 
-        private Judge GetJudge(Second elapsedTime, Note note)
+        private Judge GetJudge(Note note, Second elapsedTime)
         {
             var offsetTime = Mathf.Abs(elapsedTime);
 
             if (elapsedTime > _judgeRange.Range(Judge.Bad)) return Judge.Miss;
 
-            if (InputHandler.IsNotePressed(note.Shape, elapsedTime / note.Trigger.Duration ?? 0f))
+            // ReSharper disable once InvertIf
+            if (InputHandler.IsNotePressed(note.Shape, elapsedTime / note.Trigger.Duration))
             {
                 if (offsetTime <= _judgeRange.Range(Judge.Perfect)) return Judge.Perfect;
                 if (offsetTime <= _judgeRange.Range(Judge.Great)) return Judge.Great;

@@ -20,8 +20,8 @@ namespace LinearBeats.Judgement
     [CreateAssetMenu(menuName = "LinearBeats/JudgeRange")]
     public sealed class JudgeRange : SerializedScriptableObject
     {
-        [OdinSerialize, DictionaryDrawerSettings(IsReadOnly = true), DisableContextMenu] [NotNull]
-        private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
+        [OdinSerialize, DisableContextMenu, DictionaryDrawerSettings(IsReadOnly = true)]
+        [NotNull] private Dictionary<Judge, float> _judgeRangeInSeconds = new Dictionary<Judge, float>
         {
             [Judge.Perfect] = 0.033f,
             [Judge.Great] = 0.067f,

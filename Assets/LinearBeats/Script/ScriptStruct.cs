@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using LinearBeats.Keyboard;
+using LinearBeats.Controls;
 using Sirenix.Serialization;
 
 namespace LinearBeats.Script

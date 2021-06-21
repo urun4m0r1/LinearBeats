@@ -1,4 +1,4 @@
-﻿namespace LinearBeats.Keyboard
+﻿namespace LinearBeats.Controls
 {
     public enum KeyType : byte
     {

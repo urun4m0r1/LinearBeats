@@ -2,10 +2,10 @@
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-namespace LinearBeats.Keyboard
+namespace LinearBeats.Controls
 {
     public sealed class InputManager : SerializedMonoBehaviour
     {
-        [OdinSerialize] [CanBeNull] public Keyboard Keyboard { get; set; }
+        [OdinSerialize] [CanBeNull] public Bindings Bindings { get; set; }
     }
 }

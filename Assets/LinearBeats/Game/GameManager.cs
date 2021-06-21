@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Media;
 using LinearBeats.Judgement;
-using LinearBeats.Keyboard;
+using LinearBeats.Controls;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;

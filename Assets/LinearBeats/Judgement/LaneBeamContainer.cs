@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
-using LinearBeats.Keyboard;
+using LinearBeats.Controls;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 

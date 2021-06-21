@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using LinearBeats.Script;
 using UnityEngine;
 
-namespace LinearBeats.Keyboard
+namespace LinearBeats.Controls
 {
     public sealed class InputReceiver
     {
@@ -36,12 +36,12 @@ namespace LinearBeats.Keyboard
 
         public bool GetBindingOrAlternative(KeyType key)
         {
-            var keyboard = _inputManager.Keyboard;
+            var bindings = _inputManager.Bindings;
 
-            if (!keyboard) return false;
+            if (!bindings) return false;
 
-            var keyCode = keyboard.GetBinding(key);
-            var keyCodeAlternative = keyboard.GetBindingAlternative(key);
+            var keyCode = bindings.GetBinding(key);
+            var keyCodeAlternative = bindings.GetBindingAlternative(key);
             return _inputFunction(keyCode) || _inputFunction(keyCodeAlternative);
         }
     }

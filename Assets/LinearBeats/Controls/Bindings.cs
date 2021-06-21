@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace LinearBeats.Keyboard
+namespace LinearBeats.Controls
 {
     /// <summary>
     /// In general keyboards (ANSI, ISO, JIS, etc.), there are up to 14 keys per bottom and middle line.
@@ -13,8 +13,8 @@ namespace LinearBeats.Keyboard
     /// As a result, up to 14 inputs must be processed in one lane considering duplicate key input.
     /// This can be done by checking the alternate input on the keystroke.
     /// </summary>
-    [CreateAssetMenu(menuName = "LinearBeats/Keyboard")]
-    public class Keyboard : SerializedScriptableObject
+    [CreateAssetMenu(menuName = "LinearBeats/Bindings")]
+    public class Bindings : SerializedScriptableObject
     {
         [ShowInInspector, ReadOnly] public static readonly byte Length = 12;
 

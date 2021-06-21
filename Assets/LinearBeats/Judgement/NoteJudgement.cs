@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Keyboard;
+using LinearBeats.Controls;
 using LinearBeats.Script;
 using LinearBeats.Time;
 using Sirenix.OdinInspector;

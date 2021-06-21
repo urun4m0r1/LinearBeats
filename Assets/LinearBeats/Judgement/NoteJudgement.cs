@@ -1,7 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using LinearBeats.Input;
+using LinearBeats.Keyboard;
 using LinearBeats.Script;
-using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,42 +10,47 @@ namespace LinearBeats.Judgement
 {
     public sealed class NoteJudgement
     {
+        [ShowInInspector, ReadOnly] [NotNull] private readonly InputReceiver _pressedReceiver;
         [ShowInInspector, ReadOnly] [NotNull] private readonly JudgeRange _judgeRange;
-        [ShowInInspector, ReadOnly] [NotNull] private readonly LaneEffect _laneEffect;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly JudgeEffectSpawner _judgeEffectSpawner;
 
         public NoteJudgement(
+            [NotNull] InputReceiver pressedReceiver,
             [NotNull] JudgeRange judgeRange,
-            [NotNull] LaneEffect laneEffect)
+            [NotNull] JudgeEffectSpawner judgeEffectSpawner)
         {
+            _pressedReceiver = pressedReceiver;
             _judgeRange = judgeRange;
-            _laneEffect = laneEffect;
+            _judgeEffectSpawner = judgeEffectSpawner;
         }
 
-        //TODO: 롱노트, 슬라이드노트 판정추가
-        public (Judge, FixedTime) JudgeNote([NotNull] RailObject railObject, Note note, Transform effectAnchor)
+        //TODO: 롱노트 판정추가
+        public Judge JudgeNote(Note note, FixedTime elapsedTime, Transform effectAnchor)
         {
-            var elapsedTime = railObject.CurrentTime - railObject.StartTime;
-            var judge = GetJudge(note, elapsedTime);
+            var noteProgress = elapsedTime / note.Trigger.Duration;
+            var pressedKey = _pressedReceiver.GetFirstKeyInvokedInNote(note.Shape, noteProgress);
+            var isKeyPressed = pressedKey != KeyType.None;
+            var judge = GetJudge(elapsedTime, isKeyPressed);
 
-            _laneEffect.OnJudge(effectAnchor, judge);
+            if (judge != Judge.Null) _judgeEffectSpawner.Spawn(judge, new Vector3(effectAnchor.position.x, 0f, 0f));
 
-            return (judge, elapsedTime);
+            return judge;
         }
 
-        private Judge GetJudge(Note note, Second elapsedTime)
+        private Judge GetJudge(Second elapsedTime, bool isKeyPressed)
         {
-            var offsetTime = Mathf.Abs(elapsedTime);
+            if (elapsedTime > _judgeRange.GetRange(Judge.Bad)) return Judge.Miss;
 
-            if (elapsedTime > _judgeRange.Range(Judge.Bad)) return Judge.Miss;
+            return isKeyPressed ? JudgeOffset(Mathf.Abs(elapsedTime)) : Judge.Null;
+        }
 
-            // ReSharper disable once InvertIf
-            if (InputHandler.IsNotePressed(note.Shape, elapsedTime / note.Trigger.Duration))
-            {
-                if (offsetTime <= _judgeRange.Range(Judge.Perfect)) return Judge.Perfect;
-                if (offsetTime <= _judgeRange.Range(Judge.Great)) return Judge.Great;
-                if (offsetTime <= _judgeRange.Range(Judge.Good)) return Judge.Good;
-                if (offsetTime <= _judgeRange.Range(Judge.Bad)) return Judge.Bad;
-            }
+        [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
+        private Judge JudgeOffset(float offsetTime)
+        {
+            if (offsetTime <= _judgeRange.GetRange(Judge.Perfect)) return Judge.Perfect;
+            if (offsetTime <= _judgeRange.GetRange(Judge.Great)) return Judge.Great;
+            if (offsetTime <= _judgeRange.GetRange(Judge.Good)) return Judge.Good;
+            if (offsetTime <= _judgeRange.GetRange(Judge.Bad)) return Judge.Bad;
 
             return Judge.Null;
         }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 689d0682e6113ae4193697a497a0bc8e, type: 3}
-  m_Name: 
+  m_Name: Jis
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -29,11 +29,11 @@ MonoBehaviour:
       Data: Standad JP Keyboard Layout 103/109
     - Name: BindingsLayout
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Input.Keyboard.KeyType,
+      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Keyboard.KeyType,
         LinearBeats],[UnityEngine.KeyCode, UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Input.Keyboard.KeyType,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Keyboard.KeyType,
         LinearBeats]], mscorlib
     - Name: 
       Entry: 12
@@ -235,7 +235,7 @@ MonoBehaviour:
       Data: 
     - Name: BindingsLayoutAlternative
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[LinearBeats.Input.Keyboard.KeyType,
+      Data: 2|System.Collections.Generic.Dictionary`2[[LinearBeats.Keyboard.KeyType,
         LinearBeats],[UnityEngine.KeyCode, UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
@@ -383,7 +383,7 @@ MonoBehaviour:
       Data: 11
     - Name: $v
       Entry: 3
-      Data: 0
+      Data: 92
     - Name: 
       Entry: 8
       Data: 

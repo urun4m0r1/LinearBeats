@@ -1,17 +1,14 @@
-using LinearBeats.Input.Keyboard;
-using Sirenix.OdinInspector;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace LinearBeats.Judgement
 {
     public sealed class LaneBeam : MonoBehaviour
     {
-        [Required] [SerializeField]
-        private GameObject lanePressedEffect;
-
-        public void ToggleLayerEffectWhenHolding(KeyType key, bool isHolding)
+        [SerializeField] [CanBeNull] private GameObject lanePressedEffect;
+        public void ToggleEffect(bool isHolding)
         {
-            lanePressedEffect.SetActive(isHolding);
+            if (lanePressedEffect) lanePressedEffect.SetActive(isHolding);
         }
     }
 }

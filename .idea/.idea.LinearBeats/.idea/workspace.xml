@@ -5,22 +5,69 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Refactoring">
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputPositionTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputPositionTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Judgement/NoteJudgementTests.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/KeyboardTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/KeyboardTests.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectSpawner.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/TestReceiver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/TestReceiver.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/AutoInputListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/AutoInputListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputMapper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputMapper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputReceiver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/InputReceiver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Ansi.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Ansi.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Ansi.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Ansi.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Custom.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Custom.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Custom.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingProvider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingProvider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingReceiver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/IBindingReceiver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Iso.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Iso.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Iso.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Iso.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Jis.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Jis.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Jis.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Jis.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyType.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Keyboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Keyboard.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyboardCustom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyboardCustom.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/NetworkInputListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/NetworkInputListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/UserInputListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Input/UserInputListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/JudgeEffect.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +127,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5406A456-CF73-4443-B3D0-2A7D123287F1/36/fc5fc219/PropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9CD55CD8-3768-49FF-850D-346E3318E1D4/6b/7e81ee3b/ClassLibraryInitializer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectSpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9CD55CD8-3768-49FF-850D-346E3318E1D4/82/4c124916/UnityLogWriter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Commands/UnityTestMethodCommand.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/29A6C194-5F57-4474-95FC-AD42118554C7/a1/55f9d7f1/AddingNewEventArgs.cs" root0="SKIP_HIGHLIGHTING" />
@@ -99,24 +147,10 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoClipSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/BgaPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioClipSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoSourcePlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/BackgroundAudioSource.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioSourcePlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaClip.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioClipInfo.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/MediaClipTimingInfo.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/VideoPlayerLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Time/TimingControllerTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayerLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" />
@@ -135,21 +169,35 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyType.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyboardCustom.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/Keyboard.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputReceiver.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/UserInputListener.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeRange.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneEffect.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputListener.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputHandler.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/InputReceiver.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/InputReceiver.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/IBindingProvider.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/IBindingReceiver.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyType.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/KeyboardMapper.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Keyboard.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyboardCustom.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainor.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -298,14 +346,7 @@
       <workItem from="1623311192481" duration="675000" />
       <workItem from="1623589026103" duration="1180000" />
       <workItem from="1623624802574" duration="2380000" />
-      <workItem from="1623884932002" duration="5282000" />
-    </task>
-    <task id="LOCAL-00023" summary="Fix errors">
-      <created>1618495413159</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1618495413159</updated>
+      <workItem from="1623884932002" duration="19844000" />
     </task>
     <task id="LOCAL-00024" summary="Change static variables to share data.">
       <created>1618497847912</created>
@@ -643,7 +684,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623934506700</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Refactoring">
+      <created>1623936446422</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1623936446422</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

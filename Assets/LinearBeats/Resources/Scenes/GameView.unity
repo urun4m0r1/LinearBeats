@@ -461,9 +461,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1819583579}
-  - {fileID: 892743777}
-  - {fileID: 1498269936}
   - {fileID: 1686299033}
+  - {fileID: 1160873290}
+  - {fileID: 766552145}
+  - {fileID: 1498269936}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -535,7 +536,8 @@ MonoBehaviour:
         m_CallState: 2
   meterPerQuarterNote: 4
   judgeRange: {fileID: 11400000, guid: 95662e1148eb5e544874c12e2fc9ee96, type: 2}
-  laneEffect: {fileID: 1498269937}
+  judgeEffectSpawner: {fileID: 766552144}
+  laneBeamContainer: {fileID: 1498269937}
   notesPool: {fileID: 518583840}
   dividerPool: {fileID: 730012154}
   audioListener: {fileID: 1667118062}
@@ -545,6 +547,7 @@ MonoBehaviour:
   - {fileID: -6289117501427608143, guid: e6d5ea8f64a6a0c49965b866d6f986ab, type: 2}
   resourcesPath: Songs/Tutorial/
   scriptName: Tutorial
+  inputManager: {fileID: 1160873289}
 --- !u!1 &730012152
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +604,149 @@ MonoBehaviour:
   despawnedClones: []
   delays: []
   deactivatedChild: {fileID: 0}
+--- !u!1 &766552143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 766552145}
+  - component: {fileID: 766552144}
+  m_Layer: 0
+  m_Name: Judge Effect Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &766552144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766552143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e11ec4737af9d49b39245dc795b505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 328655121}
+    - {fileID: 1390083607}
+    - {fileID: 204285781}
+    - {fileID: 1802933298}
+    - {fileID: 1162723754}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _judgeEffectSpawners
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Judgement.Judge,
+        LinearBeats],[Lean.Pool.LeanGameObjectPool, LeanPool]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
+        LinearBeats]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+--- !u!4 &766552145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766552143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 666495302}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &856728560 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7644754192768855865, guid: 3b564b7f14d95844887eacb740886997, type: 3}
@@ -612,62 +758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &892743776
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 892743777}
-  - component: {fileID: 892743778}
-  m_Layer: 0
-  m_Name: Input Mapper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &892743777
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892743776}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 666495302}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &892743778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892743776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4fc9e5990abe1a4194a716656fb3dc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 339333558f2d39d49bab1b91db2bcd7d, type: 2}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: CurrentKeyboard
-      Entry: 10
-      Data: 0
 --- !u!114 &940719380 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7644754192852644317, guid: 3b564b7f14d95844887eacb740886997, type: 3}
@@ -836,6 +926,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+--- !u!1 &1160873288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1160873290}
+  - component: {fileID: 1160873289}
+  m_Layer: 0
+  m_Name: Input Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1160873289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160873288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25261d559c24bb6a601bf181044feb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 339333558f2d39d49bab1b91db2bcd7d, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Keyboard
+      Entry: 10
+      Data: 0
+--- !u!4 &1160873290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160873288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 666495302}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162723752
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +1127,7 @@ GameObject:
   - component: {fileID: 1498269936}
   - component: {fileID: 1498269937}
   m_Layer: 0
-  m_Name: Lane Effect
+  m_Name: Lane Beam Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -999,7 +1145,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 666495302}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1498269937
 MonoBehaviour:
@@ -1010,30 +1156,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 1498269935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90e5d7a0465fbf4bb578af983d728db, type: 3}
+  m_Script: {fileID: 11500000, guid: fc0b0568e53945ff9b9d604e8df843b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 328655121}
-    - {fileID: 1390083607}
-    - {fileID: 204285781}
-    - {fileID: 1802933298}
-    - {fileID: 1162723754}
+    - {fileID: 620848928}
+    - {fileID: 1871763184}
+    - {fileID: 2079085864}
+    - {fileID: 1751927492}
+    - {fileID: 1249197979}
+    - {fileID: 1741559378}
+    - {fileID: 1454639010}
+    - {fileID: 123142944}
+    - {fileID: 1511338602}
+    - {fileID: 308775227}
+    - {fileID: 1736581732}
+    - {fileID: 276889036}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _judgeEffects
+    - Name: _laneBeams
       Entry: 7
-      Data: 0|UnityEngine.Rendering.SerializedDictionary`2[[LinearBeats.Judgement.Judge,
-        LinearBeats],[Lean.Pool.LeanGameObjectPool, LeanPool]], Unity.RenderPipelines.Core.Runtime
+      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Keyboard.KeyType,
+        LinearBeats],[LinearBeats.Judgement.LaneBeam, LinearBeats]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Judgement.Judge,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Keyboard.KeyType,
         LinearBeats]], mscorlib
     - Name: 
       Entry: 12
@@ -1046,16 +1199,88 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 15
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 10
       Data: 5
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 0
+      Data: 6
     - Name: $v
       Entry: 10
-      Data: 0
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -1064,10 +1289,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 1
+      Data: 7
     - Name: $v
       Entry: 10
-      Data: 1
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -1076,10 +1301,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 2
+      Data: 8
     - Name: $v
       Entry: 10
-      Data: 2
+      Data: 8
     - Name: 
       Entry: 8
       Data: 
@@ -1088,10 +1313,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 3
+      Data: 9
     - Name: $v
       Entry: 10
-      Data: 3
+      Data: 9
     - Name: 
       Entry: 8
       Data: 
@@ -1100,10 +1325,58 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 4
+      Data: 10
     - Name: $v
       Entry: 10
-      Data: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 11
+    - Name: $v
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 12
+    - Name: $v
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 14
+    - Name: $v
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -1113,19 +1386,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  laneBeams:
-  - {fileID: 620848928}
-  - {fileID: 1871763184}
-  - {fileID: 2079085864}
-  - {fileID: 1751927492}
-  - {fileID: 1249197979}
-  - {fileID: 1741559378}
-  - {fileID: 1454639010}
-  - {fileID: 123142944}
-  - {fileID: 1511338602}
-  - {fileID: 308775227}
-  - {fileID: 1736581732}
-  - {fileID: 276889036}
 --- !u!114 &1511338602 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5822758041527053905, guid: b9077f43c7ffedb479adb2624038b7e8, type: 3}
@@ -1240,7 +1500,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 666495302}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1736581732 stripped
 MonoBehaviour:
@@ -1572,26 +1832,82 @@ PrefabInstance:
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 892743778}
+      objectReference: {fileID: 1160873289}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[1].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 892743778}
+      objectReference: {fileID: 1160873289}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[2].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 892743778}
+      objectReference: {fileID: 1160873289}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 892743778}
+      objectReference: {fileID: 1160873289}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[1].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[2].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LinearBeats.Keyboard.InputManager, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[1].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LinearBeats.Keyboard.InputManager, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[2].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LinearBeats.Keyboard.InputManager, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LinearBeats.Keyboard.InputManager, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c14e0bfc92b0fc45b715d8aa5d99762, type: 2}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[1].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 9306c5077da0ae6469cd2f28f3c93787, type: 2}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[2].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: d1e59eeae22f5a9489e16f4cbed2e3d8, type: 2}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
+      objectReference: {fileID: 11400000, guid: 339333558f2d39d49bab1b91db2bcd7d, type: 2}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[0].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LinearBeats.Keyboard.Keyboard, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[1].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LinearBeats.Keyboard.Keyboard, LinearBeats
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
+      propertyPath: dropdownItems.Array.data[2].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: LinearBeats.Keyboard.Keyboard, LinearBeats
       objectReference: {fileID: 0}
     - target: {fileID: 7644754191585679132, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: dropdownItems.Array.data[3].OnItemSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: LinearBeats.Input.Keyboard.Keyboard, LinearBeats
+      value: LinearBeats.Keyboard.Keyboard, LinearBeats
       objectReference: {fileID: 0}
     - target: {fileID: 7644754191665278999, guid: 3b564b7f14d95844887eacb740886997, type: 3}
       propertyPath: m_Name

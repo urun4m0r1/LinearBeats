@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5bd357ba773ae745a835fd0e5591d7e, type: 3}
-  m_Name: 
+  m_Name: Custom
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -29,11 +29,11 @@ MonoBehaviour:
       Data: Custom keyboard bindings
     - Name: BindingsLayout
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Input.Keyboard.KeyType,
+      Data: 0|System.Collections.Generic.Dictionary`2[[LinearBeats.Keyboard.KeyType,
         LinearBeats],[UnityEngine.KeyCode, UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Input.Keyboard.KeyType,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[LinearBeats.Keyboard.KeyType,
         LinearBeats]], mscorlib
     - Name: 
       Entry: 12
@@ -55,7 +55,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 304
+      Data: 92
     - Name: 
       Entry: 8
       Data: 
@@ -175,7 +175,7 @@ MonoBehaviour:
       Data: 10
     - Name: $v
       Entry: 3
-      Data: 47
+      Data: 273
     - Name: 
       Entry: 8
       Data: 
@@ -187,7 +187,7 @@ MonoBehaviour:
       Data: 11
     - Name: $v
       Entry: 3
-      Data: 303
+      Data: 47
     - Name: 
       Entry: 8
       Data: 
@@ -235,7 +235,7 @@ MonoBehaviour:
       Data: 
     - Name: BindingsLayoutAlternative
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[LinearBeats.Input.Keyboard.KeyType,
+      Data: 2|System.Collections.Generic.Dictionary`2[[LinearBeats.Keyboard.KeyType,
         LinearBeats],[UnityEngine.KeyCode, UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9

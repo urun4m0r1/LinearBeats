@@ -1,10 +1,10 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Input.Keyboard
+namespace LinearBeats.Keyboard
 {
     [CreateAssetMenu(menuName = "LinearBeats/KeyboardCustom")]
-    public sealed class KeyboardCustom : Keyboard, IBindingReceiver
+    public sealed class KeyboardCustom : Keyboard
     {
         [ShowInInspector, ReadOnly]
         public override string Name { get; protected set; } = "Custom";

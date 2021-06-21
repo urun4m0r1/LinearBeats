@@ -29,6 +29,6 @@ namespace LinearBeats.Judgement
             [Judge.Bad] = 0.267f,
         };
 
-        public Second Range(Judge judge) => _judgeRangeInSeconds[judge];
+        public Second GetRange(Judge judge) => _judgeRangeInSeconds[judge];
     }
 }

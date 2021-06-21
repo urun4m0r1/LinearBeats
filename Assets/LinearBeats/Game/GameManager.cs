@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Media;
 using LinearBeats.Judgement;
+using LinearBeats.Keyboard;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
@@ -24,7 +25,8 @@ namespace LinearBeats.Game
         [SerializeField, Range(1f, 100f)] private float meterPerQuarterNote = 1f;
 
         [SerializeField] [CanBeNull] private JudgeRange judgeRange;
-        [SerializeField] [CanBeNull] private LaneEffect laneEffect;
+        [SerializeField] [CanBeNull] private JudgeEffectSpawner judgeEffectSpawner;
+        [SerializeField] [CanBeNull] private LaneBeamContainer laneBeamContainer;
 
         [SerializeField] [CanBeNull] private LeanGameObjectPool notesPool;
         [SerializeField] [CanBeNull] private LeanGameObjectPool dividerPool;
@@ -34,12 +36,16 @@ namespace LinearBeats.Game
         [SerializeField] [CanBeNull] private string resourcesPath = "Songs/Tutorial/";
         [SerializeField] [CanBeNull] private string scriptName = "Tutorial";
 
+        [SerializeField] [CanBeNull] private InputManager inputManager;
+
         [ShowInInspector, ReadOnly] private LinearBeatsScript _script;
 
         [ShowInInspector, ReadOnly] [CanBeNull] private Dictionary<ushort, IMediaPlayer> _audioPlayers;
         [ShowInInspector, ReadOnly] [CanBeNull] private AudioPlayer _backgroundAudioPlayer;
 
         [ShowInInspector, ReadOnly] [CanBeNull] private TimingInfo _timingInfo;
+
+        [ShowInInspector, ReadOnly] [CanBeNull] private InputReceiver _inputReceiver;
 
         private void Awake()
         {
@@ -113,9 +119,12 @@ namespace LinearBeats.Game
             var audioTimingInfo = new AudioTimingInfo(_backgroundAudioPlayer, fixedTimeFactory);
             var distanceConverter = new DistanceConverter(positionConverter, meterPerQuarterNote);
 
-            if (!judgeRange || !laneEffect) throw new ArgumentNullException();
+            if (!judgeRange || !judgeEffectSpawner || !inputManager) throw new ArgumentNullException();
 
-            var noteJudgement = new NoteJudgement(judgeRange, laneEffect);
+            var pressedReceiver = new InputReceiver(inputManager, Input.GetKeyDown);
+            _inputReceiver = new InputReceiver(inputManager, Input.GetKey);
+
+            var noteJudgement = new NoteJudgement(pressedReceiver, judgeRange, judgeEffectSpawner);
 
             _timingInfo = new TimingInfo(audioTimingInfo, fixedTimeFactory, distanceConverter, noteJudgement);
         }
@@ -165,6 +174,10 @@ namespace LinearBeats.Game
 
         private void Update()
         {
+            if (!laneBeamContainer || _inputReceiver == null) return;
+
+            laneBeamContainer.UpdateAll(_inputReceiver);
+
             if (_timingInfo == null || _backgroundAudioPlayer == null) return;
 
             _timingInfo.Converter.DistancePerQuarterNote = meterPerQuarterNote;

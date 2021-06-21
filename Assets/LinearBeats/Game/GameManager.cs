@@ -16,8 +16,11 @@ using UnityEngine.Events;
 
 namespace LinearBeats.Game
 {
+    //TODO: 클래스 쪼개기
     public sealed class GameManager : SerializedMonoBehaviour
     {
+        [SerializeField, Range(24, 240)] private byte targetFps = 60;
+
         [SerializeField] private UnityEvent<string> onBpmChanged = new UnityEvent<string>();
         [SerializeField] private UnityEvent<float> onProgressChanged = new UnityEvent<float>();
         [SerializeField] private UnityEvent onGameReset = new UnityEvent();
@@ -49,6 +52,8 @@ namespace LinearBeats.Game
 
         private void Awake()
         {
+            Application.targetFrameRate = targetFps;
+
             InitScript();
             InitAudioPlayers();
             InitTimingObjects();

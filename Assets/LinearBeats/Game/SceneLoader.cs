@@ -1,51 +1,54 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LinearBeats.Game
 {
-    public sealed class SceneLoader : MonoBehaviour
+    public sealed class SceneLoader
     {
-        [Range(24, 240)] [SerializeField] private byte targetFps = 60;
-        [Scene] [Required] [Header("Migration")] [SerializeField] private string dstScenePath;
-        [SerializeField] private LoadSceneMode loadSceneMode = LoadSceneMode.Additive;
-        [SerializeField] private List<GameObject> migratingObjects = new List<GameObject>();
+        [Scene] [NotNull] private readonly string _dstScenePath;
+        [ShowInInspector, ReadOnly] private readonly LoadSceneMode _loadSceneMode;
+        [ShowInInspector, ReadOnly] [CanBeNull] private readonly IReadOnlyCollection<GameObject> _migratingObjects;
 
-        private void Awake()
+        public SceneLoader([NotNull] string dstScenePath,
+            LoadSceneMode loadSceneMode = LoadSceneMode.Additive,
+            [CanBeNull] List<GameObject> migratingObjects = null)
         {
-            Application.targetFrameRate = targetFps;
+            _dstScenePath = dstScenePath;
+            _loadSceneMode = loadSceneMode;
+            _migratingObjects = migratingObjects;
         }
 
-        [DisableInEditorMode] [Button("LoadScene")] public void LoadScene()
+        public void LoadScene()
         {
             SceneManager.sceneLoaded += SceneLoaded;
-            SceneManager.LoadSceneAsync(dstScenePath, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(_dstScenePath, LoadSceneMode.Additive);
         }
 
         private void SceneLoaded(Scene dstScene, LoadSceneMode loadMode)
         {
             SceneManager.sceneLoaded -= SceneLoaded;
-
-            MigrateExistingGameObjectsToScene(dstScene, migratingObjects);
-
-            if (loadSceneMode == LoadSceneMode.Single) UnloadAllScenesExcept(dstScene);
+            MigrateExistingGameObjectsToScene(dstScene, _migratingObjects);
+            if (_loadSceneMode == LoadSceneMode.Single) UnloadAllScenesExcept(dstScene);
         }
 
-        private static void MigrateExistingGameObjectsToScene(Scene dstScene, List<GameObject> gameObjects)
+        private static void MigrateExistingGameObjectsToScene(Scene dstScene,
+            [CanBeNull] IReadOnlyCollection<GameObject> gameObjects)
         {
-            if (gameObjects?.Count <= 0) return;
+            if (gameObjects == null || gameObjects.Count <= 0) return;
 
-            foreach (var migratingObject in gameObjects.Where(migratingObject => migratingObject != null))
+            foreach (var migratingObject in gameObjects.Where(v => v != null))
                 SceneManager.MoveGameObjectToScene(migratingObject, dstScene);
         }
 
         private static void UnloadAllScenesExcept(Scene targetScene)
         {
-            for (var i = 0; i < SceneManager.sceneCount; i++)
+            for (var i = 0; i < SceneManager.sceneCount; ++i)
             {
-                Scene scene = SceneManager.GetSceneAt(i);
+                var scene = SceneManager.GetSceneAt(i);
                 if (scene != targetScene) SceneManager.UnloadSceneAsync(scene);
             }
         }

@@ -4,30 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Make Input namespace non-static">
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Rename namespace">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Ansi.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Ansi.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Ansi.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Ansi.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Custom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Custom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Custom.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Custom.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputReceiver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputReceiver.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Iso.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Iso.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Iso.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Iso.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Jis.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Jis.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Jis.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Jis.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/KeyType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/KeyType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Keyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Bindings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Keyboard.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/Bindings.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyboardCustom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/BindingsCustom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyboardCustom.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/BindingsCustom.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptStruct.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Scenes/GameView.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +88,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" />
@@ -149,7 +129,6 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainor.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
@@ -158,6 +137,8 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Bindings.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputReceiver.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/SceneLoader.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -306,14 +287,7 @@
       <workItem from="1623311192481" duration="675000" />
       <workItem from="1623589026103" duration="1180000" />
       <workItem from="1623624802574" duration="2380000" />
-      <workItem from="1623884932002" duration="20464000" />
-    </task>
-    <task id="LOCAL-00025" summary="Add offset property to IAudioClip">
-      <created>1618532637674</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1618532637674</updated>
+      <workItem from="1623884932002" duration="21720000" />
     </task>
     <task id="LOCAL-00026" summary="Fix normalization problems">
       <created>1618847736337</created>
@@ -651,7 +625,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624289481097</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Rename namespace">
+      <created>1624290191630</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1624290191630</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -726,7 +707,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="IDE Update" />
     <MESSAGE value="Update IDE" />
     <MESSAGE value="Create JudgeRange.asset" />
     <MESSAGE value="Make RailBehaviour.cs abstract" />
@@ -751,7 +731,8 @@
     <MESSAGE value="Fixed keymap" />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Make Input namespace non-static" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make Input namespace non-static" />
+    <MESSAGE value="Rename namespace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename namespace" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

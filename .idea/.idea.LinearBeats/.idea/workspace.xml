@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/.collabignore" afterDir="false" />
+    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="Audio offset now works.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/EditorTests.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/EditorTests.asmdef" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Media/IMediaPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,8 +77,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputListenerTests.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/InputPositionTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/KeyboardTests.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Visuals/LaneBeam.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Input/Keyboard/KeyType.cs" />
@@ -109,12 +102,10 @@
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/KeyboardCustom.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffect.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneEffect.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainor.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/JudgeEffectSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeam.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/BindingsCustom.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/Bindings.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Keyboard/InputReceiver.cs" />
@@ -126,13 +117,17 @@
       <option value="$PROJECT_DIR$/Assets/Resources/Songs/Tutorial/Tutorial.yaml" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/BackgroundAudioPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/BackgroundTimer.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioTimingInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Media/AudioPlayerLoader.cs" />
-      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/LaneBeamContainer.cs" />
       <option value="$PROJECT_DIR$/Assets/LinearBeats/Controls/InputManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptVersionValidator.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/ScrollEventConverter.cs" />
     </changedPaths>
   </component>
   <component name="NamedScopeManager">
@@ -164,7 +159,7 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
@@ -294,14 +289,7 @@
       <workItem from="1627047463910" duration="342000" />
       <workItem from="1627251250205" duration="455000" />
       <workItem from="1627251940411" duration="2681000" />
-      <workItem from="1628174874750" duration="40742000" />
-    </task>
-    <task id="LOCAL-00027" summary="Improved PositionConverter.cs">
-      <created>1619020698466</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1619020698467</updated>
+      <workItem from="1628174874750" duration="42956000" />
     </task>
     <task id="LOCAL-00028" summary="Abstracted timingEvents.">
       <created>1619429665973</created>
@@ -639,7 +627,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624291246409</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Audio offset now works.">
+      <created>1628433692423</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1628433692424</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -714,7 +709,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Create JudgeRange.asset" />
     <MESSAGE value="Make RailBehaviour.cs abstract" />
     <MESSAGE value="Separate scrolling and timing.&#10;Fix note length" />
     <MESSAGE value="Implement key sound" />
@@ -739,7 +733,8 @@
     <MESSAGE value="Make Input namespace non-static" />
     <MESSAGE value="Rename namespace" />
     <MESSAGE value="Make SceneLoader.cs readonly class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make SceneLoader.cs readonly class" />
+    <MESSAGE value="Audio offset now works." />
+    <option name="LAST_COMMIT_MESSAGE" value="Audio offset now works." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

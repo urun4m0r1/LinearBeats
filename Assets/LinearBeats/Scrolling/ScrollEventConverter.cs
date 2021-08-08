@@ -47,7 +47,7 @@ namespace LinearBeats.Scrolling
             protected ScrollEventConverter([NotNull] ScrollEventPosition[] timingEvents) =>
                 TimingEvents = timingEvents;
 
-            //TODO: 이진탐색 또는 해시탐색을 이용해 스크롤 이벤트당 시간복잡도를 줄이기.
+            //FIXME: 이진탐색 또는 해시탐색을 이용해 스크롤 이벤트당 시간복잡도를 줄이기.
             //HINT: origin >= v.End 인 경우의 누적값은 캐시해 둘 수 있음.
             public abstract void ApplyDistance(ref Position point, Position origin);
         }

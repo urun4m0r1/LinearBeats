@@ -33,7 +33,7 @@ namespace LinearBeats.Scrolling
             {
                 if (RailObject == null || Judgement == null || MediaPlayer == null) return false;
 
-                //TODO: 해당 레인 앞에 노트 있을시 판정 안되게 하기
+                //FIXME: 해당 레인 앞에 노트 있을시 판정 안되게 하기
                 var elapsedTime = RailObject.CurrentTime - RailObject.StartTime;
                 var judge = Judgement.JudgeNote(Note, elapsedTime, effectAnchor);
 

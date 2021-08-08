@@ -24,7 +24,7 @@ namespace LinearBeats.Judgement
             _judgeEffectSpawner = judgeEffectSpawner;
         }
 
-        //TODO: 롱노트 판정추가
+        //FIXME: 롱노트 판정추가
         public Judge JudgeNote(Note note, FixedTime elapsedTime, Transform effectAnchor)
         {
             var noteProgress = elapsedTime / note.Trigger.Duration;

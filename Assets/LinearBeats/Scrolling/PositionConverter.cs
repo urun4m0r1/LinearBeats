@@ -80,7 +80,7 @@ namespace LinearBeats.Scrolling
             [NotNull]
             public Builder SetScrollEvent(Script.Scrolling scrolling, ScrollEvent ignoreFlags = ScrollEvent.None)
             {
-                //TODO: Remove Duplicated code
+                //FIXME: Remove Duplicated code
                 AddEvent(ScrollEvent.Stop, scrolling.StopEvents);
                 AddEvent(ScrollEvent.Jump, scrolling.JumpEvents);
                 AddEvent(ScrollEvent.BackJump, scrolling.BackJumpEvents);

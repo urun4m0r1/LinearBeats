@@ -16,7 +16,7 @@ using UnityEngine.Events;
 
 namespace LinearBeats.Game
 {
-    //TODO: 클래스 쪼개기
+    //FIXME: 클래스 쪼개기
     public sealed class GameManager : SerializedMonoBehaviour
     {
         [SerializeField, Range(24, 240)] private byte targetFps = 60;

@@ -27,7 +27,7 @@
 
     public sealed class ScriptVersionValidator : IScriptValidator
     {
-        //TODO: Implement ScriptValidator
+        //TODO: 버전 호환성 체크 기능 추가
         public void Validate(ref LinearBeatsScript script)
         {
             if (script.VersionCode == 0) throw new InvalidScriptException("VersionCode must be non-zero positive");

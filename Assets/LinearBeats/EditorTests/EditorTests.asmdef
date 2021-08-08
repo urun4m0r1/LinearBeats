@@ -4,8 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "LinearBeats",
-        "YamlDotNet"
+        "LinearBeats"
     ],
     "includePlatforms": [
         "Editor"
@@ -15,7 +14,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll",
-        "Sirenix.Serialization.dll"
+        "Sirenix.Serialization.dll",
+        "YamlDotNet.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

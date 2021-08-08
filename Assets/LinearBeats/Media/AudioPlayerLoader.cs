@@ -38,8 +38,8 @@ namespace LinearBeats.Media
             foreach (var mediaChannel in mediaChannels)
             {
                 var audioSource = CreateAudioSource(mediaChannel);
-                var mediaPlayer = new AudioPlayer(audioSource, mediaChannel.Offset);
-                dict.Add(mediaChannel.Channel, mediaPlayer);
+                var audioPlayer = new AudioPlayer(audioSource, mediaChannel.Offset);
+                dict.Add(mediaChannel.Channel, audioPlayer);
             }
 
             return dict;

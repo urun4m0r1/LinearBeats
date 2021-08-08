@@ -28,6 +28,7 @@ namespace LinearBeats.Judgement
             [KeyType.RAlt] = null,
         };
 
+        //TODO: 판정에 따라 색 다르게 하기
         public void UpdateAll([NotNull] InputReceiver inputReceiver)
         {
             for (KeyType i = 0; i < (KeyType) _laneBeams.Count; ++i)

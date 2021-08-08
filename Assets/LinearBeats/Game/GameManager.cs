@@ -101,6 +101,7 @@ namespace LinearBeats.Game
             _audioPlayers = audioLoader.Load(_script.AudioChannels);
 
             _backgroundAudioPlayer = _audioPlayers[0] as AudioPlayer;
+            _backgroundAudioPlayer?.Stop();
         }
 
         private void InitTimingObjects()
@@ -137,11 +138,11 @@ namespace LinearBeats.Game
 
         public void PlayPauseGame(bool play)
         {
-            if (play) StartGame();
+            if (play) ResumeGame();
             else PauseGame();
         }
 
-        private void StartGame()
+        private void ResumeGame()
         {
             _backgroundAudioPlayer?.Play();
         }

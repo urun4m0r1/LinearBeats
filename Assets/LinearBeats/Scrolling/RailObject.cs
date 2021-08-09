@@ -1,19 +1,19 @@
 using JetBrains.Annotations;
 using LinearBeats.Script;
 using LinearBeats.Time;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Scrolling
 {
     public class RailObject
     {
-        public virtual FixedTime StartTime { get; }
-        public virtual FixedTime EndTime { get; }
-        public FixedTime CurrentTime => _timingInfo.AudioTimingInfo.Current;
-        public float StartPosition => Converter.GetRailPosition(_timingInfo.AudioTimingInfo.Current, StartTime, _ignoreFlags);
-        public float EndPosition => Converter.GetRailPosition(_timingInfo.AudioTimingInfo.Current, EndTime, _ignoreFlags);
+        [ShowInInspector, ReadOnly] public virtual FixedTime StartTime { get; }
+        [ShowInInspector, ReadOnly] public virtual FixedTime EndTime { get; }
+        [ShowInInspector, ReadOnly] public FixedTime CurrentTime => _timingInfo.AudioTimingInfo.Current;
+        [ShowInInspector, ReadOnly] public float StartPosition => Converter.GetRailPosition(_timingInfo.AudioTimingInfo.Current, StartTime, _ignoreFlags);
+        [ShowInInspector, ReadOnly] public float EndPosition => Converter.GetRailPosition(_timingInfo.AudioTimingInfo.Current, EndTime, _ignoreFlags);
 
-
-        [NotNull] private readonly TimingInfo _timingInfo;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly TimingInfo _timingInfo;
         [NotNull] protected FixedTime.Factory Factory => _timingInfo.Factory;
         [NotNull] private IDistanceConverter Converter => _timingInfo.Converter;
 
@@ -31,8 +31,8 @@ namespace LinearBeats.Scrolling
 
     public sealed class DividerRail : RailObject
     {
-        public override FixedTime StartTime { get; }
-        public override FixedTime EndTime => StartTime;
+        [ShowInInspector, ReadOnly] public override FixedTime StartTime { get; }
+        [ShowInInspector, ReadOnly] public override FixedTime EndTime => StartTime;
 
         public DividerRail([NotNull] TimingInfo timingInfo, ScrollEvent ignoreFlags, Pulse startTime)
             : base(timingInfo, ignoreFlags) => StartTime = Factory.Create(startTime);
@@ -40,8 +40,8 @@ namespace LinearBeats.Scrolling
 
     public sealed class NoteRail : RailObject
     {
-        public override FixedTime StartTime { get; }
-        public override FixedTime EndTime { get; }
+        [ShowInInspector, ReadOnly] public override FixedTime StartTime { get; }
+        [ShowInInspector, ReadOnly] public override FixedTime EndTime { get; }
 
         public NoteRail([NotNull] TimingInfo timingInfo, ScrollEvent ignoreFlags, Trigger trigger)
             : base(timingInfo, ignoreFlags)

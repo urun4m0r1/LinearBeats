@@ -1,12 +1,12 @@
 ﻿using System;
 using JetBrains.Annotations;
 using LinearBeats.Utils.Extensions;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LinearBeats.Scrolling
 {
-    [Flags]
-    public enum ScrollEvent
+    [Flags] public enum ScrollEvent
     {
         None = 0,
         Stop = 1 << 0,
@@ -22,8 +22,8 @@ namespace LinearBeats.Scrolling
     {
         private static class ScrollEventConverterFactory
         {
-            [CanBeNull]
-            public static ScrollEventConverter Create(ScrollEvent type, [NotNull] ScrollEventPosition[] eventPositions)
+            [CanBeNull] public static ScrollEventConverter Create(
+                ScrollEvent type, [NotNull] ScrollEventPosition[] eventPositions)
             {
                 return type switch
                 {
@@ -42,10 +42,9 @@ namespace LinearBeats.Scrolling
 
         private abstract class ScrollEventConverter
         {
-            [NotNull] protected readonly ScrollEventPosition[] TimingEvents;
+            [ShowInInspector, ReadOnly] [NotNull] protected readonly ScrollEventPosition[] TimingEvents;
 
-            protected ScrollEventConverter([NotNull] ScrollEventPosition[] timingEvents) =>
-                TimingEvents = timingEvents;
+            protected ScrollEventConverter([NotNull] ScrollEventPosition[] timingEvents) => TimingEvents = timingEvents;
 
             //FIXME: 이진탐색 또는 해시탐색을 이용해 스크롤 이벤트당 시간복잡도를 줄이기.
             //HINT: origin >= v.End 인 경우의 누적값은 캐시해 둘 수 있음.
@@ -54,9 +53,7 @@ namespace LinearBeats.Scrolling
 
         private sealed class StopEventConverter : ScrollEventConverter
         {
-            public StopEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents)
-            {
-            }
+            public StopEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents) { }
 
             public override void ApplyDistance(ref Position point, Position origin)
             {
@@ -70,9 +67,7 @@ namespace LinearBeats.Scrolling
 
         private sealed class JumpEventConverter : ScrollEventConverter
         {
-            public JumpEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents)
-            {
-            }
+            public JumpEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents) { }
 
             public override void ApplyDistance(ref Position point, Position origin)
             {
@@ -86,9 +81,7 @@ namespace LinearBeats.Scrolling
 
         private sealed class BackJumpEventConverter : ScrollEventConverter
         {
-            public BackJumpEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents)
-            {
-            }
+            public BackJumpEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents) { }
 
             public override void ApplyDistance(ref Position point, Position origin)
             {
@@ -103,9 +96,7 @@ namespace LinearBeats.Scrolling
 
         private sealed class RewindEventConverter : ScrollEventConverter
         {
-            public RewindEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents)
-            {
-            }
+            public RewindEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents) { }
 
             public override void ApplyDistance(ref Position point, Position origin)
             {
@@ -119,9 +110,7 @@ namespace LinearBeats.Scrolling
 
         private sealed class SpeedEventConverter : ScrollEventConverter
         {
-            public SpeedEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents)
-            {
-            }
+            public SpeedEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents) { }
 
             public override void ApplyDistance(ref Position point, Position origin)
             {
@@ -136,9 +125,7 @@ namespace LinearBeats.Scrolling
 
         private sealed class SpeedBounceEventConverter : ScrollEventConverter
         {
-            public SpeedBounceEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents)
-            {
-            }
+            public SpeedBounceEventConverter([NotNull] ScrollEventPosition[] timingEvents) : base(timingEvents) { }
 
             //FIXME: SpeedBounceEventConverter 구현하기
             public override void ApplyDistance(ref Position point, Position origin)

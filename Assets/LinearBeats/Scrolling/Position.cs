@@ -1,12 +1,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Scrolling
 {
-    public readonly struct Position : IComparable, IFormattable, IComparable<Position>, IEquatable<Position>
+    [InlineProperty] public readonly struct Position : IComparable, IFormattable, IComparable<Position>, IEquatable<Position>
     {
-        private readonly float _value;
+        [ShowInInspector, ReadOnly, HideLabel] private readonly float _value;
 
         public Position(float value) => _value = value;
 
@@ -14,9 +15,7 @@ namespace LinearBeats.Scrolling
         public static implicit operator Position(float right) => new Position(right);
 
         int IComparable.CompareTo([CanBeNull] object obj) =>
-            obj is Position right
-                ? CompareTo(right)
-                : throw new InvalidOperationException("Cannot compare different types");
+            obj is Position right ? CompareTo(right) : throw new InvalidOperationException("Cannot compare different types");
 
         public int CompareTo(Position right) => _value.CompareTo(right._value);
 
@@ -25,16 +24,10 @@ namespace LinearBeats.Scrolling
 
         public override int GetHashCode() => _value.GetHashCode();
 
-        [NotNull]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public override string ToString() => _value.ToString();
-
-        [NotNull]
-        public string ToString(string format) => _value.ToString(format);
-
-        [NotNull]
-        public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
-
+        [NotNull] public override string ToString() => _value.ToString();
+        [NotNull] public string ToString(string format) => _value.ToString(format);
+        [NotNull] public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);
         public string ToString(string format, IFormatProvider formatProvider) => _value.ToString(format, formatProvider);
 
         public static Position operator +(Position right) => right;

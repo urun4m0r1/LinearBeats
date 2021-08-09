@@ -8,7 +8,7 @@ namespace LinearBeats.Media
     {
         [ShowInInspector, ReadOnly, HideLabel] public FixedTime Current => _fixedTimeFactory.Create(_audioPlayer.Current);
 
-        [NotNull] private readonly AudioPlayer _audioPlayer;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly AudioPlayer _audioPlayer;
         [NotNull] private readonly FixedTime.Factory _fixedTimeFactory;
 
         public AudioTimingInfo([NotNull] AudioPlayer audioPlayer, [NotNull] FixedTime.Factory fixedTimeFactory)

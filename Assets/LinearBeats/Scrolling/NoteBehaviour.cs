@@ -3,6 +3,7 @@ using LinearBeats.Media;
 using LinearBeats.Judgement;
 using LinearBeats.Script;
 using LinearBeats.Time;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LinearBeats.Scrolling
@@ -10,15 +11,15 @@ namespace LinearBeats.Scrolling
     public sealed class NoteBehaviour : RailBehaviour
     {
         [SerializeField] [CanBeNull] private Transform effectAnchor;
-        [CanBeNull] public IMediaPlayer MediaPlayer { get; set; }
-        [CanBeNull] public NoteJudgement Judgement { get; set; }
-        public FixedTime AudioLength { get; set; }
-        public Note Note { get; set; }
-        protected override Vector3 Position => new Vector3(Pos, 0f, RailObject?.StartPosition ?? 0f);
-        protected override Vector3 Scale => new Vector3(Note.Shape.Size ?? 1f, 1f, Length);
-        private float Pos => (float) Note.Shape.Pos - 6f;
+        [ShowInInspector, ReadOnly] [CanBeNull] public IMediaPlayer MediaPlayer { get; set; }
+        [ShowInInspector, ReadOnly] [CanBeNull] public NoteJudgement Judgement { get; set; }
+        [ShowInInspector, ReadOnly] public FixedTime AudioLength { get; set; }
+        [ShowInInspector, ReadOnly] public Note Note { get; set; }
+        [ShowInInspector, ReadOnly] protected override Vector3 Position => new Vector3(Pos, 0f, RailObject?.StartPosition ?? 0f);
+        [ShowInInspector, ReadOnly] protected override Vector3 Scale => new Vector3(Note.Shape.Size ?? 1f, 1f, Length);
+        [ShowInInspector, ReadOnly] private float Pos => (float) Note.Shape.Pos - 6f;
 
-        private float Length
+        [ShowInInspector, ReadOnly] private float Length
         {
             get
             {
@@ -27,7 +28,7 @@ namespace LinearBeats.Scrolling
             }
         }
 
-        protected override bool UpdateRailDisabled
+        [ShowInInspector, ReadOnly] protected override bool RailDisabled
         {
             get
             {

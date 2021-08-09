@@ -1,14 +1,15 @@
 using System;
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace LinearBeats.Controls
 {
     public sealed class InputReceiver
     {
-        [NotNull] private readonly InputManager _inputManager;
-        [NotNull] private readonly Func<KeyCode, bool> _inputFunction;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly InputManager _inputManager;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly Func<KeyCode, bool> _inputFunction;
 
         public InputReceiver([NotNull] InputManager inputManager, [NotNull] Func<KeyCode, bool> inputFunction)
         {

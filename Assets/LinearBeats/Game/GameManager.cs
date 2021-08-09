@@ -44,7 +44,7 @@ namespace LinearBeats.Game
         [ShowInInspector, ReadOnly] private LinearBeatsScript _script;
 
         [ShowInInspector, ReadOnly] [CanBeNull] private Dictionary<ushort, IMediaPlayer> _audioPlayers;
-        [ShowInInspector, ReadOnly] [CanBeNull] private AudioPlayer _backgroundAudioPlayer;
+        [CanBeNull] private AudioPlayer _backgroundAudioPlayer;
 
         [ShowInInspector, ReadOnly] [CanBeNull] private TimingInfo _timingInfo;
 
@@ -117,7 +117,7 @@ namespace LinearBeats.Game
 
             var fixedTimeFactory = new FixedTime.Factory(timingConverter);
             var positionConverter = new PositionConverter.Builder(timingConverter)
-                .SetScrollEvent(_script.Scrolling, ScrollEvent.All)
+                .SetScrollEvent(_script.Scrolling)
                 .SetPositionScaler(ScalerMode.BpmRelative)
                 .SetPositionNormalizer(NormalizerMode.Individual)
                 .Build();

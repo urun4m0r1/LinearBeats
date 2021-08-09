@@ -9,7 +9,7 @@ namespace LinearBeats.Game
 {
     public sealed class SceneLoader
     {
-        [Scene] [NotNull] private readonly string _dstScenePath;
+        [ShowInInspector, ReadOnly] [Scene] [NotNull] private readonly string _dstScenePath;
         [ShowInInspector, ReadOnly] private readonly LoadSceneMode _loadSceneMode;
         [ShowInInspector, ReadOnly] [CanBeNull] private readonly IReadOnlyCollection<GameObject> _migratingObjects;
 

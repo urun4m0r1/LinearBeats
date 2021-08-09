@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using LinearBeats.Time;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Scrolling
 {
@@ -11,8 +12,9 @@ namespace LinearBeats.Scrolling
 
     public sealed class DistanceConverter : IDistanceConverter
     {
-        [NotNull] private readonly IPositionConverter _positionConverter;
-        public float DistancePerQuarterNote { get; set; }
+        [ShowInInspector, ReadOnly] public float DistancePerQuarterNote { get; set; }
+
+        [ShowInInspector, ReadOnly] [NotNull] private readonly IPositionConverter _positionConverter;
 
         public DistanceConverter([NotNull] IPositionConverter positionConverter, float distancePerQuarterNote)
         {

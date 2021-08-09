@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Scrolling
 {
@@ -23,13 +24,13 @@ namespace LinearBeats.Scrolling
 
     public sealed partial class PositionConverter : IPositionConverter
     {
-        private static readonly IEnumerable<ScrollEvent> EveryScrollEvents =
-            (ScrollEvent[]) Enum.GetValues(typeof(ScrollEvent));
-
-        [NotNull] private readonly ITimingModifier _modifier;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly ITimingModifier _modifier;
         [NotNull] private PositionScaler _scaler;
         [NotNull] private PositionNormalizer _normalizer;
-        [NotNull] private readonly IDictionary<ScrollEvent, ScrollEventConverter> _converters;
+        [ShowInInspector, ReadOnly] [NotNull] private readonly IDictionary<ScrollEvent, ScrollEventConverter> _converters;
+
+        private static readonly IEnumerable<ScrollEvent> EveryScrollEvents =
+            (ScrollEvent[]) Enum.GetValues(typeof(ScrollEvent));
 
         private PositionConverter([NotNull] ITimingModifier modifier)
         {
@@ -50,8 +51,7 @@ namespace LinearBeats.Scrolling
                 _timingEvents = new Dictionary<ScrollEvent, ScrollingEvent[]>();
             }
 
-            [NotNull]
-            public Builder SetPositionScaler(ScalerMode mode)
+            [NotNull] public Builder SetPositionScaler(ScalerMode mode)
             {
                 _base._scaler = mode switch
                 {
@@ -64,8 +64,7 @@ namespace LinearBeats.Scrolling
                 return this;
             }
 
-            [NotNull]
-            public Builder SetPositionNormalizer(NormalizerMode mode)
+            [NotNull] public Builder SetPositionNormalizer(NormalizerMode mode)
             {
                 _base._normalizer = mode switch
                 {
@@ -77,8 +76,7 @@ namespace LinearBeats.Scrolling
                 return this;
             }
 
-            [NotNull]
-            public Builder SetScrollEvent(Script.Scrolling scrolling, ScrollEvent ignoreFlags = ScrollEvent.None)
+            [NotNull] public Builder SetScrollEvent(Script.Scrolling scrolling, ScrollEvent ignoreFlags = ScrollEvent.None)
             {
                 //FIXME: Remove Duplicated code
                 AddEvent(ScrollEvent.Stop, scrolling.StopEvents);
@@ -97,8 +95,7 @@ namespace LinearBeats.Scrolling
                 }
             }
 
-            [NotNull]
-            public PositionConverter Build()
+            [NotNull] public PositionConverter Build()
             {
                 foreach (var type in EveryScrollEvents)
                 {
@@ -112,8 +109,7 @@ namespace LinearBeats.Scrolling
                 return _base;
             }
 
-            [NotNull]
-            private ScrollEventPosition[] ToScrollEventPositions(
+            [NotNull] private ScrollEventPosition[] ToScrollEventPositions(
                 [CanBeNull] IReadOnlyCollection<ScrollingEvent> timingEvents)
             {
                 if (timingEvents == null) return new ScrollEventPosition[] { };

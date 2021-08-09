@@ -2,15 +2,16 @@
 using LinearBeats.Judgement;
 using LinearBeats.Media;
 using LinearBeats.Time;
+using Sirenix.OdinInspector;
 
 namespace LinearBeats.Scrolling
 {
     public sealed class TimingInfo
     {
-        [NotNull] public AudioTimingInfo AudioTimingInfo { get; }
+        [ShowInInspector, ReadOnly] [NotNull] public AudioTimingInfo AudioTimingInfo { get; }
         [NotNull] public FixedTime.Factory Factory { get; }
-        [NotNull] public IDistanceConverter Converter { get; }
-        [NotNull] public NoteJudgement Judgement { get; }
+        [ShowInInspector, ReadOnly] [NotNull] public IDistanceConverter Converter { get; }
+        [ShowInInspector, ReadOnly] [NotNull] public NoteJudgement Judgement { get; }
 
         public TimingInfo(
             [NotNull] AudioTimingInfo audioTimingInfo,

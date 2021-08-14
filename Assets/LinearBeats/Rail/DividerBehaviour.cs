@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Scrolling
+namespace LinearBeats.Rail
 {
     public sealed class DividerBehaviour : RailBehaviour
     {

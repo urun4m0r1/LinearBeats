@@ -1,10 +1,11 @@
 ﻿using JetBrains.Annotations;
 using LinearBeats.Judgement;
 using LinearBeats.Media;
+using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using Sirenix.OdinInspector;
 
-namespace LinearBeats.Scrolling
+namespace LinearBeats.Rail
 {
     public sealed class TimingInfo
     {

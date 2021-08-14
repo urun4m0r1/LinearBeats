@@ -4,9 +4,10 @@ using JetBrains.Annotations;
 using Lean.Pool;
 using LinearBeats.Media;
 using LinearBeats.Script;
+using LinearBeats.Scrolling;
 using Sirenix.OdinInspector;
 
-namespace LinearBeats.Scrolling
+namespace LinearBeats.Rail
 {
     public sealed class TimingObjectLoader
     {

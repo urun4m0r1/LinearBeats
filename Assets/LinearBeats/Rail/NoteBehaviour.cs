@@ -1,12 +1,12 @@
 using JetBrains.Annotations;
-using LinearBeats.Media;
 using LinearBeats.Judgement;
+using LinearBeats.Media;
 using LinearBeats.Script;
 using LinearBeats.Time;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Scrolling
+namespace LinearBeats.Rail
 {
     public sealed class NoteBehaviour : RailBehaviour
     {

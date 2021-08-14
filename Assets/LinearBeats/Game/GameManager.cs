@@ -6,6 +6,7 @@ using Lean.Pool;
 using LinearBeats.Media;
 using LinearBeats.Judgement;
 using LinearBeats.Controls;
+using LinearBeats.Rail;
 using LinearBeats.Script;
 using LinearBeats.Scrolling;
 using LinearBeats.Time;
@@ -16,7 +17,7 @@ using UnityEngine.Events;
 
 namespace LinearBeats.Game
 {
-    //FIXME: 클래스 쪼개기
+    //TODO: 클래스 쪼개기
     public sealed class GameManager : SerializedMonoBehaviour
     {
         [SerializeField, Range(24, 240)] private byte targetFps = 60;

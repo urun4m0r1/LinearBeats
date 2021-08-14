@@ -3,7 +3,7 @@ using Lean.Pool;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LinearBeats.Scrolling
+namespace LinearBeats.Rail
 {
     [RequireComponent(typeof(Rigidbody))]
     public abstract class RailBehaviour : SerializedMonoBehaviour

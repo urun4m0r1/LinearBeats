@@ -1,9 +1,10 @@
 using JetBrains.Annotations;
 using LinearBeats.Script;
+using LinearBeats.Scrolling;
 using LinearBeats.Time;
 using Sirenix.OdinInspector;
 
-namespace LinearBeats.Scrolling
+namespace LinearBeats.Rail
 {
     public class RailObject
     {
@@ -23,9 +24,6 @@ namespace LinearBeats.Scrolling
         {
             _timingInfo = timingInfo;
             _ignoreFlags = ignoreFlags;
-
-            StartTime = Factory.Create(new Pulse(0));
-            EndTime = Factory.Create(new Pulse(0));
         }
     }
 

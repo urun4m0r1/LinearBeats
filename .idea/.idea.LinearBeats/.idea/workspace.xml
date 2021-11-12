@@ -275,13 +275,7 @@
       <workItem from="1629020610424" duration="824000" />
       <workItem from="1629601169935" duration="2000" />
       <workItem from="1636692104431" duration="533000" />
-    </task>
-    <task id="LOCAL-00032" summary="Update IDE">
-      <created>1619433604347</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1619433604347</updated>
+      <workItem from="1636696568424" duration="55000" />
     </task>
     <task id="LOCAL-00033" summary="Refactoring">
       <created>1619443835812</created>
@@ -619,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636692630947</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="프로젝트 버전 업데이트">
+      <created>1636696587221</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1636696587221</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -695,7 +696,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add Exception type InvalidScriptException" />
     <MESSAGE value="Add binary search" />
     <MESSAGE value="Remove TimingConverter.cs Scrolling dependency" />
     <MESSAGE value="Change file locations" />
@@ -720,7 +720,8 @@
     <MESSAGE value="인스펙터 디버그 정보 추가" />
     <MESSAGE value="Rail 을 Scrolling namespace 에서 분리" />
     <MESSAGE value="애매한 임포트 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="애매한 임포트 수정" />
+    <MESSAGE value="프로젝트 버전 업데이트" />
+    <option name="LAST_COMMIT_MESSAGE" value="프로젝트 버전 업데이트" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

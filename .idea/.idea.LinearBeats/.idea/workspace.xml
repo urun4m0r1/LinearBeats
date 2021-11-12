@@ -29,6 +29,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -51,8 +52,8 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.probuilder@5.0.3/Addons/Fbx.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.probuilder@5.0.3/Addons/Fbx.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -276,13 +277,7 @@
       <workItem from="1629601169935" duration="2000" />
       <workItem from="1636692104431" duration="533000" />
       <workItem from="1636696568424" duration="55000" />
-    </task>
-    <task id="LOCAL-00033" summary="Refactoring">
-      <created>1619443835812</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1619443835812</updated>
+      <workItem from="1636699012757" duration="113000" />
     </task>
     <task id="LOCAL-00034" summary="Update IDE">
       <created>1619449768188</created>
@@ -620,7 +615,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636696587221</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="프로젝트 버전 업데이트">
+      <created>1636699065012</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1636699065013</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using LinearBeats.Controls;
 using LinearBeats.Script;
@@ -44,7 +43,6 @@ namespace LinearBeats.Judgement
             return isKeyPressed ? JudgeOffset(Mathf.Abs(elapsedTime)) : Judge.Null;
         }
 
-        [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
         private Judge JudgeOffset(float offsetTime)
         {
             if (offsetTime <= _judgeRange.GetRange(Judge.Perfect)) return Judge.Perfect;

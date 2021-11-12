@@ -15,7 +15,7 @@
     "precompiledReferences": [
         "nunit.framework.dll",
         "Sirenix.Serialization.dll",
-        "YamlDotNet.dll"
+        "Unity.VisualScripting.YamlDotNet.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

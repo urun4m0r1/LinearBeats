@@ -1,5 +1,5 @@
 ﻿using System;
-using YamlDotNet.Core;
+using Unity.VisualScripting.YamlDotNet.Core;
 
 namespace LinearBeats.Script
 {

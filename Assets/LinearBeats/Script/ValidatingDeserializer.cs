@@ -1,8 +1,8 @@
 ﻿#nullable enable
 using System;
 using System.Linq;
-using YamlDotNet.Core;
-using YamlDotNet.Serialization;
+using Unity.VisualScripting.YamlDotNet.Core;
+using Unity.VisualScripting.YamlDotNet.Serialization;
 
 namespace LinearBeats.Script
 {

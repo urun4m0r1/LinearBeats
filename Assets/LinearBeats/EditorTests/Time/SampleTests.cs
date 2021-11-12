@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
@@ -11,7 +10,6 @@ using static LinearBeats.EditorTests.FloatTests;
 namespace LinearBeats.EditorTests.Time
 {
     [TestFixture]
-    [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
     public class SampleTests
     {
         public static readonly Sample V0 = new Sample(default);
@@ -61,7 +59,6 @@ namespace LinearBeats.EditorTests.Time
         }
 
         [Test]
-        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         public void Implements_IFormattable()
         {
             Iterate((i, v) =>

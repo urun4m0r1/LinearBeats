@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using LinearBeats.Script;
@@ -138,7 +137,6 @@ namespace LinearBeats.Scrolling
             return position;
         }
 
-        [SuppressMessage("ReSharper", "LoopCanBePartlyConvertedToQuery")]
         private Position ApplyTimingEvents(Position origin, ScrollEvent ignoreFlags)
         {
             var result = origin;

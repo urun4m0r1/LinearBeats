@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 
@@ -24,7 +23,6 @@ namespace LinearBeats.Time
 
         public override int GetHashCode() => _value.GetHashCode();
 
-        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         [NotNull] public override string ToString() => _value.ToString();
         [NotNull] public string ToString(string format) => _value.ToString(format);
         [NotNull] public string ToString(IFormatProvider formatProvider) => _value.ToString(formatProvider);

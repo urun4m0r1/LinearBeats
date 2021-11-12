@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NodeDeserializers;
+using Unity.VisualScripting.YamlDotNet.Serialization;
+using Unity.VisualScripting.YamlDotNet.Serialization.NodeDeserializers;
 
 namespace LinearBeats.Script
 {

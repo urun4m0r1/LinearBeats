@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
@@ -14,7 +13,6 @@ using static LinearBeats.EditorTests.Time.TimingConverterTests;
 namespace LinearBeats.EditorTests.Time
 {
     [TestFixture]
-    [SuppressMessage("ReSharper", "ParameterOnlyUsedForPreconditionCheck.Local")]
     public class FixedTimeTests
     {
         [NotNull] public static readonly FixedTime.Factory Factory = new FixedTime.Factory(Converter);
@@ -118,7 +116,6 @@ namespace LinearBeats.EditorTests.Time
         }
 
         [Test]
-        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         public void Implements_IFormattable()
         {
             var v = Factory.Create(new Pulse(RandomInt));

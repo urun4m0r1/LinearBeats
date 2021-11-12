@@ -5,21 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/ExtendedAttributes.Editor.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/ExtendedAttributes.Editor.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/LayerDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/LayerDrawer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/SceneDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/SceneDrawer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/TagDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/Editor/TagDrawer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/ExtendedAttributes.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/ExtendedAttributes.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/LayerAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/LayerAttribute.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/SceneAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/SceneAttribute.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/TagAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/LinearBeats/Utils/ExtendedAttributes/TagAttribute.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Game/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/DividerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/DividerBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/DividerBehaviour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/DividerBehaviour.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/NoteBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/NoteBehaviour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/NoteBehaviour.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/RailBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailBehaviour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/RailBehaviour.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/RailObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/RailObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/RailObject.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/TimingInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/TimingInfo.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/TimingObjectLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/TimingObjectLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Rail/TimingObjectLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/EditorTests.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/EditorTests.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/EditorTests/Script/YamlDotNetTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/LinearBeats.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-LowQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-LowQuality.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-MediumQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-MediumQuality.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/InvalidScriptException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/Pulse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/Pulse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ScriptParser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/Second.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/Second.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/ValidatingDeserializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Script/YamlDotNetExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/Position.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Scrolling/PositionConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/FixedTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Time/Sample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,16 +93,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.probuilder@5.0.3/Addons/Fbx.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Runner/UnityLogCheckDelegatingCommand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695D1CC9-3CCA-4506-9C52-8C15C9FDD749/6b/2ced8336/Number.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695D1CC9-3CCA-4506-9C52-8C15C9FDD749/56/e234f23e/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.24/UnityEngine.TestRunner/NUnitExtensions/Commands/UnityTestMethodCommand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ECB92929-0C47-4F75-B3AA-A986297B806D/f3/594d2352/AudioSource.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CBC56CE4-8EC6-45D2-BEAB-DFED6B9AE8EE/08/0512156d/SemVersionParser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/48020190-8ED9-4DDA-A056-1E2E6E0DDD4E/f1/b0be1ac1/Socket.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LinearBeats/Judgement/NoteJudgement.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695D1CC9-3CCA-4506-9C52-8C15C9FDD749/ed/243e9d77/TaskAwaiter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695D1CC9-3CCA-4506-9C52-8C15C9FDD749/47/2c1d4438/EncodingTable.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -163,7 +179,7 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
@@ -295,14 +311,11 @@
       <workItem from="1627251940411" duration="2681000" />
       <workItem from="1628174874750" duration="45034000" />
       <workItem from="1628501865877" duration="8386000" />
-      <workItem from="1628767530469" duration="3503000" />
-    </task>
-    <task id="LOCAL-00030" summary="Update IDE">
-      <created>1619430807058</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1619430807058</updated>
+      <workItem from="1628767530469" duration="4036000" />
+      <workItem from="1629017886568" duration="1171000" />
+      <workItem from="1629020610424" duration="824000" />
+      <workItem from="1629601169935" duration="2000" />
+      <workItem from="1636692104431" duration="326000" />
     </task>
     <task id="LOCAL-00031" summary="Update IDE">
       <created>1619433261453</created>
@@ -640,7 +653,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628522699756</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Rail 을 Scrolling namespace 에서 분리">
+      <created>1628926730977</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1628926730978</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -696,6 +716,7 @@
       <select />
     </coverage-tree-state>
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="Vcs.Log.Tabs.Properties">
@@ -715,7 +736,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Implement key sound" />
     <MESSAGE value="Fix key sound problem" />
     <MESSAGE value="Add Exception type InvalidScriptException" />
     <MESSAGE value="Add binary search" />
@@ -740,7 +760,8 @@
     <MESSAGE value="Audio offset now works." />
     <MESSAGE value="TODO 메시지 수정" />
     <MESSAGE value="인스펙터 디버그 정보 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="인스펙터 디버그 정보 추가" />
+    <MESSAGE value="Rail 을 Scrolling namespace 에서 분리" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rail 을 Scrolling namespace 에서 분리" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

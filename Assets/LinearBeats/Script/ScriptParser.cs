@@ -2,8 +2,8 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
+using Unity.VisualScripting.YamlDotNet.Serialization;
+using Unity.VisualScripting.YamlDotNet.Serialization.NamingConventions;
 
 namespace LinearBeats.Script
 {

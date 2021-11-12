@@ -1,6 +1,6 @@
 ﻿using LinearBeats.Script;
 using NUnit.Framework;
-using YamlDotNet.Core;
+using Unity.VisualScripting.YamlDotNet.Core;
 
 namespace LinearBeats.EditorTests.Script
 {

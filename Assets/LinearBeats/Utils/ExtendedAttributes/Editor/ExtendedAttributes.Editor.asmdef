@@ -1,13 +1,12 @@
 {
-    "name": "LinearBeats",
+    "name": "ExtendedAttributes.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:1282be6026646324793f47490f96f5c8",
-        "GUID:174bc9f391f1b7f4292b3824c5019a21",
-        "GUID:21b0c8d1703a94250bfac916590cea4f",
-        "GUID:54cb1906aeb4e4264bc1d2aa3818a43f"
+        "GUID:1282be6026646324793f47490f96f5c8"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

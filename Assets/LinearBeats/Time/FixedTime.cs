@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using LinearBeats.Script;
 using Sirenix.OdinInspector;
@@ -93,7 +92,6 @@ namespace LinearBeats.Time
             return left._converter;
         }
 
-        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         [NotNull] public override string ToString() => GetString(v => v.ToString());
         [NotNull] public string ToString(string format) => GetString(v => v.ToString(format));
         [NotNull] public string ToString(IFormatProvider formatProvider) => GetString(v => v.ToString(formatProvider));

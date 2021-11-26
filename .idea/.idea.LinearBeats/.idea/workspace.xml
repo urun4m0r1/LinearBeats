@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="371b645b-72fd-4117-bf5b-95faa331fc66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_StandaloneOSX.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/CommonBurstAotSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mono_crash.9adc8497a.0.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-HighQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-HighQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-UltraQuality.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LinearBeats/Resources/Settings/UniversalRP-UltraQuality.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="371b645b-72fd-4117-bf5b-95faa331fc66" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -289,13 +279,6 @@
       <workItem from="1636692104431" duration="533000" />
       <workItem from="1636696568424" duration="55000" />
       <workItem from="1636699012757" duration="113000" />
-    </task>
-    <task id="LOCAL-00035" summary="IDE settings changed">
-      <created>1619480981031</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1619480981031</updated>
     </task>
     <task id="LOCAL-00036" summary="IDE settings changed">
       <created>1619481707652</created>
@@ -633,7 +616,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636781726879</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="MacOS 빌드 설정">
+      <created>1637912319166</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1637912319169</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -721,7 +711,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Remove TimingConverter.cs Scrolling dependency" />
     <MESSAGE value="Change file locations" />
     <MESSAGE value="Add Inspector Views" />
     <MESSAGE value="Validator pass by ref" />
@@ -746,7 +735,8 @@
     <MESSAGE value="애매한 임포트 수정" />
     <MESSAGE value="프로젝트 버전 업데이트" />
     <MESSAGE value="커밋 테스트" />
-    <option name="LAST_COMMIT_MESSAGE" value="커밋 테스트" />
+    <MESSAGE value="MacOS 빌드 설정" />
+    <option name="LAST_COMMIT_MESSAGE" value="MacOS 빌드 설정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d236ba38-ccac-4309-9dc1-4402534a2e80" name="디폴트 변경 목록" comment="" />
+    <list default="true" id="371b645b-72fd-4117-bf5b-95faa331fc66" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LinearBeats/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +31,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -278,13 +281,6 @@
       <workItem from="1636692104431" duration="533000" />
       <workItem from="1636696568424" duration="55000" />
       <workItem from="1636699012757" duration="113000" />
-    </task>
-    <task id="LOCAL-00034" summary="Update IDE">
-      <created>1619449768188</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1619449768188</updated>
     </task>
     <task id="LOCAL-00035" summary="IDE settings changed">
       <created>1619480981031</created>
@@ -622,7 +618,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636699065013</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="커밋 테스트">
+      <created>1636781726879</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1636781726879</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -686,7 +689,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -698,7 +713,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add binary search" />
     <MESSAGE value="Remove TimingConverter.cs Scrolling dependency" />
     <MESSAGE value="Change file locations" />
     <MESSAGE value="Add Inspector Views" />
@@ -723,7 +737,8 @@
     <MESSAGE value="Rail 을 Scrolling namespace 에서 분리" />
     <MESSAGE value="애매한 임포트 수정" />
     <MESSAGE value="프로젝트 버전 업데이트" />
-    <option name="LAST_COMMIT_MESSAGE" value="프로젝트 버전 업데이트" />
+    <MESSAGE value="커밋 테스트" />
+    <option name="LAST_COMMIT_MESSAGE" value="커밋 테스트" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
